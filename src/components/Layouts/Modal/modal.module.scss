@@ -1,0 +1,11 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.modalContent {
+  .modalCloseBtn {
+    position: absolute;
+    z-index: 99;
+    top: 1rem;
+    right: 1rem;
+    font-size: size('largeSize');
+  }
+}

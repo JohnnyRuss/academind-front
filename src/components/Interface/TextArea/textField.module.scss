@@ -1,0 +1,22 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.textArea {
+  position: relative;
+  resize: none;
+  outline: none;
+  width: 100%;
+  padding: 0 1rem;
+  padding-top: 1.2rem;
+  padding-bottom: 0.5rem;
+  margin-top: 0rem;
+  border-radius: 1rem;
+  font-family: inherit;
+  @include scrollBar('&', 0.7rem);
+  background: color('whiteColor');
+  color: color('darkGreyColor');
+
+  &::placeholder {
+    padding: 0;
+    padding-top: 0.5rem;
+  }
+}

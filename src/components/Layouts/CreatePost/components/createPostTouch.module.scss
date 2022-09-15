@@ -1,0 +1,62 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.identifierPostTouch {
+  @include respond(phone-small) {
+    gap: 0.5rem;
+
+    & figure[data-img] {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    & span p:first-child {
+      font-size: size('smallerSize');
+    }
+  }
+}
+
+.createPostFooter {
+  @include flexBox;
+  @include flexProperty(flex-start, center);
+  gap: 0.5rem;
+  padding-top: 1rem;
+  font-size: size('regullarSize');
+  border-top: 1px solid color('darkGreyColor');
+  cursor: pointer;
+
+  @include respond(phone-small) {
+    font-size: size('smallSize');
+  }
+
+  & svg {
+    color: green;
+  }
+
+  .mediaFileInp {
+    display: none;
+  }
+}
+
+.touchInp {
+  border: none;
+  outline: none;
+  height: 3.5rem;
+  border-radius: 10rem;
+  background: color('whiteShadeColor');
+  padding-left: 2rem;
+  margin: 1rem 0;
+
+  &::placeholder {
+    opacity: 0.5;
+    font-style: italic;
+    font-size: size('smallSize');
+  }
+
+  @include respond(phone-small) {
+    height: 2.5rem;
+
+    &::placeholder {
+      font-size: size('smallerSize');
+    }
+  }
+}

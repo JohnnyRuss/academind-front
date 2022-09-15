@@ -1,0 +1,44 @@
+@use '../../../../../styles//helpers/helpers' as *;
+
+.textAreaForm {
+  position: relative;
+  z-index: 2;
+  @include flexBox(column);
+  @include flexProperty(flex-start, flex-start);
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background: color('whiteColor');
+  position: sticky;
+  bottom: -0.5rem;
+
+  .fields {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+
+    .textArea {
+      resize: none;
+      outline: none;
+      width: 100%;
+      padding: 1rem 1rem;
+      margin-top: 0rem;
+      border-radius: 1rem;
+      font-family: inherit;
+      @include scrollBar('&');
+
+      &::placeholder {
+        padding-top: 0.25rem;
+        font-size: size('smallerSize');
+      }
+    }
+
+    .textAreaBtn {
+      @include flexBox;
+      @include flexProperty(center, center);
+      font-size: size('extraLargeSize');
+      color: color('blueColor');
+      margin-top: 0.55rem;
+    }
+  }
+}

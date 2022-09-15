@@ -1,0 +1,30 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.blogPostTitle {
+  font-size: size('bigSize');
+  text-transform: capitalize;
+  color: color('darkGreyColor');
+}
+
+.publisher {
+  @include flexBox;
+  @include flexProperty(flex-start, center);
+  gap: 0.25rem;
+
+  & span {
+    font-size: size('smallerSize');
+    text-transform: capitalize;
+    margin-top: 0.25rem;
+  }
+
+  .avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.publishedAt {
+  display: block;
+  margin: 0.25rem;
+  font-size: size('smallestSize');
+}

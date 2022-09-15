@@ -1,0 +1,118 @@
+@use './helpers/abstract/functions' as *;
+@use './helpers/components/media' as *;
+@use './helpers/components/components' as *;
+@use 'sass:meta';
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+
+  @include respond(tab-landscape) {
+    font-size: 56.25% !important; // 1rem == 9px
+  }
+
+  @include respond(tab-portrate) {
+    font-size: 50%; // 1rem == 8px
+  }
+
+  @include respond(large-desktop) {
+    font-size: 75%; // 1rem == 12px
+  }
+}
+
+// #themeCheck {
+// }
+
+#themeCheck:checked html body {
+  // @include theme();
+  background: green;
+}
+
+#themeCheck:not(:checked) html body {
+  // @include theme(light);
+  background: red;
+}
+
+@function theme() {
+  // @if not #themeCheck:checked {
+  //   @return 'true';
+  // }
+  // $indicator:'';
+  // #themeCheck:checked && $indicator:'true';
+  //  @return $indicator;
+
+  //   background: color('whiteShadeColor');
+  //  color: color('lightGrey');
+  //   background: color('darkGreyColor');
+  //   color: color('whiteColor');
+}
+
+html body {
+  font-size: size('regullarSize');
+  font-weight: weight('regullarWeight');
+  line-height: 1.4;
+  font-family: 'Poppins', sans-serif;
+  background: color('whiteShadeColor');
+  color: color('lightGrey');
+  overflow-x: hidden;
+}
+
+@include scrollBar('body');
+
+html body a {
+  text-decoration: none;
+}
+
+html body a:hover {
+  color: unset;
+}
+
+html body button {
+  display: unset;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+html body p {
+  margin: 0;
+}
+
+html body figure {
+  padding: 0;
+  margin: 0;
+}
+
+html body a,
+html body input,
+html body textarea,
+html body button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  text-transform: inherit;
+}
+
+html body ul {
+  list-style: none;
+}
+
+html body ul li {
+  cursor: unset;
+}
+
+*::selection,
+html body a::selection,
+html body input::selection,
+html body textarea::selection {
+  background: color('blueColor');
+  color: color('whiteColor');
+}

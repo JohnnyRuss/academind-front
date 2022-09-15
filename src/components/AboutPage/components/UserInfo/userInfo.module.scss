@@ -1,0 +1,10 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.userInfo {
+  justify-self: start;
+  width: 100%;
+  @include flexBox(column);
+  gap: 2rem;
+  padding: 2rem;
+  font-size: size('smallSize');
+}

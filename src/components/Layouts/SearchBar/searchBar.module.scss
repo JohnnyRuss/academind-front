@@ -1,0 +1,40 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.searchField {
+  background: color('whiteShadeColor');
+  @include flexBox;
+  @include flexProperty(flex-start, center);
+  gap: 0.5rem;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  border-radius: 0.5rem;
+
+  .searchFieldLabel {
+    color: color('darkGreyColor');
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+  }
+
+  .searchFieldInp {
+    outline: none;
+    border: none;
+    background: inherit;
+    color: color('darkGreyColor');
+    font-size: size('smallSize');
+
+    &::placeholder {
+      font-weight: weight('thinWeight');
+      font-style: italic;
+    }
+  }
+
+  @include respond(phone) {
+    .searchFieldInp {
+      display: none;
+    }
+
+    .searchFieldInp.active {
+      display: block;
+    }
+  }
+}

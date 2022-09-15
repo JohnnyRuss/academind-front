@@ -1,0 +1,14 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.showRepliesBtn {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: -3.5rem;
+  font-size: size('smallerSize');
+  color: color('blackColor');
+
+  @include respond(tab-portrate) {
+    margin-top: -1.2em;
+  }
+}

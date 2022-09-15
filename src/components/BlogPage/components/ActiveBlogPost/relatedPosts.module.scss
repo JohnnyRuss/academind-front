@@ -1,0 +1,38 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.blogPostsRelated {
+  grid-column: 1;
+  grid-row: 4;
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+
+  .blogPostCard {
+    @include flexBox(column);
+    gap: 0.5rem;
+  }
+
+  .cardTitle {
+    font-size: size('smallSize');
+    font-weight: weight('boldWeight');
+    text-transform: capitalize;
+  }
+
+  .cardImg {
+    height: 20rem;
+  }
+
+  .cardAvatar {
+    gap: 0.5rem;
+  }
+
+  .cardAvatar figure[data-img] {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .cardAvatar span > p {
+    font-size: size('smallerSize');
+  }
+}

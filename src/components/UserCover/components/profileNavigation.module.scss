@@ -1,0 +1,45 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.nav {
+  height: 100%;
+  grid-area: 6 / 2 / -1 / 4;
+  text-transform: capitalize;
+  color: color('darkGreyColor');
+  font-weight: weight('boldWeight');
+  border-top: 1px solid color('darkGreyColor');
+  padding: 0 3rem;
+
+  @include respond(tab-landscape) {
+    grid-area: 6 / 1 / -1 / -1;
+  }
+
+  @include respond(phone) {
+    grid-area: 7 / 1 / -1 / -1;
+  }
+
+  @include respond(phone-small) {
+   font-size: size('smallerSize');
+   padding: 0 1rem;
+  }
+
+  .navList {
+    height: 100%;
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 2.5rem;
+
+    & li {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+
+      @include respond(phone) {
+        padding: 0.25rem 1rem;
+      }
+    }
+  }
+
+  .active {
+    color: color('blueColor');
+    background: color('blueTintColor');
+  }
+}

@@ -1,0 +1,36 @@
+@use '../../../../../styles//helpers/helpers' as *;
+
+.tagsWindow {
+  position: absolute;
+  z-index: 1;
+  bottom: 85%;
+  width: 20rem;
+  height: auto;
+  max-height: 20rem;
+  overflow: auto;
+  @include scrollBar('&');
+  @include flexBox(column);
+  gap: 1rem;
+  padding: 0.5rem;
+  background: color('whiteColor');
+  @include boxShadowBlack(0, 1rem, 0.3);
+
+  .tagCandidate {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  & figure {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+
+    & img {
+      @include fitImage;
+    }
+  }
+}

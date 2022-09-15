@@ -1,0 +1,11 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.acordionContentRe,
+.acordionTitleRe {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.acordionContentRe {
+  font-size: size('smallSize');
+  padding-left: 1rem;
+}

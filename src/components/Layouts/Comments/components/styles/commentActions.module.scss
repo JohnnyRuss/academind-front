@@ -1,0 +1,14 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.commentActions {
+  @include flexBox;
+  @include flexProperty(flex-start, center);
+  gap: 1.5rem;
+  width: 100%;
+  margin-left: 5.5rem;
+  margin-top: 0.5rem;
+
+  .commentTimeAgo {
+    font-size: size('smallestSize');
+  }
+}

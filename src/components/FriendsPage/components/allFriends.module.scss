@@ -1,0 +1,59 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.allFriends {
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem 3rem;
+
+  .friend {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: repeat(2, 3rem);
+    justify-items: start;
+    column-gap: 0.5rem;
+    border-radius: 1rem;
+    @include boxShadowBlack(0, 0.6rem, 0.2);
+
+    &:hover .optBtn {
+      opacity: 1;
+    }
+  }
+
+  .friendImg {
+    grid-row: 1/-1;
+    width: 6rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+
+    & img {
+      @include fitImage;
+    }
+  }
+
+  .friendName {
+    font-size: size('smallSize');
+    text-transform: capitalize;
+    color: color('darkGreyColor');
+    margin-top: 0.8rem;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .muntuals {
+    font-size: size('smallerSize');
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .optBtn {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    margin-right: 0.5rem;
+    font-size: size('bigSize');
+    opacity: 0;
+    transition: all 0.25s;
+  }
+}

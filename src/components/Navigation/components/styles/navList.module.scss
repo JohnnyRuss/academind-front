@@ -1,0 +1,26 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+
+.navList {
+  flex: 4;
+  @include flexBox;
+  gap: 1rem;
+  text-transform: uppercase;
+
+  @include respond(tab-portrate) {
+    position: absolute;
+    background: color('whiteColor');
+    color: color('darkGreyColor');
+    flex-direction: column;
+    width: 20rem;
+    top: 6rem;
+    right: 0;
+    padding: 1rem;
+    visibility: hidden;
+
+    &.active {
+      visibility: visible;
+      animation: moveTop 0.2s forwards;
+    }
+  }
+}

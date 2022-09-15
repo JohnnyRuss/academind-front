@@ -1,0 +1,32 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.friendsNav {
+  @include flexBox;
+  @include flexProperty(space-between, center);
+  text-transform: capitalize;
+  color: color('darkGreyColor');
+  font-size: size('smallSize');
+  font-weight: weight('boldWeight');
+  border-bottom: 1px solid grey;
+
+  .friendsSearch {
+    border: 1px solid grey;
+    width: max-content;
+  }
+
+  & a {
+    padding: 1rem 2rem;
+    display: inline-block;
+    transition: color 0.2s, background-color 0.2s;
+
+    &:hover {
+      background-color: color('blueTintColor');
+      color: color('blueColor');
+    }
+  }
+
+  .active {
+    border-bottom: 2px solid color('blueColor');
+    color: color('blueColor');
+  }
+}

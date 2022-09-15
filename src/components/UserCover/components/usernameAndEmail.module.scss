@@ -1,0 +1,43 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.userNameAndEmail {
+  padding: 0 3rem 3rem 1rem;
+  grid-area: 4 / 3 / 5 / 4;
+
+  @include respond(tab-landscape) {
+    grid-area: 4 / 2 / 5 / -1;
+  }
+
+  @include respond(phone) {
+    grid-area: 5 / 2 / 5 / -1;
+  }
+
+  .userName {
+    font-size: size('bigSize');
+    text-transform: capitalize;
+    color: color('blackColor');
+    font-weight: weight('boldWeight');
+  }
+
+  @include respond(tab-portrate) {
+    .userName {
+      font-size: size('regullarSize');
+    }
+  }
+
+  @include respond(phone) {
+    .userName {
+      font-size: size('smallSize');
+    }
+  }
+
+  @include respond(phone-small) {
+    .userName {
+      font-size: size('smallerSize');
+    }
+
+    .email {
+      font-size: size('smallestSize');
+    }
+  }
+}

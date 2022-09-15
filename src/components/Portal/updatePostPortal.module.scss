@@ -1,0 +1,45 @@
+@use '../../styles/helpers/helpers' as *;
+
+.sharePostModal {
+  background: color('whiteColor');
+  width: 40vw;
+  max-height: 62vh;
+  @include flexBox(column);
+  gap: 1rem;
+  padding: 1rem;
+  margin: 5rem 0;
+  @include scrollBar('&', 1rem, 1rem, 2rem, 2rem);
+
+  .shareIdentifier {
+    background: color('whiteColor');
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 1rem;
+  }
+
+  .descriptionField {
+    border-radius: 0rem;
+    border: none;
+    min-height: 10rem;
+    font-size: size('smallSize');
+    margin-top: 5rem;
+  }
+
+  .btnWrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: color('whiteColor');
+    outline: none;
+  }
+
+  .confirmShareBtn {
+    width: 100%;
+    padding: 1rem;
+  }
+}

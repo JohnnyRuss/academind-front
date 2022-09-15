@@ -1,0 +1,25 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.about {
+  max-width: $container-width;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  background: color('whiteColor');
+  @include boxShadowBlack(0, 1rem, 0.3);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
+.detailedInfo {
+  max-width: $container-width;
+  margin: 0 auto;
+  padding: 2rem;
+  background: color('whiteColor');
+  @include boxShadowBlack(0, 1rem, 0.3);
+   // background: royalblue;
+;
+}

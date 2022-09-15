@@ -1,0 +1,22 @@
+@use '../../styles/helpers/helpers' as *;
+
+.postModal {
+  width: 90vw;
+  height: 80vh;
+
+  .activeMedia {
+    width: 100%;
+    height: 100%;
+
+    & img {
+      @include fitImage;
+      object-fit: contain;
+      width: 10rem;
+    }
+  }
+
+  @include respond(phone-small) {
+    height: calc(100vh - 5rem);
+    width: 95vw;
+  }
+}

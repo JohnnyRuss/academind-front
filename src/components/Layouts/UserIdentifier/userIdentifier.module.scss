@@ -1,0 +1,28 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.userIdentifierRe {
+  @include flexBox;
+  gap: 1rem;
+  color: color('blackColor');
+  font-weight: weight('boldWeight');
+
+  .identifierDetails {
+    @include flexBox(column);
+    align-self: center;
+  }
+
+  .identifierUserName {
+    text-transform: capitalize;
+    font-size: size('smallSize');
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .dateTimeAgo {
+    font-size: size('smallerSize');
+    font-weight: weight('thinWeight');
+    color: color('darkLightGreyColor');
+  }
+}

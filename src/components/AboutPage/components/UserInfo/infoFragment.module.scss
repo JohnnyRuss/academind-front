@@ -1,0 +1,27 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.infoFragment {
+  position: relative;
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  grid-template-rows: repeat(2, min-content);
+  align-items: center;
+  column-gap: 0.5rem;
+  row-gap: 1rem;
+  line-height: 1.3;
+
+  &:hover .optBtnUpdate {
+    opacity: 1;
+  }
+
+  .optBtnUpdate {
+    font-size: size('bigSize');
+    opacity: 0;
+    transition: all 0.2s ease-out;
+  }
+
+  .optModalUpdate {
+    right: 0;
+    top: 95%;
+  }
+}

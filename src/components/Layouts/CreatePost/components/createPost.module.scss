@@ -1,0 +1,15 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.createPost {
+  width: 65%;
+  margin: 0 auto;
+  @include flexBox(column);
+  padding: 2rem;
+  border-radius: 1rem;
+  background: color('whiteColor');
+  @include boxShadowBlack(0, 1rem, 0.2);
+
+  @include respond(phone-small) {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,81 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.profile {
+  grid-area: 3 / 2 / 5 / 3;
+  justify-self: start;
+  align-self: center;
+  position: relative;
+
+  @include respond(tab-landscape) {
+    grid-area: 3 / 1 / 5 / 2;
+    margin-left: 3rem;
+  }
+
+  @include respond(phone) {
+    grid-area: 3 / 1 / 6 / 2;
+  }
+
+  @include respond(phone-small) {
+    margin-top: 18%;
+  }
+
+  .profileImg {
+    width: 16rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 2px solid color('whiteColor');
+
+    & img {
+      @include fitImage;
+      border-radius: inherit;
+    }
+
+    @include respond(tab-landscape) {
+      width: 15rem;
+    }
+
+    @include respond(tab-portrate) {
+      width: 13rem;
+    }
+
+    @include respond(phone) {
+      width: 11.5rem;
+    }
+
+    @include respond(phone-small) {
+      width: 7.5rem;
+      margin-left: -2rem;
+    }
+  }
+
+  .changeMediaBtn {
+    position: absolute;
+    bottom: 1.2rem;
+    right: 0.6rem;
+    width: 4rem;
+    height: 4rem;
+    background: rgba(color('darkLightGreyColor'), 0.7);
+    font-size: size('largeSize');
+    @include flexBox;
+    @include flexProperty(center, center);
+    border-radius: 50%;
+    color: color('whiteColor');
+
+    @include respond(phone) {
+      width: 3rem;
+      height: 3rem;
+
+      & svg {
+        font-size: size('regullarSize');
+      }
+    }
+
+    @include respond(phone-small) {
+      width: 2.5rem;
+      height: 2.5rem;
+
+      bottom: 1rem;
+      right: 0rem;
+    }
+  }
+}

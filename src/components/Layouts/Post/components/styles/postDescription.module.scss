@@ -1,0 +1,8 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.postDescription {
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  color: color('darkGreyColor');
+  font-size: size('smallSize');
+}

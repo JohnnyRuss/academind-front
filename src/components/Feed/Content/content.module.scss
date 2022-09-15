@@ -1,0 +1,10 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.content {
+  flex: 5;
+  max-width: 65%;
+  margin: 4rem 2rem;
+  @include flexBox(column);
+  align-items: center;
+  gap: 5rem;
+}

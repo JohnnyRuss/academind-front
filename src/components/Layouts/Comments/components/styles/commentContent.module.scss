@@ -1,0 +1,60 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.commentContent {
+  position: relative;
+  @include flexBox;
+  gap: 5rem;
+  margin-top: -1.2rem;
+
+  @include respond(tab-portrate) {
+    margin-top: -0.5rem;
+    margin-left: -1rem;
+    gap: 2rem;
+  }
+
+  .commentText {
+    margin-left: 5.5rem;
+    color: color('darkGreyColor');
+    font-size: size('smallSize');
+  }
+
+  .commentReactions {
+    position: absolute;
+    right: 1rem;
+    bottom: -30%;
+    @include flexBox;
+    gap: 0.25rem;
+    padding: 0 0.5rem;
+    border-radius: 5rem;
+    @include boxShadowBlack(0, 0.5rem, 0.15);
+    background: color(whiteColor);
+    cursor: pointer;
+
+    & span {
+      font-size: size(smallSize);
+    }
+  }
+
+  @include respond(tab-portrate) {
+    .optBtn {
+      margin-left: auto;
+      align-self: flex-start;
+      font-size: size('bigSize');
+    }
+  }
+
+  .optModal {
+    right: 1rem;
+    top: 1.8rem;
+    @include boxShadowBlack(0, 0.5rem, 0.15);
+  }
+
+  .showMoreBtn {
+    cursor: pointer;
+    background: color('whiteShadeColor');
+    color: color('blackColor');
+    padding: 0 0.5rem;
+    border-radius: 1rem;
+    font-size: size('smallerSize');
+  }
+}

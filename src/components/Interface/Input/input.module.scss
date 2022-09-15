@@ -1,0 +1,26 @@
+@use '../../../styles//helpers/helpers' as *;
+
+.inputFieldRe {
+  @include flexBox(column);
+  gap: 0.2rem;
+  width: max-content;
+
+  .inpLabel {
+    font-weight: weight('mediumWeight');
+    font-size: size('smallSize');
+    text-transform: capitalize;
+    cursor: pointer;
+  }
+
+  .inp {
+    display: inline-block;
+    width: 100%;
+    outline: none;
+    border-radius: 0.3rem;
+    height: 3rem;
+    border: none;
+    color: color('blackColor');
+    padding: 0 1rem;
+    font-size: size('smallSize');
+  }
+}

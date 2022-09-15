@@ -1,0 +1,128 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.stand {
+  grid-column: 2/-1;
+  grid-row: 1;
+  color: color('whiteColor');
+
+  .slider {
+    z-index: -1;
+  }
+
+  .slide {
+    width: 100%;
+    display: grid;
+    grid-template: repeat(6, 1fr) / repeat(9, 1fr);
+  }
+
+  .sliderBg {
+    grid-row: 1/-1;
+    grid-column: 1/-1;
+    width: 100%;
+    max-height: 30vw;
+    aspect-ratio: 2/1;
+
+    & img {
+      @include fitImage;
+    }
+  }
+
+  .standIntro {
+    grid-column: 5/-1;
+    grid-row: 2/-1;
+    backdrop-filter: blur(15px);
+    padding-right: 1rem;
+
+    @include respond(tab-portrate) {
+      grid-row: 1/-1;
+      padding: 2.5rem 0 0 4rem;
+      grid-column: 3/-1;
+      backdrop-filter: blur(1px);
+    }
+  }
+
+  .introTitle {
+    text-align: center;
+    font-size: size('headingSecondarySize');
+    color: color('redColor');
+    font-weight: weight('mediumWeight');
+    text-transform: capitalize;
+    transform: translateX(-25%);
+    // font-family: 'Courgette', cursive;
+
+    @include respond(tab-landscape) {
+      font-size: size('headingSecondarySmallSize');
+    }
+
+    @include respond(tab-portrate) {
+      font-size: size('largeSize');
+    }
+  }
+
+  .introSharp {
+    color: color('blueColor');
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1.5;
+    // font-family: 'Poppins', sans-serif;
+
+    @include respond(tab-portrate) {
+      line-height: 1.2;
+      letter-spacing: 1.25px;
+    }
+
+    @include respond(phone) {
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+  }
+
+  .introList {
+    margin-top: 3rem;
+    list-style: disc;
+    text-indent: -0.5rem;
+    padding-left: 2rem;
+    color: color('darkGreyColor');
+    font-size: size('smallSize');
+
+    & li::first-letter {
+      text-transform: capitalize;
+    }
+
+    & li::marker {
+      color: black;
+    }
+
+    @include respond(tab-landscape) {
+      margin-top: 1rem;
+    }
+
+    @include respond(tab-portrate) {
+      margin-top: 0rem;
+    }
+
+    @include respond(phone) {
+      display: none;
+    }
+  }
+
+  .standStatistic,
+  .standAvailability {
+    grid-row: 2/-1;
+    grid-column: 2/-1;
+    text-transform: capitalize;
+    font-size: size('regullarSize');
+    letter-spacing: 1px;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .standStatistic {
+    font-size: size('bigSize');
+  }
+
+  .ratingSharp {
+    color: orangered;
+    text-decoration: underline;
+  }
+}

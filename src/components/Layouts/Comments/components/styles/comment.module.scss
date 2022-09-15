@@ -1,0 +1,24 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.comment {
+  width: max-content;
+  max-width: 85%;
+  position: relative;
+
+  .pinIcon {
+    position: absolute;
+    top: 1.5rem;
+    right: 0;
+    color: color('blueColor');
+  }
+
+  @include respond(tab-portrate) {
+    width: auto;
+    max-width: 95%;
+
+    .postUserIdentifier figure[data-img] {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+  }
+}

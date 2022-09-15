@@ -1,0 +1,47 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.blogPost {
+  position: relative;
+  border: 1px solid color('darkLightGreyColor');
+  background: color('whiteColor');
+
+  .blogPostMedia {
+    width: 30%;
+    aspect-ratio: 1/1;
+    margin: 0 1rem 0 0;
+    float: left;
+    border-bottom-right-radius: 1.2rem;
+    overflow: hidden;
+
+    & img {
+      @include fitImage;
+    }
+  }
+
+  .blogPostInfo {
+    flex: 5;
+    padding: 1rem;
+    @include clearFix;
+  }
+
+  .blogPostShortDesc {
+    margin-top: 1rem;
+    font-size: size('smallerSize');
+    @include hyphens;
+    color: color('darkGreyColor');
+  }
+
+  .showMoreBtn {
+    display: inline;
+    background: color('whiteShadeColor');
+    padding: 0 0.5rem;
+    border-radius: 1rem;
+    font-weight: weight('mediumWeight');
+  }
+
+  .devideRow {
+    @include flexBox;
+    @include flexProperty(space-between, flex-start);
+    flex-wrap: wrap;
+  }
+}

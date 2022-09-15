@@ -1,0 +1,53 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.cover {
+  grid-area: 1 / 1 / 4 / -1;
+  position: relative;
+
+  @include respond(tab-landscape) {
+    grid-area: 1 / 1 / 4 / -1;
+  }
+
+  @include respond(phone) {
+    grid-area: 1 / 1 / 5 / -1;
+  }
+
+  .coverImg {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 2/1;
+
+    & img {
+      @include fitImage;
+      border-radius: inherit;
+    }
+  }
+
+  .changeMediaBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 4rem;
+    height: 4rem;
+    background: rgba(color('darkLightGreyColor'), 0.7);
+    font-size: size('largeSize');
+    @include flexBox;
+    @include flexProperty(center, center);
+    border-radius: 50%;
+    color: color('whiteColor');
+
+    @include respond(phone) {
+      width: 3rem;
+      height: 3rem;
+
+      & svg {
+        font-size: size('regullarSize');
+      }
+    }
+
+    @include respond(phone-small) {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+}

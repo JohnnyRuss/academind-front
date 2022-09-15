@@ -1,0 +1,29 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.sideBar {
+  position: sticky;
+  top: 7rem;
+  margin-top: 4rem;
+  max-width: 35%;
+  flex: 2;
+  align-self: flex-start;
+  @include flexBox(column);
+  gap: 5rem;
+
+  @include respond(tab-portrate) {
+    min-width: 30rem;
+  }
+
+  @include respond(phone) {
+    position: relative;
+    top: 0;
+    flex: 1;
+    min-width: 80%;
+    align-self: center;
+  }
+
+  @include respond(phone-small) {
+    min-width: 100%;
+    gap: 3rem;
+  }
+}

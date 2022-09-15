@@ -1,0 +1,35 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.navigation {
+  position: sticky;
+  top: 0rem;
+  z-index: 9999;
+  @include flexBox;
+  @include flexProperty(flex-start, center);
+  gap: 1rem;
+  height: 6rem;
+  background: color('blueColor');
+  color: color('whiteColor');
+  @include boxShadowBlack(0, 1rem, 0.3);
+  padding: 0 1rem;
+
+  .logo {
+    padding: 1rem;
+    flex: 1;
+    font-size: size('headingSmallSize');
+    font-weight: weight('boldWeight');
+  }
+
+  @include respond(phone-small) {
+    height: 4.5rem;
+
+    .navigationAvatar {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .logo {
+      font-size: size('headingSecondarySize');
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.spinner {
+  display: block;
+  animation: spinner 1s ease infinite;
+  font-size: size('extraLargeSize');
+  position: relative;
+  color: color('blueColor');
+  left: 50%;
+  top: 20%;
+  margin-top: 4rem;
+}

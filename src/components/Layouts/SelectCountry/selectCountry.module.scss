@@ -1,0 +1,70 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.selectCountry {
+  min-width: 10rem;
+  max-width: 20rem;
+
+  .countryInp {
+    width: 100%;
+  }
+
+  .test {
+    background: red;
+  }
+
+  .flagItemLoc {
+    cursor: pointer;
+    font-size: 2.5rem;
+    transform: scale(1.1);
+  }
+
+  .selectedResult {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    width: max-content;
+    border-radius: 0.5rem;
+    font-size: size('smallSize');
+    color: color('darkGreyColor');
+    background: color('blueTintColor');
+  }
+
+  .deleteSelectedResult {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    background: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+
+    & svg {
+      display: inline-block;
+      font-size: size('smallestSize');
+      color: color('whiteColor');
+    }
+  }
+  .selectedResult:hover .deleteSelectedResult {
+    visibility: visible;
+  }
+
+  .resultsList {
+    width: 25rem;
+    min-height: auto;
+    max-height: 15rem;
+    overflow: auto;
+    padding: 0.5rem;
+    background: color('whiteColor');
+    @include scrollBar('&');
+
+    .resultItem {
+      color: color('darkGreyColor');
+      cursor: pointer;
+
+      & span {
+        font-size: size('smallerSize');
+      }
+    }
+  }
+}

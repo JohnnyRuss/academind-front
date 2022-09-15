@@ -1,0 +1,19 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.postIntro {
+  grid-column: 1;
+  grid-row: 2;
+  margin-top: 4rem;
+
+  .postTitle {
+    font-size: size('largeSize');
+    color: color('darkGreyColor');
+    text-transform: capitalize;
+  }
+}
+
+.article {
+  grid-column: 1;
+  grid-row: 3;
+  margin-top: 2rem;
+}

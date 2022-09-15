@@ -1,0 +1,22 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.container {
+  max-width: $container-width;
+  margin: 0 auto;
+  @include flexBox;
+
+  @include respond(tab-landscape) {
+    gap: 3rem;
+    padding: 0 3rem;
+  }
+
+  @include respond(phone) {
+    flex-direction: column;
+  }
+
+  @include respond(phone-small) {
+    flex-direction: column;
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+}

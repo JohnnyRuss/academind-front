@@ -1,0 +1,79 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.createPostModal {
+  height: auto;
+  max-height: 75vh;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .createPostModalContentBox {
+    width: 42vw;
+    padding: 1rem;
+    background: color('whiteColor');
+
+    @include respond(tab-landscape) {
+      width: 50vw;
+    }
+
+    @include respond(tab-portrate) {
+      width: 70vw;
+    }
+
+    @include respond(phone) {
+      width: 90vw;
+    }
+  }
+
+  %wrapper {
+    position: fixed;
+    width: 100%;
+    background: color('whiteColor');
+  }
+
+  .createPostHeader {
+    @extend %wrapper;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    padding: 1rem;
+  }
+
+  .content {
+    min-height: 10rem;
+    position: relative;
+    left: 0;
+    margin-top: 7rem;
+    margin-bottom: 10rem;
+  }
+
+  .createPostFooterBox {
+    @extend %wrapper;
+    left: 0;
+    bottom: 0;
+    @include flexBox(column);
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .postBtn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: auto;
+  }
+
+  .postTextField {
+    display: inline-block;
+    border: none;
+    font-size: size('smallSize');
+    border-radius: 0rem;
+
+    &::placeholder {
+      opacity: 0.5;
+      font-style: italic;
+      font-size: size('smallSize');
+    }
+  }
+}

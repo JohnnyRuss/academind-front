@@ -1,0 +1,95 @@
+@mixin media-1800 {
+  @media (max-width: 112.5em) {
+    @content;
+  }
+}
+
+@mixin media-1680 {
+  @media (max-width: 105em) {
+    @content;
+  }
+}
+
+@mixin media-1280 {
+  @media (max-width: 80em) {
+    @content;
+  }
+}
+
+@mixin media-960 {
+  @media (max-width: 60em) {
+    @content;
+  }
+}
+
+@mixin media-680 {
+  @media (max-width: 42.5em) {
+    @content;
+  }
+}
+
+@mixin media-600 {
+  @media (max-width: 37.5em) {
+    @content;
+  }
+}
+
+/*
+$breakPoint arguments choise::after
+- phone-small - 480px
+- phone - 680px
+- tab-portrate - 960px
+- tab-portrate-no-touch - 960px hover:none
+- tab-landscape - 1280px
+- big-desktop - > 1680px
+- large-desktop - > 1800px
+*/
+@mixin respond($breakPoint) {
+  @if $breakPoint == phone-small {
+    @media only screen and (max-width: 30em) {
+      @content;
+    }
+  }
+
+  @if $breakPoint == phone-min-width {
+    @media only screen and (min-width: 42.5em) {
+      @content;
+    }
+  }
+
+  @if $breakPoint == phone {
+    @media only screen and (max-width: 42.5em) {
+      @content;
+    }
+  }
+
+  @if $breakPoint == tab-portrate {
+    @media only screen and (max-width: 60em) {
+      @content;
+    }
+  }
+
+  @if $breakPoint == tab-portrate-no-touch {
+    @media only screen and (max-width: 60em), only screen and (hover: none) {
+      @content;
+    }
+  }
+
+  @if $breakPoint == tab-landscape {
+    @media only screen and (max-width: 80em) {
+      @content;
+    }
+  }
+
+  @if $breakPoint == big-desktop {
+    @media only screen and (min-width: 105em) {
+      @content;
+    }
+  }
+
+  @if $breakPoint == large-desktop {
+    @media only screen and (min-width: 112.5em) {
+      @content;
+    }
+  }
+}

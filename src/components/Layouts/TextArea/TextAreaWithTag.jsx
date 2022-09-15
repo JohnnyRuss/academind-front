@@ -1,0 +1,100 @@
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { searchUser, resetSearchResult } from '../../../store/reducers/userReducer';
+
+import TextareaAutosize from 'react-textarea-autosize';
+import styles from './components/styles/textArea.module.scss';
+import TagsList from './components/TagsList';
+import TagsWindow from './components/TagsWindow';
+import { SendIcon } from '../Icons/icons';
+
+function TextAreaWithTag({
+  handler = (text) => {},
+  setTag,
+  removeTag,
+  className,
+  placeholder,
+  focus,
+  defaultValue,
+  tags,
+}) {
+  const dispatch = useDispatch();
+  const [text, setText] = useState('');
+
+  function textAreaSubmit(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handler(text, tags);
+      setText('');
+    }
+  }
+
+  function submitHandler(e) {
+    e.preventDefault();
+    handler(text, tags);
+    setText('');
+  }
+
+  useEffect(() => {
+    setText(defaultValue);
+  }, [defaultValue]);
+
+  const [currTag, setCurrTag] = useState(false);
+  const result = useSelector(({ user }) => user.searchResult);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (text.includes('@')) {
+        const candidate = text.split('@')[1];
+        if (candidate) {
+          setCurrTag(true);
+          dispatch(searchUser(candidate));
+        }
+      } else if (!text.includes('@') && currTag) {
+        setCurrTag(false);
+        dispatch(resetSearchResult());
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text]);
+
+  function handleCandidate(user) {
+    setTag({ _id: user._id, userName: user.userName });
+    const tx = text.split('@');
+    setText(tx[0]);
+    setCurrTag(false);
+    dispatch(resetSearchResult());
+  }
+
+  function deleteTagCandidate(id) {
+    removeTag(id);
+  }
+
+  return (
+    <form className={styles.textAreaForm} onSubmit={submitHandler}>
+      <TagsList tags={tags} deleteTagCandidate={deleteTagCandidate} />
+      <div className={styles.fields}>
+        <TextareaAutosize
+          id='test'
+          minRows={1}
+          maxRows={5}
+          placeholder={placeholder}
+          value={text}
+          autoFocus={focus}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={textAreaSubmit}
+          className={`${styles.textArea} ${className}`}
+        />
+        <button className={styles.textAreaBtn} type='submit'>
+          <SendIcon />
+        </button>
+      </div>
+      {currTag && <TagsWindow result={result} handleCandidate={handleCandidate} />}
+    </form>
+  );
+}
+
+export default TextAreaWithTag;

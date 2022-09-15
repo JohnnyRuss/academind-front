@@ -1,0 +1,63 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.rightBar {
+  grid-row: 3;
+  grid-column: 3/4;
+  align-self: start;
+  margin-top: 4rem;
+  position: sticky;
+  top: 8rem;
+  right: 1.5rem;
+  padding: 0 1rem 1rem;
+  @include flexBox(column);
+  gap: 3rem;
+  overflow: scroll;
+  max-height: calc(100vh - 10rem);
+  background: color('whiteShadeColor');
+  border-radius: 1rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  // .relatedPostItem h3[data-title] {
+  //   font-size: size('regullarSize');
+  // }
+
+  // .relatedPostItem div[data-user-interacion] {
+  //   & span {
+  //     font-size: size('smallerSize');
+  //   }
+
+  //   & svg {
+  //     font-size: size('regullarSize');
+  //   }
+  // }
+
+  .rightBarBox {
+    position: relative;
+    @include flexBox(column);
+    gap: 2rem;
+    height: 30rem;
+    padding: 0 1rem 1rem;
+    @include boxShadowBlack(0, 0.5rem, 0.2);
+    border-radius: 1rem;
+    background: color('whiteColor');
+
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .rightBarTitle {
+    font-size: size('bigSize');
+    text-transform: capitalize;
+    margin-bottom: -1rem;
+    padding: 0.5rem 0;
+    background: color('whiteColor');
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+}
