@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { createPost, setIsOpen } from '../../../store/reducers/createPostReducer';
-import { useRestrictBodyOverflow } from '../../../hooks';
+import { setIsOpen } from '../../../store/reducers/createPostReducer';
+import { usePostQuery, useRestrictBodyOverflow } from '../../../hooks';
 
 import styles from './components/styles/createPost.module.scss';
 import { CreatePostTouch } from './components';
 import CreatePostModal from './CreatePostModal';
 
-function CreatePost({ className, type = 'post' }) {
+function CreatePost({ className }) {
   const dispatch = useDispatch();
   const { restrictScroll } = useRestrictBodyOverflow();
 
@@ -21,11 +21,13 @@ function CreatePost({ className, type = 'post' }) {
     loadingState: { loading },
   } = useSelector(({ createPost }) => createPost);
 
+  const { updatePostModalIsOpen } = useSelector(({ portal }) => portal);
+
   const handleDescription = (e) => setDescriptionn(e.target.value);
 
-  const handlePostSubmit = () => dispatch(createPost({ description, type, images: files }));
+  const { handlePostPublish } = usePostQuery();
 
-  const activateModal = (open) => dispatch(setIsOpen(open));
+  const activateModal = (open) => !updatePostModalIsOpen && dispatch(setIsOpen(open));
 
   useEffect(() => {
     if (activeSelectedMedia) activateModal(true);
@@ -46,7 +48,9 @@ function CreatePost({ className, type = 'post' }) {
           loading={loading}
           setIsOpen={activateModal}
           handleDescription={handleDescription}
-          handlePost={handlePostSubmit}
+          handlePost={() =>
+            handlePostPublish({ description, media: files, type: 'post', operationType: 'publish' })
+          }
         />
       )}
     </div>

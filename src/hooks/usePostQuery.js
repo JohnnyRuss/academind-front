@@ -1,33 +1,49 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { reactOnPost } from '../store/reducers/postsDataReducer';
+import { createPost } from '../store/reducers/createPostReducer';
+import { updatePost } from '../store/reducers/portalReducer';
+import { deletePost, reactOnPost } from '../store/reducers/postsDataReducer';
 
 function usePostQuery() {
   const dispatch = useDispatch();
 
-  async function deletePostHandler({ postId }) {
-    console.log('delete post');
-    try {
-      // deleteHandler({ variables: { postId } });
-    } catch (error) {
-      console.log({ error: error.message, location: 'usePostQuery - deletePostHandler' });
+  const [startDeletion, setStartDeletion] = useState(false);
+
+  const handlePostPublish = ({ operationType, type, description, media }) => {
+    const credentials = {
+      description,
+    };
+
+    if (media[0]) {
+      const oldMedia = media.filter((media) => typeof media === 'string');
+      const newFiles = media.filter((media) => typeof media === 'object');
+
+      if (oldMedia[0]) credentials.media = oldMedia;
+      if (newFiles[0]) credentials.images = newFiles;
     }
+
+    if (operationType === 'publish') {
+      credentials.type = type;
+      // dispatch(createPost(credentials));
+      console.log('credentials for publish', credentials);
+    } else if (operationType === 'update') {
+      // dispatch(updatePost(credentials));
+      console.log('credentials for update', credentials);
+    }
+  };
+
+  function deletePostHandler(postId) {
+    setStartDeletion(true);
+    dispatch(deletePost(postId));
   }
 
   function reactOnPostHandler({ postReaction, postId }) {
-    try {
-      const reaction = JSON.parse(postReaction);
-      dispatch(reactOnPost({ postId, body: { reaction } }));
-    } catch (error) {
-      console.log({
-        error: error.message,
-        location: 'usePostQuery - reactOnPostHandler',
-        stack: error.stack,
-      });
-    }
+    const reaction = JSON.parse(postReaction);
+    dispatch(reactOnPost({ postId, body: { reaction } }));
   }
 
-  return { deletePostHandler, reactOnPostHandler };
+  return { handlePostPublish, deletePostHandler, reactOnPostHandler, startDeletion };
 }
 
 export default usePostQuery;

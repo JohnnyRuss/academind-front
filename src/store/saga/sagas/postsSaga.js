@@ -1,13 +1,21 @@
 import { takeLatest } from 'redux-saga/effects';
 
-import { reactOnPost } from '../../reducers/postsDataReducer';
+import { deletePost, reactOnPost } from '../../reducers/postsDataReducer';
 
 import { createPost } from '../../reducers/createPostReducer';
+import { updatePost } from '../../reducers/portalReducer';
 
-import { reactOnPostHandler, createPostHandler } from '../handlers/postsHandlers';
+import {
+  createPostHandler,
+  deletePostHandler,
+  updatePostHandler,
+  reactOnPostHandler,
+} from '../handlers/postsHandlers';
 
 function* postsSaga() {
   yield takeLatest(createPost, createPostHandler);
+  yield takeLatest(deletePost, deletePostHandler);
+  yield takeLatest(updatePost, updatePostHandler);
   yield takeLatest(reactOnPost, reactOnPostHandler);
 }
 

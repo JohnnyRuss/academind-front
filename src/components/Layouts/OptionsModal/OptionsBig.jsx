@@ -21,9 +21,14 @@ function OptionsBig({
   const [open, setOpen] = useState(false);
   const [deletion, setDeletion] = useState(false);
 
-  function handleDelete() {
+  function handleDeletePopUp() {
     setDeletion(true);
     setOpen(false);
+  }
+
+  function handleDelete() {
+    deleteHandler();
+    setDeletion(false);
   }
 
   function handleUpdate() {
@@ -60,7 +65,7 @@ function OptionsBig({
             </button>
           )}
           {options?.delete && (
-            <button className={styles.optBtn} onClick={handleDelete}>
+            <button className={styles.optBtn} onClick={handleDeletePopUp}>
               <DeleteIcon />
               <span>delete</span>
             </button>
@@ -68,7 +73,7 @@ function OptionsBig({
         </div>
       )}
       {deletion && (
-        <DeletionPopUp setDeletion={setDeletion} deleteHandler={deleteHandler} keyWord={keyWord} />
+        <DeletionPopUp setDeletion={setDeletion} deleteHandler={handleDelete} keyWord={keyWord} />
       )}
     </>
   );

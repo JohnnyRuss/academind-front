@@ -1,65 +1,54 @@
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { deactivateUpdatePostModal } from '../../store/reducers/portalReducer';
+import { resetUpdatePostModal } from '../../store/reducers/portalReducer';
 
-import { useRestrictBodyOverflow } from '../../hooks';
+import { usePostQuery, useRestrictBodyOverflow } from '../../hooks';
 
-import styles from './updatePostPortal.module.scss';
-import { UserIdentifier, PostAuthentic, Modal } from '../Layouts';
-import { TextField, BTN } from '../Interface';
+import { CreatePostModal } from '../Layouts';
 
 function UpdatePostPortal() {
   const dispatch = useDispatch();
+
+  const {
+    updatePostModalIsOpen,
+    updatePostData,
+    updatePostMediaFiles,
+    updatePostLoadingState: { loading },
+  } = useSelector(({ portal }) => portal);
+
+  const [description, setDescription] = useState(updatePostData.description);
+
+  const handleDescription = (e) => setDescription(e.target.value);
+
+  const deactivateHandler = () => dispatch(resetUpdatePostModal());
+
   const { restrictScroll } = useRestrictBodyOverflow();
-  const { updatePostModalIsOpen, updatePostData } = useSelector(({ portal }) => portal);
 
-  const deactivateHandler = () => dispatch(deactivateUpdatePostModal());
+  useEffect(() => {
+    if (!updatePostModalIsOpen) restrictScroll(false);
+  }, [updatePostModalIsOpen, restrictScroll]);
 
-  async function updateHandler() {
-    const { description } = updatePostData;
-    try {
-      // updatePotsHandler({ variables: { description } });
-    } catch (error) {
-      console.log({ error: error.message, location: 'UpdatePostPortal' });
-    } finally {
-      deactivateHandler();
-      restrictScroll(false);
-    }
-  }
+  const { handlePostPublish } = usePostQuery();
 
   return (
-    <Modal
-      isOpen={updatePostModalIsOpen}
-      setIsOpen={deactivateHandler}
-      extraStyles={{ background: 'white' }}>
-      <div className={styles.sharePostModal}>
-        <UserIdentifier withTime={false} className={styles.shareIdentifier} />
-        <TextField
-          className={styles.descriptionField}
-          minRows={4}
-          maxRows={8}
-          defaultValue={updatePostData.description}
-          placeholder='description'
-        />
-        <PostAuthentic
-          shared={false}
-          proccessUpdate={true}
-          type={updatePostData.type}
-          data={{
-            media: updatePostData.media,
-            shareDescription: updatePostData.shareDescription,
-            title: updatePostData.title,
-            article: updatePostData.article,
-            comments: updatePostData.comments,
-          }}
-        />
-        <span className={styles.btnWrapper}>
-          <BTN className={styles.confirmShareBtn} onClick={updateHandler}>
-            post
-          </BTN>
-        </span>
-      </div>
-    </Modal>
+    updatePostModalIsOpen && (
+      <CreatePostModal
+        loading={loading}
+        isOpen={updatePostModalIsOpen}
+        setIsOpen={deactivateHandler}
+        defaultDescription={description}
+        handleDescription={handleDescription}
+        handlePost={() =>
+          handlePostPublish({
+            description,
+            media: updatePostMediaFiles,
+            type: 'post',
+            operationType: 'update',
+          })
+        }
+      />
+    )
   );
 }
 

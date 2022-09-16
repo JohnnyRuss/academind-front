@@ -1,8 +1,10 @@
 import { useState, Suspense, lazy } from 'react';
+import { useSelector } from 'react-redux';
+
 import { usePostQuery } from '../../../hooks';
 
 import styles from './components/styles/post.module.scss';
-import { Spinner } from '../../Interface';
+import { InlineSpinner, InlineStandSpinner } from '../../Interface';
 import { OptionsBig, PostActions } from '../';
 import { SharedPostHeader } from './components';
 import PostAuthentic from './PostAuthentic';
@@ -10,16 +12,18 @@ const Comments = lazy(() => import('./components/Comments'), { suspense: true })
 
 function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal, className }) {
   const [showComments, setShowComments] = useState(false);
-  const { deletePostHandler } = usePostQuery();
-  // const commentsAmount = useCounter(data.comments, 'replies');
+  const { deletePostHandler, startDeletion } = usePostQuery();
+
+  const { loading } = useSelector(({ postsData }) => postsData.loadingState);
 
   return (
     <article className={`${styles.post} ${className || ''}`}>
+      {startDeletion && loading === true && <InlineStandSpinner />}
       <OptionsBig
         optBtnClassName={styles.postOptionsBtn}
         keyWord='post'
         {...({ options } || '')}
-        deleteHandler={() => deletePostHandler({ postId: data.id })}
+        deleteHandler={() => deletePostHandler(data._id)}
         updateHandler={() =>
           activateUpdatePostModal({
             description: data.shared ? data.shareDescription : data.description,
@@ -68,7 +72,7 @@ function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal
       />
       <PostActions setShowCommnents={setShowComments} data={data} />
       {showComments && (
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<InlineSpinner />}>
           <Comments postId={data._id} />
         </Suspense>
       )}

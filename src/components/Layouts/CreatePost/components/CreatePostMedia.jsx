@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 
 import { removeFiles } from '../../../../store/reducers/createPostReducer';
+import { removeUpdateFiles } from '../../../../store/reducers/portalReducer';
 
 import styles from './styles/createPostMedia.module.scss';
 import { CloseXIcon, CloseIcon } from '../../Icons/icons';
@@ -9,8 +10,16 @@ import { Image } from '../../../Interface';
 function CreatePostMedia() {
   const dispatch = useDispatch();
 
-  const files = useSelector(({ createPost }) => createPost.files);
-  const handleDiscardMedia = (url) => dispatch(removeFiles(url));
+  const { isOpen, files: createPostFiles } = useSelector(({ createPost }) => createPost);
+
+  const { updatePostModalIsOpen, updatePostMediaFiles } = useSelector(({ portal }) => portal);
+
+  const files = isOpen ? createPostFiles : updatePostModalIsOpen ? updatePostMediaFiles : [];
+
+  const handleDiscardMedia = (url) => {
+    updatePostModalIsOpen && dispatch(removeUpdateFiles(url));
+    isOpen && dispatch(removeFiles(url));
+  };
 
   return (
     files[0] && (

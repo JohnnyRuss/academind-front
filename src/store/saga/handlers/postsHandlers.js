@@ -1,10 +1,21 @@
 import { call, put } from 'redux-saga/effects';
 
-import { setPostReaction, setPosts, setNewPost } from '../../reducers/postsDataReducer';
+import {
+  setNewPost,
+  setDeletedPost,
+  setUpdatedPost,
+  setPostReaction,
+} from '../../reducers/postsDataReducer';
 
 import { resetCreatePost } from '../../reducers/createPostReducer';
+import { resetUpdatePostModal } from '../../reducers/portalReducer';
 
-import { queryPostReaction, queryCreatePost } from '../api/postQueries';
+import {
+  queryCreatePost,
+  queryDeletePost,
+  queryUpdatePost,
+  queryPostReaction,
+} from '../api/postQueries';
 
 function* createPostHandler({ payload: body }) {
   try {
@@ -13,6 +24,25 @@ function* createPostHandler({ payload: body }) {
     yield put(resetCreatePost());
   } catch (error) {
     showError(error, 'createPostHandler');
+  }
+}
+
+function* deletePostHandler({ payload: postId }) {
+  try {
+    yield call(queryDeletePost, postId);
+    yield put(setDeletedPost(postId));
+  } catch (error) {
+    showError(error, 'deletePostHandler');
+  }
+}
+
+function* updatePostHandler({ payload: { params, body } }) {
+  try {
+    const { data } = yield call(queryUpdatePost, { postId: params.postId, body });
+    yield put(setUpdatedPost({ params, data }));
+    yield put(resetUpdatePostModal());
+  } catch (error) {
+    showError(error, 'updatePostHandler');
   }
 }
 
@@ -35,4 +65,4 @@ function showError(error, location) {
   });
 }
 
-export { createPostHandler, reactOnPostHandler };
+export { createPostHandler, deletePostHandler, updatePostHandler, reactOnPostHandler };

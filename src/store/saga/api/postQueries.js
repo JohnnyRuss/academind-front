@@ -5,11 +5,15 @@ async function queryCreatePost(body) {
 }
 
 async function queryDeletePost(postId) {
-  return await axiosQuery.post(`/posts${postId}`);
+  return await axiosQuery.delete(`/posts/${postId}`);
+}
+
+async function queryUpdatePost({ postId, body }) {
+  return await axiosQuery.patch(`/posts/${postId}`, body);
 }
 
 async function queryPostReaction({ postId, body }) {
   return await axiosQuery.post(`/posts/${postId}/reaction`, body);
 }
 
-export { queryCreatePost, queryPostReaction, queryDeletePost };
+export { queryCreatePost, queryPostReaction, queryUpdatePost, queryDeletePost };

@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setFile } from '../../../../store/reducers/createPostReducer';
+import { setUpdateFile } from '../../../../store/reducers/portalReducer';
 import { selectActiveUserInfo } from '../../../../store/selectors/userSelectors';
 
 import styles from './styles/createPostTouch.module.scss';
@@ -13,10 +14,14 @@ function CreatePostTouch({ setIsOpen, withTextField = true }) {
 
   const filesRef = useRef();
 
+  const { updatePostModalIsOpen } = useSelector(({ portal }) => portal);
   const activeSelectedMedia = useSelector(({ createPost }) => createPost.activeSelectedMedia);
   const { userName, image, id } = useSelector(selectActiveUserInfo);
 
-  const selectFiles = (e) => dispatch(setFile(e.target.files));
+  const selectFiles = (e) => {
+    if (!updatePostModalIsOpen) dispatch(setFile(e.target.files));
+    if (updatePostModalIsOpen) dispatch(setUpdateFile(e.target.files));
+  };
 
   useEffect(() => {
     if (!activeSelectedMedia) filesRef.current.value = null;
