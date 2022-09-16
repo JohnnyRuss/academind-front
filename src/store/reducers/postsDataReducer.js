@@ -6,10 +6,12 @@ const postsDataSlice = createSlice({
     posts: [],
   },
   reducers: {
-    getProfilePosts() {},
-
-    setProfilePosts(state, { payload }) {
+    setPosts(state, { payload }) {
       state.posts = [...payload];
+    },
+
+    setNewPost(state, { payload }) {
+      state.posts = [payload, ...state.posts];
     },
 
     reactOnPost() {},
@@ -39,8 +41,8 @@ const postsDataSlice = createSlice({
 
 export const postsDataReducer = postsDataSlice.reducer;
 export const {
-  getProfilePosts,
-  setProfilePosts,
+  setPosts,
+  setNewPost,
   reactOnPost,
   setPostReaction,
   encreasePostCommentCount,

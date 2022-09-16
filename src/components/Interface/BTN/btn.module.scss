@@ -16,4 +16,8 @@
   &:hover {
     filter: brightness(115%);
   }
+
+  &:disabled{
+    opacity: 0.6;
+  }
 }

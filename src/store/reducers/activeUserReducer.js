@@ -3,17 +3,35 @@ import { createSlice } from '@reduxjs/toolkit';
 const activeUserSlice = createSlice({
   name: 'activeUser',
   initialState: {
-    _id: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-    userName: '',
-    profileImg: '',
-    createdAt: null,
-    isAuthenticated: false,
+    loadingState: {
+      loading: null,
+      error: false,
+      message: '',
+    },
+    user: {
+      _id: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      userName: '',
+      profileImg: '',
+      createdAt: null,
+      isAuthenticated: false,
+    },
   },
   reducers: {
-    getActiveUser() {},
+    login(state) {
+      console.log('runs login creator');
+      state.loadingState.loading = true;
+      state.loadingState.error = false;
+      state.loadingState.message = '';
+    },
+
+    resetLoadingState(state) {
+      state.loadingState.loading = null;
+      state.loadingState.error = false;
+      state.loadingState.message = '';
+    },
 
     setActiveUser(state, { payload }) {
       const temp = {
@@ -27,9 +45,15 @@ const activeUserSlice = createSlice({
         isAuthenticated: true,
       };
 
-      Object.keys(state).map((key) => (state[key] = temp[key]));
+      Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
       localStorage.setItem('academind_passport', JSON.stringify(payload.token));
+
+      state.loadingState.loading = false;
+      state.loadingState.error = false;
+      state.loadingState.message = '';
     },
+
+    getActiveUser() {},
 
     resetActiveUser(state) {
       const temp = {
@@ -50,4 +74,5 @@ const activeUserSlice = createSlice({
 });
 
 export const activeUserReducer = activeUserSlice.reducer;
-export const { getActiveUser, setActiveUser, resetActiveUser } = activeUserSlice.actions;
+export const { login, resetLoadingState, setActiveUser, getActiveUser, resetActiveUser } =
+  activeUserSlice.actions;

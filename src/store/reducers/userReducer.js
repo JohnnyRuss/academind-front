@@ -50,8 +50,6 @@ const userSlice = createSlice({
   },
 
   reducers: {
-    getUserProfile() {},
-
     searchUser() {},
 
     setSearchResult(state, { payload }) {
@@ -61,6 +59,8 @@ const userSlice = createSlice({
     resetSearchResult(state) {
       state.searchResult = [];
     },
+
+    getUserProfile() {},
 
     setUserProfile(state, { payload }) {
       const temp = {
@@ -114,9 +114,20 @@ const userSlice = createSlice({
 
       Object.keys(temp).map((key) => (state.user[key] = temp[key]));
     },
+
+    getProfilePosts() {},
+
+    getFeedPosts() {},
   },
 });
 
 export const userReducer = userSlice.reducer;
-export const { getUserProfile, searchUser, setSearchResult, resetSearchResult, setUserProfile } =
-  userSlice.actions;
+export const {
+  searchUser,
+  setSearchResult,
+  resetSearchResult,
+  getUserProfile,
+  setUserProfile,
+  getProfilePosts,
+  getFeedPosts,
+} = userSlice.actions;

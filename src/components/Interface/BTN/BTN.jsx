@@ -8,9 +8,13 @@ import styles from './btn.module.scss';
  * @param {type} type by default = "button". defines button type
  * @returns
  */
-function BTN({ children, onClick, className, type = 'button' }) {
+function BTN({ onClick, children, disabled = false, type = 'button', className }) {
   return (
-    <button className={`${styles.btnRe} ${className}`} onClick={onClick} type={type}>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+      className={`${styles.btnRe} ${className}`}>
       {children}
     </button>
   );

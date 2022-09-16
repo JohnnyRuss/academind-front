@@ -1,31 +1,50 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import styles from './components/createPost.module.scss';
+import { createPost, setIsOpen } from '../../../store/reducers/createPostReducer';
+import { useRestrictBodyOverflow } from '../../../hooks';
+
+import styles from './components/styles/createPost.module.scss';
 import { CreatePostTouch } from './components';
 import CreatePostModal from './CreatePostModal';
 
-function CreatePost({ className, handlePost }) {
-  const [isOpen, setIsOpen] = useState(false);
+function CreatePost({ className, type = 'post' }) {
+  const dispatch = useDispatch();
+  const { restrictScroll } = useRestrictBodyOverflow();
+
   const [description, setDescriptionn] = useState('');
 
-  const activeSelectedMedia = useSelector(({ createPost }) => createPost.activeSelectedMedia);
+  const {
+    isOpen,
+    activeSelectedMedia,
+    files,
+    loadingState: { loading },
+  } = useSelector(({ createPost }) => createPost);
 
   const handleDescription = (e) => setDescriptionn(e.target.value);
 
-  const handlePostSubmit = () => handlePost(description);
+  const handlePostSubmit = () => dispatch(createPost({ description, type, images: files }));
+
+  const activateModal = (open) => dispatch(setIsOpen(open));
 
   useEffect(() => {
-    if (activeSelectedMedia) setIsOpen(true);
+    if (activeSelectedMedia) activateModal(true);
+    if (isOpen) restrictScroll(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSelectedMedia]);
+
+  useEffect(() => {
+    if (!isOpen) restrictScroll(false);
+  }, [isOpen, restrictScroll]);
 
   return (
     <div className={`${styles.createPost} ${className || ''}`}>
-      <CreatePostTouch setIsOpen={setIsOpen} />
+      <CreatePostTouch setIsOpen={activateModal} />
       {isOpen && (
         <CreatePostModal
           isOpen={isOpen}
-          setIsOpen={setIsOpen}
+          loading={loading}
+          setIsOpen={activateModal}
           handleDescription={handleDescription}
           handlePost={handlePostSubmit}
         />

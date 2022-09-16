@@ -7,6 +7,7 @@ import { useCommentPin, useComments, useCommentsQuery } from '../../../hooks';
 
 import styles from './components/styles/commentsList.module.scss';
 import { TextAreaWithTag } from '../';
+import { InlineSpinner } from '../../Interface';
 import { CommentListItem } from './components';
 
 function CommentsList({ postId }) {
@@ -36,6 +37,7 @@ function CommentsList({ postId }) {
 
   return (
     <div className={styles.commentsList}>
+      {/* <InlineSpinner /> */}
       {comments?.map((comment) => (
         // each comment is individual element which renders his own comment replies if it has
         <CommentListItem

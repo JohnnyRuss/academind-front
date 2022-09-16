@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Link } from '../Interface';
@@ -8,7 +9,14 @@ import NavActions from './components/NavActions';
 
 function Navigation() {
   const [activeNavList, setActiveNavList] = useState(false);
-  const { isAuthenticated } = useSelector(({ activeUser }) => activeUser);
+  const { isAuthenticated } = useSelector(({ activeUser }) => activeUser.user);
+
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (isAuthenticated && pathname === '/') navigate('/feed');
+  }, [pathname, isAuthenticated, navigate]);
 
   return (
     <div className={styles.navigation}>

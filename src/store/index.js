@@ -12,9 +12,10 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoreActions: [PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, FLUSH],
-      },
+      serializableCheck: false,
+      // serializableCheck: {
+      //   ignoreActions: [PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, FLUSH],
+      // },
     }).concat(midlewares),
 });
 

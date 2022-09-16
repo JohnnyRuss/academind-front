@@ -1,8 +1,7 @@
-import styles from './modal.module.scss';
-import Modal from 'react-modal';
-
 import { useRestrictBodyOverflow } from '../../../hooks';
 
+import Modal from 'react-modal';
+import styles from './modal.module.scss';
 import { CloseIcon } from '../Icons/icons';
 
 const customStyles = {

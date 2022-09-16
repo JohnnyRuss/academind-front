@@ -1,12 +1,12 @@
 import styles from './spinner.module.scss';
 import { SpinnerIcon } from '../../Layouts/Icons/icons';
 
-function Spinner() {
+function InlineSpinner() {
   return (
-    <div className={styles.spinnerBox}>
+    <div className={styles.inlineSpinnerBox}>
       <SpinnerIcon className={styles.spinner} />
     </div>
   );
 }
 
-export default Spinner;
+export default InlineSpinner;

@@ -1,4 +1,4 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use '../../../../../styles/helpers/helpers' as *;
 
 .createPostModal {
   height: auto;
@@ -13,6 +13,7 @@
     width: 42vw;
     padding: 1rem;
     background: color('whiteColor');
+    position: relative;
 
     @include respond(tab-landscape) {
       width: 50vw;

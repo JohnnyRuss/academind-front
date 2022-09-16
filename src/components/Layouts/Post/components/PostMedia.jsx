@@ -10,9 +10,10 @@ function PostMedia({ activateMedia, media, className }) {
       }`}>
       {media.map((media, i, mediaArr) => (
         <Image
-          src={media}
-          className={`${styles.postMedia} ${className || ''}`}
           onClick={() => activateMedia(i, mediaArr)}
+          src={media}
+          loading='lazy'
+          className={`${styles.postMedia} ${className || ''}`}
           key={uid(6)}
         />
       ))}

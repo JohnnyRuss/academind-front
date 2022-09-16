@@ -1,12 +1,52 @@
 @use '../../../styles/helpers/helpers' as *;
 
-.spinner {
+%spinner {
   display: block;
   animation: spinner 1s ease infinite;
   font-size: size('extraLargeSize');
-  position: relative;
   color: color('blueColor');
+}
+
+.spinnerBox {
+  background: rgba(color(darkGreyColor), 0.5);
+  backdrop-filter: blur(1px);
+  position: fixed;
+  width: 100%;
+  height: calc(100vh);
+  top: 6rem;
+  z-index: 9999;
+
+  .spinner {
+    @extend %spinner;
+    @include CenterAbsPos;
+  }
+}
+
+.inlineSpinnerBox {
+  position: absolute;
+  z-index: 99;
   left: 50%;
-  top: 20%;
-  margin-top: 4rem;
+  transform: translateX(-50%);
+
+  .spinner {
+    @extend %spinner;
+    @include CenterAbsPos;
+  }
+}
+
+.inlineStandSpinnerBox {
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  background: rgba(color(darkGreyColor), 0.5);
+  backdrop-filter: blur(1px);
+
+  .spinner {
+    @extend %spinner;
+    @include CenterAbsPos;
+  }
 }

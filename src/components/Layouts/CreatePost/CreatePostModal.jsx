@@ -1,12 +1,20 @@
-import styles from './components/createPostModal.module.scss';
+import styles from './components/styles/createPostModal.module.scss';
 import { Modal, UserIdentifier } from '../';
-import { BTN, TextField } from '../../Interface';
-import {CreatePostMedia,CreatePostTouch} from './components';
+import { BTN, TextField, InlineStandSpinner } from '../../Interface';
+import { CreatePostMedia, CreatePostTouch } from './components';
 
-function CreatePostModal({ isOpen, setIsOpen, handleDescription, handlePost, defaultDescription }) {
+function CreatePostModal({
+  isOpen,
+  setIsOpen,
+  defaultDescription,
+  handleDescription,
+  handlePost,
+  loading,
+}) {
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} className={styles.createPostModal}>
       <div className={styles.createPostModalContentBox}>
+        {loading && <InlineStandSpinner />}
         <UserIdentifier
           img='/img/user-4.jpg'
           withTime={false}
@@ -26,7 +34,7 @@ function CreatePostModal({ isOpen, setIsOpen, handleDescription, handlePost, def
         </div>
         <div className={styles.createPostFooterBox}>
           <CreatePostTouch withTextField={false} />
-          <BTN className={styles.postBtn} onClick={handlePost}>
+          <BTN onClick={handlePost} disabled={loading} className={styles.postBtn}>
             POST
           </BTN>
         </div>

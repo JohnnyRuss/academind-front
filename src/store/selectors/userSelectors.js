@@ -1,19 +1,21 @@
 import { createSelector } from '@reduxjs/toolkit';
 
+export const selectAuthenticationLoadingState = ({ activeUser }) => activeUser.loadingState;
+
 export const selectActiveUserInfo = ({ activeUser }) => ({
-  userName: activeUser.userName,
-  email: activeUser.email,
-  image: activeUser.profileImg,
-  id: activeUser._id,
+  userName: activeUser.user.userName,
+  email: activeUser.user.email,
+  image: activeUser.user.profileImg,
+  id: activeUser.user._id,
+});
+
+export const selectUserId = ({ activeUser }) => ({
+  id: activeUser.user._id,
 });
 
 export const selectUserNameAndEmail = ({ user }) => ({
   userName: user.user.userName,
   email: user.user.email,
-});
-
-export const selectUserId = ({ activeUser }) => ({
-  id: activeUser._id,
 });
 
 const selectedUserInfo = ({ user }) => ({

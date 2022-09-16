@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFile } from '../../../../store/reducers/createPostReducer';
 import { selectActiveUserInfo } from '../../../../store/selectors/userSelectors';
 
-import styles from './createPostTouch.module.scss';
+import styles from './styles/createPostTouch.module.scss';
 import { MultiMediaIcon } from '../../Icons/icons';
 import { UserIdentifier } from '../../';
 

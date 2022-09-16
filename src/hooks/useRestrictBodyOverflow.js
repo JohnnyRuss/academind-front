@@ -1,16 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 function useRestrictBodyOverflow(isOpen, onMount = false) {
-  function restrictScroll(open) {
+  const restrictScroll = useCallback((open) => {
     const body = document.querySelector('body');
     if (open) body.style.overflow = 'hidden';
     if (!open) body.style.overflow = 'scroll';
-  }
+  }, []);
 
   useEffect(() => {
     if (onMount) restrictScroll(isOpen);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [onMount, isOpen, restrictScroll]);
 
   return { restrictScroll };
 }
