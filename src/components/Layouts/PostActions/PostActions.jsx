@@ -4,8 +4,12 @@ import styles from './components/styles/postActions.module.scss';
 import { LikeBTN, DislikeBTN, CommentBTN, ShareBTN } from './components';
 
 /**
- * like dislike share and comment buttons
+ * is user in Post component as well as BlogPost component
+ * like, dislike, share and comment buttons.
  * @param {*}
+ * @param {*} setShowCommnents attached on comment button and sets as !prevState
+ * @param {*} data object of data {_id,type,userName,userImg,createdAt,description,media, authenticDescription,commentsCount,article,title}. this information will be send to redux portalReducer when user clicks share button
+ * @param {boolean} redirect basically this prop is for BlogPost on The Blog Feed. if redirect is true and user clicks on comment button user will be redirected through the ActiveBlogPost
  * @returns
  */
 function PostActions({ className, setShowCommnents, data, redirect }) {
@@ -36,8 +40,7 @@ function PostActions({ className, setShowCommnents, data, redirect }) {
       description: data.description,
       media: data.media,
       shareDescription: data.authenticDescription,
-      // ?? -> comments
-      comments: data.comments,
+      commentsCount: data.commentsCount,
       //for blog share
       article: data.article,
       title: data.title,

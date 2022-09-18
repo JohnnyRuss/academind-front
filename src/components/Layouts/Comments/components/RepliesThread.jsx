@@ -4,13 +4,6 @@ import styles from './styles/repliesThread.module.scss';
 import { TextAreaWithTag } from '../..';
 import { Comment, ShowRepliesBTN } from '.';
 
-/**
- * renders comment replies with nested textarea, and show replies button
- * @param {[Object]} replies array of comment replies
- * @param {Boolean} createReply opens comment replies and autofocus texarea
- * @param {function} setCreateReply is passed to work in tandem with show replies to correctly close and open replies
- * @returns
- */
 function RepliesThread({ state, data, handlers }) {
   const {
     handleShowReplies,

@@ -1,3 +1,3 @@
-export { default as Container } from './Container';
-export { default as SideBar } from './SideBar';
-export { default as Content } from './Content';
+export { default as PostsPageContainer } from './PostsPageContainer';
+export { default as PostsPageSideBar } from './PostsPageSideBar';
+export { default as PostsPageContent } from './PostsPageContent';

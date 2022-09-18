@@ -1,7 +1,7 @@
 import { Container, Content, SideBarRight } from '../../components/Feed';
 import { SideBar as SideBarLeft } from '../../components/Layouts';
 
-function index() {
+function Feed() {
   return (
     <Container>
       <SideBarLeft />
@@ -11,4 +11,4 @@ function index() {
   );
 }
 
-export default index;
+export default Feed;

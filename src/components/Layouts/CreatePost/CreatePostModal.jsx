@@ -1,3 +1,7 @@
+import { useSelector } from 'react-redux';
+
+import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
+
 import styles from './components/styles/createPostModal.module.scss';
 import { Modal, UserIdentifier } from '../';
 import { BTN, TextField, InlineStandSpinner } from '../../Interface';
@@ -11,12 +15,15 @@ function CreatePostModal({
   handlePost,
   loading,
 }) {
+  const { userName, image, id } = useSelector(selectActiveUserInfo);
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} className={styles.createPostModal}>
       <div className={styles.createPostModalContentBox}>
         {loading && <InlineStandSpinner />}
         <UserIdentifier
-          img='/img/user-4.jpg'
+          img={image}
+          userName={userName}
+          userId={id}
           withTime={false}
           className={styles.createPostHeader}
         />

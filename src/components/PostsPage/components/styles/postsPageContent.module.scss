@@ -1,0 +1,36 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.postsPageContent {
+  flex: 4;
+  max-width: 65%;
+  @include flexBox(column);
+  gap: 5rem;
+  margin: 4rem 0 1rem;
+
+  @include respond(phone) {
+    flex: 1;
+    align-self: center;
+    max-width: 80%;
+    gap: 3rem;
+  }
+
+  @include respond(phone-small) {
+    max-width: 100%;
+    margin: 2rem 0;
+  }
+
+  &CreatePostEl {
+    width: 90%;
+  }
+
+  &Item {
+    width: 90%;
+  }
+
+  @include respond(tab-landscape) {
+    .createPostEl,
+    &Item {
+      width: 100%;
+    }
+  }
+}

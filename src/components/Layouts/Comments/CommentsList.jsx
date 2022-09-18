@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -10,8 +11,13 @@ import { TextAreaWithTag } from '../';
 import { InlineSpinner } from '../../Interface';
 import { CommentListItem } from './components';
 
+/**
+ * Comments main thread
+ * @param {string} param.postId
+ */
 function CommentsList({ postId }) {
   const data = useSelector((state) => selectPostCommentsById(state, postId));
+  const { loading } = useSelector(({ commentsData }) => commentsData.getCommentsLoadingState);
 
   const comments = useCommentPin(data || []);
 
@@ -32,14 +38,12 @@ function CommentsList({ postId }) {
   useEffect(() => {
     if (data) return;
     handleGetPostComments();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className={styles.commentsList}>
-      {/* <InlineSpinner /> */}
+      {loading && <InlineSpinner />}
       {comments?.map((comment) => (
-        // each comment is individual element which renders his own comment replies if it has
         <CommentListItem
           comment={comment}
           setUpdateParentComment={setUpdateParentComment}
@@ -54,8 +58,8 @@ function CommentsList({ postId }) {
         removeTag={removeTag}
         handler={handleSubmitComment}
         defaultValue={state.updateParent ? state.text : ''}
-        className={styles.commentTextArea}
         placeholder='write your comment...'
+        className={styles.commentTextArea}
       />
     </div>
   );

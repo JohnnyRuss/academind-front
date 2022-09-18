@@ -1,7 +1,6 @@
 @use '../../../../styles/helpers/helpers' as *;
 
-
-.navList {
+.mainNavList {
   flex: 4;
   @include flexBox;
   gap: 1rem;
@@ -17,10 +16,5 @@
     right: 0;
     padding: 1rem;
     visibility: hidden;
-
-    &.active {
-      visibility: visible;
-      animation: moveTop 0.2s forwards;
-    }
   }
 }

@@ -1,6 +1,0 @@
-@use '../../../styles/helpers/helpers' as *;
-
-.container {
-  min-height: 100vh;
-  @include flexBox;
-}

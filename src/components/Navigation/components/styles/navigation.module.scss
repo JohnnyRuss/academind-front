@@ -1,7 +1,9 @@
 @use '../../../../styles/helpers/helpers' as *;
 
-.navigation {
-  position: sticky;
+.mainNav {
+  position: fixed;
+  left: 0;
+  right: 0;
   top: 0rem;
   z-index: 9999;
   @include flexBox;
@@ -13,7 +15,7 @@
   @include boxShadowBlack(0, 1rem, 0.3);
   padding: 0 1rem;
 
-  .logo {
+  &Logo {
     padding: 1rem;
     flex: 1;
     font-size: size('headingSmallSize');
@@ -23,12 +25,7 @@
   @include respond(phone-small) {
     height: 4.5rem;
 
-    .navigationAvatar {
-      width: 3rem;
-      height: 3rem;
-    }
-
-    .logo {
+    &Logo {
       font-size: size('headingSecondarySize');
     }
   }

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleWare from 'redux-saga';
-import { persistStore, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, FLUSH } from 'redux-persist';
+import { persistStore } from 'redux-persist';
 import { rootReducer } from './reducers';
 import { initSagas } from './saga/initSagas';
 

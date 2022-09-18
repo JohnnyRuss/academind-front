@@ -28,33 +28,6 @@ html {
   }
 }
 
-// #themeCheck {
-// }
-
-#themeCheck:checked html body {
-  // @include theme();
-  background: green;
-}
-
-#themeCheck:not(:checked) html body {
-  // @include theme(light);
-  background: red;
-}
-
-@function theme() {
-  // @if not #themeCheck:checked {
-  //   @return 'true';
-  // }
-  // $indicator:'';
-  // #themeCheck:checked && $indicator:'true';
-  //  @return $indicator;
-
-  //   background: color('whiteShadeColor');
-  //  color: color('lightGrey');
-  //   background: color('darkGreyColor');
-  //   color: color('whiteColor');
-}
-
 html body {
   font-size: size('regullarSize');
   font-weight: weight('regullarWeight');

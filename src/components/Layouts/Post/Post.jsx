@@ -4,11 +4,12 @@ import { useSelector } from 'react-redux';
 import { usePostQuery } from '../../../hooks';
 
 import styles from './components/styles/post.module.scss';
-import { InlineSpinner, InlineStandSpinner } from '../../Interface';
-import { OptionsBig, PostActions } from '../';
 import { SharedPostHeader } from './components';
 import PostAuthentic from './PostAuthentic';
-const Comments = lazy(() => import('./components/Comments'), { suspense: true });
+import { OptionsBig, PostActions } from '../';
+import { InlineSpinner, InlineStandSpinner } from '../../Interface';
+
+const CommentsList = lazy(() => import('../Comments/CommentsList'), { suspense: true });
 
 function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal, className }) {
   const [showComments, setShowComments] = useState(false);
@@ -20,13 +21,14 @@ function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal
     <article className={`${styles.post} ${className || ''}`}>
       {startDeletion && loading === true && <InlineStandSpinner />}
       <OptionsBig
-        optBtnClassName={styles.postOptionsBtn}
         keyWord='post'
         {...({ options } || '')}
+        optBtnClassName={styles.postOptionsBtn}
         deleteHandler={() => deletePostHandler(data._id)}
         updateHandler={() =>
           activateUpdatePostModal({
-            description: data.shared ? data.shareDescription : data.description,
+            _id: data._id,
+            description: data.shared ? data.authenticDescription : data.description,
             media: data.media,
             type: data.type,
             shareDescription: data.shareDescription,
@@ -54,18 +56,13 @@ function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal
         shared={data.shared}
         activatePostMediaHandler={activatePostMediaHandler}
         data={{
-          authenticAuthorId: data.authenticAuthor?._id,
-          authenticAuthorName: data.authenticAuthor?.userName,
-          authenticAuthorImg: data.authenticAuthor?.profileImg,
-          authenticDescription: data.authenticDescription,
-          authenticDateCreation: data.authenticDateCreation,
-          authorId: data.author._id,
-          authorName: data.author.userName,
-          authorImg: data.author.profileImg,
-          createdAt: data.createdAt,
-          description: data.description,
+          userId: data.shared ? data.authenticAuthor._id : data.author._id,
+          userName: data.shared ? data.authenticAuthor.userName : data.author.userName,
+          createdAt: data.shared ? data.authenticDateCreation : data.createdAt,
+          userImg: data.shared ? data.authenticAuthor.profileImg : data.author.profileImg,
+          description: data.shared ? data.authenticDescription : data.description,
           media: data.media,
-          comments: data.comments,
+          comments: data.commentsCount,
           article: data.article,
           title: data.title,
         }}
@@ -73,7 +70,7 @@ function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal
       <PostActions setShowCommnents={setShowComments} data={data} />
       {showComments && (
         <Suspense fallback={<InlineSpinner />}>
-          <Comments postId={data._id} />
+          <CommentsList postId={data._id} />
         </Suspense>
       )}
     </article>

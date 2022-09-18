@@ -3,7 +3,7 @@ import { Modal, SwiperSlider } from '../Layouts';
 
 import { deactivateMediaModal } from '../../store/reducers/portalReducer';
 
-import styles from './mediaPortal.module.scss';
+import styles from './styles/mediaPortal.module.scss';
 
 function MediaPortal() {
   const dispatch = useDispatch();

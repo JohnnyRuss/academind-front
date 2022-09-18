@@ -1,49 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { searchUser, resetSearchResult } from '../../../store/reducers/userReducer';
+import { useBlurOnBody } from '../../../hooks';
 
 import styles from './styles/navSearchBar.module.scss';
+import { SearchBarWindow } from './';
 import { SearchBar } from '../../Layouts';
-import { Link, Avatar } from '../../Interface';
 
 function NavSearchBar() {
   const dispatch = useDispatch();
-  const result = useSelector(({ user }) => user.searchResult);
 
   const [activeWindow, setActiveWindow] = useState(false);
   const [key, setKey] = useState('');
 
-  const [blur, setBlur] = useState(true);
+  const handleOnBlur = useCallback(() => {
+    setKey('');
+    setActiveWindow(false);
+    dispatch(resetSearchResult());
+  }, [dispatch]);
 
-  function onFocusHandler() {
-    setActiveWindow(true);
-    setBlur(false);
-  }
+  const onFocusHandler = () => setActiveWindow(true);
+
+  const { blur, onFocus } = useBlurOnBody(onFocusHandler, handleOnBlur, ['navigation--searchBar']);
 
   function onChooseHandler() {
-    setActiveWindow(false);
     setKey('');
     dispatch(resetSearchResult());
+    setActiveWindow(false);
   }
 
-  useEffect(() => {
-    if (blur) return;
-
-    document.querySelector('body').addEventListener('click', function (e) {
-      if (e.target.dataset.searchBarInput === 'true') return;
-      setBlur(true);
-      setActiveWindow(false);
-      setKey('');
-      dispatch(resetSearchResult());
-    });
-  }, [blur, dispatch]);
+  const result = useSelector(({ user }) => user.searchResult);
 
   useEffect(() => {
     const timer = setTimeout(async () => {
       if (key === '' && !result[0]) return;
       else if (key === '' && result[0]) return dispatch(resetSearchResult());
-
       dispatch(searchUser(key));
     }, 1000);
 
@@ -52,29 +44,16 @@ function NavSearchBar() {
   }, [key]);
 
   return (
-    <div className={styles.search}>
+    <div className={styles.mainNavSearch}>
       <SearchBar
-        onFocus={onFocusHandler}
+        onFocus={onFocus}
         onChange={(e) => setKey(e.target.value)}
         value={key}
         allowToggle={true}
-        className={styles.navigationSearchBar}
+        className={styles.mainNavSearchBar}
       />
       {activeWindow && !blur && (
-        <div className={styles.searchWindow}>
-          <div className={styles.resultsList}>
-            {result?.map((result) => (
-              <Link
-                path={`/profile/${result._id}/posts`}
-                key={result._id}
-                className={styles.resultsListItem}
-                onClick={onChooseHandler}>
-                <Avatar img={result.profileImg} />
-                <span>{result.userName}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
+        <SearchBarWindow result={result} onChooseHandler={onChooseHandler} />
       )}
     </div>
   );

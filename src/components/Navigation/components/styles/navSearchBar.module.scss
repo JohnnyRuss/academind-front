@@ -1,44 +1,14 @@
 @use '../../../../styles/helpers/helpers' as *;
 
-.search {
+.mainNavSearch {
   position: relative;
   padding: 0 1rem;
   @include flexBox;
   @include flexProperty(center);
 
-  .navigationSearchBar {
+  &Bar {
     @include respond(phone-small) {
       height: 2rem;
-    }
-  }
-
-  .searchWindow {
-    position: absolute;
-    z-index: -1;
-    top: -4rem;
-    width: 100%;
-    height: 30rem;
-    background: color(whiteColor);
-    color: color(darkGreyColor);
-    @include boxShadowBlack(1rem, 3rem, 0.3);
-  }
-
-  .resultsList {
-    position: absolute;
-    z-index: 2;
-    top: 8rem;
-    width: 100%;
-    max-height: calc(100% - 8rem);
-    overflow: auto;
-    @include scrollBar('&');
-    @include flexBox(column);
-    gap: 0.8rem;
-    padding: 0 1rem 1rem 1rem;
-
-    &Item {
-      @include flexBox;
-      @include flexProperty(flex-start, center);
-      gap: 1rem;
     }
   }
 }

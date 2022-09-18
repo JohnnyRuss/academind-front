@@ -1,6 +1,6 @@
 @use '../../../../styles/helpers/helpers' as *;
 
-.navActions {
+.mainNavActions {
   flex: 3;
   @include flexBox;
   @include flexProperty(flex-end, center);
@@ -19,21 +19,11 @@
     }
   }
 
-  & .themeCheckLabel,
-  & button {
-    @include flexBox;
-    @include flexProperty(center, center);
-  }
-
-  .themeCheck {
+  &BurgerBtn {
     display: none;
-  }
-
-  .navBurgerBtn {
-    display: none !important;
 
     @include respond(tab-portrate) {
-      display: flex !important;
+      display: flex;
     }
   }
 }

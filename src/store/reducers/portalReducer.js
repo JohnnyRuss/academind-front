@@ -1,21 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/**
+ Potal reducer is used for:
+ * showing active post media
+ * showing,save and manipulate update post data
+ * showing,save and manipulate share post data
+  is separated because, components which uses this reducer are separated too into the most top level component and are waiting for state change
+ */
 const portalSlice = createSlice({
   name: 'portal',
   initialState: {
-    // show post media files modal
+    ////////////////////////
+    // show post media modal
     mediaModalIsOpen: false,
-    activeMediaIndex: null,
+    activeMediaIndex: '',
     mediaFiles: null,
+
+    /////////////////////////
     // show update post modal
-    updatePostModalIsOpen: false,
-    updatePostMediaFiles: [],
     updatePostLoadingState: {
-      loading: null,
+      loading: false,
       error: false,
       message: '',
     },
+    updatePostModalIsOpen: false,
+    updatePostMediaFiles: [],
     updatePostData: {
+      _id: '',
       description: '',
       type: '',
       shareDescription: '',
@@ -23,6 +34,8 @@ const portalSlice = createSlice({
       article: '',
       commentsAmount: '',
     },
+
+    ////////////////////////
     // show share post modal
     sharePostModalIsOpen: false,
     sharePostData: {
@@ -35,11 +48,12 @@ const portalSlice = createSlice({
       shareDescription: '',
       title: '',
       article: '',
-      comments: null,
+      commentsCount: '',
       _id: '',
     },
   },
   reducers: {
+    //////////////////////
     // Aactive Media Files
     setMediaModalOpen(state, action) {
       const { index, media } = action.payload;
@@ -50,8 +64,11 @@ const portalSlice = createSlice({
 
     deactivateMediaModal(state) {
       state.mediaModalIsOpen = false;
+      state.mediaFiles = null;
+      state.activeMediaIndex = '';
     },
 
+    ////////////////
     // Update Portal
     updatePost(state) {
       state.updatePostLoadingState.loading = true;
@@ -61,9 +78,7 @@ const portalSlice = createSlice({
 
     setUpdatePostModalOpen(state, { payload }) {
       Object.keys(payload).forEach((key) => (state.updatePostData[key] = payload[key]));
-
       state.updatePostMediaFiles = payload.media;
-
       state.updatePostModalIsOpen = true;
     },
 
@@ -78,6 +93,9 @@ const portalSlice = createSlice({
         .map((file) => state.updatePostMediaFiles.push(file));
     },
 
+    /**
+     * during post updating we may get into existing media files which are type of string and represents the img url, or may we add new files whicj are type of object. So we need to fillter out both of them types
+     */
     removeUpdateFiles(state, { payload }) {
       if (payload !== 'all') {
         if (typeof payload === 'object') {
@@ -98,11 +116,12 @@ const portalSlice = createSlice({
       state.updatePostMediaFiles = [];
       Object.keys(state.updatePostData).map((key) => (state.updatePostData[key] = ''));
 
-      state.updatePostLoadingState.loading = true;
+      state.updatePostLoadingState.loading = false;
       state.updatePostLoadingState.error = false;
       state.updatePostLoadingState.message = '';
     },
 
+    ///////////////
     // Share Portal
     setSharePostModalOpen(state, action) {
       Object.keys(action.payload).forEach(

@@ -13,7 +13,7 @@ function SearchBar({ value, className, allowToggle, onFocus = () => {}, onChange
         value={value}
         type='text'
         id='search'
-        className={`${styles.searchFieldInp} ${showBar ? styles.active : ''}`}
+        className={`${styles.searchFieldInp} ${showBar ? styles.active : ''} navigation--searchBar`}
         placeholder='search...'
         data-search-bar-input
       />

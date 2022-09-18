@@ -6,7 +6,7 @@ import { useRestrictBodyOverflow } from '../../hooks';
 
 import { Modal, PostAuthentic, UserIdentifier } from '../Layouts';
 import { TextField, BTN } from '../Interface';
-import styles from './sharePostPortal.module.scss';
+import styles from './styles/sharePostPortal.module.scss';
 
 function SharePostPortal() {
   const dispatch = useDispatch();

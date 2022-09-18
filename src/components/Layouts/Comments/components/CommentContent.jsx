@@ -4,6 +4,9 @@ import styles from './styles/commentContent.module.scss';
 import { OptionsMini } from '../../../Layouts';
 import { LikeIcon } from '../../../Layouts/Icons/icons';
 
+/**
+ * renders comment text and options
+ */
 function CommentContent({
   text,
   likesCount,

@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
 
 import styles from './styles/navActions.module.scss';
+import { NavSearchBar } from './';
+import { Avatar, Link } from '../../Interface';
 import {
   ThemeIcon,
   UserFriendRequestsIcon,
@@ -10,19 +12,17 @@ import {
   NotificationIcon,
   BurgerIcon,
 } from '../../Layouts/Icons/icons';
-import { Avatar, Link } from '../../Interface';
-import NavSearchBar from './NavSearchBar';
 
-function NavActions({ setActiveNavList }) {
+function NavActions() {
   const { image, id } = useSelector(selectActiveUserInfo);
 
   return (
-    <div className={styles.navActions}>
+    <div className={styles.mainNavActions}>
       <NavSearchBar />
-      <label htmlFor='themeCheck' className={styles.themeCheckLabel}>
+      {/* <label htmlFor='themeCheck'>
         <input type='checkBox' id='themeCheck' className={styles.themeCheck} />
         <ThemeIcon />
-      </label>
+      </label> */}
       <button>
         <UserFriendRequestsIcon />
       </button>
@@ -32,11 +32,11 @@ function NavActions({ setActiveNavList }) {
       <button>
         <NotificationIcon />
       </button>
-      <button className={styles.navBurgerBtn} onClick={() => setActiveNavList((prev) => !prev)}>
+      <button className={styles.mainNavActionsBurgerBtn}>
         <BurgerIcon />
       </button>
       <Link path={`/profile/${id}/posts`}>
-        <Avatar img={image} className={styles.navigationAvatar} />
+        <Avatar img={image} />
       </Link>
     </div>
   );

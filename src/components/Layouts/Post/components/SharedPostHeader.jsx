@@ -3,8 +3,6 @@ import { UserIdentifier } from '../../';
 
 /**
  * if post is shared, here will be shown current user avatar and userName
- * @param {*} param0
- * @returns
  */
 function SharedPostHeader({ data, descriptionClassName, identifierClassName }) {
   return (

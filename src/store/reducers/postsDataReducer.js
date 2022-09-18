@@ -4,7 +4,7 @@ const postsDataSlice = createSlice({
   name: 'PostsData',
   initialState: {
     loadingState: {
-      loading: null,
+      loading: false,
       error: false,
       message: '',
     },
@@ -28,13 +28,16 @@ const postsDataSlice = createSlice({
     setDeletedPost(state, { payload }) {
       state.posts = state.posts.filter((post) => post._id !== payload);
 
-      state.loadingState.loading = null;
+      state.loadingState.loading = false;
       state.loadingState.error = false;
       state.loadingState.message = '';
     },
 
     setUpdatedPost(state, { payload }) {
       const { params, data } = payload;
+
+      const i = state.posts.findIndex((post) => post._id === params.postId);
+      state.posts[i] = { ...state.posts[i], ...data };
     },
 
     reactOnPost() {},

@@ -2,9 +2,6 @@ import styles from './styles/commentActions.module.scss';
 import { LikeIcon, ReplyIcon } from '../../Icons/icons';
 import { TimeAgo } from '../../../Interface';
 
-/**
- * @returns like and reply buttons and timeAgo Text
- */
 function CommentActions({ createdAt, handleReaction, handleReply }) {
   return (
     <div className={styles.commentActions}>

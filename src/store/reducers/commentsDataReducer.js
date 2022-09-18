@@ -3,14 +3,27 @@ import { createSlice } from '@reduxjs/toolkit';
 const commentsDataSlice = createSlice({
   name: 'CommentsData',
   initialState: {
+    getCommentsLoadingState: {
+      loading: false,
+      error: false,
+      message: '',
+    },
     comments: [],
   },
   reducers: {
-    getPostComments() {},
+    getPostComments(state) {
+      state.getCommentsLoadingState.loading = true;
+      state.getCommentsLoadingState.error = false;
+      state.getCommentsLoadingState.message = '';
+    },
 
     setPostComments(state, { payload }) {
       const { postId, data } = payload;
       state.comments = [...state.comments, { postId, comments: data }];
+
+      state.getCommentsLoadingState.loading = false;
+      state.getCommentsLoadingState.error = false;
+      state.getCommentsLoadingState.message = '';
     },
 
     addComment() {},

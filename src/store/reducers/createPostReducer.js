@@ -4,7 +4,7 @@ const createPostSlice = createSlice({
   name: 'createPost',
   initialState: {
     loadingState: {
-      loading: null,
+      loading: false,
       error: false,
       message: '',
     },
