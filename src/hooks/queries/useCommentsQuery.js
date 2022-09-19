@@ -24,8 +24,10 @@ function useCommentsQuery(thread, options, conditions) {
   function handleSubmitComment(text, tags) {
     tags = tags.map((tag) => tag._id).filter((tag) => tag !== id);
 
+    if (!text.trim() && !tags[0]) return;
+
     if (conditions.updateParent || conditions.updateReply) {
-      if (thread === 'MAIN_THREAD')
+      if (thread === 'MAIN_THREAD') {
         dispatch(
           updateComment({
             body: { tags, text },
@@ -35,7 +37,7 @@ function useCommentsQuery(thread, options, conditions) {
             },
           })
         );
-      else if (thread === 'REPLIES_THREAD')
+      } else if (thread === 'REPLIES_THREAD') {
         dispatch(
           updateCommentReply({
             body: { tags, text },
@@ -46,16 +48,18 @@ function useCommentsQuery(thread, options, conditions) {
             },
           })
         );
+      }
     } else {
-      if (thread === 'MAIN_THREAD')
+      if (thread === 'MAIN_THREAD') {
         dispatch(addComment({ postId: options.postId, body: { text, tags } }));
-      else if (thread === 'REPLIES_THREAD')
+      } else if (thread === 'REPLIES_THREAD') {
         dispatch(
           addCommentReply({
             params: { commentId: options.commentId, postId: options.postId },
             body: { text, tags },
           })
         );
+      }
     }
 
     conditions.resetHandler();

@@ -9,11 +9,11 @@ import { CommentContent, CommentActions } from './';
  * This component represents the comment body, like user identifier, comment text, timeAgo text and action buttons-: like and reply. After all this component is used by "CommentListItem" as well as "RepliesThread" so this is the crossroad to access actions like options, reactions and reply for parent comment as well as for comment from replies thread.
  * @param {string} type "Parent"||"Reply" must to be passed based on component which renders "Comment" tries to represent the comment from main thread or comment from replies thread. Based on type into the coresponding commentReducer function will be passed coressponding information. After all this prop helps useCommentQuery to define which kind of function to execute, forexample send like for Parent or for Reply
  * @param {Object} data object which containc individual comment object, postId adn if it comes from replies thread even the parentId(parent comment id)
- * @param {function} handlers object which contains functions: setCommentReply and setUpdateComment 
+ * @param {function} handlers object which contains functions: setCommentReply and setUpdateComment
  * @returns
  */
 function Comment({ type, data, handlers, className }) {
-  const { comment, postId, parentId } = data;
+  const { comment, postId, postAuthorId, parentId } = data;
 
   const { handleReactionOnComment, handlePinComment, handleDeleteComment } = useCommentsQuery();
 
@@ -50,6 +50,8 @@ function Comment({ type, data, handlers, className }) {
       <CommentContent
         text={comment.text}
         likesCount={comment.likesAmount}
+        postAuthorId={postAuthorId}
+        commentAuthorId={comment.author._id}
         handlePinComment={() => handlePinComment({ type, postId, commentId, replyId })}
         handleUpdateCredentials={handleUpdateCredentials}
         handleDeleteComment={() => handleDeleteComment({ type, postId, commentId, replyId })}

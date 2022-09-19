@@ -3,13 +3,14 @@ import { takeLatest } from 'redux-saga/effects';
 import { deletePost, reactOnPost } from '../../reducers/postsDataReducer';
 
 import { createPost } from '../../reducers/createPostReducer';
-import { updatePost } from '../../reducers/portalReducer';
+import { updatePost, sharePost } from '../../reducers/portalReducer';
 
 import {
   createPostHandler,
   deletePostHandler,
   updatePostHandler,
   reactOnPostHandler,
+  sharePostHandler,
 } from '../handlers/postsHandlers';
 
 function* postsSaga() {
@@ -17,6 +18,7 @@ function* postsSaga() {
   yield takeLatest(deletePost, deletePostHandler);
   yield takeLatest(updatePost, updatePostHandler);
   yield takeLatest(reactOnPost, reactOnPostHandler);
+  yield takeLatest(sharePost, sharePostHandler);
 }
 
 export default postsSaga;

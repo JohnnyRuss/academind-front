@@ -14,7 +14,7 @@ function RepliesThread({ state, data, handlers }) {
     setUpdateComment,
   } = handlers;
 
-  const { postId, parentId, authorId, authorName, replies, repliesAmount } = data;
+  const { postId, parentId, authorId, postAuthorId, authorName, replies, repliesAmount } = data;
 
   const { activeReply, updateReply, showReplies, tags, text, parentAuthor } = state;
 
@@ -44,7 +44,7 @@ function RepliesThread({ state, data, handlers }) {
           {commentReplies?.map((reply) => (
             <Comment
               type='Reply'
-              data={{ postId, comment: reply, parentId }}
+              data={{ postId, comment: reply, parentId, postAuthorId }}
               handlers={{ setCommentReply, setUpdateComment }}
               className={styles.nestedComment}
               key={reply._id}

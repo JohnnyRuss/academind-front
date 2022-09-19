@@ -1,7 +1,7 @@
 import { useState, Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
 
-import { usePostQuery } from '../../../hooks';
+import { usePostQuery, useForeignUser } from '../../../hooks';
 
 import styles from './components/styles/post.module.scss';
 import { SharedPostHeader } from './components';
@@ -17,21 +17,29 @@ function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal
 
   const { loading } = useSelector(({ postsData }) => postsData.loadingState);
 
+  const belongsToActiveUser = useForeignUser(data?.author?._id);
+
   return (
     <article className={`${styles.post} ${className || ''}`}>
       {startDeletion && loading === true && <InlineStandSpinner />}
       <OptionsBig
         keyWord='post'
         {...({ options } || '')}
+        restriction={belongsToActiveUser}
         optBtnClassName={styles.postOptionsBtn}
         deleteHandler={() => deletePostHandler(data._id)}
         updateHandler={() =>
           activateUpdatePostModal({
             _id: data._id,
-            description: data.shared ? data.authenticDescription : data.description,
+            shared: data.shared,
+            authenticAuthorId: data?.authenticAuthor?._id,
+            authenticAuthorImg: data?.authenticAuthor?.profileImg,
+            authenticAuthorName: data?.authenticAuthor?.userName,
+            createdAt: data.createdAt,
+            description: data?.description,
+            authenticDescription: data?.authenticDescription,
             media: data.media,
             type: data.type,
-            shareDescription: data.shareDescription,
             article: data.article,
             title: data.title,
             comments: data.comments,
@@ -70,7 +78,11 @@ function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal
       <PostActions setShowCommnents={setShowComments} data={data} />
       {showComments && (
         <Suspense fallback={<InlineSpinner />}>
-          <CommentsList postId={data._id} />
+          <CommentsList
+            postId={data._id}
+            postAuthorId={data.author._id}
+            commentsAmount={data.commentsAmount}
+          />
         </Suspense>
       )}
     </article>

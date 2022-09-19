@@ -11,3 +11,8 @@ export const selectPostCommentsById = createSelector(
   postCommentsById,
   (selectedData) => selectedData
 );
+
+// export const selectPostAuthorById = ({ postsData }, id) => {
+//   const post = postsData.posts.find((post) => post._id === id);
+//   return { authorId: post.author._id };
+// };

@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectPostCommentsById } from '../../../store/selectors/postSelectors';
-
 import { useCommentPin, useComments, useCommentsQuery } from '../../../hooks';
 
 import styles from './components/styles/commentsList.module.scss';
@@ -15,7 +14,7 @@ import { CommentListItem } from './components';
  * Comments main thread
  * @param {string} param.postId
  */
-function CommentsList({ postId }) {
+function CommentsList({ postId, postAuthorId, commentsAmount }) {
   const data = useSelector((state) => selectPostCommentsById(state, postId));
   const { loading } = useSelector(({ commentsData }) => commentsData.getCommentsLoadingState);
 
@@ -36,7 +35,7 @@ function CommentsList({ postId }) {
   );
 
   useEffect(() => {
-    if (data) return;
+    if (data || commentsAmount === 0) return;
     handleGetPostComments();
   }, []);
 
@@ -48,6 +47,7 @@ function CommentsList({ postId }) {
           comment={comment}
           setUpdateParentComment={setUpdateParentComment}
           postId={postId}
+          postAuthorId={postAuthorId}
           key={comment._id}
         />
       ))}

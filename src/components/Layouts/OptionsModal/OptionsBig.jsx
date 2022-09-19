@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { useBlurOnBody } from '../../../hooks';
+
 import styles from './optionsModal.module.scss';
 import DeletionPopUp from './DeletionPopUp';
 import {
@@ -21,6 +23,7 @@ import {
  */
 function OptionsBig({
   keyWord,
+  restriction,
   options = { update: true, save: true, report: true, delete: true },
   updateHandler,
   deleteHandler,
@@ -45,17 +48,31 @@ function OptionsBig({
     setOpen(false);
   }
 
+  const handleOnFocus = () => {
+    setOpen((prev) => !prev);
+  };
+
+  const handleOnBlur = () => {
+    setOpen(false);
+  };
+
+  const { blur, onFocus } = useBlurOnBody(handleOnFocus, handleOnBlur, [
+    'options--big--modal--window',
+    'options--big--modal--window--btn',
+  ]);
+
   return (
     <>
       <button
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={onFocus}
         data-opt-btn
-        className={`${styles.openOptBtn} ${optBtnClassName}`}>
+        className={`${styles.openOptBtn} ${optBtnClassName} options--big--modal--window--btn`}>
         <DotsHorizontalIcon />
       </button>
-      {open && (
-        <div className={`${styles.optionsModal} ${styles.optBig} ${modalClassName}`}>
-          {options?.update && (
+      {open && !blur && (
+        <div
+          className={`${styles.optionsModal} ${styles.optBig} ${modalClassName} options--big--modal--window`}>
+          {restriction && options?.update && (
             <button className={styles.optBtn} onClick={handleUpdate}>
               <UpdateIcon />
               <span>update</span>
@@ -73,7 +90,7 @@ function OptionsBig({
               <span>report</span>
             </button>
           )}
-          {options?.delete && (
+          {restriction && options?.delete && (
             <button className={styles.optBtn} onClick={handleDeletePopUp}>
               <DeleteIcon />
               <span>delete</span>

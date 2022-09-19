@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 
 /**
@@ -19,18 +20,20 @@ function useBlurOnBody(handleOnFocus, handleOnBlur, excludeElCls) {
 
   function onBodyClick(e) {
     if (excludeElCls.some((cls) => e.target.closest(`.${cls}`))) return;
+    removeListener();
     setBlur(true);
     handleOnBlur();
   }
 
+  const removeListener = () => {
+    document.querySelector('body').removeEventListener('click', onBodyClick, true);
+  };
+
   useEffect(() => {
-    if (blur) return document.querySelector('body').removeEventListener('click', onBodyClick);
+    !blur && document.querySelector('body').addEventListener('click', onBodyClick, true);
+  }, [blur]);
 
-    document.querySelector('body').addEventListener('click', onBodyClick);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [blur, handleOnBlur, excludeElCls]);
-
-  return { blur, onFocus };
+  return { blur, onFocus, removeListener };
 }
 
 export default useBlurOnBody;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,7 +9,7 @@ import { usePost } from '../../hooks';
 
 import styles from './styles/content.module.scss';
 import { Post, CreatePost } from '../Layouts';
-import { uid } from 'uid';
+
 function Content() {
   const dispatch = useDispatch();
 
@@ -19,7 +20,6 @@ function Content() {
 
   useEffect(() => {
     dispatch(getFeedPosts(id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

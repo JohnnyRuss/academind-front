@@ -7,7 +7,7 @@ import { Comment, RepliesThread } from './';
  * @param {object} param.setUpdateParentComment is passed to the parent comment and in passing by this component it sets parent comment credentials to the comments reducer
  * @param {string} param.postId id of post which one comment belongs
  */
-function CommentListItem({ comment, setUpdateParentComment, postId }) {
+function CommentListItem({ comment, setUpdateParentComment, postId, postAuthorId }) {
   const {
     state,
     setTag,
@@ -23,13 +23,14 @@ function CommentListItem({ comment, setUpdateParentComment, postId }) {
       <Comment
         type='Parent'
         handlers={{ setCommentReply, setUpdateComment: setUpdateParentComment }}
-        data={{ comment, postId }}
+        data={{ comment, postId, postAuthorId }}
       />
       {comment?.replies && (
         <RepliesThread
           state={state}
           data={{
             postId,
+            postAuthorId,
             parentId: comment._id,
             authorId: comment.author._id,
             authorName: comment.author.userName,

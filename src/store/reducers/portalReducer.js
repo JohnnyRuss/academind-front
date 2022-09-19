@@ -27,9 +27,14 @@ const portalSlice = createSlice({
     updatePostMediaFiles: [],
     updatePostData: {
       _id: '',
-      description: '',
       type: '',
-      shareDescription: '',
+      shared: '',
+      authenticAuthorId: '',
+      authenticAuthorImg: '',
+      authenticAuthorName: '',
+      authenticDescription: '',
+      createdAt: '',
+      description: '',
       title: '',
       article: '',
       commentsAmount: '',
@@ -37,6 +42,11 @@ const portalSlice = createSlice({
 
     ////////////////////////
     // show share post modal
+    sharePostLoadingState: {
+      loading: false,
+      error: false,
+      message: '',
+    },
     sharePostModalIsOpen: false,
     sharePostData: {
       userName: '',
@@ -45,7 +55,6 @@ const portalSlice = createSlice({
       description: '',
       type: '',
       media: null,
-      shareDescription: '',
       title: '',
       article: '',
       commentsCount: '',
@@ -123,6 +132,13 @@ const portalSlice = createSlice({
 
     ///////////////
     // Share Portal
+
+    sharePost(state) {
+      state.sharePostLoadingState.loading = true;
+      state.sharePostLoadingState.error = false;
+      state.sharePostLoadingState.message = '';
+    },
+
     setSharePostModalOpen(state, action) {
       Object.keys(action.payload).forEach(
         (key) => (state.sharePostData[key] = action.payload[key])
@@ -130,8 +146,13 @@ const portalSlice = createSlice({
       state.sharePostModalIsOpen = true;
     },
 
-    deactivateSharePostModal(state) {
+    resetSharePostModal(state) {
       state.sharePostModalIsOpen = false;
+      Object.keys(state.sharePostData).map((key) => (state.sharePostData[key] = ''));
+
+      state.sharePostLoadingState.loading = false;
+      state.sharePostLoadingState.error = false;
+      state.sharePostLoadingState.message = '';
     },
   },
 });
@@ -148,6 +169,7 @@ export const {
   removeUpdateFiles,
   resetUpdatePostModal,
   // Share Portal
+  sharePost,
   setSharePostModalOpen,
-  deactivateSharePostModal,
+  resetSharePostModal,
 } = portalSlice.actions;

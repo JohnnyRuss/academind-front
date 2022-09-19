@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { createPost } from '../../store/reducers/createPostReducer';
-import { updatePost } from '../../store/reducers/portalReducer';
+import { updatePost, sharePost } from '../../store/reducers/portalReducer';
 import { deletePost, reactOnPost } from '../../store/reducers/postsDataReducer';
 
 function usePostQuery() {
@@ -40,7 +40,17 @@ function usePostQuery() {
     dispatch(reactOnPost({ postId, body: { reaction } }));
   }
 
-  return { handlePostPublish, deletePostHandler, reactOnPostHandler, startDeletion };
+  function sharePostHandler(postId, body) {
+    dispatch(sharePost({ postId, body }));
+  }
+
+  return {
+    handlePostPublish,
+    deletePostHandler,
+    startDeletion,
+    reactOnPostHandler,
+    sharePostHandler,
+  };
 }
 
 export default usePostQuery;

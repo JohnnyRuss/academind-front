@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { useForeignUser } from '../../../../hooks';
+
 import styles from './styles/commentContent.module.scss';
 import { OptionsMini } from '../../../Layouts';
 import { LikeIcon } from '../../../Layouts/Icons/icons';
@@ -8,6 +10,8 @@ import { LikeIcon } from '../../../Layouts/Icons/icons';
  * renders comment text and options
  */
 function CommentContent({
+  postAuthorId,
+  commentAuthorId,
   text,
   likesCount,
   handlePinComment,
@@ -28,6 +32,9 @@ function CommentContent({
       text
     );
 
+  const postBelongsToActiveUser = useForeignUser(postAuthorId);
+  const commentBelongsToActiveUser = useForeignUser(commentAuthorId);
+
   return (
     <div className={styles.commentContent}>
       <p className={styles.commentText}>{commentText}</p>
@@ -37,14 +44,17 @@ function CommentContent({
           <span>{likesCount}</span>
         </p>
       )}
-      <OptionsMini
-        keyWord='comment'
-        pinHandler={handlePinComment}
-        updateHandler={handleUpdateCredentials}
-        deleteHandler={handleDeleteComment}
-        btnClassName={styles.optBtn}
-        className={styles.optModal}
-      />
+      {postBelongsToActiveUser && (
+        <OptionsMini
+          keyWord='comment'
+          belongsActiveUser={commentBelongsToActiveUser}
+          pinHandler={handlePinComment}
+          updateHandler={handleUpdateCredentials}
+          deleteHandler={handleDeleteComment}
+          btnClassName={styles.optBtn}
+          className={styles.optModal}
+        />
+      )}
     </div>
   );
 }

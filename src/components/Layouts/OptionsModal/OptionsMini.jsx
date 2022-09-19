@@ -14,6 +14,7 @@ import DeletionPopUp from './DeletionPopUp';
  * @returns
  */
 function OptionsMini({
+  belongsActiveUser,
   updateHandler,
   deleteHandler,
   pinHandler,
@@ -58,19 +59,23 @@ function OptionsMini({
               <span>pin</span>
             </button>
           )}
-          <button
-            className={styles.optBtn}
-            onClick={() => {
-              updateHandler();
-              setOpenOptions(false);
-            }}>
-            <UpdateIcon />
-            <span>update</span>
-          </button>
-          <button className={styles.optBtn} onClick={handleDeletePopUp}>
-            <DeleteIcon />
-            <span>delete</span>
-          </button>
+          {belongsActiveUser && (
+            <>
+              <button
+                className={styles.optBtn}
+                onClick={() => {
+                  updateHandler();
+                  setOpenOptions(false);
+                }}>
+                <UpdateIcon />
+                <span>update</span>
+              </button>
+              <button className={styles.optBtn} onClick={handleDeletePopUp}>
+                <DeleteIcon />
+                <span>delete</span>
+              </button>
+            </>
+          )}
         </div>
       )}
       {deletion && (

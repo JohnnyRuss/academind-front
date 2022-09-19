@@ -34,12 +34,11 @@ function PostActions({ className, setShowCommnents, data, redirect }) {
     activateSharePostModal({
       _id: data._id,
       type: data.type,
-      userName: data.author.userName,
-      userImg: data.author.profileImg,
+      userName: data.shared ? data.authenticAuthor.userName : data.author.userName,
+      userImg: data.shared ? data.authenticAuthor.profileImg : data.author.profileImg,
+      description: data.shared ? data.authenticDescription : data.description,
       createdAt: data.createdAt,
-      description: data.description,
       media: data.media,
-      shareDescription: data.authenticDescription,
       commentsCount: data.commentsCount,
       //for blog share
       article: data.article,

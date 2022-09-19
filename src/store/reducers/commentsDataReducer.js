@@ -31,7 +31,9 @@ const commentsDataSlice = createSlice({
     setNewComment(state, { payload }) {
       const { postId, data } = payload;
       const i = state.comments.findIndex((commentBlock) => commentBlock.postId === postId);
-      state.comments[i].comments = [...state.comments[i].comments, data];
+      console.log(i);
+      if (i && i >= 0) state.comments[i].comments = [...state.comments[i].comments, data];
+      else state.comments.push({ postId, comments: [data] });
     },
 
     addCommentReply() {},
@@ -59,6 +61,9 @@ const commentsDataSlice = createSlice({
       commentsBlock.comments = commentsBlock.comments?.filter(
         (comment) => comment._id !== params.commentId
       );
+
+      if (!commentsBlock.comments[0])
+        state.comments = state.comments.filter((block) => block.postId !== commentsBlock.postId);
     },
 
     deleteCommentReply() {},

@@ -1,7 +1,7 @@
-import { axiosQuery } from '../../axiosConfig';
+import { axiosQuery, axiosFormDataQuery } from '../../axiosConfig';
 
 async function queryCreatePost(body) {
-  return await axiosQuery.post(`/posts`, body);
+  return await axiosFormDataQuery.post(`/posts`, body);
 }
 
 async function queryDeletePost(postId) {
@@ -9,11 +9,15 @@ async function queryDeletePost(postId) {
 }
 
 async function queryUpdatePost({ postId, body }) {
-  return await axiosQuery.patch(`/posts/${postId}`, body);
+  return await axiosFormDataQuery.patch(`/posts/${postId}`, body);
 }
 
 async function queryPostReaction({ postId, body }) {
   return await axiosQuery.post(`/posts/${postId}/reaction`, body);
 }
 
-export { queryCreatePost, queryPostReaction, queryUpdatePost, queryDeletePost };
+async function querySharePost({ postId, body }) {
+  return await axiosQuery.post(`/posts/${postId}`, body);
+}
+
+export { queryCreatePost, queryPostReaction, queryUpdatePost, queryDeletePost, querySharePost };

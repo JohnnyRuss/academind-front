@@ -28,18 +28,14 @@ function PostAuthentic({
     <div className={shared ? styles.shareAuthentic : styles.postBody} data-post-authentic>
       {type === 'post' ? (
         <>
-          {!proccessUpdate && (
-            <>
-              <UserIdentifier
-                userId={data.userId}
-                userName={data.userName}
-                timeAgo={data.createdAt}
-                img={data.userImg}
-                className={styles.identifier}
-              />
-              <PostDescription description={data.description} className={styles.description} />
-            </>
-          )}
+          <UserIdentifier
+            userId={data?.userId}
+            userName={data.userName}
+            timeAgo={data.createdAt}
+            img={data.userImg}
+            className={styles.identifier}
+          />
+          <PostDescription description={data.description} className={styles.description} />
           {data.media && (
             <PostMedia
               activateMedia={

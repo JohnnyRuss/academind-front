@@ -54,7 +54,6 @@ function* addCommentHandler({ payload: { postId, body } }) {
 function* addCommentReplyHandler({ payload: { params, body } }) {
   try {
     const { data } = yield call(queryAddCommentReply, { commentId: params.commentId, body });
-    console.log(body);
     yield all([
       put(setNewCommentReply({ params, data })),
       put(encreasePostCommentCount(params.postId)),
@@ -168,7 +167,7 @@ function showError(error, location) {
   console.log({
     error: true,
     location: `sagaHandler - ${location}`,
-    message: error.message,
+    message: error?.response?.data?.message || error.message,
     err: error,
     stack: error.stack,
   });

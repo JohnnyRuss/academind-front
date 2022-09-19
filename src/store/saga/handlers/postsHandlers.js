@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 import {
   setNewPost,
@@ -8,13 +8,14 @@ import {
 } from '../../reducers/postsDataReducer';
 
 import { resetCreatePost } from '../../reducers/createPostReducer';
-import { resetUpdatePostModal } from '../../reducers/portalReducer';
+import { resetUpdatePostModal, resetSharePostModal } from '../../reducers/portalReducer';
 
 import {
   queryCreatePost,
   queryDeletePost,
   queryUpdatePost,
   queryPostReaction,
+  querySharePost,
 } from '../api/postQueries';
 
 function* createPostHandler({ payload: body }) {
@@ -51,7 +52,22 @@ function* reactOnPostHandler({ payload: { postId, body } }) {
     const { data } = yield call(queryPostReaction, { postId, body });
     yield put(setPostReaction({ postId, data }));
   } catch (error) {
-    showError(error, 'getUserProfileHandler');
+    showError(error, 'reactOnPostHandler');
+  }
+}
+
+function* sharePostHandler({ payload: { postId, body } }) {
+  try {
+    const { data } = yield call(querySharePost, { postId, body });
+
+    const activeUserId = yield select(({ activeUser }) => activeUser.user._id);
+    const { pathname } = window.location;
+    const urlFragments = pathname.split('/');
+    if (urlFragments[1] === 'feed' || urlFragments[2] === activeUserId) yield put(setNewPost(data));
+
+    yield put(resetSharePostModal());
+  } catch (error) {
+    showError(error, 'sharePostHandler');
   }
 }
 
@@ -59,10 +75,16 @@ function showError(error, location) {
   console.log({
     error: true,
     location: `sagaHandler - ${location}`,
-    message: error.message,
+    message: error?.response?.data?.message || error.message,
     err: error,
     stack: error.stack,
   });
 }
 
-export { createPostHandler, deletePostHandler, updatePostHandler, reactOnPostHandler };
+export {
+  createPostHandler,
+  deletePostHandler,
+  updatePostHandler,
+  reactOnPostHandler,
+  sharePostHandler,
+};
