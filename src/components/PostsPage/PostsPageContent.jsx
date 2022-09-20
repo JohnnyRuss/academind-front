@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { getProfilePosts } from '../../store/reducers/userReducer';
 import { selectPosts } from '../../store/selectors/postSelectors';
 
-import styles from './components/styles/postsPageContent.module.scss';
 import { CreatePost } from '../Layouts';
 import PostsPagePostsList from './components/PostsPagePostsList';
 
@@ -22,7 +21,7 @@ function PostsPageContent() {
 
   return (
     <PostsPagePostsList data={posts}>
-      <CreatePost className={styles.postsPageContentCreatePostEl} />
+      <CreatePost />
     </PostsPagePostsList>
   );
 }

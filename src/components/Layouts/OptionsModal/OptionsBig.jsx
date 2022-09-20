@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useBlurOnBody } from '../../../hooks';
 
 import styles from './optionsModal.module.scss';
-import DeletionPopUp from './DeletionPopUp';
+import DeletionPopUp from '../DeletionPopUp/DeletionPopUp';
 import {
   UpdateIcon,
   DeleteIcon,

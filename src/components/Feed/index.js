@@ -1,3 +1,3 @@
-export { default as Container } from './Container';
-export { default as SideBarRight } from './SideBarRight';
-export { default as Content } from './Content';
+export { default as FeedContainer } from './FeedContainer';
+export { default as FeedSideBarRight } from './FeedSideBarRight';
+export { default as FeedContent } from './FeedContent';

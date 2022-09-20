@@ -1,4 +1,4 @@
-import styles from './optionsModal.module.scss';
+import styles from './deletionPopUp.module.scss';
 import { BTN } from '../../Interface';
 
 function DeletionPopUp({ setDeletion, deleteHandler, keyWord }) {

@@ -1,4 +1,4 @@
-import styles from './styles/container.module.scss';
+import styles from './styles/feedContainer.module.scss';
 import { useScrollUp } from '../../hooks';
 
 function Container({ children }) {

@@ -1,12 +1,18 @@
 import { call, put } from 'redux-saga/effects';
 
-import { setUserProfile, setSearchResult, resetLoadingState } from '../../reducers/userReducer';
+import {
+  setUserProfile,
+  setSearchResult,
+  resetLoadingState,
+  resetNestedLoadingState,
+} from '../../reducers/userReducer';
 import { setPosts } from '../../reducers/postsDataReducer';
 
 import {
   queryUserProfile,
   queryUserProfilePosts,
   queryUserFeed,
+  queryBookmarks,
   queryUserSearch,
 } from '../api/userQueries';
 
@@ -48,6 +54,16 @@ function* getUserFeedHandler({ payload: userId }) {
   }
 }
 
+function* getBookmarksHandler({ payload }) {
+  try {
+    const { data } = yield call(queryBookmarks, payload);
+    yield put(setPosts(data));
+    yield put(resetNestedLoadingState());
+  } catch (error) {
+    showError(error, 'getBookmarksHandler');
+  }
+}
+
 function showError(error, location) {
   console.log({
     error: true,
@@ -58,4 +74,10 @@ function showError(error, location) {
   });
 }
 
-export { getUserProfileHandler, getProfilePostsHandler, getUserFeedHandler, searchUserHandler };
+export {
+  getUserProfileHandler,
+  getProfilePostsHandler,
+  getUserFeedHandler,
+  getBookmarksHandler,
+  searchUserHandler,
+};

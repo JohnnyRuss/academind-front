@@ -4,6 +4,8 @@
   max-width: $container-width;
   margin: 0 auto;
   @include flexBox;
+  gap: 2rem;
+  justify-content: space-between;
 
   @include respond(tab-landscape) {
     gap: 3rem;

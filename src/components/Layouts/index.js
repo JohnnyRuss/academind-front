@@ -23,3 +23,4 @@ export { default as BlogPost } from './BlogPost/BlogPost';
 export { default as SwiperSlider } from './SwiperSlider/SwiperSlider';
 export { default as CommentsList } from './Comments/CommentsList';
 export { default as PostActions } from './PostActions/PostActions';
+export { default as DeletionPopUp } from './DeletionPopUp/DeletionPopUp';

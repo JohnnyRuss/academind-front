@@ -32,8 +32,8 @@ function CommentContent({
       text
     );
 
-  const postBelongsToActiveUser = useForeignUser(postAuthorId);
-  const commentBelongsToActiveUser = useForeignUser(commentAuthorId);
+  const postBelongsToActiveUser = useForeignUser('basedOnId', postAuthorId);
+  const commentBelongsToActiveUser = useForeignUser('basedOnId', commentAuthorId);
 
   return (
     <div className={styles.commentContent}>
@@ -44,17 +44,17 @@ function CommentContent({
           <span>{likesCount}</span>
         </p>
       )}
-      {postBelongsToActiveUser && (
-        <OptionsMini
-          keyWord='comment'
-          belongsActiveUser={commentBelongsToActiveUser}
-          pinHandler={handlePinComment}
-          updateHandler={handleUpdateCredentials}
-          deleteHandler={handleDeleteComment}
-          btnClassName={styles.optBtn}
-          className={styles.optModal}
-        />
-      )}
+
+      <OptionsMini
+        keyWord='comment'
+        postBelongsToActiveUser={postBelongsToActiveUser}
+        belongsActiveUser={commentBelongsToActiveUser}
+        pinHandler={handlePinComment}
+        updateHandler={handleUpdateCredentials}
+        deleteHandler={handleDeleteComment}
+        btnClassName={styles.optBtn}
+        className={styles.optModal}
+      />
     </div>
   );
 }

@@ -1,12 +1,12 @@
 import { useState, Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
 
-import { usePostQuery, useForeignUser } from '../../../hooks';
+import { usePostQuery } from '../../../hooks';
 
 import styles from './components/styles/post.module.scss';
-import { SharedPostHeader } from './components';
+import { SharedPostHeader, PostOptions } from './components';
 import PostAuthentic from './PostAuthentic';
-import { OptionsBig, PostActions } from '../';
+import { PostActions } from '../';
 import { InlineSpinner, InlineStandSpinner } from '../../Interface';
 
 const CommentsList = lazy(() => import('../Comments/CommentsList'), { suspense: true });
@@ -17,16 +17,11 @@ function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal
 
   const { loading } = useSelector(({ postsData }) => postsData.loadingState);
 
-  const belongsToActiveUser = useForeignUser('basedOnId', data?.author?._id);
-
   return (
     <article className={`${styles.post} ${className || ''}`}>
       {startDeletion && loading === true && <InlineStandSpinner />}
-      <OptionsBig
-        keyWord='post'
-        {...({ options } || '')}
-        restriction={belongsToActiveUser}
-        optBtnClassName={styles.postOptionsBtn}
+      <PostOptions
+        authorId={data.author._id}
         deleteHandler={() => deletePostHandler(data._id)}
         updateHandler={() =>
           activateUpdatePostModal({

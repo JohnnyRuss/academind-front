@@ -12,8 +12,12 @@ async function queryUserFeed(userId) {
   return await axiosQuery(`/user/${userId}/feed`);
 }
 
+async function queryBookmarks(userId) {
+  return await axiosQuery(`/user/${userId}/profile/bookmarks`);
+}
+
 async function queryUserSearch(key) {
   return await axiosQuery(`/user/search?key=${key}`);
 }
 
-export { queryUserProfile, queryUserProfilePosts, queryUserFeed, queryUserSearch };
+export { queryUserProfile, queryUserProfilePosts, queryUserFeed, queryBookmarks, queryUserSearch };

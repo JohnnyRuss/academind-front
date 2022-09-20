@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import styles from './optionsModal.module.scss';
 import { UpdateIcon, DeleteIcon, PinIcon, DotsHorizontalIcon } from '../Icons/icons';
-import DeletionPopUp from './DeletionPopUp';
+import DeletionPopUp from '../DeletionPopUp/DeletionPopUp';
 
 /**
  * little modal window for options which one you can controll by the props. basically it used fir comments
@@ -14,6 +14,7 @@ import DeletionPopUp from './DeletionPopUp';
  * @returns
  */
 function OptionsMini({
+  postBelongsToActiveUser,
   belongsActiveUser,
   updateHandler,
   deleteHandler,
@@ -48,7 +49,7 @@ function OptionsMini({
       )}
       {openOptions && (
         <div className={`${styles.optionsModal} ${className || ''}`}>
-          {withPin && (
+          {withPin && postBelongsToActiveUser && (
             <button
               className={styles.optBtn}
               onClick={() => {

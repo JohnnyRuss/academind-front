@@ -1,7 +1,7 @@
 @use '../../../../../styles/helpers/helpers' as *;
 
 .createPost {
-  width: 65%;
+  width: 60rem;
   margin: 0 auto;
   @include flexBox(column);
   padding: 2rem;

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectPosts } from '../../store/selectors/postSelectors';
 import { usePost } from '../../hooks';
 
-import styles from './styles/content.module.scss';
+import styles from './styles/feedContent.module.scss';
 import { Post, CreatePost } from '../Layouts';
 
 function Content() {
@@ -11,7 +11,7 @@ function Content() {
   const { activatePostMediaHandler, activateSharePostModal } = usePost();
 
   return (
-    <div className={styles.content}>
+    <div className={styles.feedContent}>
       <CreatePost />
       {data.map((post) => (
         <Post

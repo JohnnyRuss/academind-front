@@ -12,7 +12,6 @@ function PostsPagePostsList({ children, data }) {
       {data?.map((post) => (
         <Post
           key={post._id}
-          className={styles.postsPageContentItem}
           data={post}
           activatePostMediaHandler={activatePostMediaHandler}
           activateUpdatePostModal={activateUpdatePostModal}

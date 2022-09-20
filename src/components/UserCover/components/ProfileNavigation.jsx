@@ -22,6 +22,9 @@ function ProfileNavigation() {
         <Link path={`/blog?publishBy=${id}`}>
           <li>blog</li>
         </Link>
+        <Link path={`/profile/${id}/bookmarks`}>
+          <li>bookmarks</li>
+        </Link>
       </ul>
     </nav>
   );

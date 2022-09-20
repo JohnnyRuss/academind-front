@@ -19,37 +19,22 @@ export const selectUserNameAndEmail = ({ user }) => ({
 });
 
 const selectedUserInfo = ({ user }) => ({
-  birthDate: user.user?.userInfo?.birthDate,
+  birthDate: user.user?.birthDate,
   from: {
-    country: user.user.userInfo?.from.country,
-    city: user.user.userInfo?.from.city,
+    country: user.user?.from?.country,
+    city: user.user?.from?.city,
   },
   currentLivingPlace: {
-    country: user.user.userInfo?.currentLivingPlace.country,
-    city: user.user.userInfo?.currentLivingPlace.city,
+    country: user.user?.currentLivingPlace?.country,
+    city: user.user?.currentLivingPlace?.city,
   },
-  // education: {
-  //   collage: user.user.userInfo.education.collage,
-  //   degree: user.user.userInfo.education.degree,
-  //   description: user.user.userInfo.education.description,
-  //   faculty: user.user.userInfo.education.faculty,
-  //   years: {
-  //     from: user.user.userInfo.education.years.from,
-  //     to: user.user.userInfo.education.years.to,
-  //   },
-  // },
   workplace: {
-    company: user.user.userInfo?.workplace.company,
-    // description: user.user.userInfo.workplace.description,
-    position: user.user.userInfo?.workplace.position,
-    // workingYears: {
-    //   from: user.user.userInfo.workplace.workingYears.from,
-    //   to: user.user.userInfo.workplace.workingYears.to,
-    // },
+    company: user.user?.workplace?.company,
+    position: user.user?.workplace?.position,
   },
   friendsAmount: user.user.friendsAmount,
   friends: user.user.friends,
-  createdAt: user.user.userInfo?.createdAt,
+  createdAt: user.user?.createdAt,
 });
 
 export const selectUserInfo = createSelector(selectedUserInfo, (memo) => memo);

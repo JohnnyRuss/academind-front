@@ -2,7 +2,7 @@
 
 .post {
   position: relative;
-  width: 65%;
+  width: 60rem;
   margin: 0 auto;
   @include flexBox(column);
   padding: 1rem;
@@ -38,10 +38,6 @@
         width: 2.5rem;
         height: 2.5rem;
       }
-    }
-
-    .postOptionsBtn {
-      font-size: size('bigSize');
     }
   }
 }
