@@ -17,7 +17,7 @@ function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal
 
   const { loading } = useSelector(({ postsData }) => postsData.loadingState);
 
-  const belongsToActiveUser = useForeignUser(data?.author?._id);
+  const belongsToActiveUser = useForeignUser('basedOnId', data?.author?._id);
 
   return (
     <article className={`${styles.post} ${className || ''}`}>

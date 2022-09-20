@@ -1,30 +1,43 @@
-import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-import styles from './coverImage.module.scss';
-import { Image } from '../../Interface';
+import { useUpdateUserCover, useForeignUser } from '../../../hooks';
+import { selectUserCover } from '../../../store/selectors/userSelectors';
+
+import styles from './styles/coverImage.module.scss';
+import { Image, Spinner } from '../../Interface';
 import { CameraIcon } from '../../Layouts/Icons/icons';
+import UpdateUserCoverBTN from './UpdateUserCoverBTN';
 
 function CoverImage() {
-  const img = useSelector(({ user }) => user.user.coverImg);
+  const { coverImg } = useSelector(selectUserCover);
 
-  const fileRef = useRef();
-  const [file, setFile] = useState(null);
+  const belongActiveUser = useForeignUser('basedOnLocation');
+
+  const { fileRef, file, setFile, saveChangeHandler, cancelChangeHandler, loading } =
+    useUpdateUserCover('coverImg');
 
   return (
-    <div className={styles.cover}>
-      <Image src={file ? URL.createObjectURL(file) : img} className={styles.coverImg} />
-      <label htmlFor='cover--img' className={styles.changeMediaBtn}>
-        <input
-          type='file'
-          id='cover--img'
-          ref={fileRef}
-          onChange={(e) => setFile(e.target.files[0])}
-          hidden
-        />
-        <CameraIcon />
-      </label>
-    </div>
+    <>
+      <div className={styles.cover}>
+        {loading && <Spinner />}
+        <Image src={file ? URL.createObjectURL(file) : coverImg} className={styles.coverImg} />
+        {belongActiveUser && !loading && (
+          <label htmlFor='cover--img' className={styles.changeMediaBtn}>
+            <input
+              type='file'
+              id='cover--img'
+              ref={fileRef}
+              onChange={(e) => setFile(e.target.files[0])}
+              hidden
+            />
+            <CameraIcon />
+          </label>
+        )}
+      </div>
+      {file && (
+        <UpdateUserCoverBTN cancelHandler={cancelChangeHandler} submitHandler={saveChangeHandler} />
+      )}
+    </>
   );
 }
 

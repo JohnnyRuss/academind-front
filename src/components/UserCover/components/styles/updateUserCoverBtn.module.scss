@@ -1,0 +1,15 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.updateUserCoverBtn {
+  grid-row: 4;
+  grid-column: 3;
+  justify-self: end;
+  align-self: end;
+  @include flexBox;
+  gap: 2rem;
+
+  .cancelUpdateBtn {
+    background: color(whiteShadeColor);
+    color: color(darkGreyColor);
+  }
+}

@@ -53,6 +53,11 @@ const activeUserSlice = createSlice({
       state.loadingState.message = '';
     },
 
+    setUpdatedUserCover(state, { payload }) {
+      const { field, value } = payload;
+      state.user[field] = value;
+    },
+
     getActiveUser() {},
 
     resetActiveUser(state) {
@@ -74,5 +79,11 @@ const activeUserSlice = createSlice({
 });
 
 export const activeUserReducer = activeUserSlice.reducer;
-export const { login, resetLoadingState, setActiveUser, getActiveUser, resetActiveUser } =
-  activeUserSlice.actions;
+export const {
+  login,
+  resetLoadingState,
+  setActiveUser,
+  setUpdatedUserCover,
+  getActiveUser,
+  resetActiveUser,
+} = activeUserSlice.actions;

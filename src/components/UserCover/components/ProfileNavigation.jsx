@@ -1,6 +1,6 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { Link } from '../../Interface';
-import styles from './profileNavigation.module.scss';
+import styles from './styles/profileNavigation.module.scss';
 
 function ProfileNavigation() {
   const { pathname } = useLocation();

@@ -1,30 +1,43 @@
-import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { useUpdateUserCover, useForeignUser } from '../../../hooks';
 
-import styles from './profileImage.module.scss';
-import { Image } from '../../Interface';
+import { selectUserCover } from '../../../store/selectors/userSelectors';
+
+import styles from './styles/profileImage.module.scss';
+import { Image, Spinner } from '../../Interface';
 import { CameraIcon } from '../../Layouts/Icons/icons';
+import UpdateUserCoverBTN from './UpdateUserCoverBTN';
 
 function ProfileImage() {
-  const img = useSelector(({ user }) => user.user.profileImg);
+  const { profileImg } = useSelector(selectUserCover);
 
-  const fileRef = useRef();
-  const [file, setFile] = useState(null);
+  const belongActiveUser = useForeignUser('basedOnLocation');
+
+  const { fileRef, file, setFile, saveChangeHandler, cancelChangeHandler, loading } =
+    useUpdateUserCover('profileImg');
 
   return (
-    <div className={styles.profile}>
-      <Image src={file ? URL.createObjectURL(file) : img} className={styles.profileImg} />
-      <label htmlFor='profile--img' className={styles.changeMediaBtn}>
-        <input
-          type='file'
-          id='profile--img'
-          ref={fileRef}
-          onChange={(e) => setFile(e.target.files[0])}
-          hidden
-        />
-        <CameraIcon />
-      </label>
-    </div>
+    <>
+      <div className={styles.profile}>
+        {loading && <Spinner />}
+        <Image src={file ? URL.createObjectURL(file) : profileImg} className={styles.profileImg} />
+        {belongActiveUser && !loading && (
+          <label htmlFor='profile--img' className={styles.changeMediaBtn}>
+            <input
+              type='file'
+              id='profile--img'
+              ref={fileRef}
+              onChange={(e) => setFile(e.target.files[0])}
+              hidden
+            />
+            <CameraIcon />
+          </label>
+        )}
+      </div>
+      {file && (
+        <UpdateUserCoverBTN cancelHandler={cancelChangeHandler} submitHandler={saveChangeHandler} />
+      )}
+    </>
   );
 }
 

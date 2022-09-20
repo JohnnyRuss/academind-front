@@ -19,6 +19,16 @@ const postsDataSlice = createSlice({
       state.posts = [payload, ...state.posts];
     },
 
+    setActiveUserUpdatedCover(state, { payload }) {
+      state.posts.map((post) => {
+        post.author.profileImg = payload;
+        if (post.authenticAuthor && post.authenticAuthor._id === post.author._id)
+          post.authenticAuthor.profileImg = payload;
+
+        return post;
+      });
+    },
+
     deletePost(state) {
       state.loadingState.loading = true;
       state.loadingState.error = false;
@@ -69,6 +79,7 @@ export const postsDataReducer = postsDataSlice.reducer;
 export const {
   setPosts,
   setNewPost,
+  setActiveUserUpdatedCover,
   deletePost,
   setDeletedPost,
   setUpdatedPost,

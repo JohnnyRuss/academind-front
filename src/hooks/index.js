@@ -7,6 +7,7 @@ export { default as useScrollUp } from './util/useScrollUp';
 export { default as useUpdateUserInfo } from './layoutBased/useUpdateUserInfo';
 export { default as useComments } from './layoutBased/useComments';
 export { default as usePost } from './layoutBased/usePost';
+export { default as useUpdateUserCover } from './layoutBased/useUpdateUserCover';
 
 export { default as useCommentsQuery } from './queries/useCommentsQuery';
 export { default as usePostQuery } from './queries/usePostQuery';

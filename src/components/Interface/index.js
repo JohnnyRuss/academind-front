@@ -3,6 +3,7 @@ export { default as Image } from './Image/Image';
 export { default as BTN } from './BTN/BTN';
 export { default as Spinner } from './Spinner/Spinner';
 export { default as InlineSpinner } from './Spinner/InlineSpinner';
+export { default as StandSpinner } from './Spinner/StandSpinner';
 export { default as InlineStandSpinner } from './Spinner/InlineStandSpinner';
 export { default as TimeAgo } from './TimeAgo/TimeAgo';
 export { default as TimeAgoLong } from './TimeAgo/TimeAgoLong';

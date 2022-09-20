@@ -44,7 +44,7 @@
 
 @mixin moveBottom($duration: 0.5s, $fromTop: -1rem) {
   animation: moveBottom $duration ease forwards;
-  
+
   @keyframes moveBottom {
     0% {
       opacity: 0;
@@ -73,6 +73,12 @@
 @keyframes spinner {
   100% {
     transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes spinnerFixed {
+  100% {
+    transform: rotate(360deg);
   }
 }
 

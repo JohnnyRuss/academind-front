@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 
-import { setUserProfile, setSearchResult } from '../../reducers/userReducer';
+import { setUserProfile, setSearchResult, resetLoadingState } from '../../reducers/userReducer';
 import { setPosts } from '../../reducers/postsDataReducer';
 
 import {
@@ -23,6 +23,7 @@ function* getUserProfileHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryUserProfile, userId);
     yield put(setUserProfile(data));
+    yield put(resetLoadingState());
   } catch (error) {
     showError(error, 'getUserProfileHandler');
   }
@@ -41,6 +42,7 @@ function* getUserFeedHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryUserFeed, userId);
     yield put(setPosts(data));
+    yield put(resetLoadingState());
   } catch (error) {
     showError(error, 'getUserFeedHandler');
   }

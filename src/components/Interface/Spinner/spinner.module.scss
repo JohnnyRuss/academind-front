@@ -8,17 +8,14 @@
 }
 
 .spinnerBox {
-  background: rgba(color(darkGreyColor), 0.5);
-  backdrop-filter: blur(1px);
-  position: fixed;
-  width: 100%;
-  height: calc(100vh);
-  top: 6rem;
-  z-index: 9999;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 
   .spinner {
     @extend %spinner;
-    @include CenterAbsPos;
+    animation: spinnerFixed 1s ease infinite;
   }
 }
 
@@ -27,6 +24,21 @@
   z-index: 99;
   left: 50%;
   transform: translateX(-50%);
+
+  .spinner {
+    @extend %spinner;
+    @include CenterAbsPos;
+  }
+}
+
+.standSpinnerBox {
+  background: rgba(color(darkGreyColor), 0.5);
+  backdrop-filter: blur(1px);
+  position: fixed;
+  width: 100%;
+  height: calc(100vh);
+  top: 6rem;
+  z-index: 9999;
 
   .spinner {
     @extend %spinner;

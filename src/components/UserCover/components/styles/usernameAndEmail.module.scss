@@ -1,8 +1,9 @@
-@use '../../../styles/helpers/helpers' as *;
+@use '../../../../styles/helpers/helpers' as *;
 
 .userNameAndEmail {
   padding: 0 3rem 3rem 1rem;
   grid-area: 4 / 3 / 5 / 4;
+  width: 50%;
 
   @include respond(tab-landscape) {
     grid-area: 4 / 2 / 5 / -1;

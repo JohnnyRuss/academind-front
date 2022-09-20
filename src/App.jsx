@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { Spinner } from './components/Interface';
+import { StandSpinner } from './components/Interface';
 import { Navigation, UserCover } from './components';
 
 import RestrictionAuthorised from './pages/authentication/RestrictionAuthorised';
@@ -23,7 +23,7 @@ function App() {
     <BrowserRouter>
       {/* <Spinner /> */}
       <Navigation />
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<StandSpinner />}>
         <Routes>
           <Route element={<RestrictionAuthorised />}>
             <Route path='authentication/login' element={<Login />} />

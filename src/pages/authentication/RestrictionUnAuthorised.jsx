@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { useAuthValidation } from '../../hooks';
 
-import { Spinner } from '../../components/Interface';
+import { StandSpinner } from '../../components/Interface';
 
 const MediaPortal = lazy(() => import('../../components/Portal/MediaPortal'));
 const UpdatePostPortal = lazy(() => import('../../components/Portal/UpdatePostPortal'));
@@ -19,7 +19,7 @@ function RestrictionUnAuthorised() {
   
   return (
     <>
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<StandSpinner />}>
         {mediaModalIsOpen && <MediaPortal />}
         {updatePostModalIsOpen && <UpdatePostPortal />}
         {sharePostModalIsOpen && <SharePostPortal />}
