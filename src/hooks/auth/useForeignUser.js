@@ -17,7 +17,7 @@ function useForeignUser(basedOn, userId) {
     basedOnLocation: activeUserId === profileId,
   };
 
-  return run[basedOn];
+  return { isActiveUser: run[basedOn], profileId };
 }
 
 export default useForeignUser;

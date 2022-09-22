@@ -1,7 +1,7 @@
 import styles from './requestBtn.module.scss';
 import { ConfirmFriendRequestIcon } from '../Icons/icons';
 
-function ConfirmBtn() {
+function ConfirmRequestBtn() {
   return (
     <button className={`${styles.btn} ${styles.confirmBtn}`}>
       <ConfirmFriendRequestIcon /> <span>confirm request</span>
@@ -9,4 +9,4 @@ function ConfirmBtn() {
   );
 }
 
-export default ConfirmBtn;
+export default ConfirmRequestBtn;

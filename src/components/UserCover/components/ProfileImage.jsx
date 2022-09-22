@@ -11,7 +11,7 @@ import UpdateUserCoverBTN from './UpdateUserCoverBTN';
 function ProfileImage() {
   const { profileImg } = useSelector(selectUserCover);
 
-  const belongActiveUser = useForeignUser('basedOnLocation');
+  const {isActiveUser} = useForeignUser('basedOnLocation');
 
   const { fileRef, file, setFile, saveChangeHandler, cancelChangeHandler, loading } =
     useUpdateUserCover('profileImg');
@@ -21,7 +21,7 @@ function ProfileImage() {
       <div className={styles.profile}>
         {loading && <Spinner />}
         <Image src={file ? URL.createObjectURL(file) : profileImg} className={styles.profileImg} />
-        {belongActiveUser && !loading && (
+        {isActiveUser && !loading && (
           <label htmlFor='profile--img' className={styles.changeMediaBtn}>
             <input
               type='file'

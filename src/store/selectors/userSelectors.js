@@ -39,10 +39,19 @@ const selectedUserInfo = ({ user }) => ({
 
 export const selectUserInfo = createSelector(selectedUserInfo, (memo) => memo);
 
-export const selectUserCover = ({ user, activeUser }) => {
+const selectedUserCover = ({ user, activeUser }) => {
   const currUser = user.user._id === activeUser.user._id;
   return {
     profileImg: currUser ? activeUser.user.profileImg : user.user.profileImg,
     coverImg: currUser ? activeUser.user.coverImg : user.user.coverImg,
   };
 };
+
+export const selectUserCover = createSelector(selectedUserCover, (memo) => memo);
+// export const selectUserCover = ({ user, activeUser }) => {
+//   const currUser = user.user._id === activeUser.user._id;
+//   return {
+//     profileImg: currUser ? activeUser.user.profileImg : user.user.profileImg,
+//     coverImg: currUser ? activeUser.user.coverImg : user.user.coverImg,
+//   };
+// };

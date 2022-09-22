@@ -32,8 +32,8 @@ function CommentContent({
       text
     );
 
-  const postBelongsToActiveUser = useForeignUser('basedOnId', postAuthorId);
-  const commentBelongsToActiveUser = useForeignUser('basedOnId', commentAuthorId);
+  const { isActiveUser: postBelongsToActiveUser } = useForeignUser('basedOnId', postAuthorId);
+  const { isActiveUser: commentBelongsToActiveUser } = useForeignUser('basedOnId', commentAuthorId);
 
   return (
     <div className={styles.commentContent}>

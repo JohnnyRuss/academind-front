@@ -1,7 +1,7 @@
 import styles from './requestBtn.module.scss';
 import { DeleteFriendRequestIcon } from '../Icons/icons';
 
-function DeleteBTN({ className }) {
+function DeleteRequestBTN({ className }) {
   return (
     <button className={`${styles.btn} ${styles.deleteBtn} ${className}`}>
       <DeleteFriendRequestIcon />
@@ -10,4 +10,4 @@ function DeleteBTN({ className }) {
   );
 }
 
-export default DeleteBTN;
+export default DeleteRequestBTN;

@@ -11,7 +11,7 @@ import UpdateUserCoverBTN from './UpdateUserCoverBTN';
 function CoverImage() {
   const { coverImg } = useSelector(selectUserCover);
 
-  const belongActiveUser = useForeignUser('basedOnLocation');
+  const { isActiveUser } = useForeignUser('basedOnLocation');
 
   const { fileRef, file, setFile, saveChangeHandler, cancelChangeHandler, loading } =
     useUpdateUserCover('coverImg');
@@ -21,7 +21,7 @@ function CoverImage() {
       <div className={styles.cover}>
         {loading && <Spinner />}
         <Image src={file ? URL.createObjectURL(file) : coverImg} className={styles.coverImg} />
-        {belongActiveUser && !loading && (
+        {isActiveUser && !loading && (
           <label htmlFor='cover--img' className={styles.changeMediaBtn}>
             <input
               type='file'

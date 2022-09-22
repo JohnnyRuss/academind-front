@@ -1,23 +1,22 @@
-import { useEffect, useState } from 'react';
-
-import { axiosQuery } from '../../../store/axiosConfig';
-
 import styles from './styles/friendShip.module.scss';
-import { DeleteBTN, CancelBTN, ConfirmBtn } from '../../Layouts';
+import {
+  DeleteRequestBTN,
+  CancelRequestBTN,
+  ConfirmRequestBtn,
+  SendRequestBTN,
+  IsFriendBTN,
+  SendMessageBTN,
+} from '../../Layouts';
 
-function FriendShip() {
-  const [friendShip, setFriendShip] = useState({
-    isFriend: false,
-    isPendingRequest: true,
-    isSentRequest: true,
-    isForeign: false,
-  });
-
+function FriendShip({ friendShip }) {
   return (
     <div className={styles.friendShipBTNBox}>
-      {friendShip.isPendingRequest && <ConfirmBtn />}
-      {friendShip.isPendingRequest && <DeleteBTN />}
-      {friendShip.isSentRequest && <CancelBTN />}
+      {friendShip?.isFriend && <IsFriendBTN />}
+      {friendShip?.isForeign && <SendRequestBTN />}
+      {friendShip?.isPendingRequest && <ConfirmRequestBtn />}
+      {friendShip?.isPendingRequest && <DeleteRequestBTN />}
+      {friendShip?.isSentRequest && <CancelRequestBTN />}
+      <SendMessageBTN />
     </div>
   );
 }

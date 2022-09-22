@@ -9,6 +9,8 @@
   @include flexProperty(flex-start, center);
   gap: 0.5rem;
   margin: 0 1rem 0.5rem 0;
+  @include boxShadowBlack(0, 0.5rem, 0.1);
+  outline: none;
 
   & > svg {
     font-size: size('regullarSize');
@@ -18,6 +20,8 @@
     align-self: flex-end;
   }
 
+  &.isFriendBtn,
+  &.sendBtn,
   &.deleteBtn,
   &.cancelBtn {
     background: color('whiteShadeColor');
@@ -29,6 +33,7 @@
     }
   }
 
+  &.sendMessageBtn,
   &.confirmBtn {
     background: color('blueColor');
     color: color('whiteColor');
@@ -37,5 +42,28 @@
     &:hover {
       filter: brightness(110%);
     }
+  }
+}
+
+.requestBtnBox {
+  position: relative;
+
+  .requestBtnModal {
+    position: absolute;
+    bottom: -4rem;
+    width: max-content;
+    background: color('whiteColor');
+    @include boxShadowBlack(0, 1rem, 0.2);
+    border-radius: 0.5rem;
+    animation: moveTop 0.2s;
+  }
+
+  .deleteFromFriendsBtn {
+    transition: all 0.2s;
+    box-shadow: none;
+  }
+
+  .deleteFromFriendsBtn:hover {
+    color: color(redColor);
   }
 }

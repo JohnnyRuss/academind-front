@@ -1,7 +1,7 @@
 import styles from './requestBtn.module.scss';
 import { CancelFriendRequestIcon } from '../Icons/icons';
 
-function CancelBTN({ className }) {
+function CancelRequestBTN({ className }) {
   return (
     <button className={`${styles.btn} ${styles.cancelBtn} ${className}`}>
       <CancelFriendRequestIcon />
@@ -10,4 +10,4 @@ function CancelBTN({ className }) {
   );
 }
 
-export default CancelBTN;
+export default CancelRequestBTN;
