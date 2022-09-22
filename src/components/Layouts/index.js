@@ -2,6 +2,8 @@
 export { default as UserIdentifier } from './UserIdentifier/UserIdentifier';
 export { default as Post } from './Post/Post';
 export { default as PostAuthentic } from './Post/PostAuthentic';
+export { default as PostOptions } from './PostOptions/PostOptions';
+
 export { default as OptionsMini } from './OptionsModal/OptionsMini';
 export { default as OptionsBig } from './OptionsModal/OptionsBig';
 export { default as TextArea } from './TextArea/TextArea';

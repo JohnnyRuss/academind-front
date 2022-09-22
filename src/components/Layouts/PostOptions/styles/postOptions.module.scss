@@ -1,0 +1,12 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.openPostOptBtn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  @include flexBox;
+  @include flexProperty(center, center);
+  font-size: size('largeSize');
+}
+
+

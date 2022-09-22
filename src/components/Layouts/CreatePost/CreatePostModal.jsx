@@ -28,6 +28,7 @@ function CreatePostModal({
   const { isOpen: createPostIsOpen, files: createPostFiles } = useSelector(
     ({ createPost }) => createPost
   );
+  
   const {
     updatePostModalIsOpen,
     updatePostMediaFiles,

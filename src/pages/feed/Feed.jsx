@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { selectUserId } from '../../store/selectors/userSelectors';
 import { getFeedPosts } from '../../store/reducers/userReducer';
+import { resetPosts } from '../../store/reducers/postsDataReducer';
 
 import { FeedContainer, FeedContent, FeedSideBarRight } from '../../components/Feed';
 import { SideBar as SideBarLeft } from '../../components/Layouts';
@@ -17,6 +18,7 @@ function Feed() {
 
   useEffect(() => {
     dispatch(getFeedPosts(id));
+    return () => dispatch(resetPosts());
   }, []);
 
   if (loading) return <StandSpinner />;

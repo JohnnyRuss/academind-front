@@ -4,16 +4,16 @@ import { useSelector } from 'react-redux';
 import { usePostQuery } from '../../../hooks';
 
 import styles from './components/styles/post.module.scss';
-import { SharedPostHeader, PostOptions } from './components';
+import { SharedPostHeader } from './components';
 import PostAuthentic from './PostAuthentic';
-import { PostActions } from '../';
+import { PostActions, PostOptions } from '../';
 import { InlineSpinner, InlineStandSpinner } from '../../Interface';
 
 const CommentsList = lazy(() => import('../Comments/CommentsList'), { suspense: true });
 
-function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal, className }) {
+function Post({ data, activatePostMediaHandler, activateUpdatePostModal, className }) {
   const [showComments, setShowComments] = useState(false);
-  const { deletePostHandler, startDeletion } = usePostQuery();
+  const { deletePostHandler, startDeletion, savePostHandler } = usePostQuery();
 
   const { loading } = useSelector(({ postsData }) => postsData.loadingState);
 
@@ -21,7 +21,8 @@ function Post({ data, options, activatePostMediaHandler, activateUpdatePostModal
     <article className={`${styles.post} ${className || ''}`}>
       {startDeletion && loading === true && <InlineStandSpinner />}
       <PostOptions
-        authorId={data.author._id}
+        postId={data._id}
+        savePostHandler={() => savePostHandler(data._id)}
         deleteHandler={() => deletePostHandler(data._id)}
         updateHandler={() =>
           activateUpdatePostModal({

@@ -1,9 +1,9 @@
 @use '../../../styles/helpers/helpers' as *;
 
 .btn {
-  font-size: size('smallestSize');
+  font-size: size('smallerSize');
   text-transform: capitalize;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   @include flexBox;
   @include flexProperty(flex-start, center);
@@ -14,7 +14,7 @@
     font-size: size('regullarSize');
   }
 
-  & span{
+  & span {
     align-self: flex-end;
   }
 
@@ -22,10 +22,20 @@
   &.cancelBtn {
     background: color('whiteShadeColor');
     color: color('darkGreyColor');
+    transition: all 0.2s;
+
+    &:hover {
+      filter: brightness(90%);
+    }
   }
 
   &.confirmBtn {
     background: color('blueColor');
     color: color('whiteColor');
+    transition: all 0.2s;
+
+    &:hover {
+      filter: brightness(110%);
+    }
   }
 }

@@ -3,13 +3,14 @@ import { useDispatch } from 'react-redux';
 
 import { createPost } from '../../store/reducers/createPostReducer';
 import { updatePost, sharePost } from '../../store/reducers/portalReducer';
-import { deletePost, reactOnPost } from '../../store/reducers/postsDataReducer';
+import { deletePost, reactOnPost, savePost } from '../../store/reducers/postsDataReducer';
 
 function usePostQuery() {
   const dispatch = useDispatch();
 
   const [startDeletion, setStartDeletion] = useState(false);
 
+  // includes update order
   const handlePostPublish = ({ operationType, type, description, media, postId }) => {
     const credentials = {
       description,
@@ -44,12 +45,17 @@ function usePostQuery() {
     dispatch(sharePost({ postId, body }));
   }
 
+  function savePostHandler(postId) {
+    dispatch(savePost(postId));
+  }
+
   return {
     handlePostPublish,
     deletePostHandler,
     startDeletion,
     reactOnPostHandler,
     sharePostHandler,
+    savePostHandler,
   };
 }
 

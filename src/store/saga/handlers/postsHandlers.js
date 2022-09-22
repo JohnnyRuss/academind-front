@@ -16,7 +16,10 @@ import {
   queryUpdatePost,
   queryPostReaction,
   querySharePost,
+  querySavePost,
 } from '../api/postQueries';
+
+import { allowNewPostSet } from '../../../utils/window-location';
 
 function* createPostHandler({ payload: body }) {
   try {
@@ -61,13 +64,19 @@ function* sharePostHandler({ payload: { postId, body } }) {
     const { data } = yield call(querySharePost, { postId, body });
 
     const activeUserId = yield select(({ activeUser }) => activeUser.user._id);
-    const { pathname } = window.location;
-    const urlFragments = pathname.split('/');
-    if (urlFragments[1] === 'feed' || urlFragments[2] === activeUserId) yield put(setNewPost(data));
+    if (allowNewPostSet(activeUserId)) yield put(setNewPost(data));
 
     yield put(resetSharePostModal());
   } catch (error) {
     showError(error, 'sharePostHandler');
+  }
+}
+
+function* savePostHandler({ payload: postId }) {
+  try {
+    yield call(querySavePost, postId);
+  } catch (error) {
+    showError(error, 'savePostHandler');
   }
 }
 
@@ -87,4 +96,5 @@ export {
   updatePostHandler,
   reactOnPostHandler,
   sharePostHandler,
+  savePostHandler,
 };

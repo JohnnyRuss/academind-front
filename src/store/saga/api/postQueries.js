@@ -20,4 +20,15 @@ async function querySharePost({ postId, body }) {
   return await axiosQuery.post(`/posts/${postId}`, body);
 }
 
-export { queryCreatePost, queryPostReaction, queryUpdatePost, queryDeletePost, querySharePost };
+async function querySavePost(postId) {
+  return await axiosQuery.post(`/posts/${postId}/bookmark`);
+}
+
+export {
+  queryCreatePost,
+  queryPostReaction,
+  queryUpdatePost,
+  queryDeletePost,
+  querySharePost,
+  querySavePost,
+};

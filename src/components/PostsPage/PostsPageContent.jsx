@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { getProfilePosts } from '../../store/reducers/userReducer';
+import { resetPosts } from '../../store/reducers/postsDataReducer';
 import { selectPosts } from '../../store/selectors/postSelectors';
 
 import { CreatePost } from '../Layouts';
@@ -17,6 +18,7 @@ function PostsPageContent() {
 
   useEffect(() => {
     dispatch(getProfilePosts(id));
+    return () => dispatch(resetPosts());
   }, [dispatch, id]);
 
   return (

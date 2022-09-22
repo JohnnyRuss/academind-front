@@ -1,19 +1,12 @@
-@use '../../../../../styles/helpers/helpers' as *;
-
-.openPostOptBtn {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  @include flexBox;
-  @include flexProperty(center, center);
-  font-size: size('largeSize');
-}
+@use '../../../../styles/helpers/helpers' as *;
 
 .postOptionsModal {
   position: absolute;
   z-index: 99;
   right: 1rem;
   top: 3rem;
+  min-height: 14rem;
+  min-width: 20rem;
   animation: moveTop 0.2s;
   @include flexBox(column);
   @include flexProperty(flex-start, flex-start);
@@ -29,7 +22,7 @@
     @include flexBox;
     @include flexProperty(flex-start, center);
     gap: 0.5rem;
-    padding-right: 6rem;
+    // padding-right: 6rem;
     color: color('darkLightGreyColor');
     transition: all 0.2s ease-out;
 

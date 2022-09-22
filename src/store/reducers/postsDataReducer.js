@@ -72,6 +72,16 @@ const postsDataSlice = createSlice({
         ? (state.posts[i].commentsAmount -= deletedCommentCount + 1)
         : (state.posts[i].commentsAmount -= 1);
     },
+
+    savePost() {},
+
+    removeBookmark(state, { payload }) {
+      state.posts = state.posts.filter((post) => post._id !== payload);
+    },
+
+    resetPosts(state) {
+      state.posts = [];
+    },
   },
 });
 
@@ -87,4 +97,7 @@ export const {
   setPostReaction,
   encreasePostCommentCount,
   decreasePostCommentCount,
+  savePost,
+  removeBookmark,
+  resetPosts,
 } = postsDataSlice.actions;

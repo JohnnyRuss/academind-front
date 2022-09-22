@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getBookmarks } from '../../store/reducers/userReducer';
+import { resetPosts } from '../../store/reducers/postsDataReducer';
 import { selectUserId } from '../../store/selectors/userSelectors';
 import { selectPosts } from '../../store/selectors/postSelectors';
 
@@ -19,10 +20,11 @@ function Bookmarks() {
 
   const { loading } = useSelector(({ user }) => user.nestedLoadingState);
 
-  const { activatePostMediaHandler } = usePost();
+  const { activatePostMediaHandler, activateUpdatePostModal } = usePost();
 
   useEffect(() => {
     dispatch(getBookmarks(id));
+    return () => dispatch(resetPosts());
   }, []);
 
   return (
@@ -34,6 +36,7 @@ function Bookmarks() {
             data={bookmark}
             key={bookmark._id}
             activatePostMediaHandler={activatePostMediaHandler}
+            activateUpdatePostModal={activateUpdatePostModal}
           />
         ))}
     </div>
