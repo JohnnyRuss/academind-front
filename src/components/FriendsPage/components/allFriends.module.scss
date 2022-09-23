@@ -1,10 +1,13 @@
 @use '../../../styles/helpers/helpers' as *;
 
 .allFriends {
+  position: relative;
   margin-top: 4rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem 3rem;
+  min-height: 10rem;
+  align-items: start;
 
   .friend {
     display: grid;
@@ -33,12 +36,17 @@
   }
 
   .friendName {
+    grid-row: 1;
+    grid-column: 2;
     font-size: size('smallSize');
+    font-weight: weight(mediumWeight);
+    margin-top: 0.8rem;
     text-transform: capitalize;
     color: color('darkGreyColor');
-    margin-top: 0.8rem;
-    grid-column: 2;
-    grid-row: 1;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .muntuals {

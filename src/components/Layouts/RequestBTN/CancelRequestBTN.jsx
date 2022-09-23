@@ -1,9 +1,9 @@
 import styles from './requestBtn.module.scss';
 import { CancelFriendRequestIcon } from '../Icons/icons';
 
-function CancelRequestBTN({ className }) {
+function CancelRequestBTN({ onClick }) {
   return (
-    <button className={`${styles.btn} ${styles.cancelBtn} ${className}`}>
+    <button className={`${styles.btn} ${styles.cancelBtn}`} onClick={onClick}>
       <CancelFriendRequestIcon />
       <span>cancel request</span>
     </button>

@@ -1,33 +1,21 @@
-import { useSelector } from 'react-redux';
-
-import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
-
 import styles from './styles/navActions.module.scss';
-import { NavSearchBar } from './';
-import { Avatar, Link } from '../../Interface';
+import { NavSearchBar, NavAvatar } from './';
 import {
-  ThemeIcon,
   UserFriendRequestsIcon,
-  MessengerIcon,
+  EmailIcon,
   NotificationIcon,
   BurgerIcon,
 } from '../../Layouts/Icons/icons';
 
 function NavActions() {
-  const { image, id } = useSelector(selectActiveUserInfo);
-
   return (
     <div className={styles.mainNavActions}>
       <NavSearchBar />
-      {/* <label htmlFor='themeCheck'>
-        <input type='checkBox' id='themeCheck' className={styles.themeCheck} />
-        <ThemeIcon />
-      </label> */}
       <button>
         <UserFriendRequestsIcon />
       </button>
       <button>
-        <MessengerIcon />
+        <EmailIcon />
       </button>
       <button>
         <NotificationIcon />
@@ -35,9 +23,7 @@ function NavActions() {
       <button className={styles.mainNavActionsBurgerBtn}>
         <BurgerIcon />
       </button>
-      <Link path={`/profile/${id}/posts`}>
-        <Avatar img={image} />
-      </Link>
+      <NavAvatar />
     </div>
   );
 }

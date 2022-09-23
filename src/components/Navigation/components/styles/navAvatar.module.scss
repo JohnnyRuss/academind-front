@@ -1,0 +1,29 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.navAvatarBox {
+  position: relative;
+  cursor: pointer;
+
+  .navAvatarModal {
+    position: absolute;
+    width: 15rem;
+    right: -2rem;
+    top: 5.3rem;
+    padding: 0.5rem;
+    color: color(darkGreyColor);
+    background: color(whiteColor);
+    @include boxShadowBlack(0, 1rem, 0.2);
+    animation: moveTop 0.2s;
+    text-transform: capitalize;
+  }
+
+  & a {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 0.5rem;
+  }
+
+  & svg {
+    font-size: size(smallSize);
+  }
+}

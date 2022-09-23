@@ -11,6 +11,7 @@ export { default as useUpdateUserCover } from './layoutBased/useUpdateUserCover'
 
 export { default as useCommentsQuery } from './queries/useCommentsQuery';
 export { default as usePostQuery } from './queries/usePostQuery';
+export { default as useFriendsQuery } from './queries/useFriendsQuery';
 
 export { default as useAuthValidation } from './auth/useAuthValidation';
 export { default as useRestrictAuthenticated } from './auth/useRestrictAuthenticated';

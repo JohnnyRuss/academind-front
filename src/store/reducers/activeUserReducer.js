@@ -15,6 +15,7 @@ const activeUserSlice = createSlice({
       lastName: '',
       userName: '',
       profileImg: '',
+      coverImg: '',
       createdAt: null,
       isAuthenticated: false,
     },
@@ -41,6 +42,7 @@ const activeUserSlice = createSlice({
         lastName: payload.lastName,
         userName: payload.userName,
         profileImg: payload.profileImg,
+        coverImg: payload.coverImg,
         createdAt: payload.createdAt,
         isAuthenticated: true,
       };
@@ -60,7 +62,7 @@ const activeUserSlice = createSlice({
 
     getActiveUser() {},
 
-    resetActiveUser(state) {
+    logOut(state) {
       const temp = {
         _id: '',
         email: '',
@@ -68,11 +70,12 @@ const activeUserSlice = createSlice({
         lastName: '',
         userName: '',
         profileImg: '',
+        coverImg: '',
         createdAt: null,
         isAuthenticated: false,
       };
 
-      Object.keys(state).map((key) => (state[key] = temp[key]));
+      Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
       localStorage.removeItem('academind_passport');
     },
   },
@@ -85,5 +88,5 @@ export const {
   setActiveUser,
   setUpdatedUserCover,
   getActiveUser,
-  resetActiveUser,
+  logOut,
 } = activeUserSlice.actions;

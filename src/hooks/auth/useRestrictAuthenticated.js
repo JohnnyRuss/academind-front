@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
 
 function useRestrictAuthenticated() {
   const { pathname } = useLocation();
@@ -11,14 +10,8 @@ function useRestrictAuthenticated() {
 
     const ide = JSON.parse(localStorage.getItem('academind_passport'));
 
-    if (enableRoutes.some((route) => route === pathname) && ide) {
-      try {
-        jwt_decode(ide);
-        navigate(-1);
-      } catch (error) {
-        navigate('/');
-      }
-    }
+    if (enableRoutes.some((route) => route === pathname) && ide) navigate(-1);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }

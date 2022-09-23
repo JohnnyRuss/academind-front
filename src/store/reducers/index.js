@@ -9,6 +9,7 @@ import { commentsDataReducer } from './commentsDataReducer';
 import { aboutReducer } from './aboutReducer';
 import { createPostReducer } from './createPostReducer';
 import { portalReducer } from './portalReducer';
+import { friendsReducer } from './friendsReducer';
 
 const persistedActvieUserConfig = {
   key: 'ActiveUser',
@@ -27,4 +28,5 @@ export const rootReducer = combineReducers({
   aboutPage: aboutReducer,
   createPost: createPostReducer,
   portal: portalReducer,
+  friends: friendsReducer,
 });

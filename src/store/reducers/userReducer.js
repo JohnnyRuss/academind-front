@@ -66,16 +66,6 @@ const userSlice = createSlice({
       state.nestedLoadingState.error = false;
       state.nestedLoadingState.message = '';
     },
-
-    sendFriendRequest() {},
-
-    cancelFriendRequest() {},
-
-    deleteFriendRequest() {},
-
-    confirmFriendRequest() {},
-
-    deleteFriend() {},
   },
 });
 
@@ -91,9 +81,4 @@ export const {
   getProfilePosts,
   getFeedPosts,
   getBookmarks,
-  sendFriendRequest,
-  cancelFriendRequest,
-  deleteFriendRequest,
-  confirmFriendRequest,
-  deleteFriend,
 } = userSlice.actions;

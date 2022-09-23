@@ -20,7 +20,7 @@ function Profile() {
   const dispatch = useDispatch();
 
   const { isActiveUser, profileId } = useForeignUser('basedOnLocation');
-  
+
   const [friendShip, setFriendShip] = useState(null);
 
   const { loading } = useSelector(({ user }) => user.loadingState);
@@ -47,7 +47,13 @@ function Profile() {
           <CoverImage />
           <ProfileImage />
           <UsernameAndEmail />
-          {!isActiveUser && <FriendShip friendShip={friendShip} />}
+          {!isActiveUser && (
+            <FriendShip
+              friendShip={friendShip}
+              profileId={profileId}
+              setFriendShip={setFriendShip}
+            />
+          )}
           <ProfileNavigation />
         </div>
       </div>

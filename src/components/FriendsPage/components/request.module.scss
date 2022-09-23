@@ -1,11 +1,14 @@
 @use '../../../styles/helpers/helpers' as *;
 
 .requestsList {
+  position: relative;
   margin-top: 4rem;
   display: grid;
   grid-template-columns: repeat(2, max-content);
   justify-content: space-evenly;
+  align-items: start;
   gap: 2rem 3rem;
+  min-height: 10rem;
 
   .requestItem {
     display: grid;
@@ -36,12 +39,13 @@
   }
 
   .friendName {
-    font-size: size('smallSize');
-    text-transform: capitalize;
-    color: color('darkGreyColor');
-    margin-top: 0.4rem;
     grid-row: 1;
     grid-column: 2/-1;
+    font-size: size('smallSize');
+    margin-top: 0.4rem;
+    text-transform: capitalize;
+    font-weight: weight(mediumWeight);
+    color: color('darkGreyColor');
   }
 
   .muntuals {
