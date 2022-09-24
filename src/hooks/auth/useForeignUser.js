@@ -13,7 +13,7 @@ function useForeignUser(basedOn, userId) {
   const { id: profileId } = useParams();
 
   const run = {
-    basedOnId: activeUserId === userId,
+    basedOnId: userId ? activeUserId === userId : activeUserId === profileId,
     basedOnLocation: activeUserId === profileId,
   };
 

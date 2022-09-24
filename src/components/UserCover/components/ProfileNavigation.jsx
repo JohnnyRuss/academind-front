@@ -1,11 +1,16 @@
 import { useLocation, useParams } from 'react-router-dom';
+
+import { useForeignUser } from '../../../hooks';
+
 import { Link } from '../../Interface';
 import styles from './styles/profileNavigation.module.scss';
 
 function ProfileNavigation() {
   const { pathname } = useLocation();
-  const {id} = useParams()
+  const { id } = useParams();
   const location = pathname.split('/')[3];
+
+  const { isActiveUser } = useForeignUser('basedOnId');
 
   return (
     <nav className={styles.nav}>
@@ -22,9 +27,11 @@ function ProfileNavigation() {
         <Link path={`/blog?publishBy=${id}`}>
           <li>blog</li>
         </Link>
-        <Link path={`/profile/${id}/bookmarks`}>
-          <li>bookmarks</li>
-        </Link>
+        {isActiveUser && (
+          <Link path={`/profile/${id}/bookmarks`}>
+            <li>bookmarks</li>
+          </Link>
+        )}
       </ul>
     </nav>
   );

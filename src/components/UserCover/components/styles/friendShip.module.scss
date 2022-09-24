@@ -6,5 +6,6 @@
   justify-self: end;
   @include flexBox;
   @include flexProperty(flex-start, center);
+  gap: 1.2rem;
   padding-top: 2rem;
 }

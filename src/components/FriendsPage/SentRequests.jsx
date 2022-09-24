@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { getSentRequests } from '../../store/reducers/friendsReducer';
+import { useRestrictPrivateRoute } from '../../hooks';
 
 import styles from './components/request.module.scss';
 import { CancelRequestBTN } from '../Layouts';
@@ -13,6 +14,8 @@ import RequestItemBody from './components/RequestItemBody';
 function SentRequests() {
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  useRestrictPrivateRoute();
 
   const {
     loadingState: { loading },

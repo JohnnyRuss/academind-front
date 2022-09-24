@@ -3,7 +3,7 @@ import { CancelFriendRequestIcon } from '../Icons/icons';
 
 function CancelRequestBTN({ onClick }) {
   return (
-    <button className={`${styles.btn} ${styles.cancelBtn}`} onClick={onClick}>
+    <button className={`${styles.btn} ${styles.cancelBtn}`} data-req-btn onClick={onClick}>
       <CancelFriendRequestIcon />
       <span>cancel request</span>
     </button>

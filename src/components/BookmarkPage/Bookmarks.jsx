@@ -7,7 +7,7 @@ import { resetPosts } from '../../store/reducers/postsDataReducer';
 import { selectUserId } from '../../store/selectors/userSelectors';
 import { selectPosts } from '../../store/selectors/postSelectors';
 
-import { usePost } from '../../hooks';
+import { usePost, useRestrictPrivateRoute } from '../../hooks';
 
 import styles from './components/bookmarks.module.scss';
 import { Post } from '../Layouts';
@@ -15,6 +15,9 @@ import { Spinner } from '../Interface';
 
 function Bookmarks() {
   const dispatch = useDispatch();
+
+  useRestrictPrivateRoute();
+
   const { id } = useSelector(selectUserId);
   const data = useSelector(selectPosts);
 
