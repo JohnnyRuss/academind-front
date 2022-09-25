@@ -8,12 +8,15 @@ import {
 } from '../../reducers/userReducer';
 import { setPosts } from '../../reducers/postsDataReducer';
 
+import { setUserAboutData } from '../../reducers/aboutReducer';
+
 import {
   queryUserProfile,
   queryUserProfilePosts,
   queryUserFeed,
   queryBookmarks,
   queryUserSearch,
+  queryUserAboutData,
 } from '../api/userQueries';
 
 function* searchUserHandler({ payload: key }) {
@@ -64,6 +67,15 @@ function* getBookmarksHandler({ payload }) {
   }
 }
 
+function* getUserAboutDataHandler({ payload: userId }) {
+  try {
+    const { data } = yield call(queryUserAboutData, userId);
+    yield put(setUserAboutData(data));
+  } catch (error) {
+    showError(error, 'getUserAboutDataHandler');
+  }
+}
+
 function showError(error, location) {
   console.log({
     error: true,
@@ -80,4 +92,5 @@ export {
   getUserFeedHandler,
   getBookmarksHandler,
   searchUserHandler,
+  getUserAboutDataHandler,
 };

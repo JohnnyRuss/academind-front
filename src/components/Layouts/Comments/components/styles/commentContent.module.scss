@@ -1,7 +1,6 @@
 @use '../../../../../styles/helpers/helpers' as *;
 
 .commentContent {
-  position: relative;
   @include flexBox;
   gap: 5rem;
   margin-top: -1.2rem;
@@ -34,20 +33,6 @@
     & span {
       font-size: size(smallSize);
     }
-  }
-
-  @include respond(tab-portrate) {
-    .optBtn {
-      margin-left: auto;
-      align-self: flex-start;
-      font-size: size('bigSize');
-    }
-  }
-
-  .optModal {
-    right: 1rem;
-    top: 1.8rem;
-    @include boxShadowBlack(0, 0.5rem, 0.15);
   }
 
   .showMoreBtn {

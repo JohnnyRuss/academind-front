@@ -1,25 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
 import { getSentRequests } from '../../store/reducers/friendsReducer';
-import { useRestrictPrivateRoute } from '../../hooks';
+import { useRestrictPrivateRoute, useFriendsQuery } from '../../hooks';
+import { selectUserId } from '../../store/selectors/userSelectors';
 
-import styles from './components/request.module.scss';
+import styles from './components/styles/request.module.scss';
 import { CancelRequestBTN } from '../Layouts';
 import { Spinner } from '../Interface';
 import RequestItemBody from './components/RequestItemBody';
 
 function SentRequests() {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = useSelector(selectUserId);
 
   useRestrictPrivateRoute();
+
+  const { cancelFriendRequestHandler } = useFriendsQuery();
 
   const {
     loadingState: { loading },
     sentRequests,
+    searchKey,
   } = useSelector(({ friends }) => friends);
 
   useEffect(() => {
@@ -30,15 +33,20 @@ function SentRequests() {
     <div className={styles.requestsList}>
       {loading && <Spinner />}
       {!loading &&
-        sentRequests.map(({ adressat }) => (
-          <RequestItemBody
-            key={adressat._id}
-            img={adressat.profileImg}
-            userName={adressat.userName}
-            userId={adressat._id}>
-            <CancelRequestBTN />
-          </RequestItemBody>
-        ))}
+        sentRequests
+          .filter(({ adressat }) => {
+            if (!searchKey) return adressat;
+            else return adressat.userName.includes(searchKey);
+          })
+          .map(({ adressat }) => (
+            <RequestItemBody
+              key={adressat._id}
+              img={adressat.profileImg}
+              userName={adressat.userName}
+              userId={adressat._id}>
+              <CancelRequestBTN onClick={() => cancelFriendRequestHandler(adressat._id)} />
+            </RequestItemBody>
+          ))}
     </div>
   );
 }

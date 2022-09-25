@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 
 import { useUpdateUserInfo } from '../../../../hooks';
 
-import styles from './form.module.scss';
+import styles from './styles/form.module.scss';
 import { BTN, Input, TextField, DatePicker } from '../../../Interface';
 
 function UpdateEducation() {
-  const { updateCredentials, proccessUpdate } = useSelector(({ aboutPage }) => aboutPage);
+  const { updateCredentials, proccessUpdate } = useSelector(({ aboutPage }) => aboutPage.dom);
 
   const [description, setDescription] = useState('');
 
@@ -21,19 +21,19 @@ function UpdateEducation() {
       <Input
         placeholder='collage'
         className={styles.inpUpdate}
-        defaultValue={updateCredentials.collage}
+        defaultValue={updateCredentials?.collage}
         name='collage'
       />
       <Input
         placeholder='faculty'
         className={styles.inpUpdate}
-        defaultValue={updateCredentials.faculty}
+        defaultValue={updateCredentials?.faculty}
         name='faculty'
       />
       <Input
         placeholder='degree'
         className={styles.inpUpdate}
-        defaultValue={updateCredentials.degree}
+        defaultValue={updateCredentials?.degree}
         name='degree'
       />
       <TextField
@@ -41,7 +41,7 @@ function UpdateEducation() {
         onChange={(e) => setDescription(e.target.value)}
         placeholder='description...'
         className={styles.descriptionText}
-        defaultValue={updateCredentials.description}
+        defaultValue={updateCredentials?.description}
         name='description'
       />
       <label>Study Years</label>
@@ -50,7 +50,7 @@ function UpdateEducation() {
           <label>from</label>
           <DatePicker
             className={styles.picker}
-            defaultDate={proccessUpdate ? new Date(updateCredentials.years.from) : new Date()}
+            defaultDate={proccessUpdate ? new Date(updateCredentials?.years.from) : new Date()}
             name='from'
             id='from'
           />
@@ -59,15 +59,15 @@ function UpdateEducation() {
           <label>to</label>
           <DatePicker
             className={styles.picker}
-            defaultDate={proccessUpdate ? new Date(updateCredentials.years.to) : new Date()}
+            defaultDate={proccessUpdate ? new Date(updateCredentials?.years.to) : new Date()}
             name='to'
             id='to'
           />
         </div>
-        <div className={styles.columnBox}>
+        {/* <div className={styles.columnBox}>
           <input type='checkbox' id='currently' />
           <label htmlFor='currently'>currently study here</label>
-        </div>
+        </div> */}
       </div>
       <div className={styles.btnBox}>
         <BTN className={styles.secondaryBtnUpdate} onClick={cancelHandler}>

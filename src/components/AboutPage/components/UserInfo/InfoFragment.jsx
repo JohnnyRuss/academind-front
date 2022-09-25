@@ -1,11 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 
 import { activateOption, setUpdateCredentials } from '../../../../store/reducers/aboutReducer';
+import { useForeignUser } from '../../../../hooks';
 
-import styles from './infoFragment.module.scss';
-import { DotsHorizontalIcon } from '../../../Layouts/Icons/icons';
-import { OptionsMini } from '../../../Layouts';
-import AddInfoBTN from './AddInfoBTN';
+import styles from './styles/infoFragment.module.scss';
+import { AddInfoBTN, InfoOptions } from './';
 
 /**
  * use only when you want to render information block which one contains single information unlike workplace and education blocks which ones contains array of information
@@ -22,30 +21,26 @@ import AddInfoBTN from './AddInfoBTN';
  */
 function InfoFragment({ children, name, caption, userInfo }) {
   const dispatch = useDispatch();
-  const { activeOptTarget, activeOpt } = useSelector(({ aboutPage }) => aboutPage);
+  const { activeOptTarget, activeOpt } = useSelector(({ aboutPage }) => aboutPage.dom);
 
   const activateOptions = (target) => dispatch(activateOption(target));
 
   const handleUpdate = () =>
     dispatch(setUpdateCredentials({ credentials: userInfo, target: name }));
 
+  const { isActiveUser } = useForeignUser('basedOnLocation');
+
   return (
     <div className={styles.infoFragment}>
-      <AddInfoBTN caption={caption} name={name} />
+      {!Object.values(userInfo)[0] && isActiveUser && <AddInfoBTN caption={caption} name={name} />}
       {children}
-      <button
-        className={styles.optBtnUpdate}
-        name={name}
-        onClick={(e) => activateOptions(e.currentTarget.name)}>
-        <DotsHorizontalIcon />
-      </button>
-      {activeOpt && activeOptTarget === name && (
-        <OptionsMini
-          className={styles.optModalUpdate}
+      {Object.values(userInfo)[0] && isActiveUser && (
+        <InfoOptions
+          activeOpt={activeOpt}
+          activeOptTarget={activeOptTarget}
+          name={name}
+          activateOptions={activateOptions}
           updateHandler={handleUpdate}
-          withBtn={false}
-          keyWord='information'
-          pin={false}
         />
       )}
     </div>

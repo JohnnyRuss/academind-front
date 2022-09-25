@@ -1,0 +1,38 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.friendOptBox {
+  grid-row: 1;
+  grid-column: 2;
+  justify-self: end;
+  margin-right: 0.5rem;
+  position: relative;
+  color: color(darkGreyColor);
+
+  .optBtn {
+    opacity: 0;
+    font-size: size('bigSize');
+    transition: all 0.25s;
+  }
+
+  .friendOptWindow {
+    position: absolute;
+    top: 2rem;
+    right: 0;
+    width: 14rem;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid color(darkGreyColor);
+    background: color(whiteColor);
+    animation: moveTop 0.2s;
+    transition: all 0.1s;
+
+    &:hover {
+      border-color: color(redColor);
+    }
+
+    button {
+      @include flexBox;
+      @include flexProperty(flex-start, center);
+    }
+  }
+}

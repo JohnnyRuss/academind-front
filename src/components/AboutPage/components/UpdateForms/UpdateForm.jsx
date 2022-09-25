@@ -1,7 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
 
-import styles from './updateForm.module.scss';
+import styles from './styles/updateForm.module.scss';
 import { Image } from '../../../Interface';
 
 const UpdateBirthDate = lazy(() => import('./UpdateBirthDate'));
@@ -27,7 +27,7 @@ const dynamicForms = {
  * @returns
  */
 function UpdateForm() {
-  const { active, target } = useSelector(({ aboutPage }) => aboutPage);
+  const { active, target } = useSelector(({ aboutPage }) => aboutPage.dom);
 
   return (
     <div className={styles.updateInfo}>

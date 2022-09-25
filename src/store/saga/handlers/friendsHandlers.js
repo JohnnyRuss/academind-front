@@ -1,6 +1,16 @@
 import { call, put } from 'redux-saga/effects';
 
-import { setFriends, setPendingRequests, setSentRequests } from '../../reducers/friendsReducer';
+import { isRoute } from '../../../utils/window-location';
+
+import {
+  setFriends,
+  setPendingRequests,
+  setDeletedRequest,
+  setConfirmedRequest,
+  setSentRequests,
+  setCanceledRequest,
+  setDeletedFriend,
+} from '../../reducers/friendsReducer';
 
 import {
   querySendRequest,
@@ -24,6 +34,7 @@ function* sendRequestHandler({ payload: userId }) {
 function* cancelRequestHandler({ payload: userId }) {
   try {
     yield call(queryCancelRequest, userId);
+    if (isRoute('sent-requests')) yield put(setCanceledRequest(userId));
   } catch (error) {
     showError(error, 'cancelRequestHandler');
   }
@@ -32,6 +43,7 @@ function* cancelRequestHandler({ payload: userId }) {
 function* deleteRequestHandler({ payload: userId }) {
   try {
     yield call(queryDeleteRequest, userId);
+    if (isRoute('pending-requests')) yield put(setDeletedRequest(userId));
   } catch (error) {
     showError(error, 'deleteRequestHandler');
   }
@@ -40,6 +52,7 @@ function* deleteRequestHandler({ payload: userId }) {
 function* confirmRequestHandler({ payload: userId }) {
   try {
     yield call(queryConfirmRequest, userId);
+    if (isRoute('pending-requests')) yield put(setConfirmedRequest(userId));
   } catch (error) {
     showError(error, 'confirmRequestHandler');
   }
@@ -48,6 +61,7 @@ function* confirmRequestHandler({ payload: userId }) {
 function* deleteFriendtHandler({ payload: userId }) {
   try {
     yield call(queryDeleteFriend, userId);
+    if (isRoute('all-friends')) yield put(setDeletedFriend(userId));
   } catch (error) {
     showError(error, 'deleteFriendtHandler');
   }

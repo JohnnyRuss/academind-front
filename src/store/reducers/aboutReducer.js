@@ -3,61 +3,84 @@ import { createSlice } from '@reduxjs/toolkit';
 const aboutSlice = createSlice({
   name: 'about',
   initialState: {
-    navTarget: 'basics',
-    target: '',
-    active: false,
-    activeOpt: false,
-    activeOptTarget: '',
-    updateCredentials: {},
-    proccessUpdate: false,
+    dom: {
+      navTarget: 'basics',
+      target: '',
+      active: false,
+      activeOpt: false,
+      activeOptTarget: '',
+      updateCredentials: {},
+      proccessUpdate: false,
+    },
+    data: null,
   },
   reducers: {
-    setTarget(state, action) {
-      state.active = true;
-      state.target = action.payload;
-
-      if (state.proccessUpdate) {
-        state.proccessUpdate = false;
-        state.updateCredentials = {};
-      }
+    /////////////////////////////////
+    //////////// DOM ///////////////
+    ///////////////////////////////
+    setNavTarget(state, { payload }) {
+      state.dom.navTarget = payload;
     },
 
-    setNavTarget(state, action) {
-      state.navTarget = action.payload;
+    setTarget(state, { payload }) {
+      state.dom.active = true;
+      state.dom.target = payload;
+
+      if (state.dom.proccessUpdate) {
+        state.dom.proccessUpdate = false;
+        state.dom.updateCredentials = {};
+      }
     },
 
     deActivateTarget(state) {
-      state.active = false;
-      state.target = '';
+      state.dom.active = false;
+      state.dom.target = '';
 
-      if (state.proccessUpdate) {
-        state.proccessUpdate = false;
-        state.updateCredentials = {};
+      if (state.dom.proccessUpdate) {
+        state.dom.proccessUpdate = false;
+        state.dom.updateCredentials = {};
       }
     },
 
-    activateOption(state, action) {
-      if (state.activeOpt && state.activeOptTarget === action.payload) {
-        state.activeOpt = false;
-        state.activeOptTarget = '';
+    // toggles option window
+    activateOption(state, { payload }) {
+      if (state.dom.activeOpt && state.dom.activeOptTarget === payload) {
+        state.dom.activeOpt = false;
+        state.dom.activeOptTarget = '';
       } else {
-        state.activeOpt = true;
-        state.activeOptTarget = action.payload;
+        state.dom.activeOpt = true;
+        state.dom.activeOptTarget = payload;
       }
     },
 
-    setUpdateCredentials(state, action) {
-      const { credentials, target } = action.payload;
-      state.activeOpt = false;
-      state.activeOptTarget = '';
-      state.updateCredentials = credentials;
-      state.target = target;
-      state.active = true;
-      state.proccessUpdate = true;
+    setUpdateCredentials(state, { payload }) {
+      const { credentials, target } = payload;
+      state.dom.activeOpt = false;
+      state.dom.activeOptTarget = '';
+      state.dom.updateCredentials = credentials;
+      state.dom.target = target;
+      state.dom.active = true;
+      state.dom.proccessUpdate = true;
+    },
+
+    //////////////////////////////////
+    //////////// DATA ///////////////
+    ////////////////////////////////
+    getUserAboutData(state) {},
+
+    setUserAboutData(state, { payload }) {
+      state.data = payload;
     },
   },
 });
 
 export const aboutReducer = aboutSlice.reducer;
-export const { setTarget, setNavTarget, deActivateTarget, activateOption, setUpdateCredentials } =
-  aboutSlice.actions;
+export const {
+  setTarget,
+  setNavTarget,
+  deActivateTarget,
+  activateOption,
+  setUpdateCredentials,
+  getUserAboutData,
+  setUserAboutData,
+} = aboutSlice.actions;

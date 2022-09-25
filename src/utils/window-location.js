@@ -16,3 +16,10 @@ export function allowNewPostSet(activeUserId) {
   )
     return true;
 }
+
+export function isRoute(route) {
+  const { pathname } = window.location;
+  const urlFragments = pathname.split('/');
+  const endPoint = urlFragments[urlFragments.length - 1];
+  return endPoint === route;
+}

@@ -2,12 +2,12 @@ import { useSelector } from 'react-redux';
 
 import { useUpdateUserInfo } from '../../../../hooks';
 
-import styles from './form.module.scss';
+import styles from './styles/form.module.scss';
 import { BTN, Input } from '../../../Interface';
-// import { SelectCountry } from '../../../Layouts';
+import { SelectCountry } from '../../../Layouts';
 
 function UpdateBirthPlace() {
-  const { proccessUpdate, updateCredentials } = useSelector(({ aboutPage }) => aboutPage);
+  const { proccessUpdate, updateCredentials } = useSelector(({ aboutPage }) => aboutPage.dom);
   const { cancelHandler, handleConfirm, formRef } = useUpdateUserInfo();
 
   return (
@@ -15,15 +15,15 @@ function UpdateBirthPlace() {
       <h1 className={styles.formTitleUpdate}>
         {proccessUpdate ? 'update' : 'add'} your birthplace
       </h1>
-      {/* <SelectCountry
+      <SelectCountry
         className={styles.selectCountryUpdate}
-        defaultValue={proccessUpdate ? updateCredentials.country : ''}
+        defaultValue={proccessUpdate ? updateCredentials?.country : ''}
         name='country'
-      /> */}
+      />
       <Input
         placeholder='city'
         className={styles.inpUpdate}
-        defaultValue={proccessUpdate ? updateCredentials.city : ''}
+        defaultValue={proccessUpdate ? updateCredentials?.city : ''}
         name='city'
       />
       <div className={styles.btnBox}>

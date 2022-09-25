@@ -1,5 +1,5 @@
 import { Image, Link } from '../../Interface';
-import styles from './request.module.scss';
+import styles from './styles/request.module.scss';
 
 function RequestItemBody({ children, img, userName, userId }) {
   return (

@@ -1,4 +1,4 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use '../../../../../styles/helpers/helpers' as *;
 
 .updateFormMain {
   animation: moveInRight 0.25s ease forwards;
@@ -42,6 +42,10 @@
     @extend %inpField;
   }
 
+  .descriptionText{
+    min-height: 3rem;
+  }
+
   .btnBox {
     margin-top: 2rem;
   }
@@ -54,7 +58,7 @@
 
   .columnBox {
     @include flexBox(column);
-    @include flexProperty(flex-start, center);
+    @include flexProperty(flex-start, flex-start);
     gap: 1rem;
 
     &:not(:last-child) {
@@ -62,12 +66,12 @@
       @include flexProperty(flex-start, flex-start);
     }
 
-    &:last-child {
-      transform: translateY(5%);
-      @include flexBox;
-      @include flexProperty(flex-start, center);
-      gap: 0.5rem;
-    }
+    // &:last-child {
+    //   transform: translateY(5%);
+    //   @include flexBox;
+    //   @include flexProperty(flex-start, center);
+    //   gap: 0.5rem;
+    // }
 
     .picker {
       & label:first-of-type {

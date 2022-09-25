@@ -1,4 +1,4 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use '../../../../../styles/helpers/helpers' as *;
 
 .infoBlock {
   @include flexBox(column);
@@ -17,11 +17,11 @@
   .icon {
     font-size: size('regullarSize');
     width: 2rem;
-    align-self: start;
+    margin-top: -0.5rem;
   }
 
   .smallIcon {
-    font-size: size('bigSize');
+    font-size: size('largeSize');
   }
 
   & strong {
@@ -37,6 +37,7 @@
     &Item {
       display: grid;
       grid-template-columns: min-content 1fr min-content;
+      align-items: center;
       gap: 1rem;
       position: relative;
 

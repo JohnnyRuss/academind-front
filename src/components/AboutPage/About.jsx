@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import { deActivateTarget } from '../../store/reducers/aboutReducer';
+import { deActivateTarget, getUserAboutData } from '../../store/reducers/aboutReducer';
 
 import styles from './components/about.module.scss';
 import { UserInfo } from './components/UserInfo';
@@ -10,23 +12,26 @@ import { UpdateForm } from './components/UpdateForms';
 /**
  * ties together AboutPage left and wright/info and update-form components
  * @param {Object} data object which one contains the user info
- * @returns
  */
-function About({ data }) {
+function About() {
   const dispatch = useDispatch();
+  const { id } = useParams();
+
+  const data = useSelector(({ aboutPage }) => aboutPage.data);
 
   useEffect(() => {
+    dispatch(getUserAboutData(id));
+
     return () => dispatch(deActivateTarget());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const userInfo = data;
+
   return (
     <>
       <div className={styles.about}>
         <UserInfo userInfo={data} />
         <UpdateForm />
       </div>
-      <div className={styles.detailedInfo}>
+      {/* <div className={styles.detailedInfo}>
         <h1>workplaces</h1>
         <span>
           <span>Current workplace </span>
@@ -72,7 +77,7 @@ function About({ data }) {
           <strong>{userInfo.currentWorkPlace.to}</strong>
           <p>{userInfo.currentWorkPlace.description}</p>
         </span>
-      </div>
+      </div> */}
     </>
   );
 }

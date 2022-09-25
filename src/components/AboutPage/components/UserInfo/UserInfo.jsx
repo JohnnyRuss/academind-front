@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import styles from './userInfo.module.scss';
+import styles from './styles/userInfo.module.scss';
 import { BasicInfoBlock, EduBlock, AboutNav } from './';
 
 /**
@@ -9,7 +9,7 @@ import { BasicInfoBlock, EduBlock, AboutNav } from './';
  * @returns 
  */
 function UserInfo({ userInfo }) {
-  const navTarget = useSelector(({ aboutPage }) => aboutPage.navTarget);
+  const navTarget = useSelector(({ aboutPage }) => aboutPage.dom.navTarget);
 
   return (
     <div className={styles.userInfo}>

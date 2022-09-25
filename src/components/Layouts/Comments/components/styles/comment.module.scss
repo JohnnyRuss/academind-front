@@ -3,13 +3,16 @@
 .comment {
   width: max-content;
   max-width: 85%;
-  position: relative;
+
+  .commentHeader {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 1rem;
+  }
 
   .pinIcon {
-    position: absolute;
-    top: 1.5rem;
-    right: 0;
     color: color('blueColor');
+    margin-left: auto;
   }
 
   @include respond(tab-portrate) {

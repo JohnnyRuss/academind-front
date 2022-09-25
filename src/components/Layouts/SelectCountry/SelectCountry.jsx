@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { uid } from 'uid';
 
 import styles from './selectCountry.module.scss';
-import { Flag } from 'semantic-ui-react';
+// import { Flag } from 'semantic-ui-react';
 import { Input } from '../../Interface';
 import { CloseXIcon } from '../Icons/icons';
 
@@ -257,7 +256,7 @@ const countries = [
 function SelectCountry({ className, defaultValue, name }) {
   const [results, setResults] = useState([]);
   const [value, setValue] = useState('');
-  const [country, setCountry] = useState({});
+  const [country, setCountry] = useState(null);
 
   function searchCountry(e) {
     const value = e.target.value;
@@ -280,10 +279,11 @@ function SelectCountry({ className, defaultValue, name }) {
   function deleteSelection(e) {
     e.stopPropagation();
     e.preventDefault();
-    setCountry({});
+    setCountry(null);
   }
 
   useEffect(() => {
+    if (!defaultValue) return;
     setCountry(countries.find((c) => c.name.toLowerCase() === defaultValue));
     setValue(defaultValue);
   }, [defaultValue]);
@@ -300,7 +300,7 @@ function SelectCountry({ className, defaultValue, name }) {
       />
       {country?.name && (
         <span className={styles.selectedResult}>
-          <Flag name={country.countryCode} />
+          {/* <Flag name={country.countryCode} /> */}
           {country.name}
           <button className={styles.deleteSelectedResult} onClick={deleteSelection}>
             <CloseXIcon />
@@ -310,8 +310,11 @@ function SelectCountry({ className, defaultValue, name }) {
       {value && (
         <ul className={styles.resultsList}>
           {results.map((result) => (
-            <li key={uid(6)} className={styles.resultItem} onClick={() => selectCountry(result)}>
-              <Flag name={result.countryCode} className={styles.flagItemLoc} />
+            <li
+              key={`${result.name}-${result.countryCode}`}
+              className={styles.resultItem}
+              onClick={() => selectCountry(result)}>
+              {/* <Flag name={result.countryCode} className={styles.flagItemLoc} /> */}
               <span>{result.name}</span>
             </li>
           ))}

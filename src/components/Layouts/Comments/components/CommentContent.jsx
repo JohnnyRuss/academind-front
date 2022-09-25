@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useForeignUser } from '../../../../hooks';
 
 import styles from './styles/commentContent.module.scss';
-import { OptionsMini } from '../../../Layouts';
+import CommentOptions from './CommentOptions';
 import { LikeIcon } from '../../../Layouts/Icons/icons';
 
 /**
@@ -44,16 +44,12 @@ function CommentContent({
           <span>{likesCount}</span>
         </p>
       )}
-
-      <OptionsMini
-        keyWord='comment'
+      <CommentOptions
         postBelongsToActiveUser={postBelongsToActiveUser}
         belongsActiveUser={commentBelongsToActiveUser}
         pinHandler={handlePinComment}
         updateHandler={handleUpdateCredentials}
         deleteHandler={handleDeleteComment}
-        btnClassName={styles.optBtn}
-        className={styles.optModal}
       />
     </div>
   );

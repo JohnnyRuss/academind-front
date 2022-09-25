@@ -1,0 +1,48 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.commentOptBox {
+  position: relative;
+
+  .commentOptMainBtn {
+    color: color('darkLightGreyColor');
+    & svg {
+      font-size: size('bigSize');
+    }
+  }
+
+  .commentOptionsModal {
+    position: absolute;
+    z-index: 99;
+    right: 0;
+    top: 1.5rem;
+    @include flexBox(column);
+    @include flexProperty(flex-start, flex-start);
+    gap: 0.5rem;
+    padding: 1rem;
+    font-size: size('regullarSize');
+    text-transform: capitalize;
+    background: color('whiteColor');
+    animation: moveTop 0.2s;
+    @include boxShadowBlack(0.25rem, 0.5rem, 0.25);
+
+    & .optBtn {
+      @include flexBox;
+      @include flexProperty(flex-start, center);
+      gap: 0.25rem;
+      width: 100%;
+      transition: all 0.2s ease-out;
+    }
+
+    & .optBtn:hover {
+      color: color('blackColor');
+    }
+
+    & .deleteBtn.deleteBtn:hover {
+      color: color('redColor');
+    }
+
+    & svg {
+      font-size: size('bigSize');
+    }
+  }
+}

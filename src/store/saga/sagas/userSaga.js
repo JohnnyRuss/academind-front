@@ -8,12 +8,15 @@ import {
   getBookmarks,
 } from '../../reducers/userReducer';
 
+import { getUserAboutData } from '../../reducers/aboutReducer';
+
 import {
   searchUserHandler,
   getUserProfileHandler,
   getProfilePostsHandler,
   getBookmarksHandler,
   getUserFeedHandler,
+  getUserAboutDataHandler,
 } from '../handlers/userHandlers';
 
 function* userSaga() {
@@ -22,6 +25,7 @@ function* userSaga() {
   yield takeLatest(getProfilePosts, getProfilePostsHandler);
   yield takeLatest(getBookmarks, getBookmarksHandler);
   yield takeLatest(getFeedPosts, getUserFeedHandler);
+  yield takeLatest(getUserAboutData, getUserAboutDataHandler);
 }
 
 export default userSaga;

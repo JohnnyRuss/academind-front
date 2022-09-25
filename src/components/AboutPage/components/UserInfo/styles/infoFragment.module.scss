@@ -1,4 +1,4 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use '../../../../../styles/helpers/helpers' as *;
 
 .infoFragment {
   position: relative;
@@ -15,13 +15,7 @@
   }
 
   .optBtnUpdate {
-    font-size: size('bigSize');
     opacity: 0;
     transition: all 0.2s ease-out;
-  }
-
-  .optModalUpdate {
-    right: 0;
-    top: 95%;
   }
 }

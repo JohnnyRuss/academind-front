@@ -1,20 +1,28 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { setSearchKey } from '../../store/reducers/friendsReducer';
 import { useForeignUser } from '../../hooks';
 
-import styles from './components/friendsPageNavigation.module.scss';
+import styles from './components/styles/friendsPageNavigation.module.scss';
 import { SearchBar } from '../Layouts';
 import { Link } from '../Interface';
 
 function Friends() {
+  const dispatch = useDispatch();
+
   const { pathname } = useLocation();
-  const { id } = useParams();
 
   function activeRoute(route) {
     if (pathname.includes(route)) return styles.active;
   }
 
   const { isActiveUser } = useForeignUser('basedOnId');
+
+  const searchKey = useSelector(({ friends }) => friends.searchKey);
+  function handleSearch(e) {
+    dispatch(setSearchKey(e.target.value));
+  }
 
   return (
     <nav className={styles.friendsNav}>
@@ -31,7 +39,7 @@ function Friends() {
           </Link>
         </>
       )}
-      <SearchBar className={styles.friendsSearch} />
+      <SearchBar onChange={handleSearch} value={searchKey} className={styles.friendsSearch} />
     </nav>
   );
 }

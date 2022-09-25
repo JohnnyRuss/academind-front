@@ -39,14 +39,16 @@ function Comment({ type, data, handlers, className }) {
 
   return (
     <div className={`${styles.comment} ${className || ''}`}>
-      <UserIdentifier
-        userId={comment.author?._id}
-        userName={comment.author?.userName}
-        img={comment.author?.profileImg}
-        withTime={false}
-        className={styles.postUserIdentifier}
-      />
-      {comment.pin && <PinIcon className={styles.pinIcon} />}
+      <div className={styles.commentHeader}>
+        <UserIdentifier
+          userId={comment.author?._id}
+          userName={comment.author?.userName}
+          img={comment.author?.profileImg}
+          withTime={false}
+          className={styles.postUserIdentifier}
+        />
+        {comment.pin && <PinIcon className={styles.pinIcon} />}
+      </div>
       <CommentContent
         text={comment.text}
         likesCount={comment.likesAmount}

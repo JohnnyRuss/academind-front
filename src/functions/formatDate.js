@@ -9,6 +9,7 @@ const configs = {
 };
 
 function formatDate(dateToFormat) {
+  if (!dateToFormat) return null;
   const date = new Date(dateToFormat);
   const formattedDate = new Intl.DateTimeFormat('en-us', configs.shortNumeric)?.format(date);
   return formattedDate.split('/').join('-');

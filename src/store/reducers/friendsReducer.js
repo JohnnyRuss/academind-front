@@ -11,8 +11,13 @@ const friendsSlice = createSlice({
     allFriends: [],
     pendingRequests: [],
     sentRequests: [],
+    searchKey: '',
   },
   reducers: {
+    setSearchKey(state, { payload }) {
+      state.searchKey = payload;
+    },
+
     sendFriendRequest() {},
 
     cancelFriendRequest() {},
@@ -37,6 +42,10 @@ const friendsSlice = createSlice({
       state.loadingState.message = '';
     },
 
+    setDeletedFriend(state, { payload }) {
+      state.allFriends = state.allFriends.filter((friend) => friend.friend._id !== payload);
+    },
+
     getPendingRequests(state) {
       state.loadingState.loading = true;
       state.loadingState.error = false;
@@ -49,6 +58,18 @@ const friendsSlice = createSlice({
       state.loadingState.loading = false;
       state.loadingState.error = false;
       state.loadingState.message = '';
+    },
+
+    setDeletedRequest(state, { payload }) {
+      state.pendingRequests = state.pendingRequests.filter(
+        (request) => request.adressat._id !== payload
+      );
+    },
+
+    setConfirmedRequest(state, { payload }) {
+      state.pendingRequests = state.pendingRequests.filter(
+        (request) => request.adressat._id !== payload
+      );
     },
 
     getSentRequests(state) {
@@ -64,11 +85,16 @@ const friendsSlice = createSlice({
       state.loadingState.error = false;
       state.loadingState.message = '';
     },
+
+    setCanceledRequest(state, { payload }) {
+      state.sentRequests = state.sentRequests.filter((request) => request.adressat._id !== payload);
+    },
   },
 });
 
 export const friendsReducer = friendsSlice.reducer;
 export const {
+  setSearchKey,
   sendFriendRequest,
   cancelFriendRequest,
   deleteFriendRequest,
@@ -76,8 +102,12 @@ export const {
   deleteFriend,
   getAllFriends,
   setFriends,
+  setDeletedFriend,
   getPendingRequests,
   setPendingRequests,
+  setDeletedRequest,
+  setConfirmedRequest,
   getSentRequests,
   setSentRequests,
+  setCanceledRequest,
 } = friendsSlice.actions;

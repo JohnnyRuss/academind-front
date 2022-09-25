@@ -1,7 +1,7 @@
 import styles from './deletionPopUp.module.scss';
 import { BTN } from '../../Interface';
 
-function DeletionPopUp({ setDeletion, deleteHandler, keyWord }) {
+function DeletionPopUp({ setDeletion, deleteHandler, keyWord, className }) {
   return (
     <div className={styles.confirmationPopUp}>
       <p className={styles.message}>{`are you sure you want to delete this ${keyWord} ?`}</p>

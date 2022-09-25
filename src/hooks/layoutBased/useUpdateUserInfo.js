@@ -8,7 +8,7 @@ import { destructureFormData } from '../../functions';
 const formTypes = {
   education: formatEducation,
   workplace: formatWorkplace,
-  wrapper: queryWrapper,
+  standart: formatStandart,
 };
 
 /**
@@ -28,8 +28,9 @@ function useUpdateUserInfo(type) {
     e.preventDefault();
     const output = formTypes[type]
       ? formTypes[type](destructureFormData(formRef.current))
-      : formTypes.wrapper(destructureFormData(formRef.current));
+      : formTypes.standart(destructureFormData(formRef.current));
 
+    dispatch(deActivateTarget());
     console.log(output);
   }
 
@@ -40,38 +41,34 @@ export default useUpdateUserInfo;
 
 function formatEducation(data) {
   return {
-    updateUserInput: {
-      collage: data.collage,
-      degree: data.degree,
-      description: data.description,
-      faculty: data.faculty,
-      years: {
-        from: data.from,
-        to: data.to,
-      },
+    collage: data.collage,
+    degree: data.degree,
+    description: data.description,
+    faculty: data.faculty,
+    years: {
+      from: data.from,
+      to: data.to,
     },
   };
 }
 
 function formatWorkplace(data) {
   return {
-    updateUserInput: {
-      company: data.company,
-      position: data.position,
-      description: data.description,
-      workingYears: {
-        from: data.from,
-        to: data.to,
-      },
+    company: data.company,
+    position: data.position,
+    description: data.description,
+    workingYears: {
+      from: data.from,
+      to: data.to,
     },
   };
 }
 
-function queryWrapper(data) {
+function formatStandart(data) {
   const keys = Object.keys(data);
-  const output = { updateUserInput: {} };
+  const output = {};
 
-  keys.forEach((key) => (output.updateUserInput[key] = data[key]));
+  keys.forEach((key) => (output[key] = data[key]));
 
   return output;
 }

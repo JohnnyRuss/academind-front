@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setNavTarget } from '../../../../store/reducers/aboutReducer';
 
-import styles from './aboutNav.module.scss';
+import styles from './styles/aboutNav.module.scss';
 
 function AboutNav() {
   const dispatch = useDispatch();
-  const navTarget = useSelector(({ aboutPage }) => aboutPage.navTarget);
+  const navTarget = useSelector(({ aboutPage }) => aboutPage.dom.navTarget);
 
   const handleNav = (e) => dispatch(setNavTarget(e.target.getAttribute('name')));
 

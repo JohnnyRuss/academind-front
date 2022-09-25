@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setTarget } from '../../../../store/reducers/aboutReducer';
 
-import styles from './addInfoBtn.module.scss';
+import styles from './styles/addInfoBtn.module.scss';
 import { RoundedPlusIcon, ArrowRightRectingle } from '../../../Layouts/Icons/icons';
 
 /**
@@ -15,7 +15,7 @@ import { RoundedPlusIcon, ArrowRightRectingle } from '../../../Layouts/Icons/ico
  */
 function AddInfoBTN({ name, caption }) {
   const dispatch = useDispatch();
-  const { target, proccessUpdate } = useSelector(({ aboutPage }) => aboutPage);
+  const { target, proccessUpdate } = useSelector(({ aboutPage }) => aboutPage.dom);
 
   const handleAddInfo = (target) => dispatch(setTarget(target));
 

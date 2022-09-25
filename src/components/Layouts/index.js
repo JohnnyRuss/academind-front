@@ -11,7 +11,7 @@ export { default as TextAreaWithTag } from './TextArea/TextAreaWithTag';
 export { default as Modal } from './Modal/Modal';
 // export { default as Acordion } from './Acordion/Acordion';
 // export { default as Form } from './Form/Form';
-// export { default as SelectCountry } from './SelectCountry/SelectCountry';
+export { default as SelectCountry } from './SelectCountry/SelectCountry';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as CancelRequestBTN } from './RequestBTN/CancelRequestBTN';
 export { default as ConfirmRequestBtn } from './RequestBTN/ConfirmRequestBtn';
