@@ -3,9 +3,8 @@ import { uid } from 'uid';
 import { blogPosts } from '../../utils';
 
 import styles from './components/Blog/blog.module.scss';
-import { SideBar, CreatePost, BlogPost } from '../Layouts';
+import { SideBar, BlogPost, CreateBlogPost } from '../Layouts';
 import { Stand, RightBar, CategoriesNav } from './components/Blog';
-import DraftEditor from './DraftEditor';
 
 function Blog() {
   return (
@@ -14,8 +13,7 @@ function Blog() {
       <Stand />
       <CategoriesNav />
       <div className={styles.content}>
-        <DraftEditor />
-        {/* <CreatePost className={styles.createBlogPost} /> */}
+        <CreateBlogPost />
         {blogPosts.map((post) => (
           <BlogPost post={post} key={uid(6)} />
         ))}

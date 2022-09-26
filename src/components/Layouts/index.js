@@ -20,6 +20,7 @@ export { default as SendRequestBTN } from './RequestBTN/SendRequestBTN';
 export { default as SendMessageBTN } from './RequestBTN/SendMessageBTN';
 export { default as IsFriendBTN } from './RequestBTN/IsFriendBTN';
 export { default as CreatePost } from './CreatePost/CreatePost';
+export { default as CreateBlogPost } from './CreateBlogPost/CreateBlogPost';
 export { default as CreatePostModal } from './CreatePost/CreatePostModal';
 export { default as SideBar } from './SideBar/SideBar';
 export { default as MultiCarousel } from './MultiCarousel/MultiCarousel';

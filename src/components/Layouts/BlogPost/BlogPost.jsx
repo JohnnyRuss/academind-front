@@ -1,10 +1,10 @@
-import styles from './components/blogPost.module.scss';
+import styles from './components/styles/blogPost.module.scss';
 import { Image, Link } from '../../Interface';
 import { ReviewUserInteraction, ReviewUserDetails } from './components';
 
 function BlogPost({ post, limitation = 2000, className, options = true, id }) {
   const article =
-    post?.article?.length > limitation ? post.article?.slice(0, limitation) : post?.article;
+    post?.article?.length > limitation ? `${post.article?.slice(0, limitation)}...` : post?.article;
 
   return (
     <div className={`${styles.blogPost} ${className}`} id={id ? id : ''}>

@@ -1,4 +1,4 @@
-import styles from './reviewUserDetails.module.scss';
+import styles from './styles/reviewUserDetails.module.scss';
 import { Avatar, Link, TimeAgo } from '../../../Interface';
 
 function ReviewUserDetails({ createdAt, title, userName, userImg }) {

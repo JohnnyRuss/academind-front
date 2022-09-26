@@ -1,0 +1,26 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.blogPostUserInteractionsBox {
+  @include flexBox(column);
+  @include flexProperty(flex-start, center);
+  gap: 1rem;
+  font-size: size('smallSize');
+  padding-right: 2.8rem;
+
+  .blogPostInteractions {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 1rem;
+
+    span {
+      @include flexBox;
+      @include flexProperty(flex-start, center);
+      gap: 0.25rem;
+
+      & svg {
+        font-size: size(bigSize);
+      }
+    }
+  }
+}
+
