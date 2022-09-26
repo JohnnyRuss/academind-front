@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { useUpdateUserInfo } from '../../../../hooks';
+import { useAboutUserQuery } from '../../../../hooks';
 
 import styles from './styles/form.module.scss';
 import { BTN, Input, TextField, DatePicker } from '../../../Interface';
@@ -11,7 +11,7 @@ function UpdateWorkPlace() {
 
   const [description, setDescription] = useState('');
 
-  const { cancelHandler, handleConfirm, formRef } = useUpdateUserInfo('workplace');
+  const { cancelHandler, handleConfirm, formRef } = useAboutUserQuery('workplace');
 
   return (
     <form className={styles.updateFormMain} ref={formRef} onSubmit={handleConfirm}>

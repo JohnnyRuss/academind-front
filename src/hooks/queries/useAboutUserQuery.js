@@ -16,7 +16,7 @@ const formTypes = {
  * @param {type} type defines which kind of information block have to be handled. and it is necessery to pass the type prop only if you're gonna handle the education or workplace blocks, because of they contain nested fields and in the case to send information to DB in correct form it is neccessery to format data manually. in other cases it is not required to pass the type prop
  * @returns cancelUpdate handler function which have to be passed on cancel button, confirmUpdate handler function which have to be passed on confirm button or on the form(onSubmit) and formRef which one have to be passed on the actual form element to work properly
  */
-function useUpdateUserInfo(type) {
+function useAboutUserQuery(type) {
   const dispatch = useDispatch();
   const formRef = useRef();
 
@@ -37,7 +37,7 @@ function useUpdateUserInfo(type) {
   return { cancelHandler, handleConfirm, formRef };
 }
 
-export default useUpdateUserInfo;
+export default useAboutUserQuery;
 
 function formatEducation(data) {
   return {

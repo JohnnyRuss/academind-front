@@ -12,6 +12,11 @@ const aboutSlice = createSlice({
       updateCredentials: {},
       proccessUpdate: false,
     },
+    loadingState: {
+      loading: false,
+      error: false,
+      message: '',
+    },
     data: null,
   },
   reducers: {
@@ -66,10 +71,22 @@ const aboutSlice = createSlice({
     //////////////////////////////////
     //////////// DATA ///////////////
     ////////////////////////////////
-    getUserAboutData(state) {},
+    getUserAboutData(state) {
+      state.loadingState.loading = true;
+      state.loadingState.error = false;
+      state.loadingState.message = '';
+    },
 
     setUserAboutData(state, { payload }) {
       state.data = payload;
+
+      state.loadingState.loading = false;
+      state.loadingState.error = false;
+      state.loadingState.message = '';
+    },
+
+    resetData(state) {
+      state.data = null;
     },
   },
 });
@@ -83,4 +100,5 @@ export const {
   setUpdateCredentials,
   getUserAboutData,
   setUserAboutData,
+  resetData,
 } = aboutSlice.actions;

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { deActivateTarget, getUserAboutData } from '../../store/reducers/aboutReducer';
+import { deActivateTarget, getUserAboutData, resetData } from '../../store/reducers/aboutReducer';
 
 import styles from './components/about.module.scss';
 import { UserInfo } from './components/UserInfo';
@@ -22,7 +22,10 @@ function About() {
   useEffect(() => {
     dispatch(getUserAboutData(id));
 
-    return () => dispatch(deActivateTarget());
+    return () => {
+      dispatch(deActivateTarget());
+      dispatch(resetData());
+    };
   }, []);
 
   return (

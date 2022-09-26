@@ -1,6 +1,7 @@
 @use '../../../../../styles/helpers/helpers' as *;
 
 .userInfo {
+  position: relative;
   justify-self: start;
   width: 100%;
   @include flexBox(column);

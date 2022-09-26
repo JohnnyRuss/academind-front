@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { useUpdateUserInfo } from '../../../../hooks';
+import { useAboutUserQuery } from '../../../../hooks';
 
 import styles from './styles/form.module.scss';
 import { BTN, Input } from '../../../Interface';
@@ -8,7 +8,7 @@ import { SelectCountry } from '../../../Layouts';
 
 function UpdateBirthPlace() {
   const { proccessUpdate, updateCredentials } = useSelector(({ aboutPage }) => aboutPage.dom);
-  const { cancelHandler, handleConfirm, formRef } = useUpdateUserInfo();
+  const { cancelHandler, handleConfirm, formRef } = useAboutUserQuery();
 
   return (
     <form className={styles.updateFormMain} ref={formRef} onSubmit={handleConfirm}>
