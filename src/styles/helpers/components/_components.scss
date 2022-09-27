@@ -19,6 +19,7 @@
 
   #{$element}::-webkit-scrollbar-thumb:hover {
     background: color(darkGreyColor);
+    cursor: grab !important;
   }
 
   #{$element}::-webkit-scrollbar-track {

@@ -10,11 +10,16 @@ const createPostSlice = createSlice({
     },
     files: [],
     activeSelectedMedia: false,
-    isOpen: false,
+    createPostIsOpen: false,
+    createBlogPostIsOpen: false,
   },
   reducers: {
-    setIsOpen(state, { payload }) {
-      state.isOpen = payload;
+    setCreatePostIsOpen(state, { payload }) {
+      state.createPostIsOpen = payload;
+    },
+
+    setCreateBlogPostIsOpen(state, { payload }) {
+      state.createBlogPostIsOpen = payload;
     },
 
     setFile(state, { payload }) {
@@ -49,11 +54,17 @@ const createPostSlice = createSlice({
       };
       state.files = [];
       state.activeSelectedMedia = false;
-      state.isOpen = false;
+      state.createPostIsOpen = false;
     },
   },
 });
 
 export const createPostReducer = createPostSlice.reducer;
-export const { setIsOpen, setFile, removeFiles, createPost, resetCreatePost } =
-  createPostSlice.actions;
+export const {
+  setCreatePostIsOpen,
+  setCreateBlogPostIsOpen,
+  setFile,
+  removeFiles,
+  createPost,
+  resetCreatePost,
+} = createPostSlice.actions;

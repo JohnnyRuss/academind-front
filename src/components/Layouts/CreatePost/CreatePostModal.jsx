@@ -25,10 +25,8 @@ function CreatePostModal({
  because of <CreatePostModal> is used in <CreatePost> as well as in <UpdatePostPortal> we need to prevent incorect or unnecessary data set. Both of the process is controlled by different reducers, so we need the way and we have the condition which says if there are updating process then go and remove media files from portalReducer (i.e for <UpdatePostPortal>), otherwise remove files from createPostReducer(i.e for <CreatePost>). Based on the process update||create even is rendered different components <CreatePostMedia> or <PostAuthentic> because we dont want to manipuate on media files when we are updating shared post, because this media files back in the hood belong to authentic post which was shared, and media files itself takes one place in memory on the server for authentic post as well as for posts which were created from authentic post(i.e were shared)
   */
 
-  const { isOpen: createPostIsOpen, files: createPostFiles } = useSelector(
-    ({ createPost }) => createPost
-  );
-  
+  const { createPostIsOpen, files: createPostFiles } = useSelector(({ createPost }) => createPost);
+
   const {
     updatePostModalIsOpen,
     updatePostMediaFiles,

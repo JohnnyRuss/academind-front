@@ -24,6 +24,7 @@ const portalSlice = createSlice({
       message: '',
     },
     updatePostModalIsOpen: false,
+    updateBlogPostModalIsOpen: false,
     updatePostMediaFiles: [],
     updatePostData: {
       _id: '',
@@ -37,6 +38,7 @@ const portalSlice = createSlice({
       description: '',
       title: '',
       article: '',
+      categories: [],
       commentsAmount: '',
     },
 
@@ -132,7 +134,6 @@ const portalSlice = createSlice({
 
     ///////////////
     // Share Portal
-
     sharePost(state) {
       state.sharePostLoadingState.loading = true;
       state.sharePostLoadingState.error = false;

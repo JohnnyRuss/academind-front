@@ -1,0 +1,74 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.createBlogPostModal {
+  width: 70vw;
+  height: 35vw;
+
+  .fields {
+    position: relative;
+    padding-bottom: 7rem;
+    @include flexBox(column);
+    gap: 2rem;
+    height: 100%;
+    overflow: auto;
+    @include scrollBar('&');
+  }
+
+  .blogPostIdentifier {
+    position: fixed;
+    z-index: 99;
+    width: calc(100% - 1rem);
+    padding: 1rem;
+    background: color(whiteColor);
+  }
+
+  %inputField {
+    margin: 0 1rem;
+    @include flexBox(column);
+    gap: 0.5rem;
+    width: 25rem;
+
+    & input {
+      height: 4rem;
+      padding: 0 0.5rem;
+    }
+  }
+
+  .titleAndCategoryBox {
+    @include flexBox;
+    margin-top: 8rem;
+  }
+
+  [data-blog-post-field] {
+    @extend %inputField;
+    width: 50%;
+  }
+
+  .articleField {
+    width: calc(100% - 2rem);
+    border-bottom: 1px solid color(darkGreyColor);
+    padding-bottom: 1rem;
+  }
+
+  .blogPostTextField {
+    // width: calc(100% - 2rem);
+    min-height: 5rem;
+    margin: 0 auto;
+    border: none;
+    padding: 0;
+  }
+
+  .publishBtnBox {
+    background: color(whiteColor);
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 1rem;
+
+    .publishBlogPostBtn {
+      width: 100%;
+      padding: 1.25rem 0;
+    }
+  }
+}

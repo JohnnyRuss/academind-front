@@ -3,7 +3,7 @@ import { uid } from 'uid';
 import { blogPosts } from '../../utils';
 
 import styles from './components/Blog/blog.module.scss';
-import { SideBar, BlogPost, CreateBlogPost } from '../Layouts';
+import { SideBar, BlogPost, CreateBlogPostTouch } from '../Layouts';
 import { Stand, RightBar, CategoriesNav } from './components/Blog';
 
 function Blog() {
@@ -13,7 +13,7 @@ function Blog() {
       <Stand />
       <CategoriesNav />
       <div className={styles.content}>
-        <CreateBlogPost />
+        <CreateBlogPostTouch />
         {blogPosts.map((post) => (
           <BlogPost post={post} key={uid(6)} />
         ))}

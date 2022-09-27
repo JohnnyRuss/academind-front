@@ -1,0 +1,23 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.categories {
+  .categoriesList {
+    @include flexBox;
+    gap: 1rem;
+
+    span {
+      background: color(blueColor);
+      color: color(whiteColor);
+      padding: 0.15rem 0.25rem;
+      border-radius: 0.3rem;
+      @include flexBox;
+      @include flexProperty(flex-start, center);
+      gap: 0.25rem;
+
+      & button {
+        @include flexBox;
+        @include flexProperty(center, center);
+      }
+    }
+  }
+}

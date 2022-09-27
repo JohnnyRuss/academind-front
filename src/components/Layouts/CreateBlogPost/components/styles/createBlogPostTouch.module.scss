@@ -1,0 +1,49 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.createBlogPostTouch {
+  background: color('whiteColor');
+  @include flexBox(column);
+  gap: 2rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  @include boxShadowBlack(0, 1rem, 0.2);
+
+  @include respond(phone-small) {
+    padding: 1rem;
+  }
+
+  & input {
+    border: none;
+    outline: none;
+    height: 3.5rem;
+    border-radius: 10rem;
+    background: color('whiteShadeColor');
+    padding-left: 2rem;
+
+    &::placeholder {
+      opacity: 0.5;
+      font-style: italic;
+      font-size: size('smallSize');
+    }
+
+    @include respond(phone-small) {
+      height: 2.5rem;
+
+      &::placeholder {
+        font-size: size('smallerSize');
+      }
+    }
+  }
+
+  & label {
+    border-top: 1px solid color(darkGreyColor);
+    padding-top: 1rem;
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 0.5rem;
+
+    & svg {
+      color: green;
+    }
+  }
+}
