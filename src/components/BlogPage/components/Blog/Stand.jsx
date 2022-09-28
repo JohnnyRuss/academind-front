@@ -1,4 +1,4 @@
-import styles from './stand.module.scss';
+import styles from './styles/stand.module.scss';
 import { Image } from '../../../Interface';
 import { MultiCarousel } from '../../../Layouts';
 

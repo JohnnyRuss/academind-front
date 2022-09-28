@@ -1,4 +1,4 @@
-import styles from './rightBar.module.scss';
+import styles from './styles/rightBar.module.scss';
 import TopRatedPublishers from './TopRatedPublishers';
 import TopRatedPosts from './TopRatedPosts';
 

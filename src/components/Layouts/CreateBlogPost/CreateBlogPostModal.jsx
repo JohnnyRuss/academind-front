@@ -2,12 +2,11 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setFile, removeFiles } from '../../../store/reducers/createPostReducer';
-
 import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
 
 import { Modal } from '../';
-import { TextField, BTN } from '../../Interface';
-import { UserIdentifier } from '../';
+import { BTN } from '../../Interface';
+import { UserIdentifier, TextAreaWithTag } from '../';
 import styles from './components/styles/createBlogPostModal.module.scss';
 import { TitleField, Categories, CreateBlogPostMedia } from './components';
 
@@ -17,8 +16,11 @@ function CreateBlogPost({ activateModal }) {
   const { userName, image } = useSelector(selectActiveUserInfo);
   const { createBlogPostIsOpen, files } = useSelector(({ createPost }) => createPost);
 
-  const [categories, setCategories] = useState([]);
+  const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [text, setText] = useState('');
+  const [tags, setTags] = useState([]);
 
   function addCategory(e) {
     e.preventDefault();
@@ -28,12 +30,30 @@ function CreateBlogPost({ activateModal }) {
     }
   }
 
-  function handleMediaFiles(e) {
-    dispatch(setFile(e.target.files));
-  }
+  const removeCategory = (category) =>
+    setCategories(categories.filter((item) => item !== category));
 
-  function handleRemoveMediaFile(media) {
-    dispatch(removeFiles(media));
+  const handleMediaFiles = (e) => dispatch(setFile(e.target.files));
+
+  const handleRemoveMediaFile = (media) => dispatch(removeFiles(media));
+
+  const handleTag = (tag) => setTags((prev) => [...prev, tag]);
+
+  const handleRemoveTag = (id) => setTags((prev) => prev.filter((tag) => tag._id !== id));
+
+  function handler(article, tags) {
+    const body = {
+      article,
+      tags,
+      title,
+      categories,
+      type: 'blogPost',
+      images: files,
+    };
+    console.log(body);
+    setTitle('');
+    setTags([]);
+    setCategories([]);
   }
 
   return (
@@ -49,9 +69,10 @@ function CreateBlogPost({ activateModal }) {
           className={styles.blogPostIdentifier}
         />
         <div className={styles.titleAndCategoryBox}>
-          <TitleField />
+          <TitleField value={title} setTitle={setTitle} />
           <Categories
             addCategory={addCategory}
+            removeCategory={removeCategory}
             category={category}
             setCategory={setCategory}
             categories={categories}
@@ -59,9 +80,13 @@ function CreateBlogPost({ activateModal }) {
         </div>
         <div data-blog-post-field className={styles.articleField}>
           <label>Article</label>
-          <TextField
-            minRows={4}
-            maxRows={15}
+          <TextAreaWithTag
+            handler={handler}
+            text={text}
+            setText={setText}
+            tags={tags}
+            setTag={handleTag}
+            removeTag={handleRemoveTag}
             className={styles.blogPostTextField}
             placeholder='article'
           />
@@ -71,7 +96,6 @@ function CreateBlogPost({ activateModal }) {
           files={files}
           handleRemoveMediaFile={handleRemoveMediaFile}
         />
-
         <div className={styles.publishBtnBox}>
           <BTN className={styles.publishBlogPostBtn}>POST</BTN>
         </div>

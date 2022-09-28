@@ -3,6 +3,7 @@
 .createBlogPostModal {
   width: 70vw;
   height: 35vw;
+  background: color(whiteColor);
 
   .fields {
     position: relative;
@@ -54,6 +55,7 @@
     // width: calc(100% - 2rem);
     min-height: 5rem;
     margin: 0 auto;
+    border-radius: 0rem !important;
     border: none;
     padding: 0;
   }

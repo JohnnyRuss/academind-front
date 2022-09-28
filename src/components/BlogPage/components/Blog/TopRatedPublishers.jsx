@@ -1,6 +1,6 @@
 import { uid } from 'uid';
 
-import styles from './topRatedPublishers.module.scss';
+import styles from './styles/topRatedPublishers.module.scss';
 import { Image } from '../../../Interface';
 
 function TopRatedPublishers() {

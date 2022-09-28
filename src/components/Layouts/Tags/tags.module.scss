@@ -1,0 +1,22 @@
+@use '../../../styles//helpers/helpers' as *;
+
+.tagsList {
+  @include flexBox;
+  font-size: size(smallSize);
+  color: color(darkGreyColor);
+
+  & a {
+    font-weight: weight(mediumWeight);
+    text-transform: capitalize;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  & strong {
+    font-weight: weight(mediumWeight);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

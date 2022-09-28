@@ -24,6 +24,10 @@ async function querySavePost(postId) {
   return await axiosQuery.post(`/posts/${postId}/bookmark`);
 }
 
+async function queryBlogPosts() {
+  return await axiosQuery(`/posts/blogPosts`);
+}
+
 export {
   queryCreatePost,
   queryPostReaction,
@@ -31,4 +35,5 @@ export {
   queryDeletePost,
   querySharePost,
   querySavePost,
+  queryBlogPosts,
 };

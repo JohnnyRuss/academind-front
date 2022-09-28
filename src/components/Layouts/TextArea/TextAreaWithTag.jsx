@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,29 +11,32 @@ import TagsWindow from './components/TagsWindow';
 import { SendIcon } from '../Icons/icons';
 
 function TextAreaWithTag({
-  handler = (text) => {},
+  submitHandler = (text) => {},
+  text,
+  setText,
+  tags,
   setTag,
   removeTag,
   className,
   placeholder,
   focus,
   defaultValue,
-  tags,
 }) {
   const dispatch = useDispatch();
-  const [text, setText] = useState('');
 
   function textAreaSubmit(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handler(text, tags);
+      submitHandler();
+      // submitHandler(text, tags);
       setText('');
     }
   }
 
   function submitHandler(e) {
     e.preventDefault();
-    handler(text, tags);
+    submitHandler();
+    // submitHandler(text, tags);
     setText('');
   }
 
@@ -45,20 +49,19 @@ function TextAreaWithTag({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (text.includes('@')) {
+      if (text?.includes('@')) {
         const candidate = text.split('@')[1];
         if (candidate) {
           setCurrTag(true);
           dispatch(searchUser(candidate));
         }
-      } else if (!text.includes('@') && currTag) {
+      } else if (!text?.includes('@') && currTag) {
         setCurrTag(false);
         dispatch(resetSearchResult());
       }
     }, 1000);
 
     return () => clearTimeout(timer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   function handleCandidate(user) {
@@ -75,7 +78,7 @@ function TextAreaWithTag({
 
   return (
     <form className={styles.textAreaForm} onSubmit={submitHandler}>
-      <TagsList tags={tags} deleteTagCandidate={deleteTagCandidate} />
+      {tags[0] && <TagsList tags={tags} deleteTagCandidate={deleteTagCandidate} />}
       <div className={styles.fields}>
         <TextareaAutosize
           id='test'
@@ -88,9 +91,9 @@ function TextAreaWithTag({
           onKeyDown={textAreaSubmit}
           className={`${styles.textArea} ${className}`}
         />
-        <button className={styles.textAreaBtn} type='submit'>
+        {/* <button className={styles.textAreaBtn} type='submit'>
           <SendIcon />
-        </button>
+        </button> */}
       </div>
       {currTag && <TagsWindow result={result} handleCandidate={handleCandidate} />}
     </form>

@@ -26,7 +26,8 @@
       border-radius: 1rem;
       font-family: inherit;
       @include scrollBar('&');
-
+      color: color(darkGreyColor);
+     
       &::placeholder {
         padding-top: 0.25rem;
         font-size: size('smallerSize');

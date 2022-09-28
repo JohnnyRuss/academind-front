@@ -9,6 +9,8 @@ const createPostSlice = createSlice({
       message: '',
     },
     files: [],
+    categories: [],
+    tags: [],
     activeSelectedMedia: false,
     createPostIsOpen: false,
     createBlogPostIsOpen: false,
@@ -16,10 +18,12 @@ const createPostSlice = createSlice({
   reducers: {
     setCreatePostIsOpen(state, { payload }) {
       state.createPostIsOpen = payload;
+      if (payload === false) state.files = [];
     },
 
     setCreateBlogPostIsOpen(state, { payload }) {
       state.createBlogPostIsOpen = payload;
+      if (payload === false) state.files = [];
     },
 
     setFile(state, { payload }) {
@@ -38,6 +42,18 @@ const createPostSlice = createSlice({
         state.files = Object.values(state.files).filter((file) => file.name !== url.name);
       else state.files = [];
       if (Object.values(state.files).length === 0) state.activeSelectedMedia = false;
+    },
+
+    addCategory(state, { payload }) {},
+
+    removeCategory(state, { payload }) {},
+
+    addTag(state, { payload }) {
+      state.tags = [...state.tags, payload];
+    },
+
+    removeTag(state, { payload }) {
+      state.tags = state.tags.filter((tag) => tag._id !== payload);
     },
 
     createPost(state) {
@@ -65,6 +81,10 @@ export const {
   setCreateBlogPostIsOpen,
   setFile,
   removeFiles,
+  addCategory,
+  removeCategory,
+  addTag,
+  removeTag,
   createPost,
   resetCreatePost,
 } = createPostSlice.actions;

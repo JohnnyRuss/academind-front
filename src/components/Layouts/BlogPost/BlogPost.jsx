@@ -8,16 +8,20 @@ function BlogPost({ post, limitation = 2000, className, options = true, id }) {
 
   return (
     <div className={`${styles.blogPost} ${className}`} id={id ? id : ''}>
-      {post?.media && <Image src={post.media[0]} className={styles.blogPostMedia} />}
+      {post?.media[0] && <Image src={post.media[0]} className={styles.blogPostMedia} />}
       <div className={styles.blogPostInfo}>
         <div className={styles.devideRow}>
           <ReviewUserDetails
-            title={post?.title}
-            userName={post?.userName}
-            userImg={post?.userImg}
-            createdAt={post?.createdAt}
+            title={post.title}
+            userName={post.author?.userName}
+            userImg={post.author?.profileImg}
+            createdAt={post.createdAt}
           />
-          <ReviewUserInteraction comments={post?.comments} options={options} postId={post.id} />
+          <ReviewUserInteraction
+            commentsAmount={post?.commentsAmount}
+            likesAmount={post.likesAmount}
+            dislikesAmount={post.dislikesAmount}
+          />
         </div>
         <p className={styles.blogPostShortDesc}>
           {article}

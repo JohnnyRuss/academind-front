@@ -40,6 +40,7 @@ const portalSlice = createSlice({
       article: '',
       categories: [],
       commentsAmount: '',
+      tags: [],
     },
 
     ////////////////////////
@@ -91,6 +92,14 @@ const portalSlice = createSlice({
       Object.keys(payload).forEach((key) => (state.updatePostData[key] = payload[key]));
       state.updatePostMediaFiles = payload.media;
       state.updatePostModalIsOpen = true;
+    },
+
+    addTag(state, { payload }) {
+      state.updatePostData.tags = [...state.updatePostData.tags, payload];
+    },
+
+    removeTag(state, { payload }) {
+      state.updatePostData.tags = state.updatePostData.tags.filter((tag) => tag._id !== payload);
     },
 
     setUpdateFile(state, { payload }) {
@@ -166,6 +175,8 @@ export const {
   // Update Portal
   updatePost,
   setUpdatePostModalOpen,
+  addTag,
+  removeTag,
   setUpdateFile,
   removeUpdateFiles,
   resetUpdatePostModal,

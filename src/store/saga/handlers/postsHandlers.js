@@ -1,6 +1,7 @@
 import { call, put, select } from 'redux-saga/effects';
 
 import {
+  setPosts,
   setNewPost,
   setDeletedPost,
   setUpdatedPost,
@@ -17,6 +18,7 @@ import {
   queryPostReaction,
   querySharePost,
   querySavePost,
+  queryBlogPosts,
 } from '../api/postQueries';
 
 import { allowNewPostSet } from '../../../utils/window-location';
@@ -80,6 +82,15 @@ function* savePostHandler({ payload: postId }) {
   }
 }
 
+function* getBlogPostsHandler() {
+  try {
+    const { data } = yield call(queryBlogPosts);
+    yield put(setPosts(data));
+  } catch (error) {
+    showError(error, 'getBlogPostsHandler');
+  }
+}
+
 function showError(error, location) {
   console.log({
     error: true,
@@ -97,4 +108,5 @@ export {
   reactOnPostHandler,
   sharePostHandler,
   savePostHandler,
+  getBlogPostsHandler,
 };

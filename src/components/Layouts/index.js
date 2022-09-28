@@ -11,6 +11,7 @@ export { default as TextArea } from './TextArea/TextArea';
 export { default as TextAreaWithTag } from './TextArea/TextAreaWithTag';
 
 export { default as Modal } from './Modal/Modal';
+export { default as Tags } from './Tags/Tags';
 
 // export { default as Acordion } from './Acordion/Acordion';
 // export { default as Form } from './Form/Form';

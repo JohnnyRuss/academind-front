@@ -82,6 +82,12 @@ const postsDataSlice = createSlice({
     resetPosts(state) {
       state.posts = [];
     },
+
+    getBlogPosts(state) {
+      state.loadingState.loading = true;
+      state.loadingState.error = false;
+      state.loadingState.message = '';
+    },
   },
 });
 
@@ -100,4 +106,5 @@ export const {
   savePost,
   removeBookmark,
   resetPosts,
+  getBlogPosts,
 } = postsDataSlice.actions;

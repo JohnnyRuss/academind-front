@@ -55,12 +55,6 @@
     margin: 0;
   }
 
-  // avatar image
-  .identifier figure {
-    width: 3rem;
-    height: 3rem;
-  }
-
   // time details under the avatar userName
   span[data-time-ago] {
     font-size: size('smallestSize');
@@ -77,4 +71,14 @@
 
 .postBody {
   @extend %media;
+}
+
+.postAuthorIdentifierBox {
+  @include flexBox;
+  gap: 0.5rem;
+
+  .identifier figure {
+    width: 3rem;
+    height: 3rem;
+  }
 }

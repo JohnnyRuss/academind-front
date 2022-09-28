@@ -1,6 +1,11 @@
 @use '../../../../../styles/helpers/helpers' as *;
 
-.categories {
+.categoriesBox {
+  .categoriesForm {
+    @include flexBox(column);
+    gap: 0.5rem;
+  }
+
   .categoriesList {
     @include flexBox;
     gap: 1rem;

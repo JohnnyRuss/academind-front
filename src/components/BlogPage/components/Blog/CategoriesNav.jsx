@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { uid } from 'uid';
 
-import styles from './categoriesNav.module.scss';
+import styles from './styles/categoriesNav.module.scss';
 import { MultiCarousel } from '../../../Layouts';
 import { Link } from '../../../Interface';
 

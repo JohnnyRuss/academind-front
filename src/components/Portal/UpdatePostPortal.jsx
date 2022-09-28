@@ -2,7 +2,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { resetUpdatePostModal } from '../../store/reducers/portalReducer';
+import {
+  resetUpdatePostModal,
+  addTag,
+  removeTag,
+  removeUpdateFiles,
+} from '../../store/reducers/portalReducer';
 import { usePostQuery, useRestrictBodyOverflow } from '../../hooks';
 
 import { CreatePostModal } from '../Layouts';
@@ -17,8 +22,15 @@ function UpdatePostPortal() {
     updatePostLoadingState: { loading },
   } = useSelector(({ portal }) => portal);
 
-  const [description, setDescription] = useState(updatePostData.description);
-  const handleDescription = (e) => setDescription(e.target.value);
+  const { description, tags } = updatePostData;
+
+  const [text, setText] = useState(description);
+
+  const handleTag = (tag) => dispatch(addTag(tag));
+
+  const handleRemoveTag = (id) => dispatch(removeTag(id));
+
+  const handleDiscardMedia = (url) => dispatch(removeUpdateFiles(url));
 
   const deactivateHandler = () => dispatch(resetUpdatePostModal());
 
@@ -39,13 +51,20 @@ function UpdatePostPortal() {
         loading={loading}
         isOpen={updatePostModalIsOpen}
         setIsOpen={deactivateHandler}
-        defaultDescription={description}
-        handleDescription={handleDescription}
+        text={text}
+        setText={setText}
+        tags={tags}
+        handleTag={handleTag}
+        handleRemoveTag={handleRemoveTag}
+        files={updatePostMediaFiles}
+        handleDiscardMedia={handleDiscardMedia}
+        updateCredentials={updatePostData}
         handlePost={() =>
           handlePostPublish({
             operationType: 'update',
-            description,
+            description: text,
             media: updatePostMediaFiles,
+            tags,
             postId: updatePostData._id,
           })
         }
