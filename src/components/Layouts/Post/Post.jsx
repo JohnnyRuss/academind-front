@@ -45,14 +45,13 @@ function Post({ data, activatePostMediaHandler, activateUpdatePostModal, classNa
       />
       {data.shared && (
         <SharedPostHeader
-          descriptionClassName={styles.description}
-          identifierClassName={styles.identifier}
           data={{
             authorId: data.author._id,
             authorName: data.author.userName,
             authorImg: data.author.profileImg,
             description: data.description,
             createdAt: data.createdAt,
+            tags: data.tags,
           }}
         />
       )}
@@ -66,7 +65,8 @@ function Post({ data, activatePostMediaHandler, activateUpdatePostModal, classNa
           createdAt: data.shared ? data.authenticDateCreation : data.createdAt,
           userImg: data.shared ? data.authenticAuthor.profileImg : data.author.profileImg,
           description: data.shared ? data.authenticDescription : data.description,
-          tags: data.shared ? data.authenticTags : data.tags,
+          tags: data.tags,
+          authenticTags: data.authenticTags,
           media: data.media,
           comments: data.commentsCount,
           article: data.article,

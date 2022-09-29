@@ -1,84 +1,62 @@
 @use '../../../../../styles/helpers/helpers' as *;
 
-%media {
-  @include respond(tab-portrate) {
-    .identifier {
-      & figure[data-img] {
-        width: 3.5rem;
-        height: 3.5rem;
-      }
-
-      & span[data-time-ago] {
-        font-size: size('smallestSize');
-      }
-    }
-
-    .description {
-      font-size: size('smallerSize');
-    }
-  }
-
-  @include respond(phone-small) {
-    margin: 0.5rem 0.5rem 1rem 0.5rem;
-
-    .identifier {
-      // custom user identifier --> userName and avatar image
-      & p:first-child {
-        font-size: size('smallerSize');
-      }
-
-      & figure[data-img] {
-        width: 2.5rem;
-        height: 2.5rem;
-      }
-    }
-
-    .description {
-      font-size: size('smallestSize');
-    }
-  }
-}
-
 // all elements selected under the .shareAuthentic defines different order of post elements if post is shared--> you can see more information in jsx code !!!
 .shareAuthentic {
   @include flexBox(column);
   gap: 1rem;
   // border: 1px solid color('darkGreyColor');
-  // @include boxShadowBlack(0, 1rem, 0.2);
-  background: color(whiteShaderColor);
-  padding: 1rem;
   margin: 0.5rem 1.5rem 1rem 1.5rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
   border-radius: 0.3rem;
+  background: color(whiteShaderColor);
 
   .media {
     order: -1;
     margin: 0;
   }
 
-  // time details under the avatar userName
-  span[data-time-ago] {
-    font-size: size('smallestSize');
-    margin-top: -0.25rem;
+  .postAuthenticIdentifier {
+    & figure[data-img] {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+
+    & span[data-time-ago] {
+      font-size: size('smallestSize');
+      margin-top: -0.25rem;
+    }
+  }
+
+  & div[data-tags] {
+    margin-top: 0.20rem;
   }
 
   .description {
     margin-top: -0.5rem;
     font-size: size('smallerSize');
   }
-
-  @extend %media;
 }
 
 .postBody {
-  @extend %media;
+  .postAuthenticIdentifier {
+    margin: 0.5rem 0.5rem 1rem 0.5rem;
+
+    & figure[data-img] {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    & span[data-time-ago] {
+      font-size: size('smallestSize');
+    }
+  }
+
+  & div[data-tags] {
+    margin-top: 0.75rem;
+  }
 }
 
 .postAuthorIdentifierBox {
   @include flexBox;
   gap: 0.5rem;
-
-  .identifier figure {
-    width: 3rem;
-    height: 3rem;
-  }
 }

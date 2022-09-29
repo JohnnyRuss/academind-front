@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {
   resetUpdatePostModal,
-  addTag,
-  removeTag,
+  addUpdateTag,
+  removeUpdateTag,
   removeUpdateFiles,
 } from '../../store/reducers/portalReducer';
 import { usePostQuery, useRestrictBodyOverflow } from '../../hooks';
@@ -26,9 +26,9 @@ function UpdatePostPortal() {
 
   const [text, setText] = useState(description);
 
-  const handleTag = (tag) => dispatch(addTag(tag));
+  const handleTag = (tag) => dispatch(addUpdateTag(tag));
 
-  const handleRemoveTag = (id) => dispatch(removeTag(id));
+  const handleRemoveTag = (id) => dispatch(removeUpdateTag(id));
 
   const handleDiscardMedia = (url) => dispatch(removeUpdateFiles(url));
 

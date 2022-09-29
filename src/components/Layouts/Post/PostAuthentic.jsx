@@ -24,6 +24,8 @@ function PostAuthentic({
   proccessShare,
   proccessUpdate,
 }) {
+  const tgs = shared ? data.authenticTags : data.tags;
+  console.log(tgs);
   return (
     <div className={shared ? styles.shareAuthentic : styles.postBody} data-post-authentic>
       {type === 'post' ? (
@@ -34,9 +36,9 @@ function PostAuthentic({
               userName={data.userName}
               timeAgo={data.createdAt}
               img={data.userImg}
-              className={styles.identifier}
+              className={styles.postAuthenticIdentifier}
             />
-            {data.tags?.[0] && <Tags tags={data.tags} />}
+            {tgs?.[0] && <Tags tags={tgs} />}
           </div>
           <PostDescription description={data.description} className={styles.description} />
           {data.media && (

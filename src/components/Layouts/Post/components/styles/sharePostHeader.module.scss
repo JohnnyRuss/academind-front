@@ -1,0 +1,22 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.sharedPostHeader {
+  @include flexBox;
+  @include flexProperty(flex-start, flex-start);
+  gap: 0.5rem;
+
+  .sharedPostHeaderIdentifier {
+    & figure[data-img] {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    & span[data-time-ago] {
+      font-size: size('smallestSize');
+    }
+  }
+
+  & div[data-tags]{
+    margin-top: 0.3rem;
+  }
+}

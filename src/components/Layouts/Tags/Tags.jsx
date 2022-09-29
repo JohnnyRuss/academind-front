@@ -5,7 +5,7 @@ function Tags({ tags }) {
   const length = tags.length;
 
   return (
-    <div className={styles.tagsList}>
+    <div className={styles.tagsList} data-tags>
       <span>with - </span>
       {length === 1 && <Link path={`/profile/${tags[0]._id}/posts`}>{tags[0].userName}</Link>}
       {length === 2 && (

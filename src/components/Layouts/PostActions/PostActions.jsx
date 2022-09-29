@@ -37,6 +37,7 @@ function PostActions({ className, setShowCommnents, data, redirect }) {
       userName: data.shared ? data.authenticAuthor.userName : data.author.userName,
       userImg: data.shared ? data.authenticAuthor.profileImg : data.author.profileImg,
       description: data.shared ? data.authenticDescription : data.description,
+      authenticTags: data.shared ? data.authenticTags : data.tags,
       createdAt: data.createdAt,
       media: data.media,
       commentsCount: data.commentsCount,

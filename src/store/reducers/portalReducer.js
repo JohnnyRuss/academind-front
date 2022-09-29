@@ -61,6 +61,8 @@ const portalSlice = createSlice({
       title: '',
       article: '',
       commentsCount: '',
+      tags: [],
+      authenticTags: [],
       _id: '',
     },
   },
@@ -94,12 +96,12 @@ const portalSlice = createSlice({
       state.updatePostModalIsOpen = true;
     },
 
-    addTag(state, { payload }) {
-      state.updatePostData.tags = [...state.updatePostData.tags, payload];
+    addUpdateTag(state, { payload }) {
+      addTag(state, 'updatePostData', payload);
     },
 
-    removeTag(state, { payload }) {
-      state.updatePostData.tags = state.updatePostData.tags.filter((tag) => tag._id !== payload);
+    removeUpdateTag(state, { payload }) {
+      removeTag(state, 'updatePostData', payload);
     },
 
     setUpdateFile(state, { payload }) {
@@ -156,6 +158,14 @@ const portalSlice = createSlice({
       state.sharePostModalIsOpen = true;
     },
 
+    addShareTag(state, { payload }) {
+      addTag(state, 'sharePostData', payload);
+    },
+
+    removeShareTag(state, { payload }) {
+      removeTag(state, 'sharePostData', payload);
+    },
+
     resetSharePostModal(state) {
       state.sharePostModalIsOpen = false;
       Object.keys(state.sharePostData).map((key) => (state.sharePostData[key] = ''));
@@ -175,13 +185,23 @@ export const {
   // Update Portal
   updatePost,
   setUpdatePostModalOpen,
-  addTag,
-  removeTag,
+  addUpdateTag,
+  removeUpdateTag,
   setUpdateFile,
   removeUpdateFiles,
   resetUpdatePostModal,
   // Share Portal
   sharePost,
   setSharePostModalOpen,
+  addShareTag,
+  removeShareTag,
   resetSharePostModal,
 } = portalSlice.actions;
+
+function addTag(state, key, payload) {
+  state[key].tags = [...state[key].tags, payload];
+}
+
+function removeTag(state, key, payload) {
+  state[key].tags = state[key].tags.filter((tag) => tag._id !== payload);
+}

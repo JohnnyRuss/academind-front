@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -7,6 +7,7 @@ import {
   addTag,
   removeTag,
   removeFiles,
+  setText,
 } from '../../../store/reducers/createPostReducer';
 import { usePostQuery, useRestrictBodyOverflow } from '../../../hooks';
 
@@ -20,12 +21,13 @@ function CreatePost({ className }) {
   const {
     createPostIsOpen,
     activeSelectedMedia,
+    text,
     files,
     tags,
     loadingState: { loading },
   } = useSelector(({ createPost }) => createPost);
 
-  const [text, setText] = useState('');
+  const handleText = (txt) => dispatch(setText(txt));
 
   const handleTag = (tag) => dispatch(addTag(tag));
 
@@ -63,7 +65,7 @@ function CreatePost({ className }) {
           isOpen={createPostIsOpen}
           setIsOpen={activateModal}
           text={text}
-          setText={setText}
+          setText={handleText}
           tags={tags}
           handleTag={handleTag}
           handleRemoveTag={handleRemoveTag}

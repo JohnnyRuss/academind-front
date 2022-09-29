@@ -6,7 +6,6 @@ function Avatar({ img = '/img/avatar.png', onClick = () => {}, className }) {
     <Image
       src={img}
       className={`${styles.avatar} ${className || ''}`}
-      data-avatar
       onClick={onClick}
     />
   );

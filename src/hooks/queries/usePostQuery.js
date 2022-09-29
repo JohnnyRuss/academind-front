@@ -10,7 +10,7 @@ function usePostQuery() {
 
   const [startDeletion, setStartDeletion] = useState(false);
 
-  // includes update order
+  // includes post publish and update requests
   const handlePostPublish = ({ operationType, type, description, media, tags, postId }) => {
     const credentials = {
       description,
@@ -44,7 +44,12 @@ function usePostQuery() {
     dispatch(reactOnPost({ postId, body: { reaction } }));
   }
 
-  function sharePostHandler(postId, body) {
+  function sharePostHandler(postId, credentials) {
+    const body = {
+      description: credentials.description,
+      tags: JSON.stringify(credentials.tags.map((tag) => tag._id)),
+    };
+
     dispatch(sharePost({ postId, body }));
   }
 

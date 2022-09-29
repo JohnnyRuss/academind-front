@@ -9,35 +9,4 @@
   border-radius: 0.5rem;
   background: color('whiteColor');
   @include boxShadowBlack(0, 1rem, 0.3);
-
-  @include respond(tab-portrate) {
-    .identifier {
-      & figure[data-img] {
-        width: 3.5rem;
-        height: 3.5rem;
-      }
-
-      & span[data-time-ago] {
-        font-size: size('smallestSize');
-      }
-    }
-
-    .description {
-      font-size: size('smallerSize');
-    }
-  }
-
-  @include respond(phone-small) {
-    .identifier {
-      // custom user identifier --> userName and avatar image
-      & p:first-child {
-        font-size: size('smallerSize');
-      }
-
-      & figure[data-img] {
-        width: 2.5rem;
-        height: 2.5rem;
-      }
-    }
-  }
 }
