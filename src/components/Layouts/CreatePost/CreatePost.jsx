@@ -56,6 +56,20 @@ function CreatePost({ className }) {
 
   const { handlePostPublish } = usePostQuery();
 
+  function publishPost() {
+    handlePostPublish({
+      params: {
+        operationType: 'publish',
+        type: 'post',
+      },
+      credentials: {
+        description: text,
+        media: files,
+        tags: JSON.stringify(tags.map((tag) => tag._id)),
+      },
+    });
+  }
+
   return (
     <div className={`${styles.createPost} ${className || ''}`}>
       <CreatePostTouch setIsOpen={activateModal} />
@@ -71,15 +85,7 @@ function CreatePost({ className }) {
           handleRemoveTag={handleRemoveTag}
           files={files}
           handleDiscardMedia={handleDiscardMedia}
-          handlePost={() =>
-            handlePostPublish({
-              operationType: 'publish',
-              type: 'post',
-              description: text,
-              media: files,
-              tags,
-            })
-          }
+          handlePost={publishPost}
         />
       )}
     </div>

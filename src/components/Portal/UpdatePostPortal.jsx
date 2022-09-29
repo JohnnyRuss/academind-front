@@ -45,6 +45,20 @@ function UpdatePostPortal() {
 
   const { handlePostPublish } = usePostQuery();
 
+  function publishPost() {
+    handlePostPublish({
+      params: {
+        operationType: 'update',
+      },
+      credentials: {
+        description: text,
+        media: updatePostMediaFiles,
+        tags: JSON.stringify(tags.map((tag) => tag._id)),
+        postId: updatePostData._id,
+      },
+    });
+  }
+
   return (
     updatePostModalIsOpen && (
       <CreatePostModal
@@ -59,15 +73,7 @@ function UpdatePostPortal() {
         files={updatePostMediaFiles}
         handleDiscardMedia={handleDiscardMedia}
         updateCredentials={updatePostData}
-        handlePost={() =>
-          handlePostPublish({
-            operationType: 'update',
-            description: text,
-            media: updatePostMediaFiles,
-            tags,
-            postId: updatePostData._id,
-          })
-        }
+        handlePost={publishPost}
       />
     )
   );

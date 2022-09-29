@@ -1,12 +1,12 @@
 import styles from './tags.module.scss';
 import { Link } from '../../Interface';
 
-function Tags({ tags }) {
+function Tags({ tags, keyWord = 'with' }) {
   const length = tags.length;
 
   return (
     <div className={styles.tagsList} data-tags>
-      <span>with - </span>
+      <span>{keyWord} - </span>
       {length === 1 && <Link path={`/profile/${tags[0]._id}/posts`}>{tags[0].userName}</Link>}
       {length === 2 && (
         <>

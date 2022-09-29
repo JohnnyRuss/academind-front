@@ -19,6 +19,7 @@ import { UserIdentifier, BlogPost, Tags } from '..';
 function PostAuthentic({
   shared,
   type,
+  authenticType,
   activatePostMediaHandler,
   data,
   proccessShare,
@@ -28,14 +29,14 @@ function PostAuthentic({
 
   return (
     <div className={shared ? styles.shareAuthentic : styles.postBody} data-post-authentic>
-      {type === 'post' ? (
+      {(!shared && type === 'post') || (shared && authenticType === 'post') ? (
         <>
           <div className={styles.postAuthorIdentifierBox}>
             <UserIdentifier
-              userId={data?.userId}
-              userName={data.userName}
+              userId={data?.author._id}
+              userName={data.author.userName}
               timeAgo={data.createdAt}
-              img={data.userImg}
+              img={data.author.profileImg}
               className={styles.postAuthenticIdentifier}
             />
             {tgs?.[0] && <Tags tags={tgs} />}
@@ -52,7 +53,7 @@ function PostAuthentic({
           )}
         </>
       ) : (
-        <BlogPost post={data} limitation={550} options={false} />
+        <BlogPost post={data} limitation={550} options={false} referenced={true} />
       )}
     </div>
   );

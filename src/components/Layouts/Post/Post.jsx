@@ -57,13 +57,16 @@ function Post({ data, activatePostMediaHandler, activateUpdatePostModal, classNa
       )}
       <PostAuthentic
         type={data.type}
+        authenticType={data.authenticType}
         shared={data.shared}
         activatePostMediaHandler={activatePostMediaHandler}
         data={{
-          userId: data.shared ? data.authenticAuthor._id : data.author._id,
-          userName: data.shared ? data.authenticAuthor.userName : data.author.userName,
+          author: {
+            _id: data.shared ? data.authenticAuthor._id : data.author._id,
+            userName: data.shared ? data.authenticAuthor.userName : data.author.userName,
+            profileImg: data.shared ? data.authenticAuthor.profileImg : data.author.profileImg,
+          },
           createdAt: data.shared ? data.authenticDateCreation : data.createdAt,
-          userImg: data.shared ? data.authenticAuthor.profileImg : data.author.profileImg,
           description: data.shared ? data.authenticDescription : data.description,
           tags: data.tags,
           authenticTags: data.authenticTags,

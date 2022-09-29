@@ -34,13 +34,15 @@ function PostActions({ className, setShowCommnents, data, redirect }) {
     activateSharePostModal({
       _id: data._id,
       type: data.type,
-      userName: data.shared ? data.authenticAuthor.userName : data.author.userName,
-      userImg: data.shared ? data.authenticAuthor.profileImg : data.author.profileImg,
+      author: {
+        userName: data.shared ? data.authenticAuthor.userName : data.author.userName,
+        profileImg: data.shared ? data.authenticAuthor.profileImg : data.author.profileImg,
+      },
       description: data.shared ? data.authenticDescription : data.description,
       authenticTags: data.shared ? data.authenticTags : data.tags,
       createdAt: data.createdAt,
       media: data.media,
-      commentsCount: data.commentsCount,
+      // tags: data.shared ? data.authenticTags : data.tags,
       //for blog share
       article: data.article,
       title: data.title,

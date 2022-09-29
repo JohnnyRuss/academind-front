@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setFile, removeFiles } from '../../../store/reducers/createPostReducer';
 import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
+import { usePostQuery } from '../../../hooks';
 
 import { Modal } from '../';
 import { BTN } from '../../Interface';
@@ -41,19 +42,25 @@ function CreateBlogPost({ activateModal }) {
 
   const handleRemoveTag = (id) => setTags((prev) => prev.filter((tag) => tag._id !== id));
 
-  function handler(article, tags) {
-    const body = {
-      article,
-      tags,
-      title,
-      categories,
-      type: 'blogPost',
-      images: files,
-    };
-    console.log(body);
-    setTitle('');
-    setTags([]);
-    setCategories([]);
+  const { handlePostPublish } = usePostQuery();
+
+  function publishPost() {
+    // setTitle('');
+    // setTags([]);
+    // setCategories([]);
+    handlePostPublish({
+      params: {
+        type: 'blogPost',
+        operationType: 'publish',
+      },
+      credentials: {
+        title,
+        article: text,
+        media: files,
+        tags: JSON.stringify(tags.map((tag) => tag._id)),
+        categories: JSON.stringify(categories),
+      },
+    });
   }
 
   return (
@@ -81,7 +88,7 @@ function CreateBlogPost({ activateModal }) {
         <div data-blog-post-field className={styles.articleField}>
           <label>Article</label>
           <TextAreaWithTag
-            handler={handler}
+            submitHandler={publishPost}
             text={text}
             setText={setText}
             tags={tags}
@@ -97,7 +104,9 @@ function CreateBlogPost({ activateModal }) {
           handleRemoveMediaFile={handleRemoveMediaFile}
         />
         <div className={styles.publishBtnBox}>
-          <BTN className={styles.publishBlogPostBtn}>POST</BTN>
+          <BTN className={styles.publishBlogPostBtn} onClick={publishPost}>
+            POST
+          </BTN>
         </div>
       </div>
     </Modal>

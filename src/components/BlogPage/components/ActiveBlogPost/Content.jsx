@@ -31,16 +31,26 @@ function Content({ post }) {
       <RelatedPosts />
       <div className={styles.comments} id='commentBlock'>
         <PostActions setShowCommnents={setShowComments} data={post} />
-        {showComments && <CommentsList comments={post?.comments} />}
+        {showComments && (
+          <CommentsList
+            postId={post._id}
+            postAuthorId={post?.author._id}
+            commentsAmount={post.commentsAmount}
+          />
+        )}
       </div>
-      {/* <a
+      {
+      /*
+       <a
         href='#commentBlock'
         className={styles.commentLabel}
         ref={labelRef}
         onClick={transformLabel}>
         {(labelTarget === 'top' || labelTarget === 'deny') && <CommentIcon />}
         {labelTarget === 'bottom' && <ArrowUpRectingle />}
-      </a> */}
+      </a> 
+      */
+      }
     </div>
   );
 }

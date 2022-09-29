@@ -13,14 +13,14 @@
   }
 
   .commentText {
-    margin-left: 5.5rem;
+    margin: 0.5rem 0 0 4.7rem;
     color: color('darkGreyColor');
     font-size: size('smallSize');
   }
 
   .commentReactions {
     position: absolute;
-    right: 1.5rem;
+    right: -1.5rem;
     bottom: 0;
     @include flexBox;
     gap: 0.25rem;

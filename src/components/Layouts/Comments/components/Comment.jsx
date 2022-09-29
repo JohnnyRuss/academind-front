@@ -1,7 +1,7 @@
 import { useCommentsQuery } from '../../../../hooks';
 
 import styles from './styles/comment.module.scss';
-import { UserIdentifier } from '../../';
+import { UserIdentifier, Tags } from '../../';
 import { PinIcon } from '../../Icons/icons';
 import { CommentContent, CommentActions } from './';
 
@@ -45,8 +45,9 @@ function Comment({ type, data, handlers, className }) {
           userName={comment.author?.userName}
           img={comment.author?.profileImg}
           withTime={false}
-          className={styles.postUserIdentifier}
+          className={styles.commentUserIdentifier}
         />
+        {comment.tags[0] && <Tags tags={comment.tags} keyWord='to' />}
         {comment.pin && <PinIcon className={styles.pinIcon} />}
       </div>
       <CommentContent

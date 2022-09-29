@@ -11,26 +11,22 @@ function usePostQuery() {
   const [startDeletion, setStartDeletion] = useState(false);
 
   // includes post publish and update requests
-  const handlePostPublish = ({ operationType, type, description, media, tags, postId }) => {
-    const credentials = {
-      description,
-      tags: JSON.stringify(tags.map((tag) => tag._id)),
-    };
-
+  // const handlePostPublish = ({ operationType, type, description, media, tags, postId }) => {
+  const handlePostPublish = ({ params, credentials }) => {
     /*
     when user tries to update post which one already has media files, we need to separate old and new media files in different properties. images variable will hold new media files which will be uploaded on db and media property will hold the existng media files, even if user deletes on the post all old media files, we need to send empty array on db and then db will compare each other old and new media properties and files which will not be matched will be deleted from db 
     */
-    const oldMedia = media.filter((media) => typeof media === 'string');
-    const newFiles = media.filter((media) => typeof media === 'object');
+    const oldMedia = credentials.media.filter((media) => typeof media === 'string');
+    const newFiles = credentials.media.filter((media) => typeof media === 'object');
 
     credentials.media = JSON.stringify(oldMedia);
     if (newFiles[0]) credentials.images = newFiles;
 
-    if (operationType === 'publish') {
-      credentials.type = type;
+    if (params.operationType === 'publish') {
+      credentials.type = params.type;
       dispatch(createPost(credentials));
-    } else if (operationType === 'update') {
-      dispatch(updatePost({ params: { postId }, body: credentials }));
+    } else if (params.operationType === 'update') {
+      dispatch(updatePost({ params: { postId: credentials.postId }, body: credentials }));
     }
   };
 
@@ -47,7 +43,7 @@ function usePostQuery() {
   function sharePostHandler(postId, credentials) {
     const body = {
       description: credentials.description,
-      tags: JSON.stringify(credentials.tags.map((tag) => tag._id)),
+      tags: JSON.stringify(credentials.tags?.map((tag) => tag._id)),
     };
 
     dispatch(sharePost({ postId, body }));

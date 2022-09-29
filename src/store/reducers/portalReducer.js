@@ -52,15 +52,19 @@ const portalSlice = createSlice({
     },
     sharePostModalIsOpen: false,
     sharePostData: {
-      userName: '',
+      author: {
+        userName: '',
+        profileImg: '',
+      },
       createdAt: '',
-      userImg: '',
       description: '',
       type: '',
       media: null,
       title: '',
       article: '',
-      commentsCount: '',
+      commentsAmount: '',
+      likesAmount: '',
+      dislikesAmount: '',
       tags: [],
       authenticTags: [],
       _id: '',
@@ -151,10 +155,8 @@ const portalSlice = createSlice({
       state.sharePostLoadingState.message = '';
     },
 
-    setSharePostModalOpen(state, action) {
-      Object.keys(action.payload).forEach(
-        (key) => (state.sharePostData[key] = action.payload[key])
-      );
+    setSharePostModalOpen(state, { payload }) {
+      Object.keys(payload).forEach((key) => (state.sharePostData[key] = payload[key]));
       state.sharePostModalIsOpen = true;
     },
 

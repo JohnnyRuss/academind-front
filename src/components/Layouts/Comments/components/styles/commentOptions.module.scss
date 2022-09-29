@@ -1,10 +1,15 @@
 @use '../../../../../styles/helpers/helpers' as *;
 
 .commentOptBox {
-  position: relative;
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
 
   .commentOptMainBtn {
+    @include flexBox;
+    @include flexProperty(center, center);
     color: color('darkLightGreyColor');
+
     & svg {
       font-size: size('bigSize');
     }

@@ -2,7 +2,7 @@ import styles from './components/styles/blogPost.module.scss';
 import { Image, Link } from '../../Interface';
 import { ReviewUserInteraction, ReviewUserDetails } from './components';
 
-function BlogPost({ post, limitation = 2000, className, options = true, id }) {
+function BlogPost({ post, limitation = 2000, className, referenced, options = true, id }) {
   const article =
     post?.article?.length > limitation ? `${post.article?.slice(0, limitation)}...` : post?.article;
 
@@ -18,11 +18,13 @@ function BlogPost({ post, limitation = 2000, className, options = true, id }) {
             postId={post._id}
             createdAt={post.createdAt}
           />
-          <ReviewUserInteraction
-            commentsAmount={post?.commentsAmount}
-            likesAmount={post.likesAmount}
-            dislikesAmount={post.dislikesAmount}
-          />
+          {!referenced && (
+            <ReviewUserInteraction
+              commentsAmount={post?.commentsAmount}
+              likesAmount={post.likesAmount}
+              dislikesAmount={post.dislikesAmount}
+            />
+          )}
         </div>
         <p className={styles.blogPostShortDesc}>
           {article}

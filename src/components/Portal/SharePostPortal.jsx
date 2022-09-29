@@ -73,7 +73,7 @@ function SharePostPortal() {
           <BTN
             className={styles.confirmShareBtn}
             onClick={() =>
-              sharePostHandler(sharePostData._id, { description: text, tags: sharePostData.tags })
+              sharePostHandler(sharePostData._id, { description: text, tags: sharePostData?.tags })
             }>
             post
           </BTN>

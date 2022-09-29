@@ -3,6 +3,8 @@
 .comment {
   width: max-content;
   max-width: 85%;
+  position: relative;
+  padding-right: 2rem;
 
   .commentHeader {
     @include flexBox;
@@ -10,18 +12,18 @@
     gap: 1rem;
   }
 
+  .commentUserIdentifier figure[data-img] {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
   .pinIcon {
     color: color('blueColor');
-    margin-left: auto;
+    margin-right: -2rem;
   }
 
   @include respond(tab-portrate) {
     width: auto;
     max-width: 95%;
-
-    .postUserIdentifier figure[data-img] {
-      width: 3.5rem;
-      height: 3.5rem;
-    }
   }
 }
