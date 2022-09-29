@@ -25,7 +25,7 @@ function PostAuthentic({
   proccessUpdate,
 }) {
   const tgs = shared ? data.authenticTags : data.tags;
-  console.log(tgs);
+
   return (
     <div className={shared ? styles.shareAuthentic : styles.postBody} data-post-authentic>
       {type === 'post' ? (

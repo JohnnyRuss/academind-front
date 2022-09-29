@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectPostCommentsById } from '../../../store/selectors/postSelectors';
@@ -16,9 +16,12 @@ import { CommentListItem } from './components';
  */
 function CommentsList({ postId, postAuthorId, commentsAmount }) {
   const data = useSelector((state) => selectPostCommentsById(state, postId));
+
   const { loading } = useSelector(({ commentsData }) => commentsData.getCommentsLoadingState);
 
   const comments = useCommentPin(data || []);
+
+  const [text, setText] = useState('');
 
   const {
     state,
@@ -28,10 +31,15 @@ function CommentsList({ postId, postAuthorId, commentsAmount }) {
     setUpdateComment: setUpdateParentComment,
   } = useComments();
 
+  function reseter() {
+    setText('');
+    resetCommentCredentials();
+  }
+
   const { handleGetPostComments, handleSubmitComment } = useCommentsQuery(
     'MAIN_THREAD',
-    { postId, commentId: state.commentId, text: state.text },
-    { updateParent: state.updateParent, resetHandler: resetCommentCredentials }
+    { postId, commentId: state.commentId, text, tags: state.tags },
+    { updateParent: state.updateParent, resetHandler: reseter }
   );
 
   useEffect(() => {
@@ -53,13 +61,13 @@ function CommentsList({ postId, postAuthorId, commentsAmount }) {
       ))}
       {/* main textfield which is fixed on the bottom */}
       <TextAreaWithTag
-        text={''}
-        setText={''}
-        defaultValue={state.updateParent ? state.text : ''}
+        text={text}
+        setText={setText}
         tags={state.tags}
         setTag={setTag}
         removeTag={removeTag}
-        handler={handleSubmitComment}
+        submitHandler={handleSubmitComment}
+        defaultValue={state.updateParent ? state.text : ''}
         placeholder='write your comment...'
         className={styles.commentTextArea}
       />

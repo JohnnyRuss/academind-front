@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useCommentPin, useCommentsQuery } from '../../../../hooks';
 
 import styles from './styles/repliesThread.module.scss';
@@ -16,7 +17,14 @@ function RepliesThread({ state, data, handlers }) {
 
   const { postId, parentId, authorId, postAuthorId, authorName, replies, repliesAmount } = data;
 
-  const { activeReply, updateReply, showReplies, tags, text, parentAuthor } = state;
+  const { activeReply, updateReply, showReplies, tags, text: updateText, parentAuthor } = state;
+
+  const [text, setText] = useState('');
+
+  function reseter() {
+    setText('');
+    resetCommentCredentials();
+  }
 
   const { handleSubmitComment } = useCommentsQuery(
     'REPLIES_THREAD',
@@ -26,8 +34,10 @@ function RepliesThread({ state, data, handlers }) {
       adressatId: tags || [{ authorId: authorId, adressatName: authorName }],
       replyId: state.replyId,
       parentAuthor,
+      text,
+      tags,
     },
-    { updateReply, activeReply, resetHandler: resetCommentCredentials }
+    { updateReply, activeReply, resetHandler: reseter }
   );
 
   const commentReplies = useCommentPin(replies);
@@ -51,12 +61,14 @@ function RepliesThread({ state, data, handlers }) {
             />
           ))}
           <TextAreaWithTag
-            handler={handleSubmitComment}
+            text={text}
+            setText={setText}
             tags={tags}
-            defaultValue={updateReply ? text : ''}
-            focus={activeReply}
             setTag={setTag}
             removeTag={(adressatId) => removeTag(adressatId)}
+            defaultValue={updateReply ? updateText : ''}
+            focus={activeReply}
+            submitHandler={handleSubmitComment}
             placeholder='write your comment reply...'
             className={styles.commentRepliesTextArea}
           />

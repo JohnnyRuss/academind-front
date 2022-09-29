@@ -33,7 +33,7 @@ function TextAreaWithTag({
     }
   }
 
-  function submitHandler(e) {
+  function submitBtnHandler(e) {
     e.preventDefault();
     submitHandler();
     // submitHandler(text, tags);
