@@ -28,6 +28,10 @@ async function queryBlogPosts() {
   return await axiosQuery(`/posts/blogPosts`);
 }
 
+async function queryGetPost(postId) {
+  return await axiosQuery(`/posts/${postId}`);
+}
+
 export {
   queryCreatePost,
   queryPostReaction,
@@ -36,4 +40,5 @@ export {
   querySharePost,
   querySavePost,
   queryBlogPosts,
+  queryGetPost,
 };

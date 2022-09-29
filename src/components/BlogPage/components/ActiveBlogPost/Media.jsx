@@ -1,4 +1,4 @@
-import styles from './media.module.scss';
+import styles from './styles/media.module.scss';
 import { SwiperSlider } from '../../../Layouts';
 
 function Media({ media }) {

@@ -19,6 +19,7 @@ import {
   querySharePost,
   querySavePost,
   queryBlogPosts,
+  queryGetPost,
 } from '../api/postQueries';
 
 import { allowNewPostSet } from '../../../utils/window-location';
@@ -91,6 +92,15 @@ function* getBlogPostsHandler() {
   }
 }
 
+function* getPostHandler({ payload: postId }) {
+  try {
+    const { data } = yield call(queryGetPost, postId);
+    yield put(setNewPost(data));
+  } catch (error) {
+    showError(error, 'getPostHandler');
+  }
+}
+
 function showError(error, location) {
   console.log({
     error: true,
@@ -109,4 +119,5 @@ export {
   sharePostHandler,
   savePostHandler,
   getBlogPostsHandler,
+  getPostHandler,
 };

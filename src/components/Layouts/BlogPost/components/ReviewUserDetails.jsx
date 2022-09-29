@@ -1,10 +1,10 @@
 import styles from './styles/reviewUserDetails.module.scss';
 import { Avatar, Link, TimeAgo } from '../../../Interface';
 
-function ReviewUserDetails({ createdAt, title, userName, userImg }) {
+function ReviewUserDetails({ createdAt, title, userName, userImg, postId }) {
   return (
     <span>
-      <Link path={{ pathname: '/blog/id', query: { user: userName } }} target='_blank'>
+      <Link path={{ pathname: `/blog/${postId}`, query: { user: userName } }} target='_blank'>
         <h3 data-title className={styles.blogPostTitle}>
           {title}
         </h3>

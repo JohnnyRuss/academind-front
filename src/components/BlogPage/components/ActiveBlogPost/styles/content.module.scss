@@ -1,0 +1,32 @@
+@use '../../../../../styles/helpers/helpers' as *;
+
+.contentWithMedia {
+  grid-template: 30vw repeat(5, min-content) / repeat(1, minmax(60%, 1fr));
+}
+
+.contentWithoutMedia {
+  grid-template: repeat(5, min-content) / repeat(1, minmax(60%, 1fr));
+  padding-top: 4rem !important;
+}
+
+.content {
+  position: relative;
+  flex: 5;
+  max-width: 60%;
+  display: grid;
+  padding: 2rem;
+  background: color('whiteColor');
+
+  .comments {
+    grid-column: 1;
+    grid-row: 5;
+    margin-top: 4rem;
+  }
+
+  .commentLabel {
+    position: fixed;
+    top: calc(100vh - 6rem);
+    right: 18%;
+    font-size: size('largeSize');
+  }
+}

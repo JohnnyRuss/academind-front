@@ -53,11 +53,13 @@ function CommentsList({ postId, postAuthorId, commentsAmount }) {
       ))}
       {/* main textfield which is fixed on the bottom */}
       <TextAreaWithTag
+        text={''}
+        setText={''}
+        defaultValue={state.updateParent ? state.text : ''}
         tags={state.tags}
         setTag={setTag}
         removeTag={removeTag}
         handler={handleSubmitComment}
-        defaultValue={state.updateParent ? state.text : ''}
         placeholder='write your comment...'
         className={styles.commentTextArea}
       />

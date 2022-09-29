@@ -17,6 +17,10 @@ const postsDataSlice = createSlice({
 
     setNewPost(state, { payload }) {
       state.posts = [payload, ...state.posts];
+
+      state.loadingState.loading = false;
+      state.loadingState.error = false;
+      state.loadingState.message = '';
     },
 
     setActiveUserUpdatedCover(state, { payload }) {
@@ -88,6 +92,12 @@ const postsDataSlice = createSlice({
       state.loadingState.error = false;
       state.loadingState.message = '';
     },
+
+    getPost(state) {
+      state.loadingState.loading = true;
+      state.loadingState.error = false;
+      state.loadingState.message = '';
+    },
   },
 });
 
@@ -107,4 +117,5 @@ export const {
   removeBookmark,
   resetPosts,
   getBlogPosts,
+  getPost,
 } = postsDataSlice.actions;

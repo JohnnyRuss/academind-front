@@ -1,55 +1,34 @@
-import { useState, useRef } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useCounter } from '../../hooks';
-import { blogPosts } from '../../utils/index';
+import { getPost } from '../../store/reducers/postsDataReducer';
 
-import styles from './components/ActiveBlogPost/activeBlogPost.module.scss';
-import { LeftBar, RightBar, Media, Article, RelatedPosts } from './components/ActiveBlogPost';
-import { CommentsList, PostActions } from '../Layouts';
-import { CommentIcon, ArrowUpRectingle } from '../Layouts/Icons/icons';
+import styles from './components/ActiveBlogPost/styles/activeBlogPost.module.scss';
+import { LeftBar, RightBar, Content } from './components/ActiveBlogPost';
+import { StandSpinner } from '../Interface';
 
 function ActiveBlogPost() {
-  const [showComments, setShowComments] = useState(true);
-  const post = blogPosts[0];
-  const commentsAmount = useCounter(post.comments, 'replies');
+  const dispatch = useDispatch();
 
-  const [labelTarget, setLabelTarget] = useState('deny');
-  const labelRef = useRef();
-  function transformLabel(e) {
-    const targetHref = e.currentTarget.getAttribute('href');
-    if (targetHref === '#commentBlock') {
-      labelRef.current?.setAttribute('href', '#top');
-      setLabelTarget('top');
-    } else if (targetHref === '#top') {
-      labelRef.current?.setAttribute('href', '#commentBlock');
-      setLabelTarget('bottom');
-    }
-  }
+  const { id } = useParams();
+
+  const {
+    posts,
+    loadingState: { loading },
+  } = useSelector(({ postsData }) => postsData);
+  const post = posts[0];
+
+  useEffect(() => {
+    dispatch(getPost(id));
+  }, []);
 
   return (
     <div className={styles.box}>
+      {loading && <StandSpinner />}
       <LeftBar />
-      <div className={styles.content}>
-        <Media media={post.media} />
-        <Article post={post} />
-        <RelatedPosts />
-        <div className={styles.comments} id='commentBlock'>
-          <PostActions
-            postId={post.id}
-            setShowCommnents={setShowComments}
-            commentsAmount={commentsAmount}
-          />
-          {showComments && <CommentsList comments={post.comments} />}
-        </div>
-        <a
-          href='#commentBlock'
-          className={styles.commentLabel}
-          ref={labelRef}
-          onClick={transformLabel}>
-          {(labelTarget === 'top' || labelTarget === 'deny') && <CommentIcon />}
-          {labelTarget === 'bottom' && <ArrowUpRectingle />}
-        </a>
-      </div>
+      {!loading && post && <Content post={post} />}
       <RightBar />
     </div>
   );

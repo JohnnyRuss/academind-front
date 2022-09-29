@@ -8,13 +8,14 @@ function BlogPost({ post, limitation = 2000, className, options = true, id }) {
 
   return (
     <div className={`${styles.blogPost} ${className}`} id={id ? id : ''}>
-      {post?.media[0] && <Image src={post.media[0]} className={styles.blogPostMedia} />}
+      {post?.media?.[0] && <Image src={post.media?.[0]} className={styles.blogPostMedia} />}
       <div className={styles.blogPostInfo}>
         <div className={styles.devideRow}>
           <ReviewUserDetails
             title={post.title}
             userName={post.author?.userName}
             userImg={post.author?.profileImg}
+            postId={post._id}
             createdAt={post.createdAt}
           />
           <ReviewUserInteraction
@@ -26,7 +27,9 @@ function BlogPost({ post, limitation = 2000, className, options = true, id }) {
         <p className={styles.blogPostShortDesc}>
           {article}
           {post?.article?.length > limitation && (
-            <Link path={{ pathname: '/blog/id', query: { user: post.userName } }} target='_blank'>
+            <Link
+              path={{ pathname: `/blog/${post._id}`, query: { user: post.userName } }}
+              target='_blank'>
               <button className={styles.showMoreBtn}>show more</button>
             </Link>
           )}

@@ -1,5 +1,5 @@
 import { uid } from 'uid';
-import styles from './relatedPosts.module.scss';
+import styles from './styles/relatedPosts.module.scss';
 import { UserIdentifier, BlogPost } from '../../../Layouts';
 import { Img } from '../../../Interface';
 import { blogPosts } from '../../../../utils/index';
