@@ -6,13 +6,15 @@ import styles from './styles/postsPageUserFriends.module.scss';
 import { Image, Link } from '../../Interface';
 
 function PostsPageUserFriends() {
-  const { friends } = useSelector(selectUserInfo);
+  const { friends, friendsAmount, _id } = useSelector(selectUserInfo);
   return (
     <div className={styles.postsPageUserFriends}>
       <div className={styles.userFriendsIntro}>
         <p className={styles.introTitle}>friends</p>
-        <p className={styles.showAll}>show all friends</p>
-        <p className={styles.introAmount}>213 friends</p>
+        <Link path={`/profile/${_id}/friends/all-friends`} className={styles.showAll}>
+          show all friends
+        </Link>
+        <p className={styles.introAmount}>{friendsAmount} friends</p>
       </div>
       <div className={styles.friendsList}>
         {friends?.map((friend) => (

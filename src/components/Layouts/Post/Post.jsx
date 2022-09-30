@@ -74,6 +74,8 @@ function Post({ data, activatePostMediaHandler, activateUpdatePostModal, classNa
           comments: data.commentsCount,
           article: data.article,
           title: data.title,
+          categories: data.categories,
+          authenticId: data.authenticId,
         }}
       />
       <PostActions setShowCommnents={setShowComments} data={data} />

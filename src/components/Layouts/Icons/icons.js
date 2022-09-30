@@ -17,6 +17,7 @@ import {
   BsFillPersonFill,
   BsFillPhoneVibrateFill,
   BsBookmark,
+  BsClock,
 } from 'react-icons/bs';
 
 import {
@@ -130,6 +131,7 @@ const MaleIcon = FaMale;
 const InterestedInIcon = IoIosTransgender;
 const BirthDayIcon = FaBirthdayCake;
 const PinIcon = BiPin;
+const ClockIcon = BsClock;
 
 export {
   PinIcon,
@@ -195,4 +197,5 @@ export {
   BirthDayIcon,
   ThemeIcon,
   RotateIcon,
+  ClockIcon,
 };

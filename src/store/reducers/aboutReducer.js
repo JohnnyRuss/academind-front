@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateLoadingState } from './helpers/index';
 
 const aboutSlice = createSlice({
   name: 'about',
@@ -72,17 +73,12 @@ const aboutSlice = createSlice({
     //////////// DATA ///////////////
     ////////////////////////////////
     getUserAboutData(state) {
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
 
     setUserAboutData(state, { payload }) {
       state.data = payload;
-
-      state.loadingState.loading = false;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', false);
     },
 
     resetData(state) {

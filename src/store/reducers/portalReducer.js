@@ -1,23 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateLoadingState } from './helpers/index';
 
 /**
  Potal reducer is used for:
- * showing active post media
- * showing,save and manipulate update post data
- * showing,save and manipulate share post data
-  is separated because, components which uses this reducer are separated too into the most top level component and are waiting for state change
+ * 1.1) show active post media
+ * 1.2) update post or blogPost
+ * 1.3) share post or blogPost
+  is separated because, components which uses this reducer are separated too and based on operation may use dufferent reducer, for example for post creation they use createPostReducer.
+  the goal of this reducer is to save and exchange data during share or update process, even for update existing data state
  */
 const portalSlice = createSlice({
   name: 'portal',
   initialState: {
-    ////////////////////////
-    // show post media modal
+    //////////////////////////////
+    /// show post media modal ///
+    ////////////////////////////
     mediaModalIsOpen: false,
     activeMediaIndex: '',
     mediaFiles: null,
 
-    /////////////////////////
-    // show update post modal
+    ///////////////////////////////
+    /// show update post modal ///
+    /////////////////////////////
     updatePostLoadingState: {
       loading: false,
       error: false,
@@ -39,12 +43,12 @@ const portalSlice = createSlice({
       title: '',
       article: '',
       categories: [],
-      commentsAmount: '',
       tags: [],
     },
 
-    ////////////////////////
-    // show share post modal
+    //////////////////////////////
+    /// show share post modal ///
+    ////////////////////////////
     sharePostLoadingState: {
       loading: false,
       error: false,
@@ -52,29 +56,29 @@ const portalSlice = createSlice({
     },
     sharePostModalIsOpen: false,
     sharePostData: {
+      _id: '',
+      type: '',
+      authenticType: '',
       author: {
         userName: '',
         profileImg: '',
       },
       createdAt: '',
       description: '',
-      type: '',
       media: null,
-      title: '',
-      article: '',
-      commentsAmount: '',
-      likesAmount: '',
-      dislikesAmount: '',
       tags: [],
       authenticTags: [],
-      _id: '',
+      article: '',
+      title: '',
+      categories: [],
     },
   },
   reducers: {
-    //////////////////////
-    // Aactive Media Files
-    setMediaModalOpen(state, action) {
-      const { index, media } = action.payload;
+    ////////////////////////////
+    /// Aactive Media Files ///
+    //////////////////////////
+    setMediaModalOpen(state, { payload }) {
+      const { index, media } = payload;
       state.activeMediaIndex = index;
       state.mediaFiles = media;
       state.mediaModalIsOpen = true;
@@ -86,18 +90,43 @@ const portalSlice = createSlice({
       state.activeMediaIndex = '';
     },
 
-    ////////////////
-    // Update Portal
+    //////////////////////
+    /// Update Portal ///
+    ////////////////////
     updatePost(state) {
-      state.updatePostLoadingState.loading = true;
-      state.updatePostLoadingState.error = false;
-      state.updatePostLoadingState.message = '';
+      updateLoadingState(state, 'updatePostLoadingState', true);
     },
 
     setUpdatePostModalOpen(state, { payload }) {
-      Object.keys(payload).forEach((key) => (state.updatePostData[key] = payload[key]));
+      updateState(state, 'updatePostData', payload);
+
       state.updatePostMediaFiles = payload.media;
       state.updatePostModalIsOpen = true;
+    },
+
+    setUpdateBlogPostModalOpen(state, { payload }) {
+      updateState(state, 'updatePostData', payload);
+
+      state.updatePostMediaFiles = payload.media;
+      state.updateBlogPostModalIsOpen = true;
+    },
+
+    setTitle(state, { payload }) {
+      state.updatePostData.title = payload;
+    },
+
+    setText(state, { payload }) {
+      state.updatePostData.article = payload;
+    },
+
+    addCategory(state, { payload }) {
+      state.updatePostData.categories = [...state.updatePostData.categories, payload];
+    },
+
+    removeCategory(state, { payload }) {
+      state.updatePostData.categories = state.updatePostData.categories.filter(
+        (category) => category !== payload
+      );
     },
 
     addUpdateTag(state, { payload }) {
@@ -137,26 +166,19 @@ const portalSlice = createSlice({
       } else state.updatePostMediaFiles = [];
     },
 
-    resetUpdatePostModal(state) {
-      state.updatePostModalIsOpen = false;
-      state.updatePostMediaFiles = [];
-      Object.keys(state.updatePostData).map((key) => (state.updatePostData[key] = ''));
-
-      state.updatePostLoadingState.loading = false;
-      state.updatePostLoadingState.error = false;
-      state.updatePostLoadingState.message = '';
+    resetUpdateState(state) {
+      resetState(state);
     },
 
-    ///////////////
-    // Share Portal
+    ////////////////////
+    /// Share Portal ///
+    ////////////////////
     sharePost(state) {
-      state.sharePostLoadingState.loading = true;
-      state.sharePostLoadingState.error = false;
-      state.sharePostLoadingState.message = '';
+      updateLoadingState(state, 'sharePostLoadingState', true);
     },
 
     setSharePostModalOpen(state, { payload }) {
-      Object.keys(payload).forEach((key) => (state.sharePostData[key] = payload[key]));
+      updateState(state, 'sharePostData', payload);
       state.sharePostModalIsOpen = true;
     },
 
@@ -172,14 +194,13 @@ const portalSlice = createSlice({
       state.sharePostModalIsOpen = false;
       Object.keys(state.sharePostData).map((key) => (state.sharePostData[key] = ''));
 
-      state.sharePostLoadingState.loading = false;
-      state.sharePostLoadingState.error = false;
-      state.sharePostLoadingState.message = '';
+      updateLoadingState(state, 'sharePostLoadingState', false);
     },
   },
 });
 
 export const portalReducer = portalSlice.reducer;
+
 export const {
   // Aactive Media Files
   setMediaModalOpen,
@@ -187,11 +208,16 @@ export const {
   // Update Portal
   updatePost,
   setUpdatePostModalOpen,
+  setUpdateBlogPostModalOpen,
+  setTitle,
+  setText,
+  addCategory,
+  removeCategory,
   addUpdateTag,
   removeUpdateTag,
   setUpdateFile,
   removeUpdateFiles,
-  resetUpdatePostModal,
+  resetUpdateState,
   // Share Portal
   sharePost,
   setSharePostModalOpen,
@@ -206,4 +232,17 @@ function addTag(state, key, payload) {
 
 function removeTag(state, key, payload) {
   state[key].tags = state[key].tags.filter((tag) => tag._id !== payload);
+}
+
+function updateState(state, field, payload) {
+  Object.keys(state[field]).forEach((key) => (state[field][key] = payload[key]));
+}
+
+function resetState(state) {
+  if (state.updatePostModalIsOpen) state.updatePostModalIsOpen = false;
+  else if (state.updateBlogPostModalIsOpen) state.updateBlogPostModalIsOpen = false;
+
+  updateLoadingState(state, 'updatePostLoadingState', false);
+  state.updatePostMediaFiles = [];
+  Object.keys(state.updatePostData).map((key) => (state.updatePostData[key] = ''));
 }

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateLoadingState } from './helpers';
 
 const friendsSlice = createSlice({
   name: 'friends',
@@ -29,17 +30,12 @@ const friendsSlice = createSlice({
     deleteFriend() {},
 
     getAllFriends(state) {
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
 
     setFriends(state, { payload }) {
       state.allFriends = [...payload];
-
-      state.loadingState.loading = false;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', false);
     },
 
     setDeletedFriend(state, { payload }) {
@@ -47,17 +43,12 @@ const friendsSlice = createSlice({
     },
 
     getPendingRequests(state) {
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
 
     setPendingRequests(state, { payload }) {
       state.pendingRequests = [...payload];
-
-      state.loadingState.loading = false;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', false);
     },
 
     setDeletedRequest(state, { payload }) {
@@ -73,17 +64,12 @@ const friendsSlice = createSlice({
     },
 
     getSentRequests(state) {
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
 
     setSentRequests(state, { payload }) {
       state.sentRequests = [...payload];
-
-      state.loadingState.loading = false;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', false);
     },
 
     setCanceledRequest(state, { payload }) {

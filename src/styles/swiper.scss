@@ -4,9 +4,11 @@
   width: 100%;
   height: 79%;
   position: relative;
+  z-index: auto;
 
   .swiper-wrapper {
     position: absolute;
+    z-index: auto;
     height: 100%;
     width: 100%;
   }

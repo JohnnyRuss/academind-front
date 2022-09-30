@@ -36,7 +36,10 @@ function CreateBlogPostMedia({ handleMediaFiles, files, handleRemoveMediaFile })
       <MultiCarousel responsiveness={responsive} arrows={true}>
         {files.map((media, i) => (
           <figure className={styles.blogPostFigure} key={`blog-post-media-${i}`}>
-            <img src={URL.createObjectURL(media)} alt='blog post media' />
+            <img
+              src={typeof media === 'object' ? URL.createObjectURL(media) : media}
+              alt='blog post media'
+            />
             <button onClick={() => handleRemoveMediaFile(media)}>
               <CloseXIcon />
             </button>

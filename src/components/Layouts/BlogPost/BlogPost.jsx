@@ -1,6 +1,7 @@
 import styles from './components/styles/blogPost.module.scss';
 import { Image, Link } from '../../Interface';
-import { ReviewUserInteraction, ReviewUserDetails } from './components';
+import { BlogPostIdentifier } from '../../Layouts';
+import { ReviewUserInteraction } from './components';
 
 function BlogPost({ post, limitation = 2000, className, referenced, options = true, id }) {
   const article =
@@ -11,11 +12,12 @@ function BlogPost({ post, limitation = 2000, className, referenced, options = tr
       {post?.media?.[0] && <Image src={post.media?.[0]} className={styles.blogPostMedia} />}
       <div className={styles.blogPostInfo}>
         <div className={styles.devideRow}>
-          <ReviewUserDetails
+          <BlogPostIdentifier
             title={post.title}
-            userName={post.author?.userName}
-            userImg={post.author?.profileImg}
-            postId={post._id}
+            author={post.author}
+            tags={post.tags}
+            categories={post.categories}
+            postId={referenced ? post.authenticId : post._id}
             createdAt={post.createdAt}
           />
           {!referenced && (
@@ -30,7 +32,10 @@ function BlogPost({ post, limitation = 2000, className, referenced, options = tr
           {article}
           {post?.article?.length > limitation && (
             <Link
-              path={{ pathname: `/blog/${post._id}`, query: { user: post.userName } }}
+              path={{
+                pathname: `/blog/${referenced ? post.authenticId : post._id}`,
+                query: { user: post.userName },
+              }}
               target='_blank'>
               <button className={styles.showMoreBtn}>show more</button>
             </Link>

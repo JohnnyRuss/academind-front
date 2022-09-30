@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateLoadingState } from './helpers';
 
 const postsDataSlice = createSlice({
   name: 'PostsData',
@@ -17,10 +18,7 @@ const postsDataSlice = createSlice({
 
     setNewPost(state, { payload }) {
       state.posts = [payload, ...state.posts];
-
-      state.loadingState.loading = false;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', false);
     },
 
     setActiveUserUpdatedCover(state, { payload }) {
@@ -34,17 +32,12 @@ const postsDataSlice = createSlice({
     },
 
     deletePost(state) {
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
 
     setDeletedPost(state, { payload }) {
       state.posts = state.posts.filter((post) => post._id !== payload);
-
-      state.loadingState.loading = false;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', false);
     },
 
     setUpdatedPost(state, { payload }) {
@@ -88,15 +81,11 @@ const postsDataSlice = createSlice({
     },
 
     getBlogPosts(state) {
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
 
     getPost(state) {
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
   },
 });

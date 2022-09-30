@@ -19,6 +19,7 @@ export const selectUserNameAndEmail = ({ user }) => ({
 });
 
 const selectedUserInfo = ({ user }) => ({
+  _id: user.user?._id,
   birthDate: user.user?.birthDate,
   from: {
     country: user.user?.from?.country,

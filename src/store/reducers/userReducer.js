@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateLoadingState } from './helpers';
 
 const userSlice = createSlice({
   name: 'user',
@@ -21,15 +22,11 @@ const userSlice = createSlice({
 
   reducers: {
     resetLoadingState(state) {
-      state.loadingState.loading = false;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', false);
     },
 
     resetNestedLoadingState(state) {
-      state.nestedLoadingState.loading = false;
-      state.nestedLoadingState.error = false;
-      state.nestedLoadingState.message = '';
+      updateLoadingState(state, 'nestedLoadingState', false);
     },
 
     searchUser() {},
@@ -43,9 +40,7 @@ const userSlice = createSlice({
     },
 
     getUserProfile(state) {
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
 
     setUserProfile(state, { payload }) {
@@ -56,15 +51,11 @@ const userSlice = createSlice({
     getProfilePosts() {},
 
     getFeedPosts(state) {
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
 
     getBookmarks(state) {
-      state.nestedLoadingState.loading = true;
-      state.nestedLoadingState.error = false;
-      state.nestedLoadingState.message = '';
+      updateLoadingState(state, 'nestedLoadingState', true);
     },
   },
 });

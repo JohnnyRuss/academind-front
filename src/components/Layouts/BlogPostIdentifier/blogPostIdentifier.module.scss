@@ -1,0 +1,61 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.reviewUserDetails {
+  @include flexBox(column);
+  gap: 1rem;
+
+  .blogPostTitle {
+    font-size: size('bigSize');
+    text-transform: capitalize;
+    color: color('darkGreyColor');
+    width: max-content;
+  }
+
+  .publisher {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 0.25rem;
+
+    .blogPostUserName {
+      font-weight: weight(mediumWeight);
+      font-size: size(smallerSize);
+      text-transform: capitalize;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .avatar {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    [data-tags] {
+      font-size: size(smallerSize);
+    }
+  }
+
+  .blogPostCategories {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 0.5rem;
+    font-size: size(smallSize);
+
+    span {
+      background: color(blueTintColor);
+      padding: 0 0.5rem;
+      border-radius: 1rem;
+    }
+  }
+
+  .blogPostTimeAgoBox {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 0.5rem;
+
+    & svg {
+      margin-top: -0.2rem;
+    }
+  }
+}

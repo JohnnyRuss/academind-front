@@ -15,14 +15,15 @@ function Categories({ addCategory, removeCategory, category, setCategory, catego
         />
       </form>
       <div className={styles.categoriesList}>
-        {categories.map((category, i) => (
-          <span key={`category-${i}`}>
-            {category}
-            <button onClick={(e) => removeCategory(category)}>
-              <CloseIcon />
-            </button>
-          </span>
-        ))}
+        {categories &&
+          categories?.map((category, i) => (
+            <span key={`category-${i}`}>
+              {category}
+              <button onClick={(e) => removeCategory(category)}>
+                <CloseIcon />
+              </button>
+            </span>
+          ))}
       </div>
     </div>
   );

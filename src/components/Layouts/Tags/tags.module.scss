@@ -2,10 +2,13 @@
 
 .tagsList {
   @include flexBox;
+  @include flexProperty(flex-start, center);
   font-size: size(smallSize);
   color: color(darkGreyColor);
+  line-height: 1;
 
   & a {
+    display: inline-block;
     font-weight: weight(mediumWeight);
     text-transform: capitalize;
 

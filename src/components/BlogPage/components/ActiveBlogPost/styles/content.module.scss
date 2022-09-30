@@ -6,7 +6,6 @@
 
 .contentWithoutMedia {
   grid-template: repeat(5, min-content) / repeat(1, minmax(60%, 1fr));
-  padding-top: 4rem !important;
 }
 
 .content {
@@ -14,7 +13,7 @@
   flex: 5;
   max-width: 60%;
   display: grid;
-  padding: 2rem;
+  padding: 8rem 2rem 2rem;
   background: color('whiteColor');
 
   .comments {

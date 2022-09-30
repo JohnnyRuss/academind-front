@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateLoadingState } from './helpers';
 
 const commentsDataSlice = createSlice({
   name: 'CommentsData',
@@ -12,18 +13,13 @@ const commentsDataSlice = createSlice({
   },
   reducers: {
     getPostComments(state) {
-      state.getCommentsLoadingState.loading = true;
-      state.getCommentsLoadingState.error = false;
-      state.getCommentsLoadingState.message = '';
+      updateLoadingState(state, 'getCommentsLoadingState', true);
     },
 
     setPostComments(state, { payload }) {
       const { postId, data } = payload;
       state.comments = [...state.comments, { postId, comments: data }];
-
-      state.getCommentsLoadingState.loading = false;
-      state.getCommentsLoadingState.error = false;
-      state.getCommentsLoadingState.message = '';
+      updateLoadingState(state, 'getCommentsLoadingState', false);
     },
 
     addComment() {},

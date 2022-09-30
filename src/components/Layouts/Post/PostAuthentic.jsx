@@ -29,7 +29,7 @@ function PostAuthentic({
 
   return (
     <div className={shared ? styles.shareAuthentic : styles.postBody} data-post-authentic>
-      {(!shared && type === 'post') || (shared && authenticType === 'post') ? (
+      {type === 'post' && authenticType !== 'blogPost' ? (
         <>
           <div className={styles.postAuthorIdentifierBox}>
             <UserIdentifier
@@ -53,7 +53,12 @@ function PostAuthentic({
           )}
         </>
       ) : (
-        <BlogPost post={data} limitation={550} options={false} referenced={true} />
+        <BlogPost
+          post={shared ? { ...data, tags: data.authenticTags } : data}
+          limitation={550}
+          options={false}
+          referenced={true}
+        />
       )}
     </div>
   );

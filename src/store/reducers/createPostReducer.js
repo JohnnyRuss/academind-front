@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateLoadingState } from './helpers/index';
 
 const createPostSlice = createSlice({
   name: 'createPost',
@@ -8,6 +9,7 @@ const createPostSlice = createSlice({
       error: false,
       message: '',
     },
+    title: '',
     text: '',
     files: [],
     categories: [],
@@ -24,7 +26,17 @@ const createPostSlice = createSlice({
 
     setCreateBlogPostIsOpen(state, { payload }) {
       state.createBlogPostIsOpen = payload;
-      if (payload === false) state.files = [];
+      if (payload === false) {
+        state.text = '';
+        state.title = '';
+        state.files = [];
+        state.categories = [];
+        state.tags = [];
+      }
+    },
+
+    setTitle(state, { payload }) {
+      state.title = payload;
     },
 
     setText(state, { payload }) {
@@ -49,9 +61,13 @@ const createPostSlice = createSlice({
       if (Object.values(state.files).length === 0) state.activeSelectedMedia = false;
     },
 
-    addCategory(state, { payload }) {},
+    addCategory(state, { payload }) {
+      state.categories = [...state.categories, payload];
+    },
 
-    removeCategory(state, { payload }) {},
+    removeCategory(state, { payload }) {
+      state.categories = state.categories.filter((category) => category !== payload);
+    },
 
     addTag(state, { payload }) {
       state.tags = [...state.tags, payload];
@@ -62,22 +78,19 @@ const createPostSlice = createSlice({
     },
 
     createPost(state) {
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
 
     resetCreatePost(state) {
-      state.loadingState = {
-        loading: null,
-        error: false,
-        message: '',
-      };
+      updateLoadingState(state, 'loadingState', false);
+      state.title = '';
       state.text = '';
-      state.files = [];
+      state.categories = [];
       state.tags = [];
-      state.activeSelectedMedia = false;
+      state.files = [];
       state.createPostIsOpen = false;
+      state.createBlogPostIsOpen = false;
+      state.activeSelectedMedia = false;
     },
   },
 });
@@ -86,6 +99,7 @@ export const createPostReducer = createPostSlice.reducer;
 export const {
   setCreatePostIsOpen,
   setCreateBlogPostIsOpen,
+  setTitle,
   setText,
   setFile,
   removeFiles,

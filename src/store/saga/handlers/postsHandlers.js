@@ -9,7 +9,7 @@ import {
 } from '../../reducers/postsDataReducer';
 
 import { resetCreatePost } from '../../reducers/createPostReducer';
-import { resetUpdatePostModal, resetSharePostModal } from '../../reducers/portalReducer';
+import { resetUpdateState, resetSharePostModal } from '../../reducers/portalReducer';
 
 import {
   queryCreatePost,
@@ -47,7 +47,7 @@ function* updatePostHandler({ payload: { params, body } }) {
   try {
     const { data } = yield call(queryUpdatePost, { postId: params.postId, body });
     yield put(setUpdatedPost({ params, data }));
-    yield put(resetUpdatePostModal());
+    yield put(resetUpdateState());
   } catch (error) {
     showError(error, 'updatePostHandler');
   }

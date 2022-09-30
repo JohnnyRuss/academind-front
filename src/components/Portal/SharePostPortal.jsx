@@ -66,6 +66,7 @@ function SharePostPortal() {
         <PostAuthentic
           shared={true}
           type={sharePostData.type}
+          authenticType={sharePostData.authenticType}
           data={sharePostData}
           proccessShare={true}
         />

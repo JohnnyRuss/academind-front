@@ -1,74 +1,40 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { setFile, removeFiles } from '../../../store/reducers/createPostReducer';
 import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
-import { usePostQuery } from '../../../hooks';
 
 import { Modal } from '../';
-import { BTN } from '../../Interface';
+import { BTN, InlineStandSpinner } from '../../Interface';
 import { UserIdentifier, TextAreaWithTag } from '../';
 import styles from './components/styles/createBlogPostModal.module.scss';
 import { TitleField, Categories, CreateBlogPostMedia } from './components';
 
-function CreateBlogPost({ activateModal }) {
-  const dispatch = useDispatch();
-
+function CreateBlogPost({
+  isOpen,
+  setIsOpen,
+  title,
+  handleTitle,
+  text,
+  handleText,
+  category,
+  setCategory,
+  categories,
+  handleAddCategory,
+  handleRemoveCategory,
+  tags,
+  handleAddTag,
+  handleRemoveTag,
+  handleMediaFiles,
+  handleRemoveMediaFile,
+  publishPost,
+  files,
+  loading,
+}) {
   const { userName, image } = useSelector(selectActiveUserInfo);
-  const { createBlogPostIsOpen, files } = useSelector(({ createPost }) => createPost);
-
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('');
-  const [categories, setCategories] = useState([]);
-  const [text, setText] = useState('');
-  const [tags, setTags] = useState([]);
-
-  function addCategory(e) {
-    e.preventDefault();
-    if (category.startsWith('#')) {
-      setCategories((prev) => [...prev, category.replace('#', '')]);
-      setCategory('');
-    }
-  }
-
-  const removeCategory = (category) =>
-    setCategories(categories.filter((item) => item !== category));
-
-  const handleMediaFiles = (e) => dispatch(setFile(e.target.files));
-
-  const handleRemoveMediaFile = (media) => dispatch(removeFiles(media));
-
-  const handleTag = (tag) => setTags((prev) => [...prev, tag]);
-
-  const handleRemoveTag = (id) => setTags((prev) => prev.filter((tag) => tag._id !== id));
-
-  const { handlePostPublish } = usePostQuery();
-
-  function publishPost() {
-    // setTitle('');
-    // setTags([]);
-    // setCategories([]);
-    handlePostPublish({
-      params: {
-        type: 'blogPost',
-        operationType: 'publish',
-      },
-      credentials: {
-        title,
-        article: text,
-        media: files,
-        tags: JSON.stringify(tags.map((tag) => tag._id)),
-        categories: JSON.stringify(categories),
-      },
-    });
-  }
 
   return (
-    <Modal
-      isOpen={createBlogPostIsOpen}
-      setIsOpen={activateModal}
-      className={styles.createBlogPostModal}>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} className={styles.createBlogPostModal}>
       <div className={styles.fields}>
+        {loading && <InlineStandSpinner />}
         <UserIdentifier
           userName={userName}
           img={image}
@@ -76,10 +42,10 @@ function CreateBlogPost({ activateModal }) {
           className={styles.blogPostIdentifier}
         />
         <div className={styles.titleAndCategoryBox}>
-          <TitleField value={title} setTitle={setTitle} />
+          <TitleField value={title} setTitle={handleTitle} />
           <Categories
-            addCategory={addCategory}
-            removeCategory={removeCategory}
+            addCategory={handleAddCategory}
+            removeCategory={handleRemoveCategory}
             category={category}
             setCategory={setCategory}
             categories={categories}
@@ -90,9 +56,9 @@ function CreateBlogPost({ activateModal }) {
           <TextAreaWithTag
             submitHandler={publishPost}
             text={text}
-            setText={setText}
+            setText={handleText}
             tags={tags}
-            setTag={handleTag}
+            setTag={handleAddTag}
             removeTag={handleRemoveTag}
             className={styles.blogPostTextField}
             placeholder='article'

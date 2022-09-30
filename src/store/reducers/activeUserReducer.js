@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { updateLoadingState } from './helpers';
 
 const activeUserSlice = createSlice({
   name: 'activeUser',
@@ -22,16 +23,11 @@ const activeUserSlice = createSlice({
   },
   reducers: {
     login(state) {
-      console.log('runs login creator');
-      state.loadingState.loading = true;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', true);
     },
 
     resetLoadingState(state) {
-      state.loadingState.loading = null;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', false);
     },
 
     setActiveUser(state, { payload }) {
@@ -50,9 +46,7 @@ const activeUserSlice = createSlice({
       Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
       localStorage.setItem('academind_passport', JSON.stringify(payload.token));
 
-      state.loadingState.loading = false;
-      state.loadingState.error = false;
-      state.loadingState.message = '';
+      updateLoadingState(state, 'loadingState', false);
     },
 
     setUpdatedUserCover(state, { payload }) {

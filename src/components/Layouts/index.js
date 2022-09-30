@@ -12,6 +12,7 @@ export { default as TextAreaWithTag } from './TextArea/TextAreaWithTag';
 
 export { default as Modal } from './Modal/Modal';
 export { default as Tags } from './Tags/Tags';
+export { default as BlogPostIdentifier } from './BlogPostIdentifier/BlogPostIdentifier';
 
 // export { default as Acordion } from './Acordion/Acordion';
 // export { default as Form } from './Form/Form';
@@ -27,8 +28,9 @@ export { default as SendMessageBTN } from './RequestBTN/SendMessageBTN';
 export { default as IsFriendBTN } from './RequestBTN/IsFriendBTN';
 
 export { default as CreatePost } from './CreatePost/CreatePost';
-export { default as CreateBlogPostTouch } from './CreateBlogPost/CreateBlogPostTouch';
 export { default as CreatePostModal } from './CreatePost/CreatePostModal';
+export { default as CreateBlogPostTouch } from './CreateBlogPost/CreateBlogPostTouch';
+export { default as CreateBlogPostModal } from './CreateBlogPost/CreateBlogPostModal.jsx';
 
 export { default as SideBar } from './SideBar/SideBar';
 export { default as MultiCarousel } from './MultiCarousel/MultiCarousel';
