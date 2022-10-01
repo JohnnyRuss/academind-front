@@ -83,10 +83,10 @@ function* savePostHandler({ payload: postId }) {
   }
 }
 
-function* getBlogPostsHandler() {
+function* getBlogPostsHandler({ payload: { page, limit, hasMore } }) {
   try {
-    const { data } = yield call(queryBlogPosts);
-    yield put(setPosts(data));
+    const { data } = yield call(queryBlogPosts, page, limit, hasMore);
+    yield put(setPosts({ data: data.data, results: data.results }));
   } catch (error) {
     showError(error, 'getBlogPostsHandler');
   }

@@ -16,6 +16,7 @@ function UserIdentifier({
   img = '/img/avatar.png',
   withTime = true,
   timeAgo,
+  children,
   className,
 }) {
   return (
@@ -27,6 +28,7 @@ function UserIdentifier({
         </Link>
         {withTime && <TimeAgo date={timeAgo} className={styles.dateTimeAgo} />}
       </span>
+      {children}
     </div>
   );
 }

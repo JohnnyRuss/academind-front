@@ -10,10 +10,18 @@ const postsDataSlice = createSlice({
       message: '',
     },
     posts: [],
+    results: '',
   },
   reducers: {
+    startLoading(state) {
+      updateLoadingState(state, 'loadingState', true);
+    },
+
     setPosts(state, { payload }) {
-      state.posts = [...payload];
+      const { data, results } = payload;
+      state.posts = [...state.posts, ...data];
+      if (results) state.results = results;
+      if (state.loadingState.loading) updateLoadingState(state, 'loadingState', false);
     },
 
     setNewPost(state, { payload }) {
@@ -78,11 +86,10 @@ const postsDataSlice = createSlice({
 
     resetPosts(state) {
       state.posts = [];
+      state.results = '';
     },
 
-    getBlogPosts(state) {
-      updateLoadingState(state, 'loadingState', true);
-    },
+    getBlogPosts() {},
 
     getPost(state) {
       updateLoadingState(state, 'loadingState', true);
@@ -92,6 +99,7 @@ const postsDataSlice = createSlice({
 
 export const postsDataReducer = postsDataSlice.reducer;
 export const {
+  startLoading,
   setPosts,
   setNewPost,
   setActiveUserUpdatedCover,

@@ -3,17 +3,25 @@
 .userIdentifierRe {
   @include flexBox;
   gap: 1rem;
-  color: color('blackColor');
+  color: color('darkGreyColor');
   font-weight: weight('boldWeight');
+  font-size: size('smallSize');
 
   .identifierDetails {
     @include flexBox(column);
-    align-self: center;
+  }
+
+  .identifierDetails,
+  div[data-tags] {
+    padding-top: 0.25rem;
+  }
+
+  div[data-tags] {
+    margin-left: -0.5rem;
   }
 
   .identifierUserName {
     text-transform: capitalize;
-    font-size: size('smallSize');
 
     &:hover {
       text-decoration: underline;

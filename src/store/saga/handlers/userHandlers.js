@@ -38,29 +38,29 @@ function* getUserProfileHandler({ payload: userId }) {
   }
 }
 
-function* getProfilePostsHandler({ payload: userId }) {
+function* getProfilePostsHandler({ payload: { id: userID, page, limit, hasMore } }) {
   try {
-    const { data } = yield call(queryUserProfilePosts, userId);
-    yield put(setPosts(data));
+    const { data } = yield call(queryUserProfilePosts, userID, page, limit, hasMore);
+    yield put(setPosts({ data: data.data, results: data.results }));
   } catch (error) {
     showError(error, 'getProfilePostsHandler');
   }
 }
 
-function* getUserFeedHandler({ payload: userId }) {
+function* getUserFeedHandler({ payload: { id: userID, page, limit, hasMore } }) {
   try {
-    const { data } = yield call(queryUserFeed, userId);
-    yield put(setPosts(data));
+    const { data } = yield call(queryUserFeed, userID, page, limit, hasMore);
+    yield put(setPosts({ data: data.data, results: data.results }));
     yield put(resetLoadingState());
   } catch (error) {
     showError(error, 'getUserFeedHandler');
   }
 }
 
-function* getBookmarksHandler({ payload }) {
+function* getBookmarksHandler({ payload: { id: userID, page, limit, hasMore } }) {
   try {
-    const { data } = yield call(queryBookmarks, payload);
-    yield put(setPosts(data));
+    const { data } = yield call(queryBookmarks, userID, page, limit, hasMore);
+    yield put(setPosts({ data: data.data, results: data.results }));
     yield put(resetNestedLoadingState());
   } catch (error) {
     showError(error, 'getBookmarksHandler');

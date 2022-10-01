@@ -1,15 +1,11 @@
 @use '../../../styles//helpers/helpers' as *;
 
 .tagsList {
-  @include flexBox;
-  @include flexProperty(flex-start, center);
-  font-size: size(smallSize);
-  color: color(darkGreyColor);
-  line-height: 1;
+  font-size: inherit;
+  color: inherit;
 
   & a {
     display: inline-block;
-    font-weight: weight(mediumWeight);
     text-transform: capitalize;
 
     &:hover {
@@ -18,8 +14,12 @@
   }
 
   & strong {
-    font-weight: weight(mediumWeight);
+    font-weight: inherit;
     text-decoration: underline;
     cursor: pointer;
+  }
+
+  .tagKeyWord {
+    font-weight: weight(regullarWeight);
   }
 }

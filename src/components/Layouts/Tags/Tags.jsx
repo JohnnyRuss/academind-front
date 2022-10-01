@@ -6,12 +6,12 @@ function Tags({ tags, keyWord = 'with' }) {
 
   return (
     <div className={styles.tagsList} data-tags>
-      <span>{keyWord} - </span>
+      <span className={styles.tagKeyWord}>{keyWord} - </span>
       {length === 1 && <Link path={`/profile/${tags[0]._id}/posts`}>{tags[0].userName}</Link>}
       {length === 2 && (
         <>
           <Link path={`/profile/${tags[0]._id}/posts`}>{tags[0].userName}</Link>
-          <span>&nbsp;and&nbsp;</span>
+          <span className={styles.tagKeyWord}>&nbsp;and&nbsp;</span>
           <Link path={`/profile/${tags[1]._id}/posts`}>{tags[1].userName}</Link>
         </>
       )}
@@ -19,7 +19,7 @@ function Tags({ tags, keyWord = 'with' }) {
         <>
           <Link path={`/profile/${tags[0]._id}/posts`}>{tags[0].userName}</Link>
           <span>
-            &nbsp;and&nbsp;
+            <span className={styles.tagKeyWord}>&nbsp;and&nbsp;</span>
             <strong>{length - 1}&nbsp;others</strong>
           </span>
         </>

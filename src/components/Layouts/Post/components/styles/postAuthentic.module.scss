@@ -16,6 +16,8 @@
   }
 
   .postAuthenticIdentifier {
+    font-size: size(smallerSize);
+
     & figure[data-img] {
       width: 3.5rem;
       height: 3.5rem;
@@ -27,10 +29,6 @@
     }
   }
 
-  & div[data-tags] {
-    margin-top: 0.20rem;
-  }
-
   .description {
     margin-top: -0.5rem;
     font-size: size('smallerSize');
@@ -39,8 +37,6 @@
 
 .postBody {
   .postAuthenticIdentifier {
-    margin: 0.5rem 0.5rem 1rem 0.5rem;
-
     & figure[data-img] {
       width: 4rem;
       height: 4rem;
@@ -50,13 +46,4 @@
       font-size: size('smallestSize');
     }
   }
-
-  & div[data-tags] {
-    margin-top: 0.75rem;
-  }
-}
-
-.postAuthorIdentifierBox {
-  @include flexBox;
-  gap: 0.5rem;
 }

@@ -8,16 +8,14 @@ import { UserIdentifier, Tags } from '../../';
 function SharedPostHeader({ data }) {
   return (
     <>
-      <div className={styles.sharedPostHeader}>
-        <UserIdentifier
-          userId={data.authorId}
-          userName={data.authorName}
-          img={data.authorImg}
-          timeAgo={data.createdAt}
-          className={styles.sharedPostHeaderIdentifier}
-        />
+      <UserIdentifier
+        userId={data.authorId}
+        userName={data.authorName}
+        img={data.authorImg}
+        timeAgo={data.createdAt}
+        className={styles.sharedPostHeaderIdentifier}>
         {data.tags[0] && <Tags tags={data.tags} />}
-      </div>
+      </UserIdentifier>
       <PostDescription
         description={data.description}
         className={styles.sharedPostHeaderDescription}

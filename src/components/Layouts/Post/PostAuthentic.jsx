@@ -31,16 +31,14 @@ function PostAuthentic({
     <div className={shared ? styles.shareAuthentic : styles.postBody} data-post-authentic>
       {type === 'post' && authenticType !== 'blogPost' ? (
         <>
-          <div className={styles.postAuthorIdentifierBox}>
-            <UserIdentifier
-              userId={data?.author._id}
-              userName={data.author.userName}
-              timeAgo={data.createdAt}
-              img={data.author.profileImg}
-              className={styles.postAuthenticIdentifier}
-            />
+          <UserIdentifier
+            userId={data?.author._id}
+            userName={data.author.userName}
+            timeAgo={data.createdAt}
+            img={data.author.profileImg}
+            className={styles.postAuthenticIdentifier}>
             {tgs?.[0] && <Tags tags={tgs} />}
-          </div>
+          </UserIdentifier>
           <PostDescription description={data.description} className={styles.description} />
           {data.media && (
             <PostMedia

@@ -9,14 +9,14 @@ import RestrictionUnAuthorised from './pages/authentication/RestrictionUnAuthori
 const Login = lazy(() => import('./pages/authentication/Login'));
 const Register = lazy(() => import('./pages/authentication/Register'));
 const PostsPage = lazy(() => import('./pages/profile/PostsPage'));
-const About = lazy(() => import('./pages/profile/About'));
+const About = lazy(() => import('./pages/profile/AboutPage'));
 const BookmarksPage = lazy(() => import('./pages/profile/BookmarksPage'));
 const Friends = lazy(() => import('./pages/profile/friends/Friends'));
 const AllFriends = lazy(() => import('./pages/profile/friends/AllFriends'));
 const SentRequests = lazy(() => import('./pages/profile/friends/SentRequests'));
 const PendingRequests = lazy(() => import('./pages/profile/friends/PendingRequests'));
 const Feed = lazy(() => import('./pages/feed/Feed'));
-const Blog = lazy(() => import('./pages/blog/Blog'));
+const BlogPage = lazy(() => import('./pages/blog/BlogPage'));
 const ActiveBlogPost = lazy(() => import('./pages/blog/ActiveBlogPost'));
 
 function App() {
@@ -42,7 +42,7 @@ function App() {
               </Route>
               <Route path='bookmarks' element={<BookmarksPage />} />
             </Route>
-            <Route path='blog' element={<Blog />} />
+            <Route path='blog' element={<BlogPage />} />
             <Route path='blog/:id' element={<ActiveBlogPost />} />
           </Route>
         </Routes>

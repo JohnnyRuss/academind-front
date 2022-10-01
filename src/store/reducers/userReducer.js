@@ -29,6 +29,14 @@ const userSlice = createSlice({
       updateLoadingState(state, 'nestedLoadingState', false);
     },
 
+    startLoading(state) {
+      updateLoadingState(state, 'loadingState', true);
+    },
+
+    startNestedLoading(state) {
+      updateLoadingState(state, 'nestedLoadingState', true);
+    },
+
     searchUser() {},
 
     setSearchResult(state, { payload }) {
@@ -50,13 +58,9 @@ const userSlice = createSlice({
 
     getProfilePosts() {},
 
-    getFeedPosts(state) {
-      updateLoadingState(state, 'loadingState', true);
-    },
+    getFeedPosts() {},
 
-    getBookmarks(state) {
-      updateLoadingState(state, 'nestedLoadingState', true);
-    },
+    getBookmarks() {},
   },
 });
 
@@ -64,6 +68,8 @@ export const userReducer = userSlice.reducer;
 export const {
   resetLoadingState,
   resetNestedLoadingState,
+  startLoading,
+  startNestedLoading,
   searchUser,
   setSearchResult,
   resetSearchResult,

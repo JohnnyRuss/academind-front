@@ -45,9 +45,9 @@ function Comment({ type, data, handlers, className }) {
           userName={comment.author?.userName}
           img={comment.author?.profileImg}
           withTime={false}
-          className={styles.commentUserIdentifier}
-        />
-        {comment.tags[0] && <Tags tags={comment.tags} keyWord='to' />}
+          className={styles.commentUserIdentifier}>
+          {comment.tags[0] && <Tags tags={comment.tags} keyWord='to' />}
+        </UserIdentifier>
         {comment.pin && <PinIcon className={styles.pinIcon} />}
       </div>
       <CommentContent

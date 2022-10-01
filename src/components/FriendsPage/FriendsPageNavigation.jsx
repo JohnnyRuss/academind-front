@@ -17,7 +17,7 @@ function Friends() {
     if (pathname.includes(route)) return styles.active;
   }
 
-  const { isActiveUser } = useForeignUser('basedOnId');
+  const { isActiveUser, profileId } = useForeignUser('basedOnId');
 
   const searchKey = useSelector(({ friends }) => friends.searchKey);
   function handleSearch(e) {
@@ -26,15 +26,21 @@ function Friends() {
 
   return (
     <nav className={styles.friendsNav}>
-      <Link path='all-friends' className={activeRoute('all-friends')}>
+      <Link
+        path={`/profile/${profileId}/friends/all-friends`}
+        className={activeRoute('all-friends')}>
         all friends
       </Link>
       {isActiveUser && (
         <>
-          <Link path='sent-requests' className={activeRoute('sent-requests')}>
+          <Link
+            path={`/profile/${profileId}/friends/sent-requests`}
+            className={activeRoute('sent-requests')}>
             sent request
           </Link>
-          <Link path='pending-requests' className={activeRoute('pending-request')}>
+          <Link
+            path={`/profile/${profileId}/friends/pending-requests`}
+            className={activeRoute('pending-request')}>
             pending request
           </Link>
         </>

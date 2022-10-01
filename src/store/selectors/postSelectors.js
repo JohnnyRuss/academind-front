@@ -1,6 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-export const selectedPosts = ({ postsData }) => postsData.posts;
+export const selectedPosts = ({ postsData }) => ({
+  posts: postsData.posts,
+  hasMore: postsData?.posts.length < postsData.results,
+});
 
 export const selectPosts = createSelector(selectedPosts, (selectedData) => selectedData);
 
