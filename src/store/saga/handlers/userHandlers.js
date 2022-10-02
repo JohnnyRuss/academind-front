@@ -6,7 +6,7 @@ import {
   resetLoadingState,
   resetNestedLoadingState,
 } from '../../reducers/userReducer';
-import { setPosts } from '../../reducers/postsDataReducer';
+import { setPosts, setBookmarkedPosts } from '../../reducers/postsDataReducer';
 
 import { setUserAboutData } from '../../reducers/aboutReducer';
 
@@ -60,7 +60,7 @@ function* getUserFeedHandler({ payload: { id: userID, page, limit, hasMore } }) 
 function* getBookmarksHandler({ payload: { id: userID, page, limit, hasMore } }) {
   try {
     const { data } = yield call(queryBookmarks, userID, page, limit, hasMore);
-    yield put(setPosts({ data: data.data, results: data.results }));
+    yield put(setBookmarkedPosts({ data: data.data, results: data.results }));
     yield put(resetNestedLoadingState());
   } catch (error) {
     showError(error, 'getBookmarksHandler');

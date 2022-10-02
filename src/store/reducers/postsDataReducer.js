@@ -25,6 +25,20 @@ const postsDataSlice = createSlice({
       if (state.loadingState.loading) updateLoadingState(state, 'loadingState', false);
     },
 
+    setBookmarkedPosts(state, { payload }) {
+      const { data, results } = payload;
+
+      state.posts = [
+        ...state.posts,
+        ...data.map((bookmark) => {
+          if (bookmark.deleted) return { _id: bookmark.cachedId, deleted: bookmark.deleted };
+          else return bookmark.post;
+        }),
+      ];
+
+      if (results) state.results = results;
+    },
+
     setNewPost(state, { payload }) {
       state.posts = [payload, ...state.posts];
       updateLoadingState(state, 'loadingState', false);
@@ -83,6 +97,7 @@ const postsDataSlice = createSlice({
 
     removeBookmark(state, { payload }) {
       state.posts = state.posts.filter((post) => post._id !== payload);
+      state.results = state.results - 1;
     },
 
     resetPosts(state) {
@@ -129,6 +144,7 @@ export const postsDataReducer = postsDataSlice.reducer;
 export const {
   startLoading,
   setPosts,
+  setBookmarkedPosts,
   setNewPost,
   setActiveUserUpdatedCover,
   deletePost,

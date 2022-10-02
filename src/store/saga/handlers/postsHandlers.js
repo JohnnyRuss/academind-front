@@ -83,7 +83,8 @@ function* sharePostHandler({ payload: { postId, body } }) {
 
 function* savePostHandler({ payload: postId }) {
   try {
-    yield call(querySavePost, postId);
+    const { data } = yield call(querySavePost, postId);
+    // if (data.removed)
   } catch (error) {
     showError(error, 'savePostHandler');
   }
