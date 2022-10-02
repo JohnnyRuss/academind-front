@@ -9,7 +9,6 @@ function useRestrictAuthenticated() {
     const enableRoutes = process.env.REACT_APP_ENABLED_ROUTE?.split(',');
 
     const ide = JSON.parse(localStorage.getItem('academind_passport'));
-
     if (enableRoutes.some((route) => route === pathname) && ide) navigate(-1);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

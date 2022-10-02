@@ -10,6 +10,7 @@ const postsDataSlice = createSlice({
     posts: [],
     topRatedBlogPosts: [],
     topRatedPublishers: [],
+    relatedPosts: [],
     results: '',
   },
   reducers: {
@@ -89,6 +90,7 @@ const postsDataSlice = createSlice({
       state.results = '';
       if (state.topRatedBlogPosts[0]) state.topRatedBlogPosts = [];
       if (state.topRatedPublishers[0]) state.topRatedPublishers = [];
+      if (state.relatedPosts[0]) state.relatedPosts = [];
     },
 
     getBlogPosts() {},
@@ -109,6 +111,12 @@ const postsDataSlice = createSlice({
     setTopRatedBlogPosts(state, { payload }) {
       state.topRatedBlogPosts = payload;
       updateLoadingState(state, 'topRatedPostsLoadingState', false);
+    },
+
+    getRelatedPosts() {},
+
+    setRelatedPosts(state, { payload }) {
+      state.relatedPosts = payload;
     },
 
     getPost(state) {
@@ -138,5 +146,7 @@ export const {
   setTopRatedBlogPosts,
   getTopRatedPublishers,
   setTopRatedPublishers,
+  getRelatedPosts,
+  setRelatedPosts,
   getPost,
 } = postsDataSlice.actions;

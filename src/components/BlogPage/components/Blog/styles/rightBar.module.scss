@@ -20,20 +20,6 @@
     display: none;
   }
 
-  // .relatedPostItem h3[data-title] {
-  //   font-size: size('regullarSize');
-  // }
-
-  // .relatedPostItem div[data-user-interacion] {
-  //   & span {
-  //     font-size: size('smallerSize');
-  //   }
-
-  //   & svg {
-  //     font-size: size('regullarSize');
-  //   }
-  // }
-
   .rightBarBox {
     position: relative;
     @include flexBox(column);
@@ -50,8 +36,13 @@
     }
   }
 
+  .topRatedPostsBox {
+    height: 35rem;
+  }
+
   .rightBarTitle {
     font-size: size('bigSize');
+    font-weight: weight(boldWeight);
     text-transform: capitalize;
     margin-bottom: -1rem;
     padding: 0.5rem 0;

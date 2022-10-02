@@ -1,7 +1,7 @@
 @use '../../../../../styles/helpers/helpers' as *;
 
 .blogPostUserInteractionsBox {
-  @include flexBox(column);
+  @include flexBox;
   @include flexProperty(flex-start, center);
   gap: 1rem;
   font-size: size('smallSize');

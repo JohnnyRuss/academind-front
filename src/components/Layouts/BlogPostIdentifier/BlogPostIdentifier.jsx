@@ -5,7 +5,7 @@ import { ClockIcon } from '../../Layouts/Icons/icons';
 
 function BlogPostIdentifier({ createdAt, title, author, postId, tags, categories }) {
   return (
-    <span className={styles.reviewUserDetails}>
+    <span className={styles.reviewUserDetails} data-blog-post-identifier>
       <Link
         path={{ pathname: `/blog/${postId}`, query: { user: author?.userName } }}
         target='_blank'
@@ -13,14 +13,14 @@ function BlogPostIdentifier({ createdAt, title, author, postId, tags, categories
         <h3 data-title>{title}</h3>
       </Link>
       <div className={styles.publisher}>
-        <Avatar className={styles.avatar} img={author?.profileImg} />
+        <Avatar img={author?.profileImg} />
         <Link path={`/profile/${author?._id}/posts`} className={styles.blogPostUserName}>
           {author?.userName}
         </Link>
         {tags?.[0] && <Tags tags={tags} />}
       </div>
       {categories?.[0] && (
-        <div className={styles.blogPostCategories}>
+        <div className={styles.blogPostCategories} data-categories-list>
           {categories.map((category, i) => (
             <span key={`${postId}-category-${i}`}>#{category}</span>
           ))}

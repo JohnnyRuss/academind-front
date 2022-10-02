@@ -5,7 +5,6 @@ import BlogPostOptions from './BlogPostOptions';
 function ReviewUserInteraction({ commentsAmount, likesAmount, dislikesAmount }) {
   return (
     <div data-user-interacion className={styles.blogPostUserInteractionsBox}>
-      <BlogPostOptions />
       <div className={styles.blogPostInteractions}>
         <span>
           <LikeIcon />({likesAmount})
@@ -17,6 +16,7 @@ function ReviewUserInteraction({ commentsAmount, likesAmount, dislikesAmount }) 
           <CommentIcon />({commentsAmount})
         </span>
       </div>
+      <BlogPostOptions />
     </div>
   );
 }

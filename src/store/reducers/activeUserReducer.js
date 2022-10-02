@@ -27,7 +27,7 @@ const activeUserSlice = createSlice({
     },
 
     resetLoadingState(state) {
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState(state, 'loadingState', null);
     },
 
     setActiveUser(state, { payload }) {

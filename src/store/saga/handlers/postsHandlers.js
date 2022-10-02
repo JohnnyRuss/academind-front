@@ -8,6 +8,7 @@ import {
   setPostReaction,
   setTopRatedBlogPosts,
   setTopRatedPublishers,
+  setRelatedPosts,
 } from '../../reducers/postsDataReducer';
 
 import { resetCreatePost } from '../../reducers/createPostReducer';
@@ -23,6 +24,7 @@ import {
   queryBlogPosts,
   queryGetPost,
   queryTopRatedBlogPosts,
+  queryRelatedPosts,
   queryTopRatedPublishers,
 } from '../api/postQueries';
 
@@ -122,6 +124,15 @@ function* getPostHandler({ payload: postId }) {
   }
 }
 
+function* getRelatedPostsHandler({ payload: { postId, limit } }) {
+  try {
+    const { data } = yield call(queryRelatedPosts, postId, limit);
+    yield put(setRelatedPosts(data));
+  } catch (error) {
+    showError(error, 'getPostHandler');
+  }
+}
+
 function showError(error, location) {
   console.log({
     error: true,
@@ -143,4 +154,5 @@ export {
   getPostHandler,
   getTopRatedPublishersHandler,
   getTopRatedBlogPostsHandler,
+  getRelatedPostsHandler,
 };

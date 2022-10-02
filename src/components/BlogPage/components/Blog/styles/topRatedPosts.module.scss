@@ -3,19 +3,37 @@
 .topRatedPosts {
   @include flexBox(column);
   gap: 1rem;
-}
+  font-size: size(smallestSize);
 
-.downBtn {
-  position: fixed;
-  bottom: 2.8rem;
-  right: 4rem;
-  z-index: 999;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  @include flexBox;
-  @include flexProperty(center, center);
-  border: 1px solid color('darkGreyColor');
-  background: color('whiteColor');
-  @include boxShadowBlack(0, 0.5rem, 0.25);
+  .topRatedBlogPost {
+    @include flexBox(column);
+
+    [data-blog-post-identifier] {
+      gap: 0.75rem;
+    }
+
+    [data-title] {
+      font-size: size(regullarSize);
+    }
+
+    & > [data-img] {
+      width: 100%;
+      aspect-ratio: 2/1;
+      border-radius: 0;
+      margin: 0;
+    }
+
+    [data-categories-list] {
+      justify-content: center;
+      font-size: size(smallestSize);
+    }
+
+    [data-user-interacion] {
+      font-size: size('smallerSize');
+
+      & svg {
+        font-size: size(regullarSize);
+      }
+    }
+  }
 }

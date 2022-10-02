@@ -15,7 +15,12 @@ function TopRatedPosts() {
       {loading && <Spinner />}
       {!loading &&
         posts?.map((post) => (
-          <BlogPost post={post} limitation={350} className='observItem' key={post._id} />
+          <BlogPost
+            post={post}
+            limitation={350}
+            className={styles.topRatedBlogPost}
+            key={post._id}
+          />
         ))}
     </div>
   );

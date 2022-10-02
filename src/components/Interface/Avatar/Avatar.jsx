@@ -5,7 +5,7 @@ function Avatar({ img = '/img/avatar.png', onClick = () => {}, className }) {
   return (
     <Image
       src={img}
-      className={`${styles.avatar} ${className || ''}`}
+      className={styles.avatar}
       onClick={onClick}
     />
   );

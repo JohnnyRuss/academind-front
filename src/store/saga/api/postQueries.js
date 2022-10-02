@@ -36,6 +36,10 @@ async function queryTopRatedPublishers(limit) {
   return await axiosQuery(`/posts/blogPosts/topRatedPublishers?limit=${limit}`);
 }
 
+async function queryRelatedPosts(postId, limit) {
+  return await axiosQuery(`/posts/blogPosts/relatedPosts/${postId}?limit=${limit}`);
+}
+
 async function queryGetPost(postId) {
   return await axiosQuery(`/posts/${postId}`);
 }
@@ -50,5 +54,6 @@ export {
   queryBlogPosts,
   queryTopRatedBlogPosts,
   queryTopRatedPublishers,
+  queryRelatedPosts,
   queryGetPost,
 };

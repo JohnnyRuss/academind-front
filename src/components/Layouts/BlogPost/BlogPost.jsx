@@ -8,7 +8,7 @@ function BlogPost({ post, limitation = 2000, className, referenced, options = tr
     post?.article?.length > limitation ? `${post.article?.slice(0, limitation)}...` : post?.article;
 
   return (
-    <div className={`${styles.blogPost} ${className}`} id={id ? id : ''}>
+    <div className={`${styles.blogPost} ${className || ''}`} id={id ? id : ''}>
       {post?.media?.[0] && <Image src={post.media?.[0]} className={styles.blogPostMedia} />}
       <div className={styles.blogPostInfo}>
         <div className={styles.devideRow}>
