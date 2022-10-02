@@ -4,12 +4,12 @@ import { updateLoadingState } from './helpers';
 const postsDataSlice = createSlice({
   name: 'PostsData',
   initialState: {
-    loadingState: {
-      loading: false,
-      error: false,
-      message: '',
-    },
+    loadingState: { loading: false, error: false, message: '' },
+    publishersLoadingState: { loading: false, error: false, message: '' },
+    topRatedPostsLoadingState: { loading: false, error: false, message: '' },
     posts: [],
+    topRatedBlogPosts: [],
+    topRatedPublishers: [],
     results: '',
   },
   reducers: {
@@ -87,9 +87,29 @@ const postsDataSlice = createSlice({
     resetPosts(state) {
       state.posts = [];
       state.results = '';
+      if (state.topRatedBlogPosts[0]) state.topRatedBlogPosts = [];
+      if (state.topRatedPublishers[0]) state.topRatedPublishers = [];
     },
 
     getBlogPosts() {},
+
+    getTopRatedPublishers(state) {
+      updateLoadingState(state, 'publishersLoadingState', true);
+    },
+
+    setTopRatedPublishers(state, { payload }) {
+      state.topRatedPublishers = payload;
+      updateLoadingState(state, 'publishersLoadingState', false);
+    },
+
+    getTopRatedBlogPosts(state) {
+      updateLoadingState(state, 'topRatedPostsLoadingState', true);
+    },
+
+    setTopRatedBlogPosts(state, { payload }) {
+      state.topRatedBlogPosts = payload;
+      updateLoadingState(state, 'topRatedPostsLoadingState', false);
+    },
 
     getPost(state) {
       updateLoadingState(state, 'loadingState', true);
@@ -114,5 +134,9 @@ export const {
   removeBookmark,
   resetPosts,
   getBlogPosts,
+  getTopRatedBlogPosts,
+  setTopRatedBlogPosts,
+  getTopRatedPublishers,
+  setTopRatedPublishers,
   getPost,
 } = postsDataSlice.actions;

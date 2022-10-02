@@ -8,6 +8,8 @@ import {
   savePost,
   getBlogPosts,
   getPost,
+  getTopRatedBlogPosts,
+  getTopRatedPublishers,
 } from '../../reducers/postsDataReducer';
 
 import {
@@ -19,6 +21,8 @@ import {
   savePostHandler,
   getBlogPostsHandler,
   getPostHandler,
+  getTopRatedBlogPostsHandler,
+  getTopRatedPublishersHandler,
 } from '../handlers/postsHandlers';
 
 function* postsSaga() {
@@ -30,6 +34,8 @@ function* postsSaga() {
   yield takeLatest(savePost, savePostHandler);
   yield takeLatest(getBlogPosts, getBlogPostsHandler);
   yield takeLatest(getPost, getPostHandler);
+  yield takeLatest(getTopRatedBlogPosts, getTopRatedBlogPostsHandler);
+  yield takeLatest(getTopRatedPublishers, getTopRatedPublishersHandler);
 }
 
 export default postsSaga;

@@ -1,10 +1,11 @@
 export const FEED_POSTS_COUNT_PER_REQ = 10;
-// export const FEED_POSTS_COUNT_FIRST_REQ = 5;
 
 export const PROFILE_POSTS_COUNT_PER_REQ = 10;
-// export const PROFILE_POSTS_COUNT_FIRST_REQ = 5;
 
 export const BOOKMARKS_POSTS_COUNT_PER_REQ = 10;
-// export const BOOKMARKS_POSTS_COUNT_FIRST_REQ = 5;
 
 export const BLOG_POSTS_COUNT_PER_REQ = 10;
+
+export const BLOG_POSTS_TOP_RATED_POSTS_COUNT = 5;
+
+export const BLOG_POSTS_TOP_RATED_PUBLISHERS_COUNT = 8;

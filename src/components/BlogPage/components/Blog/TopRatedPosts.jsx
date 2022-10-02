@@ -1,15 +1,22 @@
-import { uid } from 'uid';
+import { useSelector } from 'react-redux';
 
-import { blogPosts } from '../../../../utils';
-import { BlogPost } from '../../../Layouts';
 import styles from './styles/topRatedPosts.module.scss';
+import { BlogPost } from '../../../Layouts';
+import { Spinner } from '../../../Interface';
 
 function TopRatedPosts() {
+  const {
+    topRatedBlogPosts: posts,
+    topRatedPostsLoadingState: { loading },
+  } = useSelector(({ postsData }) => postsData);
+
   return (
     <div className={styles.topRatedPosts}>
-      {/* {blogPosts.map((post) => (
-        <BlogPost post={post} limitation={350} className='observItem' key={uid(6)} />
-      ))} */}
+      {loading && <Spinner />}
+      {!loading &&
+        posts?.map((post) => (
+          <BlogPost post={post} limitation={350} className='observItem' key={post._id} />
+        ))}
     </div>
   );
 }

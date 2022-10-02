@@ -6,6 +6,8 @@ import {
   setDeletedPost,
   setUpdatedPost,
   setPostReaction,
+  setTopRatedBlogPosts,
+  setTopRatedPublishers,
 } from '../../reducers/postsDataReducer';
 
 import { resetCreatePost } from '../../reducers/createPostReducer';
@@ -20,6 +22,8 @@ import {
   querySavePost,
   queryBlogPosts,
   queryGetPost,
+  queryTopRatedBlogPosts,
+  queryTopRatedPublishers,
 } from '../api/postQueries';
 
 import { allowNewPostSet } from '../../../utils/window-location';
@@ -91,6 +95,23 @@ function* getBlogPostsHandler({ payload: { page, limit, hasMore } }) {
     showError(error, 'getBlogPostsHandler');
   }
 }
+function* getTopRatedPublishersHandler({ payload: limit }) {
+  try {
+    const { data } = yield call(queryTopRatedPublishers, limit);
+    yield put(setTopRatedPublishers(data));
+  } catch (error) {
+    showError(error, 'getTopRatedPublishersHandler');
+  }
+}
+
+function* getTopRatedBlogPostsHandler({ payload: limit }) {
+  try {
+    const { data } = yield call(queryTopRatedBlogPosts, limit);
+    yield put(setTopRatedBlogPosts(data));
+  } catch (error) {
+    showError(error, 'getTopRatedBlogPostsHandler');
+  }
+}
 
 function* getPostHandler({ payload: postId }) {
   try {
@@ -120,4 +141,6 @@ export {
   savePostHandler,
   getBlogPostsHandler,
   getPostHandler,
+  getTopRatedPublishersHandler,
+  getTopRatedBlogPostsHandler,
 };

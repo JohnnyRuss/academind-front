@@ -28,6 +28,14 @@ async function queryBlogPosts(page, limit, hasMore) {
   return await axiosQuery(`/posts/blogPosts?page=${page}&limit=${limit}&hasMore=${hasMore}`);
 }
 
+async function queryTopRatedBlogPosts(limit) {
+  return await axiosQuery(`/posts/blogPosts/topRated?limit=${limit}`);
+}
+
+async function queryTopRatedPublishers(limit) {
+  return await axiosQuery(`/posts/blogPosts/topRatedPublishers?limit=${limit}`);
+}
+
 async function queryGetPost(postId) {
   return await axiosQuery(`/posts/${postId}`);
 }
@@ -40,5 +48,7 @@ export {
   querySharePost,
   querySavePost,
   queryBlogPosts,
+  queryTopRatedBlogPosts,
+  queryTopRatedPublishers,
   queryGetPost,
 };
