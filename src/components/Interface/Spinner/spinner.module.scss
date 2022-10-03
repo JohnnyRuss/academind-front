@@ -62,3 +62,13 @@
     @include CenterAbsPos;
   }
 }
+
+.blockSpinnerBox {
+  text-align: center;
+  font-size: size('extraLargeSize');
+  color: color('blueColor');
+
+  .spinner {
+    animation: spinnerFixed 1s ease infinite;
+  }
+}

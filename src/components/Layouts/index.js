@@ -10,7 +10,7 @@ export { default as OptionsBig } from './OptionsModal/OptionsBig';
 
 export { default as TextArea } from './TextArea/TextArea';
 export { default as TextAreaWithTag } from './TextArea/TextAreaWithTag';
-
+export { default as ScrollEnd } from './ScrollEnd/ScrollEnd';
 export { default as Modal } from './Modal/Modal';
 export { default as Tags } from './Tags/Tags';
 export { default as BlogPostIdentifier } from './BlogPostIdentifier/BlogPostIdentifier';

@@ -6,11 +6,9 @@
   background: color('whiteColor');
 
   .blogPostMedia {
-    width: 30%;
-    aspect-ratio: 1/1;
+    width: 100%;
+    aspect-ratio: 3/1;
     margin: 0 1rem 0 0;
-    float: left;
-    border-bottom-right-radius: 1.2rem;
     overflow: hidden;
 
     & img {
@@ -21,12 +19,11 @@
   .blogPostInfo {
     flex: 5;
     padding: 1rem;
-    @include clearFix;
   }
 
   .blogPostShortDesc {
     margin-top: 1rem;
-    font-size: size('smallerSize');
+    font-size: size('smallSize');
     @include hyphens;
     color: color('darkGreyColor');
   }
@@ -37,6 +34,8 @@
     padding: 0 0.5rem;
     border-radius: 1rem;
     font-weight: weight('mediumWeight');
+    font-size: inherit;
+    margin-left: 0.25rem;
   }
 
   .devideRow {

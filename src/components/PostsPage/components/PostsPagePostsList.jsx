@@ -3,7 +3,8 @@ import { usePost } from '../../../hooks';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import styles from './styles/postsPageContent.module.scss';
-import { Post } from '../../Layouts';
+import { Post, ScrollEnd } from '../../Layouts';
+import { BlockSpinner } from '../../Interface';
 
 function PostsPagePostsList({ children, data, infinite }) {
   const { activatePostMediaHandler, activateUpdatePostModal } = usePost();
@@ -16,9 +17,9 @@ function PostsPagePostsList({ children, data, infinite }) {
         dataLength={data?.length}
         next={handleNext}
         hasMore={hasMore}
-        loader={<p>loading</p>}
-        endMessage={<p>there are no more posts</p>}
-        style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
+        loader={<BlockSpinner />}
+        endMessage={<ScrollEnd />}
+        className={styles.postsPageContentScroll}>
         {data?.map((post) => (
           <Post
             key={post._id}

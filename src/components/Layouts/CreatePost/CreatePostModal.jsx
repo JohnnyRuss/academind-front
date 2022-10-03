@@ -23,8 +23,18 @@ function CreatePostModal({
 }) {
   const { userName, image, id } = useSelector(selectActiveUserInfo);
 
-  const { shared, type, authenticDescription, authenticAuthorImg, authenticAuthorName, createdAt } =
-    updateCredentials;
+  const {
+    shared,
+    type,
+    authenticDescription,
+    authenticAuthorImg,
+    authenticAuthorName,
+    authenticTags,
+    createdAt,
+    title,
+    article,
+    categories,
+  } = updateCredentials;
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} className={styles.createPostModal}>
@@ -53,13 +63,20 @@ function CreatePostModal({
               shared={shared}
               type={type}
               proccessUpdate={true}
+              referencedPost={true}
               data={{
-                userId: '',
-                userName: authenticAuthorName,
+                author: {
+                  _id: '',
+                  userName: authenticAuthorName,
+                  profileImg: authenticAuthorImg,
+                },
                 createdAt: createdAt,
-                userImg: authenticAuthorImg,
                 description: authenticDescription,
                 media: files,
+                authenticTags,
+                title,
+                categories,
+                article,
               }}
             />
           )}

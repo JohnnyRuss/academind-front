@@ -1,8 +1,8 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import styles from './components/Blog/styles/blog.module.scss';
-import { SideBar, BlogPost, CreateBlogPostTouch } from '../Layouts';
-import { StandSpinner } from '../Interface';
+import { SideBar, BlogPost, CreateBlogPostTouch, ScrollEnd } from '../Layouts';
+import { StandSpinner, BlockSpinner } from '../Interface';
 import { Stand, RightBar, CategoriesNav } from './components/Blog';
 
 function Blog({ posts, loading, hasMore, handleNext }) {
@@ -20,8 +20,8 @@ function Blog({ posts, loading, hasMore, handleNext }) {
               dataLength={posts?.length}
               next={handleNext}
               hasMore={hasMore}
-              loader={<p>loading</p>}
-              endMessage={<p>there are no more posts</p>}
+              loader={<BlockSpinner />}
+              endMessage={<ScrollEnd />}
               style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
               {posts.map((post) => (
                 <BlogPost post={post} key={post._id} />

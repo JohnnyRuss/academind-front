@@ -56,6 +56,7 @@ const postsDataSlice = createSlice({
 
     deletePost(state) {
       updateLoadingState(state, 'loadingState', true);
+      state.results = state.results - 1;
     },
 
     setDeletedPost(state, { payload }) {

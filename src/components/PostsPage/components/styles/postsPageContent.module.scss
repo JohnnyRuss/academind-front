@@ -2,9 +2,13 @@
 
 .postsPageContent {
   flex: 4;
-  @include flexBox(column);
-  gap: 5rem;
   margin: 4rem 0 1rem;
+
+  .postsPageContentScroll {
+    @include flexBox(column);
+    gap: 5rem;
+    margin-top: 5rem;
+  }
 
   @include respond(phone) {
     flex: 1;

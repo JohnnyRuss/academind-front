@@ -38,6 +38,7 @@ const portalSlice = createSlice({
       authenticAuthorImg: '',
       authenticAuthorName: '',
       authenticDescription: '',
+      authenticTags: [],
       createdAt: '',
       description: '',
       title: '',
@@ -99,7 +100,6 @@ const portalSlice = createSlice({
 
     setUpdatePostModalOpen(state, { payload }) {
       updateState(state, 'updatePostData', payload);
-
       state.updatePostMediaFiles = payload.media;
       state.updatePostModalIsOpen = true;
     },

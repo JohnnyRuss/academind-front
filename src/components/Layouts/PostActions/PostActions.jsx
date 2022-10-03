@@ -35,19 +35,19 @@ function PostActions({ className, setShowCommnents, data, redirect }) {
       _id: data._id,
       type: data.type,
       author: {
-        userName: data.shared ? data.authenticAuthor.userName : data.author.userName,
-        profileImg: data.shared ? data.authenticAuthor.profileImg : data.author.profileImg,
+        userName: data.shared ? data.authentic.author.userName : data.author.userName,
+        profileImg: data.shared ? data.authentic.author.profileImg : data.author.profileImg,
       },
       createdAt: data.createdAt,
-      description: data.shared ? data.authenticDescription : data.description,
-      media: data.media,
+      description: data.shared ? data.authentic.description : data.description,
+      media: data.shared ? data.authentic.media : data.media,
       tags: [],
-      authenticTags: data.shared ? data.authenticTags : data.tags,
+      authenticTags: data.shared ? data.authentic.tags : data.tags,
       //for blog share
-      article: data.article,
-      title: data.title,
-      categories: data.categories,
-      authenticType: data.authenticType,
+      article: data.shared ? data.authentic?.article : data.article,
+      title: data.shared ? data.authentic.title : data.title,
+      categories: data.shared ? data.authentic.categories : data.categories,
+      authenticType: data.shared ? data.authentic?.type : data.type,
     });
   }
 

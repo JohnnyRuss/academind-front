@@ -8,7 +8,7 @@ function DeletedPost({ postId }) {
   const { savePostHandler } = usePostQuery();
 
   return (
-    <div className={styles.deletedPost}>
+    <div className={styles.deletedPost} data-deleted-post>
       <ErrorIcon /> Post Is Deleted
       <PostOptions savePostHandler={() => savePostHandler(postId)} postId={postId} />
     </div>

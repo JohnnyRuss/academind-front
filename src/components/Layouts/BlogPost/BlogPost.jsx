@@ -3,10 +3,10 @@ import { Image, Link } from '../../Interface';
 import { BlogPostIdentifier } from '../../Layouts';
 import { ReviewUserInteraction } from './components';
 
-function BlogPost({ post, limitation = 2000, className, referenced, options = true, id }) {
+function BlogPost({ post, limitation = 1500, className, referenced, id }) {
   const article =
     post?.article?.length > limitation ? `${post.article?.slice(0, limitation)}...` : post?.article;
-
+    
   return (
     <div className={`${styles.blogPost} ${className || ''}`} id={id ? id : ''}>
       {post?.media?.[0] && <Image src={post.media?.[0]} className={styles.blogPostMedia} />}
@@ -17,7 +17,7 @@ function BlogPost({ post, limitation = 2000, className, referenced, options = tr
             author={post.author}
             tags={post.tags}
             categories={post.categories}
-            postId={referenced ? post.authenticId : post._id}
+            postId={post._id}
             createdAt={post.createdAt}
           />
           {!referenced && (
@@ -28,12 +28,12 @@ function BlogPost({ post, limitation = 2000, className, referenced, options = tr
             />
           )}
         </div>
-        <p className={styles.blogPostShortDesc}>
+        <p className={styles.blogPostShortDesc} data-article-text>
           {article}
           {post?.article?.length > limitation && (
             <Link
               path={{
-                pathname: `/blog/${referenced ? post.authenticId : post._id}`,
+                pathname: `/blog/${post._id}`,
                 query: { user: post.userName },
               }}
               target='_blank'>

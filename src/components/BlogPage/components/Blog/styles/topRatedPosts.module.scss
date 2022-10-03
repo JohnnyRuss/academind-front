@@ -6,8 +6,6 @@
   font-size: size(smallestSize);
 
   .topRatedBlogPost {
-    @include flexBox(column);
-
     [data-blog-post-identifier] {
       gap: 0.75rem;
     }
@@ -16,12 +14,6 @@
       font-size: size(regullarSize);
     }
 
-    & > [data-img] {
-      width: 100%;
-      aspect-ratio: 2/1;
-      border-radius: 0;
-      margin: 0;
-    }
 
     [data-categories-list] {
       justify-content: center;
@@ -34,6 +26,10 @@
       & svg {
         font-size: size(regullarSize);
       }
+    }
+
+    [data-article-text]{
+      font-size: size(smallerSize);
     }
   }
 }
