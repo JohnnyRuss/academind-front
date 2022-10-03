@@ -4,18 +4,35 @@
   margin-top: 6rem;
   position: relative;
   width: 100%;
-  height: 40vw;
+  height: 38vw;
   background: color('whiteColor');
   font-size: size('smallSize');
   @include boxShadowBlack(0, 1rem, 0.3);
   border-bottom: 1px solid rgba(color('darkGreyColor'), 0.3);
 
-  @include respond(tab-portrate) {
-    height: 50vw;
+  @include respond(big-desktop) {
+    height: 40vw;
   }
  
+  @include respond(tab-landscape) {
+    height: 46vw;
+  }
+
+  @include respond(tab-portrate) {
+    height: 49vw;
+  }
+ 
+  @include respond(phone) {
+    height: 63vw;
+  }
+
   @include respond(phone-small) {
-    height: 65vw;
+    height: 70vw;
+    margin-top: 4rem;
+  }
+
+  @include respond(phone-smaller) {
+    height: 73vw;
   }
 }
 
@@ -26,12 +43,11 @@
   color: color('darkLightGreyColor');
 
   @include respond(tab-landscape) {
-    grid-template: 55% repeat(5, 9%) / max-content 1fr;
+    grid-template: 50% repeat(5, 10%) / max-content 1fr;
     justify-content: center;
   }
 
   @include respond(phone) {
-    grid-template: 40% repeat(5, 9%) 1fr / max-content 1fr;
-    justify-content: center;
+    grid-template: 40% repeat(6, 10%) 1fr / max-content 1fr;
   }
 }

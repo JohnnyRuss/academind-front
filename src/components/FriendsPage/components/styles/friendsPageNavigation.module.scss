@@ -12,12 +12,20 @@
   .friendsSearch {
     border: 1px solid grey;
     width: max-content;
+
+    @include respond(phone-small) {
+      display: none;
+    }
   }
 
   & a {
     padding: 1rem 2rem;
     display: inline-block;
     transition: color 0.2s, background-color 0.2s;
+
+    @include respond(phone-small) {
+      padding: 0.25rem 0.5rem;
+    }
 
     &:hover {
       background-color: color('blueTintColor');

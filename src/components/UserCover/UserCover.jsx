@@ -58,18 +58,3 @@ function Profile() {
 }
 
 export default Profile;
-
-{
-  /* <Route element={<RestrictionUnAuthorised />}>
-<Route path='feed' element={<Feed />} />
-<Route path='/profile/*' element={<UserCover />} />
-<Route path='/profile/:id/posts' element={<PostsPage />} />
-<Route path='/profile/:id/about' element={<About />} />
-<Route path='/profile/:id/friends/all-friends' element={<AllFriends />} />
-<Route path='/profile/:id/friends/sent-requests' element={<SentRequests />} />
-<Route path='/profile/:id/friends/pending-requests' element={<PendingRequests />} />
-<Route path='/profile/:id/bookmarks' element={<BookmarksPage />} />
-<Route path='blog' element={<Blog />} />
-<Route path='blog/:id' element={<ActiveBlogPost />} />
-</Route> */
-}

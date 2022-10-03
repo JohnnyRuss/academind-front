@@ -18,4 +18,8 @@
     font-size: size(headingSecondarySmallSize);
     color: color(redColor);
   }
+
+  @include respond(tab-portrate) {
+    width: 100%;
+  }
 }

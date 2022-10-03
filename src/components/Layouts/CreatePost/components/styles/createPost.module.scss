@@ -9,6 +9,10 @@
   background: color('whiteColor');
   @include boxShadowBlack(0, 1rem, 0.2);
 
+  @include respond(tab-portrate) {
+    width: 100%;
+  }
+
   @include respond(phone-small) {
     padding: 1rem;
   }

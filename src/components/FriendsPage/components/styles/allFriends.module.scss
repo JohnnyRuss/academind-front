@@ -9,6 +9,15 @@
   align-items: start;
   min-height: 10rem;
 
+  @include respond(phone) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond(phone-small) {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0 3rem;
+  }
+
   .friend {
     display: grid;
     grid-template-columns: max-content 1fr;

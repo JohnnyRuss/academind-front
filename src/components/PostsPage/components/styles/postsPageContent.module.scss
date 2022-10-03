@@ -8,6 +8,11 @@
     @include flexBox(column);
     gap: 5rem;
     margin-top: 5rem;
+
+    @include respond(phone-small) {
+      gap: 3rem;
+      margin-top: 3rem;
+    }
   }
 
   @include respond(phone) {

@@ -12,7 +12,7 @@
   }
 
   @include respond(phone) {
-    grid-area: 3 / 1 / 6 / 2;
+    grid-area: 3 / 1 / 7 / 2;
   }
 
   @include respond(phone-small) {
@@ -30,16 +30,16 @@
       border-radius: inherit;
     }
 
-    @include respond(tab-landscape) {
+    @include respond(big-desktop) {
       width: 15rem;
     }
 
     @include respond(tab-portrate) {
-      width: 13rem;
+      width: 14rem;
     }
 
     @include respond(phone) {
-      width: 11.5rem;
+      width: 12.5rem;
     }
 
     @include respond(phone-small) {
@@ -54,11 +54,11 @@
     right: 0.6rem;
     width: 4rem;
     height: 4rem;
-    background: rgba(color('darkLightGreyColor'), 0.7);
     font-size: size('largeSize');
     @include flexBox;
     @include flexProperty(center, center);
     border-radius: 50%;
+    background: rgba(color('darkLightGreyColor'), 0.7);
     color: color('whiteColor');
 
     @include respond(phone) {

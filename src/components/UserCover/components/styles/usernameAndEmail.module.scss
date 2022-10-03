@@ -20,25 +20,19 @@
     font-weight: weight('boldWeight');
   }
 
-  @include respond(tab-portrate) {
+  @include respond(phone) {
     .userName {
       font-size: size('regullarSize');
     }
   }
 
-  @include respond(phone) {
+  @include respond(phone-small) {
     .userName {
       font-size: size('smallSize');
     }
-  }
-
-  @include respond(phone-small) {
-    .userName {
-      font-size: size('smallerSize');
-    }
 
     .email {
-      font-size: size('smallestSize');
+      font-size: size('smallerSize');
     }
   }
 }

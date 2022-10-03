@@ -3,23 +3,24 @@
 .nav {
   height: 100%;
   grid-area: 6 / 2 / -1 / 4;
-  text-transform: capitalize;
-  color: color('darkGreyColor');
-  font-weight: weight('boldWeight');
-  border-top: 1px solid color('darkGreyColor');
   padding: 0 3rem;
+  font-weight: weight('boldWeight');
+  text-transform: capitalize;
+  border-top: 1px solid color('darkGreyColor');
+  color: color('darkGreyColor');
 
   @include respond(tab-landscape) {
     grid-area: 6 / 1 / -1 / -1;
   }
 
   @include respond(phone) {
-    grid-area: 7 / 1 / -1 / -1;
+    max-height: 4rem;
+    align-self: end;
   }
 
   @include respond(phone-small) {
-   font-size: size('smallerSize');
-   padding: 0 1rem;
+    font-size: size('smallerSize');
+    padding: 0 1rem;
   }
 
   .navList {
@@ -28,13 +29,13 @@
     @include flexProperty(flex-start, center);
     gap: 2.5rem;
 
+    @include respond(phone) {
+      gap: 2rem;
+    }
+
     & li {
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
-
-      @include respond(phone) {
-        padding: 0.25rem 1rem;
-      }
     }
   }
 

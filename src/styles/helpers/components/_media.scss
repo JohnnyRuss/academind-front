@@ -36,6 +36,7 @@
 
 /*
 $breakPoint arguments choise::after
+- phone-smaller - 360px
 - phone-small - 480px
 - phone - 680px
 - tab-portrate - 960px
@@ -45,6 +46,12 @@ $breakPoint arguments choise::after
 - large-desktop - > 1800px
 */
 @mixin respond($breakPoint) {
+  @if $breakPoint == phone-smaller {
+    @media only screen and (max-width: 22.5em) {
+      @content;
+    }
+  }
+
   @if $breakPoint == phone-small {
     @media only screen and (max-width: 30em) {
       @content;
@@ -82,7 +89,7 @@ $breakPoint arguments choise::after
   }
 
   @if $breakPoint == big-desktop {
-    @media only screen and (min-width: 105em) {
+    @media only screen and (max-width: 105em) {
       @content;
     }
   }
