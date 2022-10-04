@@ -15,6 +15,7 @@
     background: color(whiteColor);
     @include boxShadowBlack(0, 1rem, 0.3);
     width: 13rem;
+    min-height: 3rem;
     padding: 0.5rem;
     @include flexBox(column);
     @include flexProperty(center, flex-start);

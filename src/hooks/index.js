@@ -12,6 +12,8 @@ export { default as useCommentsQuery } from './queries/useCommentsQuery';
 export { default as usePostQuery } from './queries/usePostQuery';
 export { default as useFriendsQuery } from './queries/useFriendsQuery';
 export { default as useAboutUserQuery } from './queries/useAboutUserQuery';
+export { default as useSavePostQuery } from './queries/useSavePostQuery';
+export { default as useHelperQueries } from './queries/useHelperQueries';
 
 export { default as useAuthValidation } from './auth/useAuthValidation';
 export { default as useRestrictAuthenticated } from './auth/useRestrictAuthenticated';

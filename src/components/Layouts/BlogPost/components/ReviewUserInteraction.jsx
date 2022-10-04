@@ -2,7 +2,7 @@ import styles from './styles/reviewUserInteraction.module.scss';
 import { LikeIcon, DislikeIcon, CommentIcon } from '../../../Layouts/Icons/icons';
 import BlogPostOptions from './BlogPostOptions';
 
-function ReviewUserInteraction({ commentsAmount, likesAmount, dislikesAmount }) {
+function ReviewUserInteraction({ commentsAmount, likesAmount, dislikesAmount, postId }) {
   return (
     <div data-user-interacion className={styles.blogPostUserInteractionsBox}>
       <div className={styles.blogPostInteractions}>
@@ -16,7 +16,7 @@ function ReviewUserInteraction({ commentsAmount, likesAmount, dislikesAmount }) 
           <CommentIcon />({commentsAmount})
         </span>
       </div>
-      <BlogPostOptions />
+      <BlogPostOptions postId={postId} />
     </div>
   );
 }

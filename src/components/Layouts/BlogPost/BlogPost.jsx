@@ -6,7 +6,7 @@ import { ReviewUserInteraction } from './components';
 function BlogPost({ post, limitation = 1500, className, referenced, id }) {
   const article =
     post?.article?.length > limitation ? `${post.article?.slice(0, limitation)}...` : post?.article;
-    
+
   return (
     <div className={`${styles.blogPost} ${className || ''}`} id={id ? id : ''}>
       {post?.media?.[0] && <Image src={post.media?.[0]} className={styles.blogPostMedia} />}
@@ -25,6 +25,7 @@ function BlogPost({ post, limitation = 1500, className, referenced, id }) {
               commentsAmount={post?.commentsAmount}
               likesAmount={post.likesAmount}
               dislikesAmount={post.dislikesAmount}
+              postId={post._id}
             />
           )}
         </div>

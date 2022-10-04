@@ -49,7 +49,7 @@ function PostOptions({ deleteHandler, updateHandler, savePostHandler, postId }) 
       </button>
       {open && !blur && (
         <OptionsBody
-          savePostHandler={savePostHandler}
+          // savePostHandler={savePostHandler}
           handleUpdate={handleUpdate}
           handleDeletePopUp={handleDeletePopUp}
           postId={postId}

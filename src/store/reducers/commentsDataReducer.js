@@ -108,13 +108,7 @@ const commentsDataSlice = createSlice({
         .find((commentBlock) => commentBlock.postId === params.postId)
         .comments.find((comment) => comment._id === params.commentId);
 
-      if (data) {
-        comment.likesAmount = data.likesAmount;
-        // comment.reactions.push(data.reaction);
-      } else {
-        comment.likesAmount -= 1;
-        // comment.reactions.flter(reaction=>)
-      }
+      comment.likesAmount = data.likesAmount;
     },
 
     reactOnCommentReply() {},
@@ -127,13 +121,7 @@ const commentsDataSlice = createSlice({
         .comments.find((comment) => comment._id === params.commentId)
         .replies.find((reply) => reply._id === params.replyId);
 
-      if (data) {
-        commentReply.likesAmount = data.likesAmount;
-        // comment.reactions.push(data.reaction);
-      } else {
-        commentReply.likesAmount -= 1;
-        // comment.reactions.flter(reaction=>)
-      }
+      commentReply.likesAmount = data.likesAmount;
     },
 
     pinComment() {},

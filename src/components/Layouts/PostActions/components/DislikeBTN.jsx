@@ -1,23 +1,10 @@
-import { uid } from 'uid';
-
-import styles from './styles/reactionBTN.module.scss';
 import { DislikeIcon } from '../../Icons/icons';
 
-function LikeBTN({ reactOnPostHandler, dislikesAmount, reactions }) {
+function LikeBTN({ reactOnPostHandler, dislikesAmount }) {
   return (
-    <button
-      data-reaction={false}
-      onClick={reactOnPostHandler}
-      className={` ${styles.reactionBtn} ${styles.reactionDislikeBtn}`}>
+    <button data-reaction={false} onClick={reactOnPostHandler}>
       <DislikeIcon />
-      <span className={styles.reactionsAmount}>({dislikesAmount})</span>
-      <ul className={`${styles.reactionsList} ${styles.dislikesList}`}>
-        {reactions
-          ?.filter((reaction) => reaction.reaction === false)
-          .map((reaction) => (
-            <li key={uid(6)}>{reaction.author.userName}</li>
-          ))}
-      </ul>
+      <span>({dislikesAmount})</span>
     </button>
   );
 }
