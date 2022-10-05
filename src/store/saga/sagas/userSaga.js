@@ -20,8 +20,8 @@ import {
 } from '../handlers/userHandlers';
 
 function* userSaga() {
-  yield takeLatest(searchUser, searchUserHandler);
   yield takeLatest(getUserProfile, getUserProfileHandler);
+  yield takeLatest(searchUser, searchUserHandler);
   yield takeLatest(getProfilePosts, getProfilePostsHandler);
   yield takeLatest(getBookmarks, getBookmarksHandler);
   yield takeLatest(getFeedPosts, getUserFeedHandler);

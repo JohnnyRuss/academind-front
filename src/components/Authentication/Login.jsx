@@ -33,12 +33,11 @@ function Login() {
 
   useEffect(() => {
     if (loading === false) {
-      createAxiosQuery();
+      // createAxiosQuery();
       navigate('/feed');
     }
 
     return () => dispatch(resetLoadingState());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   return (

@@ -17,6 +17,7 @@ const activeUserSlice = createSlice({
       userName: '',
       profileImg: '',
       coverImg: '',
+      role: '',
       createdAt: null,
       isAuthenticated: false,
     },
@@ -40,11 +41,12 @@ const activeUserSlice = createSlice({
         profileImg: payload.profileImg,
         coverImg: payload.coverImg,
         createdAt: payload.createdAt,
+        role: payload.role,
         isAuthenticated: true,
       };
 
       Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
-      localStorage.setItem('academind_passport', JSON.stringify(payload.token));
+      localStorage.setItem('academind_passport', JSON.stringify(payload.accessToken));
 
       updateLoadingState(state, 'loadingState', false);
     },
@@ -66,6 +68,7 @@ const activeUserSlice = createSlice({
         profileImg: '',
         coverImg: '',
         createdAt: null,
+        role: '',
         isAuthenticated: false,
       };
 

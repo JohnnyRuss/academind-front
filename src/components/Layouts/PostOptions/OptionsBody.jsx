@@ -10,7 +10,7 @@ import {
   DeleteIcon,
 } from '../Icons/icons';
 
-function OptionsBody({ handleUpdate, handleDeletePopUp, savePostHandler, postId }) {
+function OptionsBody({ handleUpdate, handleDeletePopUp, postId }) {
   const { loading, optionsRules, handleSavePost } = useSavePostQuery(postId);
 
   return (

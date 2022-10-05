@@ -18,7 +18,7 @@ const CommentsList = lazy(() => import('../Comments/CommentsList'), { suspense: 
 
 function Post({ data, activatePostMediaHandler, activateUpdatePostModal, className }) {
   const [showComments, setShowComments] = useState(false);
-  const { deletePostHandler, startDeletion, savePostHandler } = usePostQuery();
+  const { deletePostHandler, startDeletion } = usePostQuery();
 
   const { loading } = useSelector(({ postsData }) => postsData.loadingState);
 
@@ -27,7 +27,6 @@ function Post({ data, activatePostMediaHandler, activateUpdatePostModal, classNa
       {startDeletion && loading === true && <InlineStandSpinner />}
       <PostOptions
         postId={data._id}
-        // savePostHandler={() => savePostHandler(data._id)}
         deleteHandler={() => deletePostHandler(data._id)}
         updateHandler={() => activateUpdatePostModal(destructurePostUpdateData(data))}
       />
