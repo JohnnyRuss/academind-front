@@ -48,6 +48,7 @@ function usePostQuery() {
   function sharePostHandler(postId, credentials) {
     const body = {
       description: credentials.description,
+      audience: credentials.audience,
       tags: JSON.stringify(credentials.tags?.map((tag) => tag._id)),
     };
 

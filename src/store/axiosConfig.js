@@ -47,12 +47,16 @@ export const axiosFormDataQuery = axios.create({
 });
 
 axiosQuery.interceptors.request.use(async (config) => {
-  if (!token) config.headers.authorization = `Bearer ${getJWT()}`;
+  if (!token) {
+    console.log('runs first check');
+    config.headers.authorization = `Bearer ${getJWT()}`;
+  }
 
   const decodedData = token && decode(token);
   const exp = decodedData?.exp;
 
   if (Math.floor(Date.now() / 1000) > exp) {
+    console.log('runs assign new token', { currDate: Math.floor(Date.now() / 1000), exp });
     const { data } = await refresher();
     localStorage.setItem('academind_passport', JSON.stringify(data.accessToken));
     config.headers.authorization = `Bearer ${data.accessToken}`;

@@ -9,6 +9,7 @@ import {
   removeFiles,
   setText,
   setAudience,
+  resetCreatePost,
 } from '../../../store/reducers/createPostReducer';
 import { usePostQuery, useRestrictBodyOverflow } from '../../../hooks';
 
@@ -37,7 +38,10 @@ function CreatePost({ className }) {
 
   const handleDiscardMedia = (url) => dispatch(removeFiles(url));
 
-  const activateModal = (open) => dispatch(setCreatePostIsOpen(open));
+  const activateModal = (open) => {
+    dispatch(setCreatePostIsOpen(open));
+    !open && dispatch(resetCreatePost());
+  };
 
   const handleAudience = (audience) => dispatch(setAudience(audience));
 

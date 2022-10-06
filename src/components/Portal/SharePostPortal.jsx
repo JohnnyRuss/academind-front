@@ -6,11 +6,12 @@ import {
   resetSharePostModal,
   addShareTag,
   removeShareTag,
+  setShareAudience,
 } from '../../store/reducers/portalReducer';
 import { useRestrictBodyOverflow, usePostQuery } from '../../hooks';
 import { selectActiveUserInfo } from '../../store/selectors/userSelectors';
 
-import { Modal, PostAuthentic, UserIdentifier, TextAreaWithTag } from '../Layouts';
+import { Modal, PostAuthentic, UserIdentifier, TextAreaWithTag, SelectAudience } from '../Layouts';
 import { BTN, InlineStandSpinner } from '../Interface';
 import styles from './styles/sharePostPortal.module.scss';
 
@@ -22,6 +23,7 @@ function SharePostPortal() {
   const {
     sharePostModalIsOpen,
     sharePostData,
+    shareAudience,
     sharePostLoadingState: { loading },
   } = useSelector(({ portal }) => portal);
 
@@ -32,6 +34,8 @@ function SharePostPortal() {
   const handleRemoveTag = (id) => dispatch(removeShareTag(id));
 
   const deactivateHandler = () => dispatch(resetSharePostModal());
+
+  const handleAudience = (audience) => dispatch(setShareAudience(audience));
 
   const { sharePostHandler } = usePostQuery();
 
@@ -52,8 +56,11 @@ function SharePostPortal() {
           img={image}
           userName={userName}
           withTime={false}
-          className={styles.shareIdentifier}
-        />
+          className={styles.shareIdentifier}>
+          <div className={styles.shareSelectAudience}>
+            <SelectAudience audience={shareAudience} handleAudience={handleAudience} />
+          </div>
+        </UserIdentifier>
         <TextAreaWithTag
           text={text}
           setText={setText}
@@ -74,7 +81,11 @@ function SharePostPortal() {
           <BTN
             className={styles.confirmShareBtn}
             onClick={() =>
-              sharePostHandler(sharePostData._id, { description: text, tags: sharePostData?.tags })
+              sharePostHandler(sharePostData._id, {
+                audience: shareAudience,
+                tags: sharePostData?.tags,
+                description: text,
+              })
             }>
             post
           </BTN>

@@ -39,7 +39,7 @@ function PostAuthentic({
             userName={data.author.userName}
             img={data.author.profileImg}
             timeAgo={data.createdAt}
-            audience={data.audience}
+            audience={shared ? data.authenticAudience : data.audience}
             className={styles.postAuthenticIdentifier}>
             {tgs?.[0] && <Tags tags={tgs} />}
           </UserIdentifier>

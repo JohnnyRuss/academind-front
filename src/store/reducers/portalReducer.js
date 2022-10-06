@@ -31,6 +31,7 @@ const portalSlice = createSlice({
     updateBlogPostModalIsOpen: false,
     updatePostMediaFiles: [],
     updatePostData: {
+      audience: '',
       _id: '',
       type: '',
       shared: '',
@@ -72,7 +73,9 @@ const portalSlice = createSlice({
       article: '',
       title: '',
       categories: [],
+      audience: '',
     },
+    shareAudience: 'friends',
   },
   reducers: {
     ////////////////////////////
@@ -109,6 +112,10 @@ const portalSlice = createSlice({
 
       state.updatePostMediaFiles = payload.media;
       state.updateBlogPostModalIsOpen = true;
+    },
+
+    setUpdateAudience(state, { payload }) {
+      state.updatePostData.audience = payload;
     },
 
     setTitle(state, { payload }) {
@@ -182,6 +189,10 @@ const portalSlice = createSlice({
       state.sharePostModalIsOpen = true;
     },
 
+    setShareAudience(state, { payload }) {
+      state.shareAudience = payload;
+    },
+
     addShareTag(state, { payload }) {
       addTag(state, 'sharePostData', payload);
     },
@@ -193,6 +204,7 @@ const portalSlice = createSlice({
     resetSharePostModal(state) {
       state.sharePostModalIsOpen = false;
       Object.keys(state.sharePostData).map((key) => (state.sharePostData[key] = ''));
+      state.shareAudience = 'friends';
 
       updateLoadingState(state, 'sharePostLoadingState', false);
     },
@@ -209,6 +221,7 @@ export const {
   updatePost,
   setUpdatePostModalOpen,
   setUpdateBlogPostModalOpen,
+  setUpdateAudience,
   setTitle,
   setText,
   addCategory,
@@ -221,6 +234,7 @@ export const {
   // Share Portal
   sharePost,
   setSharePostModalOpen,
+  setShareAudience,
   addShareTag,
   removeShareTag,
   resetSharePostModal,

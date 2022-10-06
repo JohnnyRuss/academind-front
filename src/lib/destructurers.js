@@ -27,6 +27,7 @@ export function destructurePostAuthenticData(data) {
 
 export function destructurePostUpdateData(data) {
   return {
+    audience: data.audience,
     _id: data._id,
     type: data.shared ? data.authentic.type : data.type,
     shared: data.shared,
@@ -54,6 +55,7 @@ export function destructurePostShareData(data) {
       userName: data.shared ? data.authentic.author.userName : data.author.userName,
       profileImg: data.shared ? data.authentic.author.profileImg : data.author.profileImg,
     },
+    audience: data.audience,
     createdAt: data.createdAt,
     description: data.shared ? data.authentic.description : data.description,
     media: data.shared ? data.authentic.media : data.media,

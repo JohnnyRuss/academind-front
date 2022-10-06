@@ -7,6 +7,7 @@ import {
   addUpdateTag,
   removeUpdateTag,
   removeUpdateFiles,
+  setUpdateAudience,
 } from '../../store/reducers/portalReducer';
 import { usePostQuery, useRestrictBodyOverflow } from '../../hooks';
 
@@ -22,7 +23,7 @@ function UpdatePostPortal() {
     updatePostLoadingState: { loading },
   } = useSelector(({ portal }) => portal);
 
-  const { description, tags } = updatePostData;
+  const { description, tags, audience } = updatePostData;
 
   const [text, setText] = useState(description);
 
@@ -34,6 +35,8 @@ function UpdatePostPortal() {
 
   const deactivateHandler = () => dispatch(resetUpdateState());
 
+  const handleAudience = (audience) => dispatch(setUpdateAudience(audience));
+
   const { handlePostPublish } = usePostQuery();
 
   function publishPost() {
@@ -42,6 +45,7 @@ function UpdatePostPortal() {
         operationType: 'update',
       },
       credentials: {
+        audience,
         description: text,
         media: updatePostMediaFiles,
         tags: JSON.stringify(tags.map((tag) => tag._id)),
@@ -67,6 +71,8 @@ function UpdatePostPortal() {
         setIsOpen={deactivateHandler}
         text={text}
         setText={setText}
+        handleAudience={handleAudience}
+        audience={audience}
         tags={tags}
         handleTag={handleTag}
         handleRemoveTag={handleRemoveTag}
