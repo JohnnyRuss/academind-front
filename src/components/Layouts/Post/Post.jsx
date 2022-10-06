@@ -27,6 +27,7 @@ function Post({ data, activatePostMediaHandler, activateUpdatePostModal, classNa
       {startDeletion && loading === true && <InlineStandSpinner />}
       <PostOptions
         postId={data._id}
+        audience={data.audience}
         deleteHandler={() => deletePostHandler(data._id)}
         updateHandler={() => activateUpdatePostModal(destructurePostUpdateData(data))}
       />

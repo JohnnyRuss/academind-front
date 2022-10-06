@@ -12,6 +12,10 @@ async function queryUpdatePost({ postId, body }) {
   return await axiosFormDataQuery.patch(`/posts/${postId}`, body);
 }
 
+async function queryChangePostAudience({ postId, body }) {
+  return await axiosQuery.patch(`/posts/${postId}/audience`, body);
+}
+
 async function queryPostReaction({ postId, body }) {
   return await axiosQuery.post(`/posts/${postId}/reaction`, body);
 }
@@ -56,4 +60,5 @@ export {
   queryTopRatedPublishers,
   queryRelatedPosts,
   queryGetPost,
+  queryChangePostAudience,
 };

@@ -8,6 +8,7 @@ import {
   removeTag,
   removeFiles,
   setText,
+  setAudience,
 } from '../../../store/reducers/createPostReducer';
 import { usePostQuery, useRestrictBodyOverflow } from '../../../hooks';
 
@@ -24,6 +25,7 @@ function CreatePost({ className }) {
     text,
     files,
     tags,
+    audience,
     loadingState: { loading },
   } = useSelector(({ createPost }) => createPost);
 
@@ -36,6 +38,8 @@ function CreatePost({ className }) {
   const handleDiscardMedia = (url) => dispatch(removeFiles(url));
 
   const activateModal = (open) => dispatch(setCreatePostIsOpen(open));
+
+  const handleAudience = (audience) => dispatch(setAudience(audience));
 
   /*
    <CreatePostModal> uses <Modal> layout which one back in the hood uses this "useRestrictBodyOverflow" hook. <Modal> reactivates body overflow itself whenever it will be closed, but only if we click on the close button or on the backdrop. But here we are closing <CreatePostModal> e.i even <Modal> layout dinamicly whenever the post will finish creation, without pressing close button or backdrop and after this <Modal> itself can't reactivate body overflow itself anymore. Because of that we need to reactivate body overflow manually from there, again with help of useRestrictBodyOverflow hook. 
@@ -63,6 +67,7 @@ function CreatePost({ className }) {
         type: 'post',
       },
       credentials: {
+        audience,
         description: text,
         media: files,
         tags: JSON.stringify(tags.map((tag) => tag._id)),
@@ -82,6 +87,8 @@ function CreatePost({ className }) {
           setText={handleText}
           tags={tags}
           handleTag={handleTag}
+          audience={audience}
+          handleAudience={handleAudience}
           handleRemoveTag={handleRemoveTag}
           files={files}
           handleDiscardMedia={handleDiscardMedia}

@@ -24,20 +24,22 @@ function PostAuthentic({
   data,
   proccessShare,
   proccessUpdate,
-  referencedPost
+  referencedPost,
 }) {
   const tgs = shared ? data.authenticTags : data.tags;
+  // console.log(data)
   return (
     <div className={shared ? styles.shareAuthentic : styles.postBody} data-post-authentic>
-      {data.deleted ? (
+      {data.deleted || data.authentic?.restricted ? (
         <DeletedPost />
       ) : type === 'post' && authenticType !== 'blogPost' ? (
         <>
           <UserIdentifier
             userId={data?.author._id}
             userName={data.author.userName}
-            timeAgo={data.createdAt}
             img={data.author.profileImg}
+            timeAgo={data.createdAt}
+            audience={data.audience}
             className={styles.postAuthenticIdentifier}>
             {tgs?.[0] && <Tags tags={tgs} />}
           </UserIdentifier>
@@ -54,7 +56,9 @@ function PostAuthentic({
         </>
       ) : (
         <BlogPost
-          post={shared ? { ...data, tags: data.authenticTags } : data}
+          post={
+            shared ? { ...data, tags: data.authenticTags, audience: data.authenticAudience } : data
+          }
           limitation={550}
           options={false}
           referenced={referencedPost}

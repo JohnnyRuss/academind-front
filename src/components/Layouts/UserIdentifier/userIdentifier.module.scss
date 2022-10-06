@@ -28,9 +28,15 @@
     }
   }
 
-  .dateTimeAgo {
+  .timeAndAudience {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 0.5rem;
     font-size: size('smallerSize');
     font-weight: weight('thinWeight');
+  }
+
+  .dateTimeAgo {
     color: color('darkLightGreyColor');
   }
 }

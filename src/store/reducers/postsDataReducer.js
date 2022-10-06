@@ -71,6 +71,15 @@ const postsDataSlice = createSlice({
       state.posts[i] = { ...state.posts[i], ...data };
     },
 
+    changePostAudience() {},
+
+    setUpdatedPostAudience(state, { payload }) {
+      const { params, data } = payload;
+
+      const i = state.posts.findIndex((post) => post._id === params.postId);
+      state.posts[i].audience = data.audience;
+    },
+
     reactOnPost() {},
 
     setPostReaction(state, { payload }) {
@@ -151,6 +160,8 @@ export const {
   deletePost,
   setDeletedPost,
   setUpdatedPost,
+  changePostAudience,
+  setUpdatedPostAudience,
   reactOnPost,
   setPostReaction,
   encreasePostCommentCount,

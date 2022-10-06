@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
 
 import styles from './components/styles/createPostModal.module.scss';
-import { Modal, UserIdentifier, PostAuthentic, TextAreaWithTag } from '../';
+import { Modal, UserIdentifier, PostAuthentic, TextAreaWithTag, SelectAudience } from '../';
 import { BTN, InlineStandSpinner } from '../../Interface';
 import { CreatePostMedia, CreatePostTouch } from './components';
 
@@ -17,6 +17,8 @@ function CreatePostModal({
   handleRemoveTag,
   files,
   handleDiscardMedia,
+  handleAudience,
+  audience,
   updateCredentials = {},
   handlePost,
   loading,
@@ -45,8 +47,12 @@ function CreatePostModal({
           userName={userName}
           userId={id}
           withTime={false}
-          className={styles.createPostHeader}
-        />
+          className={styles.createPostHeader}>
+          <div className={styles.createPostAudience}>
+            <SelectAudience handleAudience={handleAudience} audience={audience} />
+          </div>
+        </UserIdentifier>
+
         <div className={styles.content}>
           <TextAreaWithTag
             text={text}

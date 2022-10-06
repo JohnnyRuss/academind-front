@@ -1,9 +1,9 @@
 import styles from './blogPostIdentifier.module.scss';
 import { Link, Avatar, TimeAgo } from '../../Interface';
-import { Tags } from '../../Layouts';
+import { Tags, Audience } from '../../Layouts';
 import { ClockIcon } from '../../Layouts/Icons/icons';
 
-function BlogPostIdentifier({ createdAt, title, author, postId, tags, categories }) {
+function BlogPostIdentifier({ createdAt, title, author, postId, tags, categories, audience }) {
   return (
     <span className={styles.reviewUserDetails} data-blog-post-identifier>
       <Link
@@ -29,6 +29,7 @@ function BlogPostIdentifier({ createdAt, title, author, postId, tags, categories
       <span className={styles.blogPostTimeAgoBox}>
         <ClockIcon />
         <TimeAgo date={createdAt} />
+        <Audience audience={audience} />
       </span>
     </span>
   );

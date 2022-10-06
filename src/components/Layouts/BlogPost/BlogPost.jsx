@@ -17,6 +17,7 @@ function BlogPost({ post, limitation = 1500, className, referenced, id }) {
             author={post.author}
             tags={post.tags}
             categories={post.categories}
+            audience={post.audience}
             postId={post._id}
             createdAt={post.createdAt}
           />

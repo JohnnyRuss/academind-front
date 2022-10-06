@@ -2,17 +2,19 @@
 
 .deletedPost {
   position: relative;
-  background: color(whiteColor);
   width: 60rem;
-  margin: 0 auto;
-  padding: 4rem;
-  border-radius: 0.5rem;
-  @include boxShadowBlack(0, 1rem, 0.3);
-  font-size: size(largeSize);
-  font-weight: weight(boldWeight);
-  @include flexBox;
+  @include flexBox(column);
   @include flexProperty(center, center);
   gap: 1rem;
+  margin: 0 auto;
+  padding: 4rem;
+  font-size: size(largeSize);
+  font-weight: weight(boldWeight);
+  text-transform: capitalize;
+  text-align: center;
+  border-radius: 0.5rem;
+  background: color(whiteColor);
+  @include boxShadowBlack(0, 1rem, 0.3);
 
   & > svg {
     font-size: size(headingSecondarySmallSize);

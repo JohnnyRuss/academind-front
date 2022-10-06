@@ -1,17 +1,19 @@
 export function destructurePostAuthenticData(data) {
-  return data.deleted
+  return data.deleted || data.authentic?.restricted
     ? data
     : {
         author: {
-          _id: data.shared ? data.authentic.author._id : data.author._id,
-          userName: data.shared ? data.authentic.author.userName : data.author.userName,
-          profileImg: data.shared ? data.authentic.author.profileImg : data.author.profileImg,
+          _id: data.shared ? data.authentic?.author?._id : data.author._id,
+          userName: data.shared ? data.authentic?.author?.userName : data.author.userName,
+          profileImg: data.shared ? data.authentic?.author?.profileImg : data.author.profileImg,
         },
-        createdAt: data.shared ? data.authentic.createdAt : data.createdAt,
-        description: data.shared ? data.authentic.description : data.description,
+        audience: data.audience,
+        authenticAudience: data.authentic?.audience,
+        createdAt: data.shared ? data.authentic?.createdAt : data.createdAt,
+        description: data.shared ? data.authentic?.description : data.description,
         tags: data.tags,
         authenticTags: data.authentic?.tags,
-        media: data.shared ? data.authentic.media : data.media,
+        media: data.shared ? data.authentic?.media : data.media,
         comments: data.commentsCount,
         article: data.shared ? data.authentic?.article : data.article,
         title: data.shared ? data.authentic?.title : data.title,
@@ -73,5 +75,6 @@ export function destructureSharedPostHeaderData(data) {
     description: data.description,
     createdAt: data.createdAt,
     tags: data.tags,
+    audience: data.audience,
   };
 }

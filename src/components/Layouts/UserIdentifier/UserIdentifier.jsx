@@ -1,5 +1,6 @@
 import styles from './userIdentifier.module.scss';
 import { TimeAgo, Avatar, Link } from '../../Interface';
+import { Audience } from '../';
 
 /**
  * shows user image||avatar, userName and timeAgo Text
@@ -16,6 +17,7 @@ function UserIdentifier({
   img = '/img/avatar.png',
   withTime = true,
   timeAgo,
+  audience,
   children,
   className,
 }) {
@@ -26,7 +28,12 @@ function UserIdentifier({
         <Link path={`/profile/${userId}/posts`} className={styles.identifierUserName}>
           {userName}
         </Link>
-        {withTime && <TimeAgo date={timeAgo} className={styles.dateTimeAgo} />}
+        {withTime && (
+          <div className={styles.timeAndAudience}>
+            <TimeAgo date={timeAgo} className={styles.dateTimeAgo} />
+            <Audience audience={audience} />
+          </div>
+        )}
       </span>
       {children}
     </div>

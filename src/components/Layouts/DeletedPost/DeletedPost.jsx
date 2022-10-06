@@ -9,7 +9,7 @@ function DeletedPost({ postId }) {
 
   return (
     <div className={styles.deletedPost} data-deleted-post>
-      <ErrorIcon /> Post Is Deleted
+      <ErrorIcon /> post is deleted or author changed the audience
       <PostOptions savePostHandler={() => savePostHandler(postId)} postId={postId} />
     </div>
   );

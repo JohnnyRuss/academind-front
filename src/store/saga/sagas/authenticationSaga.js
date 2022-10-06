@@ -1,11 +1,12 @@
 import { takeLatest } from 'redux-saga/effects';
 
-import { login } from '../../reducers/activeUserReducer';
+import { login, logOut } from '../../reducers/activeUserReducer';
 
-import { loginHandler } from '../handlers/authenticationHandlers';
+import { loginHandler, logOutHandler } from '../handlers/authenticationHandlers';
 
 function* authenticationSaga() {
   yield takeLatest(login, loginHandler);
+  yield takeLatest(logOut, logOutHandler);
 }
 
 export default authenticationSaga;

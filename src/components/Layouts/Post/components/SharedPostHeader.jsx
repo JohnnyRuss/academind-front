@@ -13,6 +13,7 @@ function SharedPostHeader({ data }) {
         userName={data.authorName}
         img={data.authorImg}
         timeAgo={data.createdAt}
+        audience={data.audience}
         className={styles.sharedPostHeaderIdentifier}>
         {data.tags[0] && <Tags tags={data.tags} />}
       </UserIdentifier>

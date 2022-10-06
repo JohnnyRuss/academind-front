@@ -1,0 +1,46 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.selectAudienceBox {
+  position: relative;
+  text-transform: capitalize;
+
+  .selectAudienceMainBtn {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 0.25rem;
+    border: 1px solid color(darkGreyColor);
+    padding: 0 0.25rem;
+    width: 10rem;
+  }
+
+  .selectAudienceIndicator {
+    transition: all 0.2s;
+    margin-left: auto;
+  }
+
+  &.activeSelection .selectAudienceIndicator {
+    transform: rotate(180deg);
+  }
+
+  &.activeSelection .selectAudienceMainBtn {
+    border-bottom: none;
+  }
+
+  .audienceSelectionsList {
+    @include flexBox(column);
+    @include flexProperty(center, flex-start);
+    gap: 0.25rem;
+    @include moveBottom(0.2s);
+    background: color(whiteColor);
+    padding: 0.25rem;
+    border: 1px solid color(darkGreyColor);
+    border-top: none;
+
+    & button {
+      @include flexBox;
+      @include flexProperty(flex-start, center);
+      gap: 0.25rem;
+      width: 100%;
+    }
+  }
+}

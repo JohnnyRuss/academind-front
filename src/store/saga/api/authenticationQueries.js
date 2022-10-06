@@ -1,7 +1,11 @@
-import { axiosQuery } from '../../axiosConfig';
+import { axiosQuery, axioss } from '../../axiosConfig';
 
 async function loginQuery(body) {
-  return await axiosQuery.post('authentication/login', body);
+  return await axiosQuery.post('/authentication/login', body);
 }
 
-export { loginQuery };
+async function logOutQuery(body) {
+  return await axioss.post('/authentication/logout', body);
+}
+
+export { loginQuery, logOutQuery };

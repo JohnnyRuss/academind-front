@@ -42,6 +42,13 @@
     padding: 1rem;
   }
 
+  .createPostAudience {
+    position: absolute;
+    left:7rem;
+    top: 3rem;
+    // z-index: 100;
+  }
+
   .content {
     min-height: 10rem;
     position: relative;

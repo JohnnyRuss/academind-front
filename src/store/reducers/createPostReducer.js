@@ -9,6 +9,7 @@ const createPostSlice = createSlice({
       error: false,
       message: '',
     },
+    audience: 'public',
     title: '',
     text: '',
     files: [],
@@ -33,6 +34,10 @@ const createPostSlice = createSlice({
         state.categories = [];
         state.tags = [];
       }
+    },
+
+    setAudience(state, { payload }) {
+      state.audience = payload;
     },
 
     setTitle(state, { payload }) {
@@ -83,6 +88,7 @@ const createPostSlice = createSlice({
 
     resetCreatePost(state) {
       updateLoadingState(state, 'loadingState', false);
+      state.audience = 'friends';
       state.title = '';
       state.text = '';
       state.categories = [];
@@ -99,6 +105,7 @@ export const createPostReducer = createPostSlice.reducer;
 export const {
   setCreatePostIsOpen,
   setCreateBlogPostIsOpen,
+  setAudience,
   setTitle,
   setText,
   setFile,

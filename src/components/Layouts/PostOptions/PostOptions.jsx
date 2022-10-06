@@ -7,7 +7,7 @@ import DeletionPopUp from '../DeletionPopUp/DeletionPopUp';
 import OptionsBody from './OptionsBody';
 import { DotsHorizontalIcon } from '../Icons/icons';
 
-function PostOptions({ deleteHandler, updateHandler, postId }) {
+function PostOptions({ deleteHandler, updateHandler, postId, audience }) {
   const [open, setOpen] = useState(false);
   const [deletion, setDeletion] = useState(false);
 
@@ -51,6 +51,7 @@ function PostOptions({ deleteHandler, updateHandler, postId }) {
         <OptionsBody
           handleUpdate={handleUpdate}
           handleDeletePopUp={handleDeletePopUp}
+          audience={audience}
           postId={postId}
         />
       )}

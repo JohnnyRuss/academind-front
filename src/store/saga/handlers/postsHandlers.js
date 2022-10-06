@@ -5,6 +5,7 @@ import {
   setNewPost,
   setDeletedPost,
   setUpdatedPost,
+  setUpdatedPostAudience,
   setPostReaction,
   setTopRatedBlogPosts,
   setTopRatedPublishers,
@@ -18,6 +19,7 @@ import {
   queryCreatePost,
   queryDeletePost,
   queryUpdatePost,
+  queryChangePostAudience,
   queryPostReaction,
   querySharePost,
   querySavePost,
@@ -59,6 +61,16 @@ function* updatePostHandler({ payload: { params, body } }) {
   }
 }
 
+function* changePostAudienceHandler({ payload: { params, body } }) {
+  try {
+    console.log(params, body);
+    const { data } = yield call(queryChangePostAudience, { postId: params.postId, body });
+    yield put(setUpdatedPostAudience({ params, data }));
+  } catch (error) {
+    showError(error, 'changePostAudienceHandler');
+  }
+}
+
 function* reactOnPostHandler({ payload: { postId, body } }) {
   try {
     const { data } = yield call(queryPostReaction, { postId, body });
@@ -83,8 +95,7 @@ function* sharePostHandler({ payload: { postId, body } }) {
 
 function* savePostHandler({ payload: postId }) {
   try {
-    const { data } = yield call(querySavePost, postId);
-    // if (data.removed)
+    yield call(querySavePost, postId);
   } catch (error) {
     showError(error, 'savePostHandler');
   }
@@ -148,6 +159,7 @@ export {
   createPostHandler,
   deletePostHandler,
   updatePostHandler,
+  changePostAudienceHandler,
   reactOnPostHandler,
   sharePostHandler,
   savePostHandler,

@@ -3,7 +3,12 @@ import { useDispatch } from 'react-redux';
 
 import { createPost } from '../../store/reducers/createPostReducer';
 import { updatePost, sharePost } from '../../store/reducers/portalReducer';
-import { deletePost, reactOnPost, savePost } from '../../store/reducers/postsDataReducer';
+import {
+  deletePost,
+  reactOnPost,
+  savePost,
+  changePostAudience,
+} from '../../store/reducers/postsDataReducer';
 
 function usePostQuery() {
   const dispatch = useDispatch();
@@ -53,6 +58,10 @@ function usePostQuery() {
     dispatch(savePost(postId));
   }
 
+  function handlePostAudience(postId, audience) {
+    dispatch(changePostAudience({ params: { postId }, body: { audience } }));
+  }
+
   return {
     handlePostPublish,
     deletePostHandler,
@@ -60,6 +69,7 @@ function usePostQuery() {
     reactOnPostHandler,
     sharePostHandler,
     savePostHandler,
+    handlePostAudience,
   };
 }
 

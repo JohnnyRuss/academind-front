@@ -14,20 +14,26 @@
   padding: 1rem;
   font-size: size('regullarSize');
   text-transform: capitalize;
+  color: color('darkLightGreyColor');
   background: color('whiteColor');
   @include boxShadowBlack(0.25rem, 0.5rem, 0.25);
+
+  %hover {
+    & {
+      transition: all 0.2s ease-out;
+
+      &:hover {
+        color: color('blackColor');
+      }
+    }
+  }
 
   .postOptBtn {
     width: 100%;
     @include flexBox;
     @include flexProperty(flex-start, center);
     gap: 0.5rem;
-    color: color('darkLightGreyColor');
-    transition: all 0.2s ease-out;
-
-    &:hover {
-      color: color('blackColor');
-    }
+    @extend %hover;
 
     &.postOptBtnDelete:hover {
       color: color('redColor');
@@ -45,5 +51,45 @@
 
   .bookmark svg {
     font-size: size('regullarSize');
+  }
+
+  .audienceBox {
+    width: 100%;
+    @include flexBox(column);
+    @include flexProperty(center, flex-start);
+
+    .audienceMainBtn {
+      width: 100%;
+      @include flexBox;
+      @include flexProperty(flex-start, center);
+      gap: 0.5rem;
+      @extend %hover;
+
+      .arrowIndicator {
+        margin-left: auto;
+        transition: all 0.2s;
+      }
+
+      .arrowIndicatorActive {
+        transform: rotate(180deg);
+      }
+    }
+
+    .audienceOptionsList {
+      width: 85%;
+      align-self: flex-end;
+      @include flexBox(column);
+      @include flexProperty(center, flex-start);
+      gap: 0.5rem;
+      @include moveBottom(0.2s);
+
+      & button {
+        @include flexBox;
+        @include flexProperty(flex-start, center);
+        gap: 0.5rem;
+        width: 100%;
+        @extend %hover;
+      }
+    }
   }
 }

@@ -4,6 +4,7 @@ import { createPost } from '../../reducers/createPostReducer';
 import { updatePost, sharePost } from '../../reducers/portalReducer';
 import {
   deletePost,
+  changePostAudience,
   reactOnPost,
   savePost,
   getBlogPosts,
@@ -17,6 +18,7 @@ import {
   createPostHandler,
   deletePostHandler,
   updatePostHandler,
+  changePostAudienceHandler,
   reactOnPostHandler,
   sharePostHandler,
   savePostHandler,
@@ -31,6 +33,7 @@ function* postsSaga() {
   yield takeLatest(createPost, createPostHandler);
   yield takeLatest(deletePost, deletePostHandler);
   yield takeLatest(updatePost, updatePostHandler);
+  yield takeLatest(changePostAudience, changePostAudienceHandler);
   yield takeLatest(reactOnPost, reactOnPostHandler);
   yield takeLatest(sharePost, sharePostHandler);
   yield takeLatest(savePost, savePostHandler);
