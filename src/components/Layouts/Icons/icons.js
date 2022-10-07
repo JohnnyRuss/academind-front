@@ -71,11 +71,9 @@ import { WiMoonAltFirstQuarter } from 'react-icons/wi';
 import { TbRotateClockwise } from 'react-icons/tb';
 
 const RotateIcon = TbRotateClockwise;
-const ThemeIcon = WiMoonAltFirstQuarter;
 const ShareIcon = IoIosShareAlt;
 const CommentIcon = AiOutlineComment;
 const MultiMediaIcon = MdOutlinePermMedia;
-const LaughIcon = FaLaugh;
 const LocationIcon = MdLocationPin;
 const TagIcon = CgTag;
 const LikeIcon = AiFillLike;
@@ -83,13 +81,9 @@ const DislikeIcon = AiFillDislike;
 const SearchIcon = IoIosSearch;
 const HomeIcon = AiFillHome;
 const NotificationIcon = IoMdNotifications;
-const MessengerIcon = FaFacebookMessenger;
 const PersonIcon = MdPerson;
-const ChatIcon = BsChatSquareTextFill;
-const PlayIcon = BsFillPlayCircleFill;
 const BookmarkFillIcon = BsFillBookmarkFill;
 const BookmarkOutlineIcon = BsBookmark;
-const QuestionIcon = BsFillQuestionCircleFill;
 const CaseIcon = BsBriefcaseFill;
 const CalendarIcon = BsCalendar2EventFill;
 const FeedIcon = MdRssFeed;
@@ -101,18 +95,14 @@ const RoundedPlusIcon = AiOutlinePlusCircle;
 const ErrorIcon = BiError;
 const SpinnerIcon = ImSpinner8;
 const DotsHorizontalIcon = BsThreeDots;
-const DotsVerticalIcon = BsThreeDotsVertical;
 const DeleteIcon = MdOutlineDelete;
 const CloseIcon = AiOutlineCloseCircle;
 const CloseXIcon = AiOutlineClose;
-const MinimizeIcon = MdMinimize;
-const MinimizeCircleIcon = AiOutlineMinusCircle;
 const SendIcon = BiSend;
 const ArrowDownRectingle = IoIosArrowDown;
 const ArrowUpRectingle = IoIosArrowUp;
 const ArrowLeftRectingle = MdOutlineArrowBackIosNew;
 const ArrowRightRectingle = MdOutlineArrowForwardIos;
-const FullScreenIcon = BsArrowsFullscreen;
 const ReplyIcon = BsFillReplyFill;
 const UpdateIcon = MdUpdate;
 const UserFriendRequestsIcon = BsFillPersonLinesFill;
@@ -122,20 +112,30 @@ const ConfirmFriendRequestIcon = BsFillPersonCheckFill;
 const DeleteFriendRequestIcon = BsFillPersonXFill;
 const DeleteFriendIcon = MdPersonOff;
 const FriendIcon = BsFillPersonFill;
-const ConversationIcon = GiLovers;
-const PhoneIcon = BsFillPhoneVibrateFill;
-const LanguageIcon = MdLanguage;
 const EmailIcon = MdEmail;
-const StandIcon = MdModeStandby;
-const SpeakerIcon = HiSpeakerphone;
-const FemaleIcon = FaFemale;
-const MaleIcon = FaMale;
-const InterestedInIcon = IoIosTransgender;
-const BirthDayIcon = FaBirthdayCake;
 const PinIcon = BiPin;
 const ClockIcon = BsClock;
 const PublicIcon = MdPublic;
 const LockIcon = MdLock;
+const ThemeIcon = WiMoonAltFirstQuarter;
+const LaughIcon = FaLaugh;
+const MessengerIcon = FaFacebookMessenger;
+const ChatIcon = BsChatSquareTextFill;
+const PlayIcon = BsFillPlayCircleFill;
+const QuestionIcon = BsFillQuestionCircleFill;
+const DotsVerticalIcon = BsThreeDotsVertical;
+const MinimizeIcon = MdMinimize;
+const MinimizeCircleIcon = AiOutlineMinusCircle;
+const FullScreenIcon = BsArrowsFullscreen;
+const ConversationIcon = GiLovers;
+const PhoneIcon = BsFillPhoneVibrateFill;
+const LanguageIcon = MdLanguage;
+const StandIcon = MdModeStandby;
+const SpeakerIcon = HiSpeakerphone;
+const MaleIcon = FaMale;
+const FemaleIcon = FaFemale;
+const InterestedInIcon = IoIosTransgender;
+const BirthDayIcon = FaBirthdayCake;
 
 export {
   LikeIcon,
@@ -184,6 +184,7 @@ export {
   RotateIcon,
   PublicIcon,
   LockIcon,
+  GroupIcon,
 
   //
   // MinimizeCircleIcon,
@@ -193,7 +194,6 @@ export {
   // ConversationIcon,
   // PhoneIcon,
   // LanguageIcon,
-  // GroupIcon,
   // LaughIcon,
   // MessengerIcon,
   // ChatIcon,

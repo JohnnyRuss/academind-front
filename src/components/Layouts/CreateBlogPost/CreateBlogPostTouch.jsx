@@ -12,6 +12,7 @@ import {
   removeTag,
   setFile,
   removeFiles,
+  setAudience,
 } from '../../../store/reducers/createPostReducer';
 import { usePostQuery, useRestrictBodyOverflow } from '../../../hooks';
 
@@ -32,11 +33,14 @@ function CreateBlogPostTouch() {
     categories,
     files,
     loadingState: { loading },
+    audience,
   } = useSelector(({ createPost }) => createPost);
 
   function activateModal(order) {
     dispatch(setCreateBlogPostIsOpen(order));
   }
+
+  const handleAudience = (audience) => dispatch(setAudience(audience));
 
   const handleTitle = (e) => dispatch(setTitle(e.target.value));
 
@@ -71,6 +75,7 @@ function CreateBlogPostTouch() {
         operationType: 'publish',
       },
       credentials: {
+        audience,
         title,
         article: text,
         media: files,
@@ -104,6 +109,8 @@ function CreateBlogPostTouch() {
           loading={loading}
           isOpen={createBlogPostIsOpen}
           setIsOpen={activateModal}
+          audience={audience}
+          handleAudience={handleAudience}
           title={title}
           handleTitle={handleTitle}
           text={text}

@@ -22,6 +22,12 @@
     background: color(whiteColor);
   }
 
+  .blogPostAudience {
+    position: absolute;
+    left: 6.5rem;
+    top: 3.2rem;
+  }
+
   %inputField {
     margin: 0 1rem;
     @include flexBox(column);

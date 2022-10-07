@@ -27,7 +27,7 @@ function PostAuthentic({
   referencedPost,
 }) {
   const tgs = shared ? data.authenticTags : data.tags;
-  // console.log(data)
+
   return (
     <div className={shared ? styles.shareAuthentic : styles.postBody} data-post-authentic>
       {data.deleted || data.authentic?.restricted ? (

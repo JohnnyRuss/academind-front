@@ -1,11 +1,11 @@
 export function destructurePostAuthenticData(data) {
-  return data.deleted || data.authentic?.restricted
+  return data.deleted || data.authentic?.restricted || data.restricted
     ? data
     : {
         author: {
-          _id: data.shared ? data.authentic?.author?._id : data.author._id,
-          userName: data.shared ? data.authentic?.author?.userName : data.author.userName,
-          profileImg: data.shared ? data.authentic?.author?.profileImg : data.author.profileImg,
+          _id: data.shared ? data.authentic?.author?._id : data.author?._id,
+          userName: data.shared ? data.authentic?.author?.userName : data.author?.userName,
+          profileImg: data.shared ? data.authentic?.author?.profileImg : data.author?.profileImg,
         },
         audience: data.audience,
         authenticAudience: data.authentic?.audience,

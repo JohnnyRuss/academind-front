@@ -4,13 +4,15 @@ import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
 
 import { Modal } from '../';
 import { BTN, InlineStandSpinner } from '../../Interface';
-import { UserIdentifier, TextAreaWithTag } from '../';
+import { UserIdentifier, TextAreaWithTag, SelectAudience } from '../';
 import styles from './components/styles/createBlogPostModal.module.scss';
 import { TitleField, Categories, CreateBlogPostMedia } from './components';
 
 function CreateBlogPost({
   isOpen,
   setIsOpen,
+  audience,
+  handleAudience,
   title,
   handleTitle,
   text,
@@ -39,8 +41,15 @@ function CreateBlogPost({
           userName={userName}
           img={image}
           withTime={false}
-          className={styles.blogPostIdentifier}
-        />
+          className={styles.blogPostIdentifier}>
+          <div className={styles.blogPostAudience}>
+            <SelectAudience
+              audience={audience}
+              handleAudience={handleAudience}
+              isBlogPostAudience={true}
+            />
+          </div>
+        </UserIdentifier>
         <div className={styles.titleAndCategoryBox}>
           <TitleField value={title} setTitle={handleTitle} />
           <Categories

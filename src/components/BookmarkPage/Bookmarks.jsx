@@ -23,7 +23,8 @@ function Bookmarks({ loading, hasMore, handleNext, posts }) {
         style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
         {!loading &&
           posts?.map((bookmark) =>
-            bookmark.deleted && (bookmark.type === 'blogPost' || !bookmark.type) ? (
+            (bookmark.deleted || bookmark.restricted) &&
+            (bookmark.type === 'blogPost' || !bookmark.type) ? (
               <DeletedPost postId={bookmark._id} key={bookmark._id} />
             ) : (
               <Post

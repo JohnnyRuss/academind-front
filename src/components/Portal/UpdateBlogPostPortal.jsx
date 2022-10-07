@@ -12,6 +12,7 @@ import {
   removeUpdateTag,
   setUpdateFile,
   removeUpdateFiles,
+  setUpdateAudience,
 } from '../../store/reducers/portalReducer';
 import { usePostQuery, useRestrictBodyOverflow } from '../../hooks';
 
@@ -32,6 +33,8 @@ function UpdateBlogPostPortal() {
   function activateModal() {
     dispatch(resetUpdateState());
   }
+
+  const handleAudience = (audience) => dispatch(setUpdateAudience(audience));
 
   const handleTitle = (e) => dispatch(setTitle(e.target.value));
 
@@ -67,6 +70,7 @@ function UpdateBlogPostPortal() {
       credentials: {
         title,
         article,
+        audience: updatePostData.audience,
         media: updatePostMediaFiles,
         tags: JSON.stringify(tags.map((tag) => tag._id)),
         categories: JSON.stringify(categories),
@@ -85,6 +89,8 @@ function UpdateBlogPostPortal() {
     updateBlogPostModalIsOpen && (
       <CreateBlogPostModal
         loading={loading}
+        audience={updatePostData.audience}
+        handleAudience={handleAudience}
         isOpen={updateBlogPostModalIsOpen}
         setIsOpen={activateModal}
         title={title}

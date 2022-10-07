@@ -7,7 +7,13 @@ import DeletionPopUp from '../DeletionPopUp/DeletionPopUp';
 import OptionsBody from './OptionsBody';
 import { DotsHorizontalIcon } from '../Icons/icons';
 
-function PostOptions({ deleteHandler, updateHandler, postId, audience }) {
+function PostOptions({
+  deleteHandler,
+  updateHandler,
+  postId,
+  audience,
+  isBlogPostOptions = false,
+}) {
   const [open, setOpen] = useState(false);
   const [deletion, setDeletion] = useState(false);
 
@@ -49,6 +55,7 @@ function PostOptions({ deleteHandler, updateHandler, postId, audience }) {
       </button>
       {open && !blur && (
         <OptionsBody
+          isBlogPostOptions={isBlogPostOptions}
           handleUpdate={handleUpdate}
           handleDeletePopUp={handleDeletePopUp}
           audience={audience}

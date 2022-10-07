@@ -15,9 +15,11 @@ import {
   PublicIcon,
   FriendIcon,
   LockIcon,
+  GroupIcon,
 } from '../Icons/icons';
+import BlogPostOptions from '../BlogPost/components/BlogPostOptions';
 
-function OptionsBody({ handleUpdate, handleDeletePopUp, postId, audience }) {
+function OptionsBody({ handleUpdate, handleDeletePopUp, postId, audience, isBlogPostOptions }) {
   const { loading, optionsRules, handleSavePost } = useSavePostQuery(postId);
   const { handlePostAudience } = usePostQuery();
 
@@ -45,7 +47,7 @@ function OptionsBody({ handleUpdate, handleDeletePopUp, postId, audience }) {
                 <button
                   className={styles.audienceMainBtn}
                   onClick={() => setActiveAudience((prev) => !prev)}>
-                  <Audience audience={audience} /> {audience}
+                  <Audience audience={audience} /> {audience === 'users' ? 'only users' : audience}
                   <ArrowDownRectingle
                     className={`${styles.arrowIndicator} ${
                       activeAudience ? styles.arrowIndicatorActive : ''
@@ -54,18 +56,28 @@ function OptionsBody({ handleUpdate, handleDeletePopUp, postId, audience }) {
                 </button>
                 {activeAudience && (
                   <div className={styles.audienceOptionsList}>
-                    <button name='private' onClick={(e) => handleAudience(e.target.name)}>
-                      <LockIcon />
-                      private
-                    </button>
-                    <button name='friends' onClick={(e) => handleAudience(e.target.name)}>
-                      <FriendIcon />
-                      friends
-                    </button>
                     <button name='public' onClick={(e) => handleAudience(e.target.name)}>
                       <PublicIcon />
                       public
                     </button>
+                    {BlogPostOptions && (
+                      <button name='users' onClick={(e) => handleAudience(e.target.name)}>
+                        <GroupIcon />
+                        only users
+                      </button>
+                    )}
+                    {!isBlogPostOptions && (
+                      <>
+                        <button name='friends' onClick={(e) => handleAudience(e.target.name)}>
+                          <FriendIcon />
+                          friends
+                        </button>
+                        <button name='private' onClick={(e) => handleAudience(e.target.name)}>
+                          <LockIcon />
+                          private
+                        </button>
+                      </>
+                    )}
                   </div>
                 )}
               </div>

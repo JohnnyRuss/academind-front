@@ -25,11 +25,14 @@ function Article({ post }) {
           title={post.title}
           author={post.author}
           tags={post.tags}
+          audience={post.audience}
           categories={post.categories}
           postId={post._id}
           createdAt={post.createdAt}
         />
         <PostOptions
+          audience={post.audience}
+          isBlogPostOptions={true}
           postId={post._id}
           savePostHandler={() => savePostHandler(post._id)}
           deleteHandler={deleteHandler}
