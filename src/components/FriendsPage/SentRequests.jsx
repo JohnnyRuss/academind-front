@@ -34,16 +34,17 @@ function SentRequests() {
       {loading && <Spinner />}
       {!loading &&
         sentRequests
-          .filter(({ adressat }) => {
+          .filter((adressat) => {
             if (!searchKey) return adressat;
             else return adressat.userName.includes(searchKey);
           })
-          .map(({ adressat }) => (
+          .map((adressat) => (
             <RequestItemBody
               key={adressat._id}
               img={adressat.profileImg}
               userName={adressat.userName}
-              userId={adressat._id}>
+              userId={adressat._id}
+              muntuals={adressat.muntuals}>
               <CancelRequestBTN onClick={() => cancelFriendRequestHandler(adressat._id)} />
             </RequestItemBody>
           ))}

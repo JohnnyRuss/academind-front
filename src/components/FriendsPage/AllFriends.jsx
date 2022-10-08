@@ -31,17 +31,17 @@ function AllFriends() {
       {loading && <Spinner />}
       {!loading &&
         allFriends
-          .filter(({ friend }) => {
+          .filter((friend) => {
             if (!searchKey) return friend;
             else return friend.userName.includes(searchKey);
           })
-          .map(({ friend }) => (
+          .map((friend) => (
             <div className={styles.friend} key={friend._id}>
               <Image src={friend.profileImg} className={styles.friendImg} />
               <Link path={`/profile/${friend._id}/posts`} className={styles.friendName}>
                 {friend.userName}
               </Link>
-              <span className={styles.muntuals}>6 muntual friends</span>
+              <span className={styles.muntuals}>{friend.muntuals} muntual friends</span>
               {isActiveUser && (
                 <FriendOptions deleteFriendHandler={() => deleteFriendHandler(friend._id)} />
               )}
