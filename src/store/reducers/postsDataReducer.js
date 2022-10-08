@@ -20,8 +20,13 @@ const postsDataSlice = createSlice({
 
     setPosts(state, { payload }) {
       const { data, results } = payload;
-      state.posts = [...state.posts, ...data];
-      if (results) state.results = results;
+      if (results) {
+        state.results = results;
+        state.posts = [...data];
+      } else if (!results) {
+        state.posts = [...state.posts, ...data];
+      }
+
       if (state.loadingState.loading) updateLoadingState(state, 'loadingState', false);
     },
 

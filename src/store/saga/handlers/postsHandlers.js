@@ -63,7 +63,6 @@ function* updatePostHandler({ payload: { params, body } }) {
 
 function* changePostAudienceHandler({ payload: { params, body } }) {
   try {
-    console.log(params, body);
     const { data } = yield call(queryChangePostAudience, { postId: params.postId, body });
     yield put(setUpdatedPostAudience({ params, data }));
   } catch (error) {
@@ -101,9 +100,9 @@ function* savePostHandler({ payload: postId }) {
   }
 }
 
-function* getBlogPostsHandler({ payload: { page, limit, hasMore } }) {
+function* getBlogPostsHandler({ payload: { page, limit, hasMore, query } }) {
   try {
-    const { data } = yield call(queryBlogPosts, page, limit, hasMore);
+    const { data } = yield call(queryBlogPosts, page, limit, hasMore, query);
     yield put(setPosts({ data: data.data, results: data.results }));
   } catch (error) {
     showError(error, 'getBlogPostsHandler');

@@ -28,8 +28,10 @@ async function querySavePost(postId) {
   return await axiosQuery.post(`/posts/${postId}/bookmark`);
 }
 
-async function queryBlogPosts(page, limit, hasMore) {
-  return await axiosQuery(`/posts/blogPosts?page=${page}&limit=${limit}&hasMore=${hasMore}`);
+async function queryBlogPosts(page, limit, hasMore, query) {
+  return await axiosQuery(
+    `/posts/blogPosts?page=${page}&limit=${limit}&hasMore=${hasMore}${query}`
+  );
 }
 
 async function queryTopRatedBlogPosts(limit) {

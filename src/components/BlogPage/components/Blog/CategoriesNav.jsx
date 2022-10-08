@@ -1,9 +1,8 @@
-import { useLocation, NavLink, useParams } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import { uid } from 'uid';
 
 import styles from './styles/categoriesNav.module.scss';
 import { MultiCarousel } from '../../../Layouts';
-import { Link } from '../../../Interface';
 
 const responsive = {
   desktop: {
@@ -29,21 +28,26 @@ const responsive = {
 };
 
 const routes = [
-  'global',
-  'economics',
-  'jurisprudence',
-  'medicine',
-  'math',
-  'phisique',
-  'chemistry',
-  'test 8',
-  'test 9',
-  'test 10',
+  'fashion',
+  'mode',
+  'streets',
+  'colors',
+  'new',
+  'tendency',
+  'modern',
+  'people',
+  'music',
+  'web',
+  'deb',
+  'digital',
+  'test',
+  'design',
+  'new',
+  'old',
 ];
 
 function CategoriesNav() {
-  const { search, pathname } = useLocation();
-  const { categorySubString, categorySubStringArr } = generateCategorySubstring(search);
+  const { state: pathState } = useLocation();
 
   return (
     <div className={styles.categories}>
@@ -56,17 +60,19 @@ function CategoriesNav() {
         className={styles.slider}>
         {routes.map((route) => (
           <NavLink
-            to={controllCategoryQuery(
-              categorySubString,
-              categorySubStringArr,
-              route,
-              pathname,
-              search
-            )}
-            key={uid(6)}>
+            state={{
+              ...pathState,
+              category: pathState?.category
+                ? pathState.category.includes(route)
+                  ? pathState.category.filter((r) => r !== route)
+                  : [...pathState.category, route]
+                : [route],
+            }}
+            to={''}
+            key={uid(16)}>
             <span
-              className={`${styles.listItem} ${
-                categorySubStringArr?.includes(route) ? styles.active : ''
+              className={`${styles.listItem}   ${
+                pathState?.category?.includes(route) ? styles.active : ''
               }`}>
               {route}
             </span>
@@ -78,30 +84,3 @@ function CategoriesNav() {
 }
 
 export default CategoriesNav;
-
-function generateCategorySubstring(search) {
-  const hasCategory = search.includes('category');
-  const start = hasCategory ? search.slice(search.indexOf('category')).split('&')[0] : '';
-
-  const categorySubStringArr = start ? start.split('category=')[1].split(',') : [];
-  const categorySubString = categorySubStringArr?.join(',');
-
-  return { categorySubStringArr, categorySubString };
-}
-
-function controllCategoryQuery(categorySubString, categorySubStringArr, route, pathname, search) {
-  return categorySubString
-    ? categorySubStringArr.includes(route) && categorySubStringArr.length > 1
-      ? `${pathname}${search}`.replace(`,${route}`, '')
-      : categorySubStringArr.includes(route) && categorySubStringArr.length === 1
-      ? `${pathname}${search.replace(
-          search.includes(`&category=${route}`) ? `&category=${route}` : `category=${route}`,
-          ''
-        )}`
-      : search.includes(route)
-      ? ''
-      : `${pathname}${search.replace(`${categorySubString}`, `${categorySubString},${route}`)}`
-    : search
-    ? `${pathname}${search}&category=${route}`
-    : `?category=${route}`;
-}
