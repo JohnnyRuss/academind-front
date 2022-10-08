@@ -56,9 +56,12 @@ axiosQuery.interceptors.request.use(async (config) => {
   const exp = decodedData?.exp;
 
   if (Math.floor(Date.now() / 1000) > exp) {
-    console.log('runs assign new token', { currDate: Math.floor(Date.now() / 1000), exp });
     const { data } = await refresher();
-    console.log({ newDecoded: decode(data.accessToken) });
+    console.log('runs assign new token', {
+      currDate: Math.floor(Date.now() / 1000),
+      exp,
+      newDecoded: decode(data.accessToken).exp,
+    });
     localStorage.setItem('academind_passport', JSON.stringify(data.accessToken));
     config.headers.authorization = `Bearer ${data.accessToken}`;
   }

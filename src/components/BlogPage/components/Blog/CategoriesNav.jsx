@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, NavLink, useParams } from 'react-router-dom';
 import { uid } from 'uid';
 
 import styles from './styles/categoriesNav.module.scss';
@@ -42,8 +42,8 @@ const routes = [
 ];
 
 function CategoriesNav() {
-  //prettier-ignore
-  const { search} = useLocation();
+  const { search, pathname } = useLocation();
+  const { categorySubString, categorySubStringArr } = generateCategorySubstring(search);
 
   return (
     <div className={styles.categories}>
@@ -54,10 +54,23 @@ function CategoriesNav() {
         draggable={true}
         swipeable={true}
         className={styles.slider}>
-        {routes.map((r) => (
-          <Link path={`?category=${r}`} key={uid(6)}>
-            <span className={`${styles.listItem} ${search === r ? styles.active : ''}`}>{r}</span>
-          </Link>
+        {routes.map((route) => (
+          <NavLink
+            to={controllCategoryQuery(
+              categorySubString,
+              categorySubStringArr,
+              route,
+              pathname,
+              search
+            )}
+            key={uid(6)}>
+            <span
+              className={`${styles.listItem} ${
+                categorySubStringArr?.includes(route) ? styles.active : ''
+              }`}>
+              {route}
+            </span>
+          </NavLink>
         ))}
       </MultiCarousel>
     </div>
@@ -65,3 +78,30 @@ function CategoriesNav() {
 }
 
 export default CategoriesNav;
+
+function generateCategorySubstring(search) {
+  const hasCategory = search.includes('category');
+  const start = hasCategory ? search.slice(search.indexOf('category')).split('&')[0] : '';
+
+  const categorySubStringArr = start ? start.split('category=')[1].split(',') : [];
+  const categorySubString = categorySubStringArr?.join(',');
+
+  return { categorySubStringArr, categorySubString };
+}
+
+function controllCategoryQuery(categorySubString, categorySubStringArr, route, pathname, search) {
+  return categorySubString
+    ? categorySubStringArr.includes(route) && categorySubStringArr.length > 1
+      ? `${pathname}${search}`.replace(`,${route}`, '')
+      : categorySubStringArr.includes(route) && categorySubStringArr.length === 1
+      ? `${pathname}${search.replace(
+          search.includes(`&category=${route}`) ? `&category=${route}` : `category=${route}`,
+          ''
+        )}`
+      : search.includes(route)
+      ? ''
+      : `${pathname}${search.replace(`${categorySubString}`, `${categorySubString},${route}`)}`
+    : search
+    ? `${pathname}${search}&category=${route}`
+    : `?category=${route}`;
+}
