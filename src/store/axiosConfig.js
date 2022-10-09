@@ -7,8 +7,6 @@ function getJWT() {
     : null;
 }
 
-const token = getJWT();
-
 const controller = new AbortController();
 
 const refresher = axios.create({
@@ -25,7 +23,7 @@ export const axioss = axios.create({
   baseURL: 'http://localhost:4000/api/v1',
   withCredentials: true,
   headers: {
-    authorization: `Bearer ${token}`,
+    authorization: `Bearer ${getJWT()}`,
   },
 });
 
@@ -33,7 +31,7 @@ export const axiosQuery = axios.create({
   baseURL: 'http://localhost:4000/api/v1',
   withCredentials: true,
   headers: {
-    authorization: `Bearer ${token}`,
+    authorization: `Bearer ${getJWT()}`,
   },
 });
 
@@ -41,16 +39,13 @@ export const axiosFormDataQuery = axios.create({
   baseURL: 'http://localhost:4000/api/v1',
   withCredentials: true,
   headers: {
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${getJWT()}`,
     'content-type': 'multipart/form-data',
   },
 });
 
 axiosQuery.interceptors.request.use(async (config) => {
-  if (!token) {
-    console.log('runs first check');
-    config.headers.authorization = `Bearer ${getJWT()}`;
-  }
+  const token = getJWT();
 
   const decodedData = token && decode(token);
   const exp = decodedData?.exp;
@@ -70,10 +65,11 @@ axiosQuery.interceptors.request.use(async (config) => {
 });
 
 axiosFormDataQuery.interceptors.request.use(async (config) => {
-  if (!token) config.headers.authorization = `Bearer ${getJWT()}`;
+  const token = getJWT();
 
   const decodedData = token && decode(token);
   const exp = decodedData?.exp;
+
   if (Math.floor(Date.now() / 1000) > exp) {
     const { data } = await refresher();
     localStorage.setItem('academind_passport', JSON.stringify(data.accessToken));

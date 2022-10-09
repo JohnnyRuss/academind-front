@@ -8,6 +8,27 @@
   @include flexBox;
   gap: 2rem;
 
+  @include respond(tab-landscape) {
+    grid-column: 2;
+    margin-right: 2rem;
+  }
+
+  @include respond(phone) {
+    grid-row: 6;
+    margin: 0;
+    justify-self: center;
+    align-self: center;
+  }
+
+  @include respond(phone-small) {
+    gap: 1rem;
+    
+    button {
+      width: 6rem;
+      font-size: size(smallerSize);
+    }
+  }
+
   .cancelUpdateBtn {
     background: color(whiteShadeColor);
     color: color(darkGreyColor);

@@ -12,39 +12,32 @@
   }
 
   @include respond(phone) {
-    grid-area: 3 / 1 / 7 / 2;
+    grid-area: 2 / 2 / 5 / 2;
+    margin: 0;
+    justify-self: center;
   }
 
-  @include respond(phone-small) {
-    margin-top: 18%;
-  }
+  // @include respond(phone-small) {
+  //   margin-top: 18%;
+  // }
 
   .profileImg {
     width: 16rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
+    overflow: hidden;
     border: 2px solid color('whiteColor');
 
     & img {
       @include fitImage;
-      border-radius: inherit;
-    }
-
-    @include respond(big-desktop) {
-      width: 15rem;
-    }
-
-    @include respond(tab-portrate) {
-      width: 14rem;
     }
 
     @include respond(phone) {
-      width: 12.5rem;
+      width: 13rem;
     }
 
     @include respond(phone-small) {
-      width: 7.5rem;
-      margin-left: -2rem;
+      width: 11rem;
     }
   }
 

@@ -3,14 +3,23 @@
 .userNameAndEmail {
   padding: 0 3rem 3rem 1rem;
   grid-area: 4 / 3 / 5 / 4;
-  width: 50%;
+  width: 40%;
 
   @include respond(tab-landscape) {
     grid-area: 4 / 2 / 5 / -1;
+    margin-left: 3rem;
   }
 
+  @include respond(tab-portrate) {
+    width: 100%;
+  }
+  
   @include respond(phone) {
-    grid-area: 5 / 2 / 5 / -1;
+    grid-row: 5;
+    grid-column: 2;
+    padding: 0;
+    margin: 0;
+    text-align: center;
   }
 
   .userName {
@@ -23,16 +32,6 @@
   @include respond(phone) {
     .userName {
       font-size: size('regullarSize');
-    }
-  }
-
-  @include respond(phone-small) {
-    .userName {
-      font-size: size('smallSize');
-    }
-
-    .email {
-      font-size: size('smallerSize');
     }
   }
 }

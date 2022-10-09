@@ -8,7 +8,6 @@
   @include flexBox;
   @include flexProperty(flex-start, center);
   gap: 0.5rem;
-  // margin: 0 1rem 0.5rem 0;
   @include boxShadowBlack(0, 0.5rem, 0.1);
   outline: none;
 

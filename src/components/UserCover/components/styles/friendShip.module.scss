@@ -4,8 +4,40 @@
   grid-row: 4;
   grid-column: 3;
   justify-self: end;
+  width: 60%;
   @include flexBox;
-  @include flexProperty(flex-start, center);
+  @include flexProperty(flex-end, center);
+  flex-wrap: wrap;
   gap: 1.2rem;
-  padding-top: 2rem;
+  padding-top: 0.5rem;
+
+  @include respond(tab-landscape) {
+    grid-column: 2;
+    margin-right: 3rem;
+  }
+
+  @include respond(tab-portrate) {
+    grid-row: 5;
+    width: 100%;
+    margin-left: 3rem;
+    margin-right: 0rem;
+    justify-self: start;
+    justify-content: flex-start;
+
+    & button {
+      font-size: size(smallestSize);
+    }
+  }
+
+  @include respond(phone) {
+    grid-column: 1/-1;
+    grid-row: 6;
+    justify-self: center;
+    justify-content: center;
+    margin: 0;
+
+    & button {
+      padding: 0.5rem 1rem;
+    }
+  }
 }
