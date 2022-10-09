@@ -2,21 +2,51 @@
 
 .blogPage {
   display: grid;
-  grid-template: 30vw 6rem 1fr / 20rem 1fr 25%;
+  grid-template: 30vw 6rem 24rem 1fr / 20rem 1fr 40rem;
   color: color('darkGreyColor');
   position: relative;
   margin-top: 6rem;
 
-  .content {
-    grid-row: 3;
-    grid-column: 2/3;
-    padding: 4rem 3rem;
-    @include flexBox(column);
-    gap: 4rem;
+  @include respond(tab-landscape) {
+    grid-template: 30vw 6rem 26rem 1fr / 20rem 1fr 36rem;
   }
 
-  .createBlogPost {
-    width: 100%;
+  @include respond(tab-portrate) {
+    grid-template: 30vw 6rem 26rem min-content 1fr / 20rem repeat(2, 1fr);
+  }
+
+  .blogPageCreateBlogPostTouch {
+    grid-column: 2;
+    grid-row: 3;
+    margin: 0 3rem;
+    margin-top: 4rem;
+
+    @include respond(tab-landscape) {
+      margin: 4rem 1rem 2rem 1rem;
+    }
+
+    @include respond(tab-portrate) {
+      grid-column: 2/4;
+    }
+  }
+
+  .blogPostsScrollBox {
+    grid-row: 4;
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    margin: 4rem 3rem 2rem 3rem;
+
+    @include respond(tab-landscape) {
+      margin: 4rem 1rem 2rem 1rem;
+    }
+
+    @include respond(tab-portrate) {
+      grid-row: 5;
+      grid-column: 2/3;
+      background: indianred;
+    }
   }
 
   .leftBar {

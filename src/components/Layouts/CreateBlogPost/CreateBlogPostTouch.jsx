@@ -21,7 +21,7 @@ import { MultiMediaIcon } from '../Icons/icons';
 import { UserIdentifier } from '../';
 import CreateBlogPostModal from './CreateBlogPostModal';
 
-function CreateBlogPostTouch() {
+function CreateBlogPostTouch({ className }) {
   const dispatch = useDispatch();
 
   const { userName, image } = useSelector(selectActiveUserInfo);
@@ -93,7 +93,9 @@ function CreateBlogPostTouch() {
 
   return (
     <>
-      <div onClick={() => activateModal(true)} className={styles.createBlogPostTouch}>
+      <div
+        onClick={() => activateModal(true)}
+        className={`${styles.createBlogPostTouch} ${className || ''}`}>
         <UserIdentifier userName={userName} img={image} withTime={false} />
         <input type='text' placeholder='article...' />
         <label

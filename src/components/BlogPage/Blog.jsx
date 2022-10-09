@@ -14,20 +14,18 @@ function Blog({ posts, loading, hasMore, handleNext }) {
           <SideBar className={styles.leftBar}>{/* <p>test</p> */}</SideBar>
           <Stand />
           <CategoriesNav />
-          <div className={styles.content}>
-            <CreateBlogPostTouch />
-            <InfiniteScroll
-              dataLength={posts?.length}
-              next={handleNext}
-              hasMore={hasMore}
-              loader={<BlockSpinner />}
-              endMessage={<ScrollEnd />}
-              style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
-              {posts.map((post) => (
-                <BlogPost post={post} key={post._id} />
-              ))}
-            </InfiniteScroll>
-          </div>
+          <CreateBlogPostTouch className={styles.blogPageCreateBlogPostTouch} />
+          <InfiniteScroll
+            dataLength={posts?.length}
+            next={handleNext}
+            hasMore={hasMore}
+            loader={<BlockSpinner />}
+            endMessage={<ScrollEnd />}
+            className={styles.blogPostsScrollBox}>
+            {posts.map((post) => (
+              <BlogPost post={post} key={post._id} />
+            ))}
+          </InfiniteScroll>
           <RightBar />
         </>
       )}
