@@ -7,11 +7,23 @@
   background: color('whiteColor');
   @include boxShadowBlack(0.5rem, 1rem, 0.2);
 
+  @include respond(tab-portrate) {
+    margin-left: 7rem;
+    z-index: -1;
+    height: 5rem;
+    margin-top: -0.5rem;
+  }
+
   .slider {
     height: 100%;
     margin: 0 3rem;
     padding: 0 7rem;
     display: flex;
+
+    @include respond(phone) {
+      padding: 0 1rem;
+      margin: 0rem;
+    }
   }
 
   .listItem {

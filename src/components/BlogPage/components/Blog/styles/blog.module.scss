@@ -12,7 +12,8 @@
   }
 
   @include respond(tab-portrate) {
-    grid-template: 30vw 6rem 26rem min-content 1fr / 20rem repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
   }
 
   .blogPageCreateBlogPostTouch {
@@ -26,7 +27,7 @@
     }
 
     @include respond(tab-portrate) {
-      grid-column: 2/4;
+      margin-left: 10rem;
     }
   }
 
@@ -43,14 +44,17 @@
     }
 
     @include respond(tab-portrate) {
-      grid-row: 5;
-      grid-column: 2/3;
-      background: indianred;
+      margin-left: 10rem;
     }
   }
 
   .leftBar {
     grid-column: 1/2;
     grid-row: 1/-1;
+
+    @include respond(tab-portrate) {
+      position: fixed;
+      z-index: 1;
+    }
   }
 }

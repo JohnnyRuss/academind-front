@@ -47,16 +47,33 @@
   }
 
   @include respond(tab-portrate) {
-    grid-row: 4;
-    grid-column: 2/4;
+    margin-left: 9rem;
     flex-direction: row;
+    gap: 1.5rem;
     position: relative;
+    z-index: -1;
     top: 0;
     margin-top: 2rem;
 
     .rightBarBox {
-      width: 50%;
+      width: 40%;
       height: 35rem;
+    }
+
+    .topRatedPostsBox {
+      width: 60%;
+    }
+  }
+
+  @include respond(phone) {
+    flex-direction: column;
+
+    .rightBarBox {
+      width: 100%;
+    }
+
+    .topRatedPostsBox{
+      height: 40rem;
     }
   }
 }

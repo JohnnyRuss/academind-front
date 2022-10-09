@@ -15,6 +15,7 @@ function Blog({ posts, loading, hasMore, handleNext }) {
           <Stand />
           <CategoriesNav />
           <CreateBlogPostTouch className={styles.blogPageCreateBlogPostTouch} />
+          <RightBar />
           <InfiniteScroll
             dataLength={posts?.length}
             next={handleNext}
@@ -26,7 +27,6 @@ function Blog({ posts, loading, hasMore, handleNext }) {
               <BlogPost post={post} key={post._id} />
             ))}
           </InfiniteScroll>
-          <RightBar />
         </>
       )}
     </div>

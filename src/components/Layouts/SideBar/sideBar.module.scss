@@ -4,11 +4,21 @@
   display: none;
 
   &:checked + .sideBarLeft > .col-wrapper > .col-2 {
-    display: none;
+    @include respond(tab-portrate) {
+      display: none;
+    }
   }
 
   &:checked + .sideBarLeft > .col-wrapper {
     width: max-content;
+  }
+
+  & + .sideBarLeft > .sideBarBtn {
+    display: none;
+
+    @include respond(tab-portrate) {
+      display: block;
+    }
   }
 
   &:checked + .sideBarLeft > .sideBarBtn > svg {
@@ -17,6 +27,12 @@
 
   &:checked + .sideBarLeft {
     flex: 0;
+
+    @include respond(tab-portrate) {
+      width: max-content;
+      position: fixed;
+      z-index: 99;
+    }
   }
 }
 
@@ -24,6 +40,7 @@
   position: sticky;
   top: 6rem;
   height: calc(100vh - 6rem);
+  width: 20rem;
   flex: 1;
   padding: 0.5rem;
   backface-visibility: hidden;
@@ -53,8 +70,8 @@
       top: 25%;
     }
 
-    @include respond(phone-min-width) {
-      display: none;
+    @include respond(tab-portrate) {
+      // display: block;
     }
   }
 

@@ -5,6 +5,10 @@
   grid-row: 1;
   color: color('whiteColor');
 
+  @include respond(tab-portrate){
+    margin-left: 7rem;
+  }
+
   .slider {
     z-index: -1;
   }
@@ -48,7 +52,6 @@
     font-weight: weight('mediumWeight');
     text-transform: capitalize;
     transform: translateX(-25%);
-    // font-family: 'Courgette', cursive;
 
     @include respond(tab-landscape) {
       font-size: size('headingSecondarySmallSize');
@@ -64,7 +67,6 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     line-height: 1.5;
-    // font-family: 'Poppins', sans-serif;
 
     @include respond(tab-portrate) {
       line-height: 1.2;
