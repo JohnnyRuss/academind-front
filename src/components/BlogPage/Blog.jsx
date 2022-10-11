@@ -11,11 +11,11 @@ function Blog({ posts, loading, hasMore, handleNext }) {
       {loading && <StandSpinner />}
       {!loading && (
         <>
-          <SideBar className={styles.leftBar}>{/* <p>test</p> */}</SideBar>
           <Stand />
           <CategoriesNav />
           <CreateBlogPostTouch className={styles.blogPageCreateBlogPostTouch} />
           <RightBar />
+          <SideBar className={styles.leftBar}/>
           <InfiniteScroll
             dataLength={posts?.length}
             next={handleNext}

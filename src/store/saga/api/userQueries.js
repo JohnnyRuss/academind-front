@@ -21,7 +21,7 @@ async function queryBookmarks(userId, page, limit, hasMore) {
 }
 
 async function queryUserAboutData(userId) {
-  return await axiosQuery(`/user/${userId}/about`);
+  return await axiosQuery(`/user/about/${userId}`);
 }
 
 async function queryUserSearch(key) {

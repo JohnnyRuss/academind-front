@@ -5,9 +5,9 @@ import { MultiCarousel } from '../../../Layouts';
 function Stand() {
   return (
     <div className={styles.stand}>
-      <MultiCarousel className={styles.slider}>
+      <MultiCarousel className={styles.slider} sliderClass={styles.test}>
         <div className={styles.slide}>
-          <Image src='/img/blog-bg-1.jpg' className={styles.sliderBg} priority={true} />
+          <Image src='/img/blog-bg-1.jpg' className={styles.sliderBg} />
           <div className={styles.standIntro}>
             <p className={styles.introTitle}>
               your chance <br /> to access <br />

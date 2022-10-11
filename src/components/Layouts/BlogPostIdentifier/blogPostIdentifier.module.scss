@@ -8,6 +8,8 @@
 
   .blogPostTitle {
     text-transform: capitalize;
+    width: max-content;
+    max-width: 90%;
 
     & h3 {
       width: max(40%, 100%);

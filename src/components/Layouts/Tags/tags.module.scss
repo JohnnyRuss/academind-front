@@ -4,7 +4,11 @@
   font-size: inherit;
   color: inherit;
 
-  & a {
+  .tagKeyWord {
+    font-weight: weight(regullarWeight);
+  }
+
+  .tagLink {
     display: inline-block;
     text-transform: capitalize;
 
@@ -13,13 +17,41 @@
     }
   }
 
+  .extraTags {
+    position: relative;
+  }
+
+  .extraTagsList {
+    position: absolute;
+    right: 0;
+    width: 12rem;
+    padding: 0.5rem 0.75rem;
+    @include boxShadowBlack(0, 0.5rem, 0.3);
+    border-radius: 0.5rem;
+    text-transform: capitalize;
+    font-weight: weight(mediumWeight);
+    background: color(whiteColor);
+    animation: moveTop 0.2s;
+    display: none;
+
+    & a {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .extraTags:hover .extraTagsList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
   & strong {
     font-weight: inherit;
     text-decoration: underline;
     cursor: pointer;
-  }
-
-  .tagKeyWord {
-    font-weight: weight(regullarWeight);
   }
 }

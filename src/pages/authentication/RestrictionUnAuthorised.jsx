@@ -29,7 +29,7 @@ function RestrictionUnAuthorised() {
         {updateBlogPostModalIsOpen && <UpdateBlogPostPortal />}
         {sharePostModalIsOpen && <SharePostPortal />}
       </Suspense>
-      <Outlet />;
+      <Outlet />
     </>
   );
 }

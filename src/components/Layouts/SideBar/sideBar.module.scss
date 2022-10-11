@@ -38,6 +38,7 @@
 
 .sideBarLeft {
   position: sticky;
+  z-index: auto;
   top: 6rem;
   height: calc(100vh - 6rem);
   width: 20rem;

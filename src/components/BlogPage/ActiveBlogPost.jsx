@@ -28,7 +28,7 @@ function ActiveBlogPost() {
   }, []);
 
   return (
-    <div className={styles.box}>
+    <div className={styles.activeBlogPostBox}>
       {loading && <StandSpinner />}
       <LeftBar />
       {!loading && post && <Content post={post} />}

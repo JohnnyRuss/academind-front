@@ -60,7 +60,7 @@ function OptionsBody({ handleUpdate, handleDeletePopUp, postId, audience, isBlog
                       <PublicIcon />
                       public
                     </button>
-                    {BlogPostOptions && (
+                    {isBlogPostOptions && (
                       <button name='users' onClick={(e) => handleAudience(e.target.name)}>
                         <GroupIcon />
                         only users
