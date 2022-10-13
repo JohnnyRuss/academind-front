@@ -1,4 +1,8 @@
+@use '../../../styles/helpers/helpers' as *;
+
 .scrollEnd {
   text-align: center;
   text-transform: capitalize;
+  padding-bottom: 2rem;
+  color: rgba(color(lightGreyColor), 0.8);
 }

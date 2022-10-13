@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { axiosQuery } from '../../store/axiosConfig';
 import { useForeignUser } from '../../hooks';
@@ -17,6 +17,10 @@ import {
 
 function Profile() {
   const dispatch = useDispatch();
+
+  const {
+    loadingState: { loading },
+  } = useSelector(({ user }) => user);
 
   const { isActiveUser, profileId } = useForeignUser('basedOnLocation');
 
@@ -37,21 +41,23 @@ function Profile() {
 
   return (
     <>
-      <div className={styles.landscape}>
-        <div className={styles.content}>
-          <CoverImage />
-          <ProfileImage />
-          <UsernameAndEmail />
-          {!isActiveUser && (
-            <FriendShip
-              friendShip={friendShip}
-              profileId={profileId}
-              setFriendShip={setFriendShip}
-            />
-          )}
-          <ProfileNavigation />
+      {!loading && (
+        <div className={styles.landscape}>
+          <div className={styles.content}>
+            <CoverImage />
+            <ProfileImage />
+            <UsernameAndEmail />
+            {!isActiveUser && (
+              <FriendShip
+                friendShip={friendShip}
+                profileId={profileId}
+                setFriendShip={setFriendShip}
+              />
+            )}
+            <ProfileNavigation />
+          </div>
         </div>
-      </div>
+      )}
       <Outlet />
     </>
   );

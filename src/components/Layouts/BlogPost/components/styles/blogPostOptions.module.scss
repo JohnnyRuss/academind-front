@@ -3,6 +3,7 @@
 .blogPostOptions {
   align-self: flex-end;
   position: relative;
+  z-index: 1;
 
   .blogPostOptBtn {
     font-size: size(bigSize);

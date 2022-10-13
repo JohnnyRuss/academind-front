@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useWindowDimention } from '../../../hooks';
+
 import styles from './components/styles/postAuthentic.module.scss';
 import { PostDescription, PostMedia } from './components';
 import { UserIdentifier, BlogPost, Tags, DeletedPost } from '..';
@@ -27,6 +30,15 @@ function PostAuthentic({
   referencedPost,
 }) {
   const tgs = shared ? data.authenticTags : data.tags;
+
+  const [limit, setLimit] = useState(550);
+  const { width } = useWindowDimention();
+  useEffect(() => {
+    if (width <= 480) setLimit(250);
+    else if (width <= 680) setLimit(300);
+    else if (width <= 960) setLimit(400);
+    else setLimit(550);
+  }, [width]);
 
   return (
     <div className={shared ? styles.shareAuthentic : styles.postBody} data-post-authentic>
@@ -59,7 +71,7 @@ function PostAuthentic({
           post={
             shared ? { ...data, tags: data.authenticTags, audience: data.authenticAudience } : data
           }
-          limitation={550}
+          limitation={limit}
           options={false}
           referenced={referencedPost}
           className={styles.referencedBlogPost}

@@ -3,6 +3,7 @@ export { default as useCommentPin } from './util/useCommentPin';
 export { default as useRestrictBodyOverflow } from './util/useRestrictBodyOverflow';
 export { default as useCounter } from './util/useCounter';
 export { default as useScrollUp } from './util/useScrollUp';
+export { default as useWindowDimention } from './util/useWindowDimention';
 
 export { default as useComments } from './layoutBased/useComments';
 export { default as usePost } from './layoutBased/usePost';

@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useWindowDimention } from '../../hooks';
+
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import styles from './components/Blog/styles/blog.module.scss';
@@ -6,6 +9,15 @@ import { StandSpinner, BlockSpinner } from '../Interface';
 import { Stand, RightBar, CategoriesNav } from './components/Blog';
 
 function Blog({ posts, loading, hasMore, handleNext }) {
+  const [limit, setLimit] = useState(1500);
+  const { width } = useWindowDimention();
+  useEffect(() => {
+    if (width <= 480) setLimit(200);
+    else if (width <= 680) setLimit(450);
+    else if (width <= 960) setLimit(900);
+    else setLimit(1500);
+  }, [width]);
+
   return (
     <div className={styles.blogPage}>
       {loading && <StandSpinner />}
@@ -15,7 +27,7 @@ function Blog({ posts, loading, hasMore, handleNext }) {
           <CategoriesNav />
           <CreateBlogPostTouch className={styles.blogPageCreateBlogPostTouch} />
           <RightBar />
-          <SideBar className={styles.leftBar}/>
+          <SideBar className={styles.leftBar} />
           <InfiniteScroll
             dataLength={posts?.length}
             next={handleNext}
@@ -24,7 +36,7 @@ function Blog({ posts, loading, hasMore, handleNext }) {
             endMessage={<ScrollEnd />}
             className={styles.blogPostsScrollBox}>
             {posts.map((post) => (
-              <BlogPost post={post} key={post._id} />
+              <BlogPost post={post} key={post._id} limitation={limit} />
             ))}
           </InfiniteScroll>
         </>

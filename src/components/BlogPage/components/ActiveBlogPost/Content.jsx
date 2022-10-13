@@ -10,10 +10,6 @@ function Content({ post }) {
 
   return (
     <>
-      {/* <div
-        className={`${styles.content} ${
-          post.media[0] ? styles.contentWithMedia : styles.contentWithoutMedia
-        }`}> */}
       {post.media[0] && <Media media={post.media} />}
       <Article post={post} />
       <RelatedPosts />
@@ -27,7 +23,6 @@ function Content({ post }) {
           />
         )}
       </div>
-      {/* </div> */}
     </>
   );
 }

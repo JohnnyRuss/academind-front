@@ -7,20 +7,14 @@ function getJWT() {
     : null;
 }
 
-const controller = new AbortController();
-
 const refresher = axios.create({
-  baseURL: 'http://localhost:4000/api/v1/authentication/refresh',
+  baseURL: `${process.env.REACT_APP_API_END_POINT}/authentication/refresh`,
   withCredentials: true,
-  headers: {
-    Authorization: `Bearer ${getJWT()}`,
-  },
   method: 'GET',
-  signal: controller.signal,
 });
 
 export const axioss = axios.create({
-  baseURL: 'http://localhost:4000/api/v1',
+  baseURL: process.env.REACT_APP_API_END_POINT,
   withCredentials: true,
   headers: {
     authorization: `Bearer ${getJWT()}`,
@@ -28,7 +22,7 @@ export const axioss = axios.create({
 });
 
 export const axiosQuery = axios.create({
-  baseURL: 'http://localhost:4000/api/v1',
+  baseURL: process.env.REACT_APP_API_END_POINT,
   withCredentials: true,
   headers: {
     authorization: `Bearer ${getJWT()}`,
@@ -36,7 +30,7 @@ export const axiosQuery = axios.create({
 });
 
 export const axiosFormDataQuery = axios.create({
-  baseURL: 'http://localhost:4000/api/v1',
+  baseURL: process.env.REACT_APP_API_END_POINT,
   withCredentials: true,
   headers: {
     Authorization: `Bearer ${getJWT()}`,
@@ -44,44 +38,31 @@ export const axiosFormDataQuery = axios.create({
   },
 });
 
-axiosQuery.interceptors.request.use(async (config) => {
+let refreshTokenPromise;
+
+axiosQuery.interceptors.request.use(async (config) => tokenExchange({ config }));
+
+axiosFormDataQuery.interceptors.request.use(async (config) => tokenExchange({ config }));
+
+function tokenExchange({ config }) {
   const token = getJWT();
 
-  const decodedData = token && decode(token);
-  const exp = decodedData?.exp;
+  const decodedUser = token && decode(token);
+  const exp = decodedUser?.exp;
 
   if (Math.floor(Date.now() / 1000) > exp) {
-    console.log({ msg: 'before refresh request', inLocal: getJWT() });
+    if (!refreshTokenPromise)
+      refreshTokenPromise = refresher().then(({ data }) => {
+        refreshTokenPromise = null;
+        return data.accessToken;
+      });
 
-    const { data } = await refresher();
-    localStorage.setItem('academind_passport', JSON.stringify(data.accessToken));
-
-    console.log({
-      msg: 'after refresh request',
-      currDate: Math.floor(Date.now() / 1000),
-      exp,
-      newDecoded: decode(data.accessToken).exp,
-      access: data.accessToken,
-      inLocal: getJWT(),
+    return refreshTokenPromise.then((token) => {
+      localStorage.setItem('academind_passport', JSON.stringify(token));
+      config.headers.authorization = `Bearer ${token}`;
+      return config;
     });
-
-    config.headers.authorization = `Bearer ${data.accessToken}`;
   }
 
   return config;
-});
-
-axiosFormDataQuery.interceptors.request.use(async (config) => {
-  const token = getJWT();
-
-  const decodedData = token && decode(token);
-  const exp = decodedData?.exp;
-
-  if (Math.floor(Date.now() / 1000) > exp) {
-    const { data } = await refresher();
-    localStorage.setItem('academind_passport', JSON.stringify(data.accessToken));
-    config.headers.authorization = `Bearer ${data.accessToken}`;
-  }
-
-  return config;
-});
+}

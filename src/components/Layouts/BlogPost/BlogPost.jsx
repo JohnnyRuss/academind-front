@@ -1,11 +1,18 @@
+import { useMemo } from 'react';
+
 import styles from './components/styles/blogPost.module.scss';
 import { Image, Link } from '../../Interface';
 import { BlogPostIdentifier } from '../../Layouts';
 import { ReviewUserInteraction } from './components';
 
 function BlogPost({ post, limitation = 1500, className, referenced, id }) {
-  const article =
-    post?.article?.length > limitation ? `${post.article?.slice(0, limitation)}...` : post?.article;
+  const article = useMemo(
+    () =>
+      post?.article?.length > limitation
+        ? `${post.article?.slice(0, limitation)}...`
+        : post?.article,
+    [limitation, post.article]
+  );
 
   return (
     <div className={`${styles.blogPost} ${className || ''}`} id={id ? id : ''}>
