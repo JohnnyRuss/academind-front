@@ -16,8 +16,8 @@ import {
   FriendIcon,
   LockIcon,
   GroupIcon,
+  RemoveIcon,
 } from '../Icons/icons';
-import BlogPostOptions from '../BlogPost/components/BlogPostOptions';
 
 function OptionsBody({ handleUpdate, handleDeletePopUp, postId, audience, isBlogPostOptions }) {
   const { loading, optionsRules, handleSavePost } = useSavePostQuery(postId);
@@ -92,6 +92,12 @@ function OptionsBody({ handleUpdate, handleDeletePopUp, postId, audience, isBlog
                 <span>delete</span>
               </button>
             </>
+          )}
+          {optionsRules?.isTagged && (
+            <button className={styles.postOptBtn}>
+              <RemoveIcon />
+              <span>remove tag</span>
+            </button>
           )}
           <button className={styles.postOptBtn}>
             <ErrorIcon />

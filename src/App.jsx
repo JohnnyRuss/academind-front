@@ -23,7 +23,6 @@ const Post = lazy(() => import('./pages/Post/Post'));
 function App() {
   return (
     <BrowserRouter>
-      {/* <Spinner /> */}
       <Navigation />
       <Suspense fallback={<StandSpinner />}>
         <Routes>

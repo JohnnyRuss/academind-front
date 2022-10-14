@@ -38,6 +38,7 @@ import {
   MdModeStandby,
   MdPublic,
   MdLock,
+  MdOutlineRemoveDone,
 } from 'react-icons/md';
 
 import {
@@ -119,6 +120,7 @@ const ClockIcon = BsClock;
 const PublicIcon = MdPublic;
 const LockIcon = MdLock;
 const ReadIcon = AiOutlineFileDone;
+const RemoveIcon = MdOutlineRemoveDone;
 const ThemeIcon = WiMoonAltFirstQuarter;
 const LaughIcon = FaLaugh;
 const MessengerIcon = FaFacebookMessenger;
@@ -188,7 +190,7 @@ export {
   LockIcon,
   GroupIcon,
   ReadIcon,
-
+  RemoveIcon,
   //
   // MinimizeCircleIcon,
   // DotsVerticalIcon,
