@@ -1,0 +1,37 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.notificationPopUp {
+  position: fixed;
+  z-index: 99;
+  right: 2rem;
+  width: 27rem;
+  min-height: 5rem;
+  padding: 0.5rem;
+  background: color(whiteColor);
+  font-size: size(smallerSize);
+  @include flexBox(column);
+  gap: 0.25rem;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  animation: moveTop 0.2s forwards;
+  @include boxShadowBlack(0, 1rem, 0.3);
+
+  .cleanerBtnsBox {
+    color: color(blueColor);
+    text-transform: capitalize;
+    @include flexBox;
+    @include flexProperty(space-between, center);
+    margin: 0.75rem 0;
+
+    & button:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .message {
+    text-align: center;
+    text-transform: capitalize;
+    padding: 1rem;
+    color: color(darkLightGreyColor);
+  }
+}

@@ -21,6 +21,8 @@ const activeUserSlice = createSlice({
       createdAt: null,
       isAuthenticated: false,
     },
+    notifications: [],
+    activeNotifications: false,
   },
   reducers: {
     login(state) {
@@ -58,6 +60,32 @@ const activeUserSlice = createSlice({
 
     getActiveUser() {},
 
+    setActiveNotifications(state, { payload }) {
+      state.activeNotifications = payload;
+    },
+
+    getNotifications(state) {
+      updateLoadingState(state, 'loadingState', true);
+    },
+
+    setNotifications(state, { payload }) {
+      state.notifications = payload;
+      updateLoadingState(state, 'loadingState', false);
+    },
+
+    deleteNotification() {},
+
+    markNotificationAsRead() {},
+
+    setMarkedNotification(state, { payload }) {
+      const i = state.notifications.findIndex((notify) => notify._id === payload._id);
+      state.notifications[i] = { ...state.notifications[i], ...payload };
+    },
+
+    setDeletedNotification(state, { payload }) {
+      state.notifications = state.notifications.filter((notify) => notify._id !== payload);
+    },
+
     logOut(state) {
       const temp = {
         _id: '',
@@ -85,5 +113,12 @@ export const {
   setActiveUser,
   setUpdatedUserCover,
   getActiveUser,
+  setActiveNotifications,
+  getNotifications,
+  setNotifications,
+  deleteNotification,
+  markNotificationAsRead,
+  setMarkedNotification,
+  setDeletedNotification,
   logOut,
 } = activeUserSlice.actions;

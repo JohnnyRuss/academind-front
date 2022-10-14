@@ -28,6 +28,18 @@ async function queryUserSearch(key) {
   return await axiosQuery(`/user/search?key=${key}`);
 }
 
+async function queryUserNotifications(userId) {
+  return await axiosQuery(`/notifications/${userId}`);
+}
+
+async function queryDeleteUserNotification(notifyId) {
+  return await axiosQuery.delete(`/notifications/notify/${notifyId}`);
+}
+
+async function queryMarkNotificationAsRead(notifyId) {
+  return await axiosQuery.patch(`/notifications/notify/${notifyId}`);
+}
+
 export {
   queryUserProfile,
   queryUserProfilePosts,
@@ -35,4 +47,7 @@ export {
   queryUserAboutData,
   queryBookmarks,
   queryUserSearch,
+  queryUserNotifications,
+  queryDeleteUserNotification,
+  queryMarkNotificationAsRead,
 };

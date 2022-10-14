@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 function useBlurOnBody(handleOnFocus, handleOnBlur, excludeElCls) {
   const [blur, setBlur] = useState(true);
 
-  function onFocus() {
+  function onFocus(e) {
     handleOnFocus();
     setBlur(false);
   }

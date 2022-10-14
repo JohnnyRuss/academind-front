@@ -18,6 +18,7 @@ const PendingRequests = lazy(() => import('./pages/profile/friends/PendingReques
 const Feed = lazy(() => import('./pages/feed/Feed'));
 const BlogPage = lazy(() => import('./pages/blog/BlogPage'));
 const ActiveBlogPost = lazy(() => import('./pages/blog/ActiveBlogPost'));
+const Post = lazy(() => import('./pages/Post/Post'));
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
               </Route>
               <Route path='bookmarks' element={<BookmarksPage />} />
             </Route>
+            <Route path='post/:id' element={<Post />} />
             <Route path='blog' element={<BlogPage />} />
             <Route path='blog/:id' element={<ActiveBlogPost />} />
           </Route>

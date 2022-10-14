@@ -32,13 +32,9 @@ function PostOptions({
     setOpen(false);
   }
 
-  const handleOnFocus = () => {
-    setOpen((prev) => !prev);
-  };
-
-  const handleOnBlur = () => {
-    setOpen(false);
-  };
+  const handleOnFocus = () => setOpen((prev) => !prev);
+  
+  const handleOnBlur = () => setOpen(false);
 
   const { blur, onFocus } = useBlurOnBody(handleOnFocus, handleOnBlur, [
     'options--big--modal--window',

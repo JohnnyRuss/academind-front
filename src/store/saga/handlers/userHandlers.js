@@ -11,12 +11,21 @@ import { setPosts, setBookmarkedPosts } from '../../reducers/postsDataReducer';
 import { setUserAboutData } from '../../reducers/aboutReducer';
 
 import {
+  setNotifications,
+  setDeletedNotification,
+  setMarkedNotification,
+} from '../../reducers/activeUserReducer';
+
+import {
   queryUserProfile,
   queryUserProfilePosts,
   queryUserFeed,
   queryBookmarks,
   queryUserSearch,
   queryUserAboutData,
+  queryUserNotifications,
+  queryDeleteUserNotification,
+  queryMarkNotificationAsRead,
 } from '../api/userQueries';
 
 function* searchUserHandler({ payload: key }) {
@@ -76,6 +85,33 @@ function* getUserAboutDataHandler({ payload: userId }) {
   }
 }
 
+function* getUserNotificationsHandler({ payload: userId }) {
+  try {
+    const { data } = yield call(queryUserNotifications, userId);
+    yield put(setNotifications(data));
+  } catch (error) {
+    showError(error, 'getUserAboutDataHandler');
+  }
+}
+
+function* deleteUserNotificationHandler({ payload: notifyId }) {
+  try {
+    yield call(queryDeleteUserNotification, notifyId);
+    yield put(setDeletedNotification(notifyId));
+  } catch (error) {
+    showError(error, 'getUserAboutDataHandler');
+  }
+}
+
+function* markNotificationAsReadHandler({ payload: notifyId }) {
+  try {
+    const { data } = yield call(queryMarkNotificationAsRead, notifyId);
+    yield put(setMarkedNotification(data));
+  } catch (error) {
+    showError(error, 'getUserAboutDataHandler');
+  }
+}
+
 function showError(error, location) {
   console.log({
     error: true,
@@ -93,4 +129,7 @@ export {
   getBookmarksHandler,
   searchUserHandler,
   getUserAboutDataHandler,
+  getUserNotificationsHandler,
+  deleteUserNotificationHandler,
+  markNotificationAsReadHandler,
 };

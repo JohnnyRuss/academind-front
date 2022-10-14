@@ -1,9 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 import styles from './styles/content.module.scss';
 import { Media, Article, RelatedPosts } from './';
 import { PostActions, CommentsList } from '../../../Layouts';
-import { CommentIcon, ArrowUpRectingle } from '../../../Layouts/Icons/icons';
 
 function Content({ post }) {
   const [showComments, setShowComments] = useState(false);

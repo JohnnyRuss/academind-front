@@ -11,12 +11,21 @@ import {
 import { getUserAboutData } from '../../reducers/aboutReducer';
 
 import {
+  getNotifications,
+  deleteNotification,
+  markNotificationAsRead,
+} from '../../reducers/activeUserReducer';
+
+import {
   searchUserHandler,
   getUserProfileHandler,
   getProfilePostsHandler,
   getBookmarksHandler,
   getUserFeedHandler,
   getUserAboutDataHandler,
+  getUserNotificationsHandler,
+  deleteUserNotificationHandler,
+  markNotificationAsReadHandler,
 } from '../handlers/userHandlers';
 
 function* userSaga() {
@@ -26,6 +35,9 @@ function* userSaga() {
   yield takeLatest(getBookmarks, getBookmarksHandler);
   yield takeLatest(getFeedPosts, getUserFeedHandler);
   yield takeLatest(getUserAboutData, getUserAboutDataHandler);
+  yield takeLatest(getNotifications, getUserNotificationsHandler);
+  yield takeLatest(deleteNotification, deleteUserNotificationHandler);
+  yield takeLatest(markNotificationAsRead, markNotificationAsReadHandler);
 }
 
 export default userSaga;

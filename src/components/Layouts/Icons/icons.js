@@ -50,6 +50,7 @@ import {
   AiOutlineClose,
   AiOutlineMinusCircle,
   AiFillDislike,
+  AiOutlineFileDone,
 } from 'react-icons/ai';
 
 import {
@@ -117,6 +118,7 @@ const PinIcon = BiPin;
 const ClockIcon = BsClock;
 const PublicIcon = MdPublic;
 const LockIcon = MdLock;
+const ReadIcon = AiOutlineFileDone;
 const ThemeIcon = WiMoonAltFirstQuarter;
 const LaughIcon = FaLaugh;
 const MessengerIcon = FaFacebookMessenger;
@@ -185,6 +187,7 @@ export {
   PublicIcon,
   LockIcon,
   GroupIcon,
+  ReadIcon,
 
   //
   // MinimizeCircleIcon,

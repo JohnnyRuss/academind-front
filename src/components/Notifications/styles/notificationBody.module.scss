@@ -1,0 +1,82 @@
+@use '../../../styles/helpers/helpers' as *;
+
+.notifyBody {
+  @include flexBox;
+  @include flexProperty(flex-start, center);
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &.unRead {
+    background: color(blueTintColor);
+  }
+
+  &:not(.unRead):hover {
+    background: color(whiteShadeColor);
+  }
+
+  .notifyFig {
+    max-width: 4.5rem;
+    max-height: 4.5rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+
+    & img {
+      @include fitImage;
+    }
+  }
+
+  .notifyTime {
+    display: block;
+    font-size: size(smallestSize);
+  }
+
+  .notifyPopUpBox {
+    position: relative;
+    margin-left: auto;
+  }
+
+  .notifyOptBtn {
+    font-size: size(regullarSize);
+  }
+
+  .notifyOptionsList {
+    position: absolute;
+    right: 0;
+    top: 1.5rem;
+    width: 13rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    @include flexBox(column);
+    @include flexProperty(center, flex-start);
+    gap: 0.25rem;
+    text-transform: capitalize;
+    background: color(whiteColor);
+    color: color(darkLightGreyColor);
+    @include boxShadowBlack(0, 1rem, 0.3);
+    animation: moveTop 0.2s forwards;
+  }
+
+  .notifyOptionsList button {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 0.35rem;
+    transition: all 0.2s;
+    width: 100%;
+
+    & svg {
+      font-size: size(regullarSize);
+    }
+
+    &:hover {
+      color: color(darkGreyColor);
+    }
+
+    &:last-child:hover {
+      color: color(redColor);
+    }
+  }
+}

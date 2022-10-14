@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useAuthValidation } from '../../hooks';
 
 import { StandSpinner } from '../../components/Interface';
+import Notifications from '../../components/Notifications/Notifications';
 
 const MediaPortal = lazy(() => import('../../components/Portal/MediaPortal'));
 const UpdatePostPortal = lazy(() => import('../../components/Portal/UpdatePostPortal'));
@@ -21,6 +22,8 @@ function RestrictionUnAuthorised() {
     updateBlogPostModalIsOpen,
   } = useSelector(({ portal }) => portal);
 
+  const { activeNotifications } = useSelector(({ activeUser }) => activeUser);
+
   return (
     <>
       <Suspense fallback={<StandSpinner />}>
@@ -29,6 +32,7 @@ function RestrictionUnAuthorised() {
         {updateBlogPostModalIsOpen && <UpdateBlogPostPortal />}
         {sharePostModalIsOpen && <SharePostPortal />}
       </Suspense>
+      {activeNotifications && <Notifications />}
       <Outlet />
     </>
   );
