@@ -12,6 +12,8 @@ import {
   getTopRatedBlogPosts,
   getTopRatedPublishers,
   getRelatedPosts,
+  showOnProfile,
+  removeTag,
 } from '../../reducers/postsDataReducer';
 
 import {
@@ -27,6 +29,8 @@ import {
   getTopRatedBlogPostsHandler,
   getTopRatedPublishersHandler,
   getRelatedPostsHandler,
+  showPostOnProfileHandler,
+  removeTagOnPostHandler,
 } from '../handlers/postsHandlers';
 
 function* postsSaga() {
@@ -42,6 +46,8 @@ function* postsSaga() {
   yield takeLatest(getTopRatedBlogPosts, getTopRatedBlogPostsHandler);
   yield takeLatest(getTopRatedPublishers, getTopRatedPublishersHandler);
   yield takeLatest(getRelatedPosts, getRelatedPostsHandler);
+  yield takeLatest(showOnProfile, showPostOnProfileHandler);
+  yield takeLatest(removeTag, removeTagOnPostHandler);
 }
 
 export default postsSaga;

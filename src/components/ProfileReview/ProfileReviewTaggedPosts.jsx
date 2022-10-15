@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import { selectPosts } from '../../store/selectors/postSelectors';
+import { useProfileReviewQuery } from '../../hooks';
 
 import styles from './components/styles/reviewTaggedPosts.module.scss';
 import TagReviewPostBody from './components/TagReviewPostBody';
@@ -8,9 +9,7 @@ import TagReviewPostBody from './components/TagReviewPostBody';
 function ProfileReviewTaggedPosts() {
   const { posts } = useSelector(selectPosts);
 
-  function removeTagHandler() {}
-
-  function showOnProfileHandler(value) {}
+  const { showOnProfileHandler, removeTagHandler } = useProfileReviewQuery();
 
   return (
     <div className={styles.reviewTaggedPosts}>

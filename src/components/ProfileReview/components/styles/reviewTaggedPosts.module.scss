@@ -3,6 +3,8 @@
 .reviewTaggedPosts {
   margin-top: 4rem;
   min-height: 5rem;
+  @include flexBox(column);
+  gap: 4rem;
 
   .message {
     color: color(darkLightGreyColor);

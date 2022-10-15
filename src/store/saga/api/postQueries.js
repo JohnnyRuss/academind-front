@@ -50,6 +50,14 @@ async function queryGetPost(postId) {
   return await axiosQuery(`/posts/${postId}`);
 }
 
+async function queryShowPostOnProfile(postId, body) {
+  return await axiosQuery.patch(`/posts/${postId}/aprove-post`, body);
+}
+
+async function queryRemoveTagOnPost(postId) {
+  return await axiosQuery.delete(`/posts/${postId}/tag`);
+}
+
 export {
   queryCreatePost,
   queryPostReaction,
@@ -63,4 +71,6 @@ export {
   queryRelatedPosts,
   queryGetPost,
   queryChangePostAudience,
+  queryShowPostOnProfile,
+  queryRemoveTagOnPost,
 };

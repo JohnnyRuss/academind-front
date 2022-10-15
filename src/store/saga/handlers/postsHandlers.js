@@ -10,6 +10,8 @@ import {
   setTopRatedBlogPosts,
   setTopRatedPublishers,
   setRelatedPosts,
+  setShowOnProfile,
+  setRemovedTag,
 } from '../../reducers/postsDataReducer';
 
 import { resetCreatePost } from '../../reducers/createPostReducer';
@@ -28,9 +30,11 @@ import {
   queryTopRatedBlogPosts,
   queryRelatedPosts,
   queryTopRatedPublishers,
+  queryShowPostOnProfile,
+  queryRemoveTagOnPost,
 } from '../api/postQueries';
 
-import { allowNewPostSet } from '../../../utils/window-location';
+import { allowNewPostSet, isRoute } from '../../../utils/window-location';
 
 function* createPostHandler({ payload: body }) {
   try {
@@ -109,6 +113,7 @@ function* getBlogPostsHandler({ payload: { page, limit, hasMore, query } }) {
     showError(error, 'getBlogPostsHandler');
   }
 }
+
 function* getTopRatedPublishersHandler({ payload: limit }) {
   try {
     const { data } = yield call(queryTopRatedPublishers, limit);
@@ -145,6 +150,25 @@ function* getRelatedPostsHandler({ payload: { postId, limit } }) {
   }
 }
 
+function* showPostOnProfileHandler({ payload: { postId, body } }) {
+  try {
+    yield call(queryShowPostOnProfile, postId, body);
+    yield put(setShowOnProfile(postId));
+  } catch (error) {
+    showError(error, 'showPostOnProfileHandler');
+  }
+}
+
+function* removeTagOnPostHandler({ payload: postId }) {
+  try {
+    const excludeIf = isRoute('posts') || isRoute('tags');
+    const { data } = yield call(queryRemoveTagOnPost, postId);
+    yield put(setRemovedTag({ data, remove: excludeIf ? true : false }));
+  } catch (error) {
+    showError(error, 'removeTagOnPostHandler');
+  }
+}
+
 function showError(error, location) {
   console.log({
     error: true,
@@ -168,4 +192,6 @@ export {
   getTopRatedPublishersHandler,
   getTopRatedBlogPostsHandler,
   getRelatedPostsHandler,
+  showPostOnProfileHandler,
+  removeTagOnPostHandler,
 };

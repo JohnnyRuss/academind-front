@@ -115,6 +115,24 @@ const postsDataSlice = createSlice({
       state.results = state.results - 1;
     },
 
+    showOnProfile() {},
+
+    setShowOnProfile(state, { payload }) {
+      state.posts = state.posts.filter((post) => post._id !== payload);
+    },
+
+    removeTag() {},
+
+    setRemovedTag(state, { payload }) {
+      const { data, remove } = payload;
+
+      if (remove) state.posts = state.posts.filter((post) => post._id !== data.postId);
+      else if (!remove) {
+        const i = state.posts.findIndex((post) => post._id === data.postId);
+        state.posts[i].tags = data.tags;
+      }
+    },
+
     reactOnPost() {},
 
     setPostReaction(state, { payload }) {
@@ -188,4 +206,8 @@ export const {
   setRelatedPosts,
   getPost,
   setSinglePost,
+  showOnProfile,
+  setShowOnProfile,
+  removeTag,
+  setRemovedTag,
 } = postsDataSlice.actions;

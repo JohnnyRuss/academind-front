@@ -7,13 +7,13 @@ function TagReviewPostBody({ post, removeTagHandler, showOnProfileHandler }) {
     <div className={styles.postWrapper}>
       <Post data={post} />
       <div className={styles.reviewBtnBox}>
-        <BTN onClick={removeTagHandler} className={styles.removeTagBtn}>
+        <BTN onClick={() => removeTagHandler(post._id)} className={styles.removeTagBtn}>
           remove tag
         </BTN>
-        <BTN onClick={() => showOnProfileHandler(false)} className={styles.hideBtn}>
+        <BTN onClick={() => showOnProfileHandler(post._id, false)} className={styles.hideBtn}>
           hide from profile
         </BTN>
-        <BTN onClick={() => showOnProfileHandler(true)} className={styles.addBtn}>
+        <BTN onClick={() => showOnProfileHandler(post._id, true)} className={styles.addBtn}>
           add to profile
         </BTN>
       </div>
