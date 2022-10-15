@@ -49,79 +49,7 @@ const postsDataSlice = createSlice({
       updateLoadingState(state, 'loadingState', false);
     },
 
-    setActiveUserUpdatedCover(state, { payload }) {
-      state.posts.map((post) => {
-        post.author.profileImg = payload;
-        if (post.authenticAuthor && post.authenticAuthor._id === post.author._id)
-          post.authenticAuthor.profileImg = payload;
-
-        return post;
-      });
-    },
-
-    deletePost(state) {
-      updateLoadingState(state, 'loadingState', true);
-      state.results = state.results - 1;
-    },
-
-    setDeletedPost(state, { payload }) {
-      state.posts = state.posts.filter((post) => post._id !== payload);
-      updateLoadingState(state, 'loadingState', false);
-    },
-
-    setUpdatedPost(state, { payload }) {
-      const { params, data } = payload;
-
-      const i = state.posts.findIndex((post) => post._id === params.postId);
-      state.posts[i] = { ...state.posts[i], ...data };
-    },
-
-    changePostAudience() {},
-
-    setUpdatedPostAudience(state, { payload }) {
-      const { params, data } = payload;
-
-      const i = state.posts.findIndex((post) => post._id === params.postId);
-      state.posts[i].audience = data.audience;
-    },
-
-    reactOnPost() {},
-
-    setPostReaction(state, { payload }) {
-      const { postId, data } = payload;
-
-      const post = state.posts.find((post) => post._id === postId);
-      Object.keys(data).map((key) => (post[key] = data[key]));
-    },
-
-    encreasePostCommentCount(state, { payload }) {
-      const i = state.posts.findIndex((post) => post._id === payload);
-      state.posts[i].commentsAmount += 1;
-    },
-
-    decreasePostCommentCount(state, { payload }) {
-      const { deletedCommentCount, postId } = payload;
-
-      const i = state.posts.findIndex((post) => post._id === postId);
-      deletedCommentCount
-        ? (state.posts[i].commentsAmount -= deletedCommentCount + 1)
-        : (state.posts[i].commentsAmount -= 1);
-    },
-
-    savePost() {},
-
-    removeBookmark(state, { payload }) {
-      state.posts = state.posts.filter((post) => post._id !== payload);
-      state.results = state.results - 1;
-    },
-
-    resetPosts(state) {
-      state.posts = [];
-      state.results = '';
-      if (state.topRatedBlogPosts[0]) state.topRatedBlogPosts = [];
-      if (state.topRatedPublishers[0]) state.topRatedPublishers = [];
-      if (state.relatedPosts[0]) state.relatedPosts = [];
-    },
+    setSinglePost(state, { payload }) {},
 
     getBlogPosts() {},
 
@@ -151,6 +79,83 @@ const postsDataSlice = createSlice({
 
     getPost(state) {
       updateLoadingState(state, 'loadingState', true);
+    },
+
+    // trigger is called in portal reducer
+    setUpdatedPost(state, { payload }) {
+      const { params, data } = payload;
+
+      const i = state.posts.findIndex((post) => post._id === params.postId);
+      state.posts[i] = { ...state.posts[i], ...data };
+    },
+
+    changePostAudience() {},
+
+    setUpdatedPostAudience(state, { payload }) {
+      const { params, data } = payload;
+
+      const i = state.posts.findIndex((post) => post._id === params.postId);
+      state.posts[i].audience = data.audience;
+    },
+
+    deletePost(state) {
+      updateLoadingState(state, 'loadingState', true);
+      state.results = state.results - 1;
+    },
+
+    setDeletedPost(state, { payload }) {
+      state.posts = state.posts.filter((post) => post._id !== payload);
+      updateLoadingState(state, 'loadingState', false);
+    },
+
+    savePost() {},
+
+    removeBookmark(state, { payload }) {
+      state.posts = state.posts.filter((post) => post._id !== payload);
+      state.results = state.results - 1;
+    },
+
+    reactOnPost() {},
+
+    setPostReaction(state, { payload }) {
+      const { postId, data } = payload;
+
+      const post = state.posts.find((post) => post._id === postId);
+      Object.keys(data).map((key) => (post[key] = data[key]));
+    },
+
+    //trigger is called in comments reducer
+    encreasePostCommentCount(state, { payload }) {
+      const i = state.posts.findIndex((post) => post._id === payload);
+      state.posts[i].commentsAmount += 1;
+    },
+
+    //trigger is called in comments reducer
+    decreasePostCommentCount(state, { payload }) {
+      const { deletedCommentCount, postId } = payload;
+
+      const i = state.posts.findIndex((post) => post._id === postId);
+      deletedCommentCount
+        ? (state.posts[i].commentsAmount -= deletedCommentCount + 1)
+        : (state.posts[i].commentsAmount -= 1);
+    },
+
+    setActiveUserUpdatedCover(state, { payload }) {
+      state.posts.map((post) => {
+        post.author.profileImg = payload;
+        if (post.authenticAuthor && post.authenticAuthor._id === post.author._id)
+          post.authenticAuthor.profileImg = payload;
+
+        return post;
+      });
+    },
+
+    resetPosts(state) {
+      state.posts = [];
+      state.results = '';
+      if (state.topRatedBlogPosts[0]) state.topRatedBlogPosts = [];
+      if (state.topRatedPublishers[0]) state.topRatedPublishers = [];
+      if (state.relatedPosts[0]) state.relatedPosts = [];
     },
   },
 });
@@ -182,4 +187,5 @@ export const {
   getRelatedPosts,
   setRelatedPosts,
   getPost,
+  setSinglePost,
 } = postsDataSlice.actions;

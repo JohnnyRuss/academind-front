@@ -35,6 +35,7 @@ import { allowNewPostSet } from '../../../utils/window-location';
 function* createPostHandler({ payload: body }) {
   try {
     const { data } = yield call(queryCreatePost, body);
+    console.log(data);
     yield put(setNewPost(data));
     yield put(resetCreatePost());
   } catch (error) {

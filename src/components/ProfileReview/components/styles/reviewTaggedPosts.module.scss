@@ -1,0 +1,13 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.reviewTaggedPosts {
+  margin-top: 4rem;
+  min-height: 5rem;
+
+  .message {
+    color: color(darkLightGreyColor);
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: weight(boldWeight);
+  }
+}

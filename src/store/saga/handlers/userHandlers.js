@@ -26,6 +26,8 @@ import {
   queryUserNotifications,
   queryDeleteUserNotification,
   queryMarkNotificationAsRead,
+  queryGetPendingPosts,
+  queryGetHiddenPosts,
 } from '../api/userQueries';
 
 function* searchUserHandler({ payload: key }) {
@@ -112,6 +114,23 @@ function* markNotificationAsReadHandler({ payload: notifyId }) {
   }
 }
 
+function* getPendingPostsHandler({ payload: userId }) {
+  try {
+    const { data } = yield call(queryGetPendingPosts, userId);
+    yield put(setPosts({ data }));
+  } catch (error) {
+    showError(error, 'getPendingPostsHandler');
+  }
+}
+
+function* getHiddenPostsHandler({ payload }) {
+  try {
+    const { data } = yield call(queryGetHiddenPosts);
+  } catch (error) {
+    showError(error, 'getHiddenPostsHandler');
+  }
+}
+
 function showError(error, location) {
   console.log({
     error: true,
@@ -132,4 +151,6 @@ export {
   getUserNotificationsHandler,
   deleteUserNotificationHandler,
   markNotificationAsReadHandler,
+  getPendingPostsHandler,
+  getHiddenPostsHandler,
 };

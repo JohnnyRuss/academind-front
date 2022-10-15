@@ -41,7 +41,7 @@ export function destructurePostUpdateData(data) {
     article: data.shared ? data.authentic.article : data.article,
     title: data.shared ? data.authentic.title : data.title,
     categories: data.shared ? data.authentic.categories : data.categories,
-    tags: data?.tags,
+    tags: data?.tags?.map((tag) => tag.user),
     description: data?.description,
     comments: data.comments,
   };

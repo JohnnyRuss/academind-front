@@ -27,9 +27,14 @@ function ProfileNavigation() {
           <li>blog</li>
         </Link>
         {isActiveUser && (
-          <Link to={`/profile/${id}/bookmarks`}>
-            <li>bookmarks</li>
-          </Link>
+          <>
+            <Link to={`/profile/${id}/bookmarks`}>
+              <li className={location === 'bookmarks' ? styles.active : ''}>bookmarks</li>
+            </Link>
+            <Link to={`/profile/${id}/profile-review/tags`}>
+              <li className={location === 'profile-review' ? styles.active : ''}>profile review</li>
+            </Link>
+          </>
         )}
       </ul>
     </nav>

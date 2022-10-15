@@ -19,6 +19,9 @@ const Feed = lazy(() => import('./pages/feed/Feed'));
 const BlogPage = lazy(() => import('./pages/blog/BlogPage'));
 const ActiveBlogPost = lazy(() => import('./pages/blog/ActiveBlogPost'));
 const Post = lazy(() => import('./pages/Post/Post'));
+const ProfileReview = lazy(() => import('./pages/profile/profileReview/ProfileReview'));
+const ReviewTaggedPosts = lazy(() => import('./pages/profile/profileReview/ReviewTaggedPosts'));
+const ReviewHiddenPosts = lazy(() => import('./pages/profile/profileReview/ReviewHiddenPosts'));
 
 function App() {
   return (
@@ -41,6 +44,10 @@ function App() {
                 <Route path='pending-requests' element={<PendingRequests />} />
               </Route>
               <Route path='bookmarks' element={<BookmarksPage />} />
+              <Route path='profile-review' element={<ProfileReview />}>
+                <Route path='tags' element={<ReviewTaggedPosts />} />
+                <Route path='hidden' element={<ReviewHiddenPosts />} />
+              </Route>
             </Route>
             <Route path='post/:id' element={<Post />} />
             <Route path='blog' element={<BlogPage />} />

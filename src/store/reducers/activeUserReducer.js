@@ -86,6 +86,10 @@ const activeUserSlice = createSlice({
       state.notifications = state.notifications.filter((notify) => notify._id !== payload);
     },
 
+    getPendingPosts() {},
+
+    getHiddenPosts() {},
+
     logOut(state) {
       const temp = {
         _id: '',
@@ -120,5 +124,7 @@ export const {
   markNotificationAsRead,
   setMarkedNotification,
   setDeletedNotification,
+  getPendingPosts,
+  getHiddenPosts,
   logOut,
 } = activeUserSlice.actions;

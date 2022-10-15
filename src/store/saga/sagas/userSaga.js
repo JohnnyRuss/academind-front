@@ -14,6 +14,8 @@ import {
   getNotifications,
   deleteNotification,
   markNotificationAsRead,
+  getPendingPosts,
+  getHiddenPosts,
 } from '../../reducers/activeUserReducer';
 
 import {
@@ -26,6 +28,8 @@ import {
   getUserNotificationsHandler,
   deleteUserNotificationHandler,
   markNotificationAsReadHandler,
+  getPendingPostsHandler,
+  getHiddenPostsHandler,
 } from '../handlers/userHandlers';
 
 function* userSaga() {
@@ -38,6 +42,8 @@ function* userSaga() {
   yield takeLatest(getNotifications, getUserNotificationsHandler);
   yield takeLatest(deleteNotification, deleteUserNotificationHandler);
   yield takeLatest(markNotificationAsRead, markNotificationAsReadHandler);
+  yield takeLatest(getPendingPosts, getPendingPostsHandler);
+  yield takeLatest(getHiddenPosts, getHiddenPostsHandler);
 }
 
 export default userSaga;

@@ -1,0 +1,12 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.profileReviewContainer {
+  max-width: $container-width;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: color(whiteColor);
+  @include boxShadowBlack(0, 1rem, 0.3);
+  border-radius: 0.5rem;
+}

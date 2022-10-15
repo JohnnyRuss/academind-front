@@ -40,6 +40,14 @@ async function queryMarkNotificationAsRead(notifyId) {
   return await axiosQuery.patch(`/notifications/notify/${notifyId}`);
 }
 
+async function queryGetPendingPosts(userId) {
+  return await axiosQuery(`/user/${userId}/profile/pending-posts`);
+}
+
+async function queryGetHiddenPosts(postId) {
+  // return await axiosQuery(`/posts/${postId}`);
+}
+
 export {
   queryUserProfile,
   queryUserProfilePosts,
@@ -50,4 +58,6 @@ export {
   queryUserNotifications,
   queryDeleteUserNotification,
   queryMarkNotificationAsRead,
+  queryGetPendingPosts,
+  queryGetHiddenPosts,
 };
