@@ -17,9 +17,18 @@ import {
   LockIcon,
   GroupIcon,
   RemoveIcon,
+  HideIcon,
 } from '../Icons/icons';
 
-function OptionsBody({ handleUpdate, handleDeletePopUp, postId, audience, isBlogPostOptions }) {
+function OptionsBody({
+  postId,
+  audience,
+  isBlogPostOptions,
+  handleUpdate,
+  handleDeletePopUp,
+  removeTagHandler,
+  hideFromProfileHandler,
+}) {
   const { loading, optionsRules, handleSavePost } = useSavePostQuery(postId);
   const { handlePostAudience } = usePostQuery();
 
@@ -94,9 +103,15 @@ function OptionsBody({ handleUpdate, handleDeletePopUp, postId, audience, isBlog
             </>
           )}
           {optionsRules?.isTagged && (
-            <button className={styles.postOptBtn}>
+            <button className={styles.postOptBtn} onClick={removeTagHandler}>
               <RemoveIcon />
               <span>remove tag</span>
+            </button>
+          )}
+          {(optionsRules?.belongsToUserAndIsVisible || optionsRules?.isTaggedAndIsVisible) && (
+            <button className={styles.postOptBtn} onClick={hideFromProfileHandler}>
+              <HideIcon />
+              <span>hide from profile</span>
             </button>
           )}
           <button className={styles.postOptBtn}>

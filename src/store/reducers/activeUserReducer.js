@@ -86,9 +86,13 @@ const activeUserSlice = createSlice({
       state.notifications = state.notifications.filter((notify) => notify._id !== payload);
     },
 
-    getPendingPosts() {},
+    getPendingPosts(state) {
+      updateLoadingState(state, 'loadingState', true);
+    },
 
-    getHiddenPosts() {},
+    getHiddenPosts(state) {
+      updateLoadingState(state, 'loadingState', true);
+    },
 
     logOut(state) {
       const temp = {

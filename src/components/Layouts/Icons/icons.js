@@ -39,6 +39,7 @@ import {
   MdPublic,
   MdLock,
   MdOutlineRemoveDone,
+  MdOutlineHideImage,
 } from 'react-icons/md';
 
 import {
@@ -121,6 +122,7 @@ const PublicIcon = MdPublic;
 const LockIcon = MdLock;
 const ReadIcon = AiOutlineFileDone;
 const RemoveIcon = MdOutlineRemoveDone;
+const HideIcon = MdOutlineHideImage;
 const ThemeIcon = WiMoonAltFirstQuarter;
 const LaughIcon = FaLaugh;
 const MessengerIcon = FaFacebookMessenger;
@@ -191,6 +193,7 @@ export {
   GroupIcon,
   ReadIcon,
   RemoveIcon,
+  HideIcon,
   //
   // MinimizeCircleIcon,
   // DotsVerticalIcon,

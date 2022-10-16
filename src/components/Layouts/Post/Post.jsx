@@ -1,7 +1,7 @@
 import { useState, Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
 
-import { usePostQuery } from '../../../hooks';
+import { usePostQuery, useProfileReviewQuery } from '../../../hooks';
 import {
   destructurePostAuthenticData,
   destructurePostUpdateData,
@@ -19,6 +19,7 @@ const CommentsList = lazy(() => import('../Comments/CommentsList'), { suspense: 
 function Post({ data, activatePostMediaHandler, activateUpdatePostModal, className }) {
   const [showComments, setShowComments] = useState(false);
   const { deletePostHandler, startDeletion } = usePostQuery();
+  const { hideFromProfileHandler, removeTagHandler } = useProfileReviewQuery();
 
   const { loading } = useSelector(({ postsData }) => postsData.loadingState);
 
@@ -30,6 +31,8 @@ function Post({ data, activatePostMediaHandler, activateUpdatePostModal, classNa
         audience={data.audience}
         deleteHandler={() => deletePostHandler(data._id)}
         updateHandler={() => activateUpdatePostModal(destructurePostUpdateData(data))}
+        removeTagHandler={() => removeTagHandler(data._id)}
+        hideFromProfileHandler={() => hideFromProfileHandler(data._id)}
       />
       {data.shared && <SharedPostHeader data={destructureSharedPostHeaderData(data)} />}
       <PostAuthentic

@@ -17,11 +17,7 @@ function ReviewTaggedPosts() {
     return () => dispatch(resetPosts());
   }, []);
 
-  return (
-    <>
-      <ProfileReviewTaggedPosts />
-    </>
-  );
+  return <ProfileReviewTaggedPosts />;
 }
 
 export default ReviewTaggedPosts;

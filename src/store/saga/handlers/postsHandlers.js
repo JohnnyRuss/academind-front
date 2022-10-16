@@ -11,6 +11,7 @@ import {
   setTopRatedPublishers,
   setRelatedPosts,
   setShowOnProfile,
+  setHiddenPost,
   setRemovedTag,
 } from '../../reducers/postsDataReducer';
 
@@ -31,6 +32,8 @@ import {
   queryRelatedPosts,
   queryTopRatedPublishers,
   queryShowPostOnProfile,
+  queryAddPostToProfile,
+  queryHidePostFromProfile,
   queryRemoveTagOnPost,
 } from '../api/postQueries';
 
@@ -159,9 +162,28 @@ function* showPostOnProfileHandler({ payload: { postId, body } }) {
   }
 }
 
+function* addPostToProfileHandler({ payload: postId }) {
+  try {
+    yield call(queryAddPostToProfile, postId);
+    yield put(setShowOnProfile(postId));
+  } catch (error) {
+    showError(error, 'addPostToProfileHandler');
+  }
+}
+
+function* hidePostFromProfileHandler({ payload: postId }) {
+  try {
+    const excludeIf = isRoute('posts') || isRoute('tags') || isRoute('hidden');
+    yield call(queryHidePostFromProfile, postId);
+    if (excludeIf) yield put(setHiddenPost(postId));
+  } catch (error) {
+    showError(error, 'hidePostFromProfileHandler');
+  }
+}
+
 function* removeTagOnPostHandler({ payload: postId }) {
   try {
-    const excludeIf = isRoute('posts') || isRoute('tags');
+    const excludeIf = isRoute('posts') || isRoute('tags') || isRoute('hidden');
     const { data } = yield call(queryRemoveTagOnPost, postId);
     yield put(setRemovedTag({ data, remove: excludeIf ? true : false }));
   } catch (error) {
@@ -193,5 +215,7 @@ export {
   getTopRatedBlogPostsHandler,
   getRelatedPostsHandler,
   showPostOnProfileHandler,
+  addPostToProfileHandler,
+  hidePostFromProfileHandler,
   removeTagOnPostHandler,
 };

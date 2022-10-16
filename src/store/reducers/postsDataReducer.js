@@ -105,6 +105,9 @@ const postsDataSlice = createSlice({
 
     setDeletedPost(state, { payload }) {
       state.posts = state.posts.filter((post) => post._id !== payload);
+
+      if (state.results) state.results = state.results -= 1;
+
       updateLoadingState(state, 'loadingState', false);
     },
 
@@ -115,10 +118,22 @@ const postsDataSlice = createSlice({
       state.results = state.results - 1;
     },
 
+    //used in profileReview on Tagged Posts
     showOnProfile() {},
+
+    //used in profileReview on Hidden Posts
+    addToProfile() {},
 
     setShowOnProfile(state, { payload }) {
       state.posts = state.posts.filter((post) => post._id !== payload);
+    },
+
+    hideFromProfile() {},
+
+    setHiddenPost(state, { payload }) {
+      state.posts = state.posts.filter((post) => post._id !== payload);
+
+      if (state.results) state.results = state.results -= 1;
     },
 
     removeTag() {},
@@ -126,8 +141,10 @@ const postsDataSlice = createSlice({
     setRemovedTag(state, { payload }) {
       const { data, remove } = payload;
 
-      if (remove) state.posts = state.posts.filter((post) => post._id !== data.postId);
-      else if (!remove) {
+      if (remove) {
+        state.posts = state.posts.filter((post) => post._id !== data.postId);
+        state.results = state.results -= 1;
+      } else if (!remove) {
         const i = state.posts.findIndex((post) => post._id === data.postId);
         state.posts[i].tags = data.tags;
       }
@@ -207,7 +224,10 @@ export const {
   getPost,
   setSinglePost,
   showOnProfile,
+  addToProfile,
   setShowOnProfile,
+  hideFromProfile,
+  setHiddenPost,
   removeTag,
   setRemovedTag,
 } = postsDataSlice.actions;

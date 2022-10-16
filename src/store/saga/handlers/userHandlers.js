@@ -14,6 +14,7 @@ import {
   setNotifications,
   setDeletedNotification,
   setMarkedNotification,
+  resetLoadingState as resetActiveUserLoadingState,
 } from '../../reducers/activeUserReducer';
 
 import {
@@ -118,14 +119,17 @@ function* getPendingPostsHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryGetPendingPosts, userId);
     yield put(setPosts({ data }));
+    yield put(resetActiveUserLoadingState());
   } catch (error) {
     showError(error, 'getPendingPostsHandler');
   }
 }
 
-function* getHiddenPostsHandler({ payload }) {
+function* getHiddenPostsHandler({ payload: userId }) {
   try {
-    const { data } = yield call(queryGetHiddenPosts);
+    const { data } = yield call(queryGetHiddenPosts, userId);
+    yield put(setPosts({ data }));
+    yield put(resetActiveUserLoadingState());
   } catch (error) {
     showError(error, 'getHiddenPostsHandler');
   }

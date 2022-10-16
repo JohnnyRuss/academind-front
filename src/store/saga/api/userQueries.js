@@ -44,8 +44,8 @@ async function queryGetPendingPosts(userId) {
   return await axiosQuery(`/user/${userId}/profile/pending-posts`);
 }
 
-async function queryGetHiddenPosts(postId) {
-  // return await axiosQuery(`/posts/${postId}`);
+async function queryGetHiddenPosts(userId) {
+  return await axiosQuery(`/user/${userId}/profile/hidden-posts`);
 }
 
 export {

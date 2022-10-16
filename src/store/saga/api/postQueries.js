@@ -54,6 +54,14 @@ async function queryShowPostOnProfile(postId, body) {
   return await axiosQuery.patch(`/posts/${postId}/aprove-post`, body);
 }
 
+async function queryAddPostToProfile(postId) {
+  return await axiosQuery.patch(`/posts/${postId}/show-post`);
+}
+
+async function queryHidePostFromProfile(postId) {
+  return await axiosQuery.patch(`/posts/${postId}/hide-post`);
+}
+
 async function queryRemoveTagOnPost(postId) {
   return await axiosQuery.delete(`/posts/${postId}/tag`);
 }
@@ -72,5 +80,7 @@ export {
   queryGetPost,
   queryChangePostAudience,
   queryShowPostOnProfile,
+  queryAddPostToProfile,
+  queryHidePostFromProfile,
   queryRemoveTagOnPost,
 };

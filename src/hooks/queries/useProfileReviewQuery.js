@@ -1,5 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { showOnProfile, removeTag } from '../../store/reducers/postsDataReducer';
+import {
+  showOnProfile,
+  removeTag,
+  addToProfile,
+  hideFromProfile,
+} from '../../store/reducers/postsDataReducer';
 
 function useProfileReviewQuery() {
   const dispatch = useDispatch();
@@ -12,7 +17,15 @@ function useProfileReviewQuery() {
     dispatch(removeTag(postId));
   }
 
-  return { showOnProfileHandler, removeTagHandler };
+  function addToProfileHandler(postId) {
+    dispatch(addToProfile(postId));
+  }
+
+  function hideFromProfileHandler(postId) {
+    dispatch(hideFromProfile(postId));
+  }
+
+  return { showOnProfileHandler, removeTagHandler, addToProfileHandler, hideFromProfileHandler };
 }
 
 export default useProfileReviewQuery;

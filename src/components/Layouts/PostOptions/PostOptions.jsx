@@ -8,11 +8,13 @@ import OptionsBody from './OptionsBody';
 import { DotsHorizontalIcon } from '../Icons/icons';
 
 function PostOptions({
-  deleteHandler,
-  updateHandler,
   postId,
   audience,
   isBlogPostOptions = false,
+  deleteHandler,
+  updateHandler,
+  removeTagHandler,
+  hideFromProfileHandler,
 }) {
   const [open, setOpen] = useState(false);
   const [deletion, setDeletion] = useState(false);
@@ -33,7 +35,7 @@ function PostOptions({
   }
 
   const handleOnFocus = () => setOpen((prev) => !prev);
-  
+
   const handleOnBlur = () => setOpen(false);
 
   const { blur, onFocus } = useBlurOnBody(handleOnFocus, handleOnBlur, [
@@ -51,11 +53,13 @@ function PostOptions({
       </button>
       {open && !blur && (
         <OptionsBody
+          postId={postId}
+          audience={audience}
           isBlogPostOptions={isBlogPostOptions}
           handleUpdate={handleUpdate}
           handleDeletePopUp={handleDeletePopUp}
-          audience={audience}
-          postId={postId}
+          removeTagHandler={removeTagHandler}
+          hideFromProfileHandler={hideFromProfileHandler}
         />
       )}
       {deletion && (

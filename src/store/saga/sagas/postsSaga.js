@@ -13,7 +13,9 @@ import {
   getTopRatedPublishers,
   getRelatedPosts,
   showOnProfile,
+  addToProfile,
   removeTag,
+  hideFromProfile,
 } from '../../reducers/postsDataReducer';
 
 import {
@@ -30,6 +32,8 @@ import {
   getTopRatedPublishersHandler,
   getRelatedPostsHandler,
   showPostOnProfileHandler,
+  addPostToProfileHandler,
+  hidePostFromProfileHandler,
   removeTagOnPostHandler,
 } from '../handlers/postsHandlers';
 
@@ -47,7 +51,9 @@ function* postsSaga() {
   yield takeLatest(getTopRatedPublishers, getTopRatedPublishersHandler);
   yield takeLatest(getRelatedPosts, getRelatedPostsHandler);
   yield takeLatest(showOnProfile, showPostOnProfileHandler);
+  yield takeLatest(addToProfile, addPostToProfileHandler);
   yield takeLatest(removeTag, removeTagOnPostHandler);
+  yield takeLatest(hideFromProfile, hidePostFromProfileHandler);
 }
 
 export default postsSaga;
