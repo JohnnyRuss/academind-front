@@ -1,0 +1,7 @@
+@use "../../../styles/helpers/helpers" as *;
+
+.infinite-scroll-component__outerdiv {
+  @include respond(phone){
+    width: 100%;
+  }
+}

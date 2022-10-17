@@ -3,6 +3,7 @@ import { call, put, select } from 'redux-saga/effects';
 import {
   setPosts,
   setNewPost,
+  setSinglePost,
   setDeletedPost,
   setUpdatedPost,
   setUpdatedPostAudience,
@@ -42,7 +43,6 @@ import { allowNewPostSet, isRoute } from '../../../utils/window-location';
 function* createPostHandler({ payload: body }) {
   try {
     const { data } = yield call(queryCreatePost, body);
-    console.log(data);
     yield put(setNewPost(data));
     yield put(resetCreatePost());
   } catch (error) {
@@ -138,7 +138,7 @@ function* getTopRatedBlogPostsHandler({ payload: limit }) {
 function* getPostHandler({ payload: postId }) {
   try {
     const { data } = yield call(queryGetPost, postId);
-    yield put(setNewPost(data));
+    yield put(setSinglePost(data));
   } catch (error) {
     showError(error, 'getPostHandler');
   }

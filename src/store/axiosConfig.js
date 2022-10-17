@@ -16,26 +16,26 @@ const refresher = axios.create({
 export const axioss = axios.create({
   baseURL: process.env.REACT_APP_API_END_POINT,
   withCredentials: true,
-  headers: {
-    authorization: `Bearer ${getJWT()}`,
-  },
+  // headers: {
+  //   authorization: `Bearer ${getJWT()}`,
+  // },
 });
 
 export const axiosQuery = axios.create({
   baseURL: process.env.REACT_APP_API_END_POINT,
   withCredentials: true,
-  headers: {
-    authorization: `Bearer ${getJWT()}`,
-  },
+  // headers: {
+  //   authorization: `Bearer ${getJWT()}`,
+  // },
 });
 
 export const axiosFormDataQuery = axios.create({
   baseURL: process.env.REACT_APP_API_END_POINT,
   withCredentials: true,
-  headers: {
-    Authorization: `Bearer ${getJWT()}`,
-    'content-type': 'multipart/form-data',
-  },
+  // headers: {
+  //   Authorization: `Bearer ${getJWT()}`,
+  //   'content-type': 'multipart/form-data',
+  // },
 });
 
 let refreshTokenPromise;
@@ -62,6 +62,8 @@ function tokenExchange({ config }) {
       config.headers.authorization = `Bearer ${token}`;
       return config;
     });
+  } else {
+    config.headers.authorization = `Bearer ${getJWT()}`;
   }
 
   return config;

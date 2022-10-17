@@ -3,8 +3,10 @@ import { useWindowDimention } from '../../hooks';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import './components/Blog/styles/blogPageInfiniteScroll.scss';
 import styles from './components/Blog/styles/blog.module.scss';
-import { SideBar, BlogPost, CreateBlogPostTouch, ScrollEnd } from '../Layouts';
+// import { SideBar } from '../Layouts';
+import { BlogPost, CreateBlogPostTouch, ScrollEnd } from '../Layouts';
 import { StandSpinner, BlockSpinner } from '../Interface';
 import { Stand, RightBar, CategoriesNav } from './components/Blog';
 
@@ -25,9 +27,10 @@ function Blog({ posts, loading, hasMore, handleNext }) {
         <>
           <Stand />
           <CategoriesNav />
-          <CreateBlogPostTouch className={styles.blogPageCreateBlogPostTouch} />
+          <div className={styles.blogPageCreateBlogPostTouch}>
+            <CreateBlogPostTouch />
+          </div>
           <RightBar />
-          <SideBar className={styles.leftBar} />
           <InfiniteScroll
             dataLength={posts?.length}
             next={handleNext}

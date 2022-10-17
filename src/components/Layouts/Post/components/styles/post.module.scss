@@ -8,7 +8,7 @@
   padding: 1rem;
   border-radius: 0.5rem;
   background: color('whiteColor');
-  @include boxShadowBlack(0, 1rem, 0.3);
+  @include boxShadowBlack(0, 1rem, 0.2);
 
   @include respond(tab-portrate) {
     width: 100%;

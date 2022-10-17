@@ -1,11 +1,36 @@
 @use '../../../styles/helpers/helpers' as *;
 
 .feedContent {
-  flex: 5;
-  max-width: 64%;
+  flex: 1;
   margin-top: 6rem;
   padding-top: 4rem;
   @include flexBox(column);
   align-items: center;
   gap: 5rem;
+
+  .feedInfiniteScroll {
+    @include flexBox(column);
+    gap: 4rem;
+  }
+
+  @include respond(tab-portrate) {
+    .feedPost,
+    .feedCreatePost {
+      width: 60rem;
+    }
+  }
+
+  @include respond(phone) {
+    padding: 3rem 2rem 0 2rem;
+    gap: 4rem;
+
+    .feedInfiniteScroll {
+      gap: 3rem;
+    }
+
+    .feedPost,
+    .feedCreatePost {
+      width: 100%;
+    }
+  }
 }

@@ -36,8 +36,16 @@ async function queryDeleteUserNotification(notifyId) {
   return await axiosQuery.delete(`/notifications/notify/${notifyId}`);
 }
 
+async function queryDeleteAllUserNotification() {
+  return await axiosQuery.delete(`/notifications`);
+}
+
 async function queryMarkNotificationAsRead(notifyId) {
   return await axiosQuery.patch(`/notifications/notify/${notifyId}`);
+}
+
+async function queryMarkAllNotificationAsRead() {
+  return await axiosQuery.patch(`/notifications`);
 }
 
 async function queryGetPendingPosts(userId) {
@@ -57,7 +65,9 @@ export {
   queryUserSearch,
   queryUserNotifications,
   queryDeleteUserNotification,
+  queryDeleteAllUserNotification,
   queryMarkNotificationAsRead,
+  queryMarkAllNotificationAsRead,
   queryGetPendingPosts,
   queryGetHiddenPosts,
 };

@@ -2,4 +2,5 @@
 
 .feedContainer {
   @include flexBox;
+  gap: 2rem;
 }

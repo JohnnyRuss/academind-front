@@ -6,8 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import {
   getNotifications,
   deleteNotification,
+  deleteAllNotification,
   setActiveNotifications,
   markNotificationAsRead,
+  markAllNotificationAsRead,
 } from '../../store/reducers/activeUserReducer';
 
 import { selectUserId } from '../../store/selectors/userSelectors';
@@ -36,13 +38,13 @@ function Notifications() {
     if (!notify.read) dispatch(markNotificationAsRead(notify._id));
   }
 
-  function handleMarkAsRead(id) {
-    dispatch(markNotificationAsRead(id));
-  }
+  const handleMarkAsRead = (id) => dispatch(markNotificationAsRead(id));
 
-  function handleDeleteNotify(id) {
-    dispatch(deleteNotification(id));
-  }
+  const handleMarkAllAsRead = () => dispatch(markAllNotificationAsRead());
+
+  const handleDeleteNotify = (id) => dispatch(deleteNotification(id));
+
+  const handleDeleteAllNotification = () => dispatch(deleteAllNotification());
 
   useEffect(() => {
     dispatch(getNotifications(id));
@@ -51,8 +53,8 @@ function Notifications() {
   return (
     <div className={styles.notificationPopUp}>
       <div className={styles.cleanerBtnsBox}>
-        <button>mark all as read</button>
-        <button>clear all notifications</button>
+        <button onClick={handleMarkAllAsRead}>mark all as read</button>
+        <button onClick={handleDeleteAllNotification}>clear all notifications</button>
       </div>
       {loading && <BlockSpinner />}
       {!loading &&

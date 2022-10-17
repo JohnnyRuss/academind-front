@@ -3,19 +3,12 @@ import { useState } from 'react';
 import { useSavePostQuery, usePostQuery } from '../../../hooks';
 
 import styles from './styles/optionsBody.module.scss';
+import ActiveUserRelated from './ActiveUserRelated';
 import { Spinner } from '../../Interface';
-import { Audience } from '../';
 import {
-  UpdateIcon,
   BookmarkFillIcon,
   BookmarkOutlineIcon,
   ErrorIcon,
-  DeleteIcon,
-  ArrowDownRectingle,
-  PublicIcon,
-  FriendIcon,
-  LockIcon,
-  GroupIcon,
   RemoveIcon,
   HideIcon,
 } from '../Icons/icons';
@@ -51,56 +44,15 @@ function OptionsBody({
             <span>save</span>
           </button>
           {optionsRules?.belongsToUser && (
-            <>
-              <div className={styles.audienceBox}>
-                <button
-                  className={styles.audienceMainBtn}
-                  onClick={() => setActiveAudience((prev) => !prev)}>
-                  <Audience audience={audience} /> {audience === 'users' ? 'only users' : audience}
-                  <ArrowDownRectingle
-                    className={`${styles.arrowIndicator} ${
-                      activeAudience ? styles.arrowIndicatorActive : ''
-                    }`}
-                  />
-                </button>
-                {activeAudience && (
-                  <div className={styles.audienceOptionsList}>
-                    <button name='public' onClick={(e) => handleAudience(e.target.name)}>
-                      <PublicIcon />
-                      public
-                    </button>
-                    {isBlogPostOptions && (
-                      <button name='users' onClick={(e) => handleAudience(e.target.name)}>
-                        <GroupIcon />
-                        only users
-                      </button>
-                    )}
-                    {!isBlogPostOptions && (
-                      <>
-                        <button name='friends' onClick={(e) => handleAudience(e.target.name)}>
-                          <FriendIcon />
-                          friends
-                        </button>
-                        <button name='private' onClick={(e) => handleAudience(e.target.name)}>
-                          <LockIcon />
-                          private
-                        </button>
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
-              <button className={styles.postOptBtn} onClick={handleUpdate}>
-                <UpdateIcon />
-                <span>update</span>
-              </button>
-              <button
-                className={`${styles.postOptBtn} ${styles.postOptBtnDelete}`}
-                onClick={handleDeletePopUp}>
-                <DeleteIcon />
-                <span>delete</span>
-              </button>
-            </>
+            <ActiveUserRelated
+              isBlogPostOptions={isBlogPostOptions}
+              audience={audience}
+              setActiveAudience={setActiveAudience}
+              activeAudience={activeAudience}
+              handleAudience={handleAudience}
+              handleUpdate={handleUpdate}
+              handleDeletePopUp={handleDeletePopUp}
+            />
           )}
           {optionsRules?.isTagged && (
             <button className={styles.postOptBtn} onClick={removeTagHandler}>
@@ -108,12 +60,13 @@ function OptionsBody({
               <span>remove tag</span>
             </button>
           )}
-          {(optionsRules?.belongsToUserAndIsVisible || optionsRules?.isTaggedAndIsVisible) && (
-            <button className={styles.postOptBtn} onClick={hideFromProfileHandler}>
-              <HideIcon />
-              <span>hide from profile</span>
-            </button>
-          )}
+          {!isBlogPostOptions &&
+            (optionsRules?.belongsToUserAndIsVisible || optionsRules?.isTaggedAndIsVisible) && (
+              <button className={styles.postOptBtn} onClick={hideFromProfileHandler}>
+                <HideIcon />
+                <span>hide from profile</span>
+              </button>
+            )}
           <button className={styles.postOptBtn}>
             <ErrorIcon />
             <span>report</span>

@@ -5,20 +5,30 @@ import { useParams } from 'react-router-dom';
 
 import { getPost, resetPosts } from '../../store/reducers/postsDataReducer';
 import { selectPosts } from '../../store/selectors/postSelectors';
+
 import { Post as SinglePost } from '../../components/Layouts';
+import { StandSpinner } from '../../components/Interface';
 
 function Post() {
   const { id } = useParams();
 
   const dispatch = useDispatch();
   const { posts } = useSelector(selectPosts);
+  const {
+    loadingState: { loading },
+  } = useSelector(({ postsData }) => postsData);
 
   useEffect(() => {
     dispatch(getPost(id));
     return () => dispatch(resetPosts());
   }, []);
 
-  return <div style={{ marginTop: '9rem' }}>{posts[0] && <SinglePost data={posts[0]} />}</div>;
+  return (
+    <div style={{ marginTop: '9rem' }}>
+      {loading && <StandSpinner />}
+      {!loading && posts[0] && <SinglePost data={posts[0]} />}
+    </div>
+  );
 }
 
 export default Post;

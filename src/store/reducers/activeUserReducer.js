@@ -75,6 +75,16 @@ const activeUserSlice = createSlice({
 
     deleteNotification() {},
 
+    setDeletedNotification(state, { payload }) {
+      state.notifications = state.notifications.filter((notify) => notify._id !== payload);
+    },
+
+    deleteAllNotification() {},
+
+    setDeleteAllNotifaction(state) {
+      state.notifications = [];
+    },
+
     markNotificationAsRead() {},
 
     setMarkedNotification(state, { payload }) {
@@ -82,8 +92,10 @@ const activeUserSlice = createSlice({
       state.notifications[i] = { ...state.notifications[i], ...payload };
     },
 
-    setDeletedNotification(state, { payload }) {
-      state.notifications = state.notifications.filter((notify) => notify._id !== payload);
+    markAllNotificationAsRead() {},
+
+    setAllNotificationAsRead(state) {
+      state.notifications = state.notifications.map((notify) => ({ ...notify, read: true }));
     },
 
     getPendingPosts(state) {
@@ -125,9 +137,13 @@ export const {
   getNotifications,
   setNotifications,
   deleteNotification,
+  setDeletedNotification,
+  deleteAllNotification,
+  setDeleteAllNotifaction,
   markNotificationAsRead,
   setMarkedNotification,
-  setDeletedNotification,
+  markAllNotificationAsRead,
+  setAllNotificationAsRead,
   getPendingPosts,
   getHiddenPosts,
   logOut,

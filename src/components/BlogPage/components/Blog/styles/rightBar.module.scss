@@ -2,7 +2,7 @@
 
 .rightBar {
   grid-row: 3;
-  grid-column: 3;
+  grid-column: 2;
   align-self: start;
   margin-top: 4rem;
   position: sticky;
@@ -47,12 +47,15 @@
   }
 
   @include respond(tab-portrate) {
-    margin-left: 9rem;
+    align-self: center;
+    width: 100%;
+    max-width: 80rem;
     flex-direction: row;
     gap: 1.5rem;
     position: relative;
     top: 0;
     margin-top: 2rem;
+    padding: 0 2rem;
 
     .rightBarBox {
       width: 40%;
@@ -71,7 +74,7 @@
       width: 100%;
     }
 
-    .topRatedPostsBox{
+    .topRatedPostsBox {
       height: 40rem;
     }
   }

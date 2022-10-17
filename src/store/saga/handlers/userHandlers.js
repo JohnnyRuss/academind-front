@@ -13,7 +13,9 @@ import { setUserAboutData } from '../../reducers/aboutReducer';
 import {
   setNotifications,
   setDeletedNotification,
+  setDeleteAllNotifaction,
   setMarkedNotification,
+  setAllNotificationAsRead,
   resetLoadingState as resetActiveUserLoadingState,
 } from '../../reducers/activeUserReducer';
 
@@ -29,6 +31,8 @@ import {
   queryMarkNotificationAsRead,
   queryGetPendingPosts,
   queryGetHiddenPosts,
+  queryMarkAllNotificationAsRead,
+  queryDeleteAllUserNotification,
 } from '../api/userQueries';
 
 function* searchUserHandler({ payload: key }) {
@@ -106,10 +110,28 @@ function* deleteUserNotificationHandler({ payload: notifyId }) {
   }
 }
 
+function* deleteAllUserNotificationHandler() {
+  try {
+    yield call(queryDeleteAllUserNotification);
+    yield put(setDeleteAllNotifaction());
+  } catch (error) {
+    showError(error, 'deleteAllUserNotificationHandler');
+  }
+}
+
 function* markNotificationAsReadHandler({ payload: notifyId }) {
   try {
     const { data } = yield call(queryMarkNotificationAsRead, notifyId);
     yield put(setMarkedNotification(data));
+  } catch (error) {
+    showError(error, 'getUserAboutDataHandler');
+  }
+}
+
+function* markAllNotificationAsReadHandler(payload) {
+  try {
+    yield call(queryMarkAllNotificationAsRead);
+    yield put(setAllNotificationAsRead());
   } catch (error) {
     showError(error, 'getUserAboutDataHandler');
   }
@@ -154,7 +176,9 @@ export {
   getUserAboutDataHandler,
   getUserNotificationsHandler,
   deleteUserNotificationHandler,
+  deleteAllUserNotificationHandler,
   markNotificationAsReadHandler,
+  markAllNotificationAsReadHandler,
   getPendingPostsHandler,
   getHiddenPostsHandler,
 };

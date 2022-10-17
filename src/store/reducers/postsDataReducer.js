@@ -49,7 +49,10 @@ const postsDataSlice = createSlice({
       updateLoadingState(state, 'loadingState', false);
     },
 
-    setSinglePost(state, { payload }) {},
+    setSinglePost(state, { payload }) {
+      state.posts = [payload];
+      updateLoadingState(state, 'loadingState', false);
+    },
 
     getBlogPosts() {},
 

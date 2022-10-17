@@ -1,14 +1,13 @@
 @use '../../../styles/helpers/helpers' as *;
 
-.feedSideBarRight {
-  flex-basis: 25rem;
+.feedSideBarLeft {
+  background: grey;
+  flex-basis: 30rem;
   position: sticky;
-  top: 6rem;
-  height: calc(100vh - 6rem);
-  background: darkslategray;
-  color: #fff;
+  top: 8rem;
+  padding-top: 8rem;
   text-align: center;
-  padding-top: 2rem;
+  color: #fff;
 
   @include respond(tab-portrate) {
     display: none;

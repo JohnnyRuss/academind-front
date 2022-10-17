@@ -9,8 +9,13 @@ import { selectUserId } from '../../store/selectors/userSelectors';
 
 import { FEED_POSTS_COUNT_PER_REQ } from '../../lib/config';
 
-import { FeedContainer, FeedContent, FeedSideBarRight } from '../../components/Feed';
-import { SideBar as SideBarLeft } from '../../components/Layouts';
+import {
+  FeedContainer,
+  FeedContent,
+  FeedSideBarRight,
+  FeedSideBarLeft,
+} from '../../components/Feed';
+// import { SideBar as SideBarLeft } from '../../components/Layouts';
 import { StandSpinner } from '../../components/Interface';
 
 function Feed() {
@@ -37,7 +42,8 @@ function Feed() {
 
   return (
     <FeedContainer>
-      <SideBarLeft />
+      {/* <SideBarLeft /> */}
+      <FeedSideBarLeft />
       <FeedContent hasMore={hasMore} handleNext={handleNext} posts={posts} />
       <FeedSideBarRight />
     </FeedContainer>

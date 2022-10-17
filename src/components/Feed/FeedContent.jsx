@@ -1,6 +1,7 @@
 import { usePost } from '../../hooks';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import "./styles/feedInfiniteScroll.scss"
 import styles from './styles/feedContent.module.scss';
 import { Post, CreatePost, ScrollEnd } from '../Layouts';
 import { BlockSpinner } from '../Interface';
@@ -10,20 +11,23 @@ function FeedContent({ hasMore, handleNext, posts }) {
 
   return (
     <div className={styles.feedContent}>
-      <CreatePost />
+      <CreatePost className={styles.feedCreatePost} />
       <InfiniteScroll
         hasMore={hasMore}
         next={handleNext}
         dataLength={posts.length}
         loader={<BlockSpinner />}
         endMessage={<ScrollEnd />}
-        style={{ display: 'flex', flexDirection: 'column', gap: '4rem' }}>
+        className={styles.feedInfiniteScroll}
+        
+        >
         {posts.map((post) => (
           <Post
             options={{ report: true, save: true }}
             data={post}
             activatePostMediaHandler={activatePostMediaHandler}
             activateSharePostModal={activateSharePostModal}
+            className={styles.feedPost}
             key={post._id}
           />
         ))}
