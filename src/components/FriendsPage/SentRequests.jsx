@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getSentRequests } from '../../store/reducers/friendsReducer';
-import { useRestrictPrivateRoute, useFriendsQuery } from '../../hooks';
+import { useFriendsQuery } from '../../hooks';
 import { selectUserId } from '../../store/selectors/userSelectors';
 
 import styles from './components/styles/request.module.scss';
@@ -14,8 +14,6 @@ import RequestItemBody from './components/RequestItemBody';
 function SentRequests() {
   const dispatch = useDispatch();
   const { id } = useSelector(selectUserId);
-
-  useRestrictPrivateRoute();
 
   const { cancelFriendRequestHandler } = useFriendsQuery();
 

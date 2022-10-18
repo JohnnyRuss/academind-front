@@ -22,6 +22,7 @@ const Post = lazy(() => import('./pages/Post/Post'));
 const ProfileReview = lazy(() => import('./pages/profile/profileReview/ProfileReview'));
 const ReviewTaggedPosts = lazy(() => import('./pages/profile/profileReview/ReviewTaggedPosts'));
 const ReviewHiddenPosts = lazy(() => import('./pages/profile/profileReview/ReviewHiddenPosts'));
+const UnknownPage = lazy(() => import('./pages/UnknownPage/UnknownPage'));
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
             <Route path='blog' element={<BlogPage />} />
             <Route path='blog/:id' element={<ActiveBlogPost />} />
           </Route>
+          <Route path='*' element={<UnknownPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

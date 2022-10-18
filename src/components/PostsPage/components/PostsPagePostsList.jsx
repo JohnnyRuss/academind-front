@@ -2,6 +2,7 @@ import { usePost } from '../../../hooks';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import "./styles/postsPageInfiniteScroll.scss"
 import styles from './styles/postsPageContent.module.scss';
 import { Post, ScrollEnd } from '../../Layouts';
 import { BlockSpinner } from '../../Interface';

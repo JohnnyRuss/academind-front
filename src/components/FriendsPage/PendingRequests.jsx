@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { getPendingRequests } from '../../store/reducers/friendsReducer';
-import { useRestrictPrivateRoute, useFriendsQuery } from '../../hooks';
+import { useFriendsQuery } from '../../hooks';
 
 import styles from './components/styles/request.module.scss';
 import { DeleteRequestBTN, ConfirmRequestBtn } from '../Layouts';
@@ -14,8 +14,6 @@ import RequestItemBody from './components/RequestItemBody';
 function PendingRequests() {
   const dispatch = useDispatch();
   const { id } = useParams();
-
-  useRestrictPrivateRoute();
 
   const { confirmFriendRequestHandler, deleteFriendRequestHandler } = useFriendsQuery();
 

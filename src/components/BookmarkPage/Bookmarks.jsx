@@ -1,4 +1,4 @@
-import { usePost, useRestrictPrivateRoute } from '../../hooks';
+import { usePost } from '../../hooks';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -7,8 +7,6 @@ import { Post, DeletedPost, ScrollEnd } from '../Layouts';
 import { Spinner, BlockSpinner } from '../Interface';
 
 function Bookmarks({ loading, hasMore, handleNext, posts }) {
-  useRestrictPrivateRoute();
-
   const { activatePostMediaHandler, activateUpdatePostModal } = usePost();
 
   return (

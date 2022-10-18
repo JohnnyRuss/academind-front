@@ -7,11 +7,15 @@ import { selectPosts } from '../../store/selectors/postSelectors';
 import { getBookmarks, startNestedLoading } from '../../store/reducers/userReducer';
 import { resetPosts } from '../../store/reducers/postsDataReducer';
 
+import { useRestrictPrivateRoute } from '../../hooks';
+
 import { BOOKMARKS_POSTS_COUNT_PER_REQ } from '../../lib/config';
 
 import Bookmarks from '../../components/BookmarkPage/Bookmarks';
 
 function BookmarksPage() {
+  useRestrictPrivateRoute();
+
   const dispatch = useDispatch();
 
   const { id } = useSelector(selectUserId);

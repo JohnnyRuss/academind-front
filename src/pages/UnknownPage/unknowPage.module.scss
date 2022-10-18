@@ -1,0 +1,36 @@
+@use '../../styles/helpers/helpers' as *;
+
+.unknownPage {
+  height: 100vh;
+  @include flexBox(column);
+  @include flexProperty(center, center);
+  gap: 2rem;
+  text-transform: capitalize;
+
+  .message {
+    font-size: size(largeSize);
+    font-weight: weight(boldWeight);
+  }
+
+  .status {
+    color: color(redColor);
+  }
+
+  .goBackBtn {
+    font-size: size(regullarSize);
+    background: color(redColor);
+    font-weight: weight(mediumWeight);
+    @include flexBox;
+    @include flexProperty(center, center);
+    gap: 0.5rem;
+    color: color(whiteColor);
+    padding: 1rem 3rem;
+    border-radius: 1rem;
+    @include boxShadowBlack(0, 1rem, 0.2);
+    transition: all 0.2s;
+
+    &:hover {
+      transform: scale(1.025);
+    }
+  }
+}

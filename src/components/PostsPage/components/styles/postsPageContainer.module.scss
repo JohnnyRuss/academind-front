@@ -17,7 +17,6 @@
   }
 
   @include respond(phone-small) {
-    flex-direction: column;
     padding: 0 1rem;
     gap: 1rem;
   }
