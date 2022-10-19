@@ -92,7 +92,7 @@ function threadReducer(state, { type, payload }) {
       };
 
     case 'SET_COMMENT_REPLY': {
-      const draft = fillUpTags(payload.tag);
+      const draft = payload.tag ? fillUpTags(payload.tag) : [];
       return {
         ...state,
         showReplies: true,

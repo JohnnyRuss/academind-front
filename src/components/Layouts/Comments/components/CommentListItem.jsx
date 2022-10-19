@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
+
 import { useComments } from '../../../../hooks';
 import { Comment, RepliesThread } from './';
 
@@ -7,7 +10,13 @@ import { Comment, RepliesThread } from './';
  * @param {object} param.setUpdateParentComment is passed to the parent comment and in passing by this component it sets parent comment credentials to the comments reducer
  * @param {string} param.postId id of post which one comment belongs
  */
-function CommentListItem({ comment, setUpdateParentComment, postId, postAuthorId }) {
+function CommentListItem({
+  comment,
+  setUpdateParentComment,
+  postId,
+  postAuthorId,
+  notifyOnComment,
+}) {
   const {
     state,
     setTag,
@@ -17,6 +26,24 @@ function CommentListItem({ comment, setUpdateParentComment, postId, postAuthorId
     handleShowReplies,
     resetCommentCredentials,
   } = useComments();
+
+  const [scrollToComment, setScrollToComment] = useState(false);
+
+  useEffect(() => {
+    if (!notifyOnComment || notifyOnComment.commentId !== comment._id) return;
+    handleShowReplies();
+    setScrollToComment(true);
+  }, []);
+
+  useEffect(() => {
+    if (!scrollToComment) return;
+
+    document
+      .getElementById(notifyOnComment.replyId)
+      ?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+
+    setScrollToComment(false);
+  }, [scrollToComment]);
 
   return (
     <>

@@ -1,4 +1,8 @@
+import { useSelector } from 'react-redux';
+
 import { useCommentsQuery } from '../../../../hooks';
+
+import { selectUserId } from '../../../../store/selectors/userSelectors';
 
 import styles from './styles/comment.module.scss';
 import { UserIdentifier, Tags } from '../../';
@@ -20,10 +24,14 @@ function Comment({ type, data, handlers, className }) {
   const commentId = type === 'Parent' ? comment._id : parentId;
   const replyId = type === 'Reply' ? comment._id : '';
 
+  const { id } = useSelector(selectUserId);
   function handleReplyCredentials() {
     handlers.setCommentReply({
       commentId,
-      tag: { _id: comment.author._id, userName: comment.author.userName },
+      tag:
+        comment.author._id !== id
+          ? { _id: comment.author._id, userName: comment.author.userName }
+          : null,
     });
   }
 
@@ -38,7 +46,7 @@ function Comment({ type, data, handlers, className }) {
   }
 
   return (
-    <div className={`${styles.comment} ${className || ''}`}>
+    <div className={`${styles.comment} ${className || ''}`} id={comment._id}>
       <div className={styles.commentHeader}>
         <UserIdentifier
           userId={comment.author?._id}

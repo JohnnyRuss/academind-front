@@ -16,8 +16,14 @@ import { InlineSpinner, InlineStandSpinner } from '../../Interface';
 
 const CommentsList = lazy(() => import('../Comments/CommentsList'), { suspense: true });
 
-function Post({ data, activatePostMediaHandler, activateUpdatePostModal, className }) {
-  const [showComments, setShowComments] = useState(false);
+function Post({
+  data,
+  activatePostMediaHandler,
+  activateUpdatePostModal,
+  notifyOnComment,
+  className,
+}) {
+  const [showComments, setShowComments] = useState(notifyOnComment ? true : false);
   const { deletePostHandler, startDeletion } = usePostQuery();
   const { hideFromProfileHandler, removeTagHandler } = useProfileReviewQuery();
 
@@ -49,6 +55,7 @@ function Post({ data, activatePostMediaHandler, activateUpdatePostModal, classNa
             postId={data._id}
             postAuthorId={data.author._id}
             commentsAmount={data.commentsAmount}
+            notifyOnComment={notifyOnComment}
           />
         </Suspense>
       )}

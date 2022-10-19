@@ -10,15 +10,11 @@ import { TextAreaWithTag } from '../';
 import { InlineSpinner } from '../../Interface';
 import { CommentListItem } from './components';
 
-/**
- * Comments main thread
- * @param {string} param.postId
- */
-function CommentsList({ postId, postAuthorId, commentsAmount }) {
-  const data = useSelector((state) => selectPostCommentsById(state, postId));
-
+function CommentsList({ postId, postAuthorId, commentsAmount, notifyOnComment }) {
   const { loading } = useSelector(({ commentsData }) => commentsData.getCommentsLoadingState);
 
+  const data = useSelector((state) => selectPostCommentsById(state, postId));
+  // Sorts comments data by "Pin" property
   const comments = useCommentPin(data || []);
 
   const [text, setText] = useState('');
@@ -47,6 +43,15 @@ function CommentsList({ postId, postAuthorId, commentsAmount }) {
     handleGetPostComments();
   }, []);
 
+  useEffect(() => {
+    if (!notifyOnComment) return;
+
+    !notifyOnComment.replyId &&
+      document
+        .getElementById(notifyOnComment.commentId)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, []);
+
   return (
     <div className={styles.commentsList}>
       {loading && <InlineSpinner />}
@@ -56,6 +61,7 @@ function CommentsList({ postId, postAuthorId, commentsAmount }) {
           setUpdateParentComment={setUpdateParentComment}
           postId={postId}
           postAuthorId={postAuthorId}
+          notifyOnComment={notifyOnComment?.replyId ? notifyOnComment : null}
           key={comment._id}
         />
       ))}

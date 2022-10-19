@@ -31,8 +31,12 @@ function Notifications() {
   const [activeNotification, setActiveNotification] = useState('');
 
   function handleNavigate(notify) {
-    if (notify.target === 'blogPost') navigate(`/blog/${notify.location}`);
-    else if (notify.target === 'post') navigate(`/post/${notify.location}`);
+    // console.log(notify);
+    if (notify.target.targetType === 'blogPost')
+      navigate(`/blog/${notify.location}`, { state: notify.target?.options });
+    else if (notify.target.targetType === 'post')
+      navigate(`/post/${notify.location}`, { state: notify.target?.options });
+
     dispatch(setActiveNotifications(false));
 
     if (!notify.read) dispatch(markNotificationAsRead(notify._id));

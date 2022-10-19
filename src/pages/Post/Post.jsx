@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 import { getPost, resetPosts } from '../../store/reducers/postsDataReducer';
 import { selectPosts } from '../../store/selectors/postSelectors';
@@ -11,6 +11,7 @@ import { StandSpinner } from '../../components/Interface';
 
 function Post() {
   const { id } = useParams();
+  const { state: pathState } = useLocation();
 
   const dispatch = useDispatch();
   const { posts } = useSelector(selectPosts);
@@ -26,7 +27,9 @@ function Post() {
   return (
     <div style={{ marginTop: '9rem' }}>
       {loading && <StandSpinner />}
-      {!loading && posts[0] && <SinglePost data={posts[0]} />}
+      {!loading && posts[0] && (
+        <SinglePost data={posts[0]} notifyOnComment={pathState?.commentId ? pathState : null} />
+      )}
     </div>
   );
 }
