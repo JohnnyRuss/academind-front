@@ -13,13 +13,13 @@ const commentsDataSlice = createSlice({
   },
   reducers: {
     getPostComments(state) {
-      updateLoadingState(state, 'getCommentsLoadingState', true);
+      updateLoadingState({ state, key: 'getCommentsLoadingState', loading: true });
     },
 
     setPostComments(state, { payload }) {
       const { postId, data } = payload;
       state.comments = [...state.comments, { postId, comments: data }];
-      updateLoadingState(state, 'getCommentsLoadingState', false);
+      updateLoadingState({ state, key: 'getCommentsLoadingState', loading: false });
     },
 
     addComment() {},

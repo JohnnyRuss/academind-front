@@ -83,11 +83,11 @@ const createPostSlice = createSlice({
     },
 
     createPost(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     resetCreatePost(state) {
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
       state.audience = 'friends';
       state.title = '';
       state.text = '';

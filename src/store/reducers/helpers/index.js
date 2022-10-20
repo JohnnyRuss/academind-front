@@ -1,5 +1,5 @@
-export function updateLoadingState(state, key, inProcess) {
-  state[key].loading = inProcess;
-  state[key].error = false;
-  state[key].message = '';
+export function updateLoadingState({ state, key, loading, message = '', error = false }) {
+  state[key].loading = loading;
+  state[key].message = message;
+  state[key].error = error;
 }

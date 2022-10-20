@@ -98,7 +98,7 @@ const portalSlice = createSlice({
     /// Update Portal ///
     ////////////////////
     updatePost(state) {
-      updateLoadingState(state, 'updatePostLoadingState', true);
+      updateLoadingState({ state, key: 'updatePostLoadingState', loading: true });
     },
 
     setUpdatePostModalOpen(state, { payload }) {
@@ -181,7 +181,7 @@ const portalSlice = createSlice({
     /// Share Portal ///
     ////////////////////
     sharePost(state) {
-      updateLoadingState(state, 'sharePostLoadingState', true);
+      updateLoadingState({ state, key: 'sharePostLoadingState', loading: true });
     },
 
     setSharePostModalOpen(state, { payload }) {
@@ -206,7 +206,7 @@ const portalSlice = createSlice({
       Object.keys(state.sharePostData).map((key) => (state.sharePostData[key] = ''));
       state.shareAudience = 'friends';
 
-      updateLoadingState(state, 'sharePostLoadingState', false);
+      updateLoadingState({ state, key: 'sharePostLoadingState', loading: false });
     },
   },
 });
@@ -256,7 +256,7 @@ function resetState(state) {
   if (state.updatePostModalIsOpen) state.updatePostModalIsOpen = false;
   else if (state.updateBlogPostModalIsOpen) state.updateBlogPostModalIsOpen = false;
 
-  updateLoadingState(state, 'updatePostLoadingState', false);
+  updateLoadingState({ state, key: 'updatePostLoadingState', loading: false });
   state.updatePostMediaFiles = [];
   Object.keys(state.updatePostData).map((key) => (state.updatePostData[key] = ''));
 }

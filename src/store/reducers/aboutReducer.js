@@ -73,12 +73,12 @@ const aboutSlice = createSlice({
     //////////// DATA ///////////////
     ////////////////////////////////
     getUserAboutData(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     setUserAboutData(state, { payload }) {
       state.data = payload;
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     resetData(state) {

@@ -18,8 +18,9 @@
   }
 
   .notifyFig {
-    max-width: 4.5rem;
-    max-height: 4.5rem;
+    min-width: 4rem;
+    max-width: 4rem;
+    // max-height: 4.5rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
     overflow: hidden;
@@ -27,6 +28,10 @@
     & img {
       @include fitImage;
     }
+  }
+
+  .userName{
+    text-transform: capitalize;
   }
 
   .notifyTime {

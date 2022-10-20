@@ -26,11 +26,11 @@ const activeUserSlice = createSlice({
   },
   reducers: {
     login(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     resetLoadingState(state) {
-      updateLoadingState(state, 'loadingState', null);
+      updateLoadingState({ state, key: 'loadingState', loading: null });
     },
 
     setActiveUser(state, { payload }) {
@@ -50,7 +50,7 @@ const activeUserSlice = createSlice({
       Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
       localStorage.setItem('academind_passport', JSON.stringify(payload.accessToken));
 
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     setUpdatedUserCover(state, { payload }) {
@@ -65,12 +65,12 @@ const activeUserSlice = createSlice({
     },
 
     getNotifications(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     setNotifications(state, { payload }) {
       state.notifications = payload;
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     deleteNotification() {},
@@ -99,11 +99,11 @@ const activeUserSlice = createSlice({
     },
 
     getPendingPosts(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     getHiddenPosts(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     logOut(state) {

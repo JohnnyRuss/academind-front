@@ -14,8 +14,18 @@ const postsDataSlice = createSlice({
     results: '',
   },
   reducers: {
+    setErrorOnLoadingState(state, { payload }) {
+      updateLoadingState({
+        state,
+        key: 'loadingState',
+        loading: false,
+        error: true,
+        message: payload,
+      });
+    },
+
     startLoading(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     setPosts(state, { payload }) {
@@ -27,7 +37,8 @@ const postsDataSlice = createSlice({
         state.posts = [...state.posts, ...data];
       }
 
-      if (state.loadingState.loading) updateLoadingState(state, 'loadingState', false);
+      if (state.loadingState.loading)
+        updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     setBookmarkedPosts(state, { payload }) {
@@ -46,32 +57,32 @@ const postsDataSlice = createSlice({
 
     setNewPost(state, { payload }) {
       state.posts = [payload, ...state.posts];
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     setSinglePost(state, { payload }) {
       state.posts = [payload];
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     getBlogPosts() {},
 
     getTopRatedPublishers(state) {
-      updateLoadingState(state, 'publishersLoadingState', true);
+      updateLoadingState({ state, key: 'publishersLoadingState', loading: true });
     },
 
     setTopRatedPublishers(state, { payload }) {
       state.topRatedPublishers = payload;
-      updateLoadingState(state, 'publishersLoadingState', false);
+      updateLoadingState({ state, key: 'publishersLoadingState', loading: false });
     },
 
     getTopRatedBlogPosts(state) {
-      updateLoadingState(state, 'topRatedPostsLoadingState', true);
+      updateLoadingState({ state, key: 'topRatedPostsLoadingState', loading: true });
     },
 
     setTopRatedBlogPosts(state, { payload }) {
       state.topRatedBlogPosts = payload;
-      updateLoadingState(state, 'topRatedPostsLoadingState', false);
+      updateLoadingState({ state, key: 'topRatedPostsLoadingState', loading: false });
     },
 
     getRelatedPosts() {},
@@ -81,7 +92,7 @@ const postsDataSlice = createSlice({
     },
 
     getPost(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     // trigger is called in portal reducer
@@ -102,7 +113,7 @@ const postsDataSlice = createSlice({
     },
 
     deletePost(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
       state.results = state.results - 1;
     },
 
@@ -111,7 +122,7 @@ const postsDataSlice = createSlice({
 
       if (state.results) state.results = state.results -= 1;
 
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     savePost() {},
@@ -200,6 +211,7 @@ const postsDataSlice = createSlice({
 
 export const postsDataReducer = postsDataSlice.reducer;
 export const {
+  setErrorOnLoadingState,
   startLoading,
   setPosts,
   setBookmarkedPosts,

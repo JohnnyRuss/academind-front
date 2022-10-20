@@ -30,12 +30,12 @@ const friendsSlice = createSlice({
     deleteFriend() {},
 
     getAllFriends(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     setFriends(state, { payload }) {
       state.allFriends = [...payload];
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     setDeletedFriend(state, { payload }) {
@@ -43,12 +43,12 @@ const friendsSlice = createSlice({
     },
 
     getPendingRequests(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     setPendingRequests(state, { payload }) {
       state.pendingRequests = [...payload];
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     setDeletedRequest(state, { payload }) {
@@ -58,18 +58,16 @@ const friendsSlice = createSlice({
     },
 
     setConfirmedRequest(state, { payload }) {
-      state.pendingRequests = state.pendingRequests.filter(
-        (request) => request.adressat._id !== payload
-      );
+      state.pendingRequests = state.pendingRequests.filter((request) => request._id !== payload);
     },
 
     getSentRequests(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     setSentRequests(state, { payload }) {
       state.sentRequests = [...payload];
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     setCanceledRequest(state, { payload }) {

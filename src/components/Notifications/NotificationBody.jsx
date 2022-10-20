@@ -26,7 +26,7 @@ function NotificationBody({
       onClick={() => handleNavigate(notify)}>
       <Image src={notify.from.profileImg} className={styles.notifyFig} />
       <p>
-        <strong>{notify.from.userName}</strong> <span>{notify.message}</span>
+        <strong className={styles.userName}>{notify.from.userName}</strong> <span>{notify.message}</span>
         <TimeAgo date={notify.createdAt} className={styles.notifyTime} />
       </p>
       <div className={styles.notifyPopUpBox}>

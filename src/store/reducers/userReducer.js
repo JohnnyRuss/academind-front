@@ -22,19 +22,19 @@ const userSlice = createSlice({
 
   reducers: {
     resetLoadingState(state) {
-      updateLoadingState(state, 'loadingState', false);
+      updateLoadingState({ state, key: 'loadingState', loading: false });
     },
 
     resetNestedLoadingState(state) {
-      updateLoadingState(state, 'nestedLoadingState', false);
+      updateLoadingState({ state, key: 'nestedLoadingState', loading: false });
     },
 
     startLoading(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     startNestedLoading(state) {
-      updateLoadingState(state, 'nestedLoadingState', true);
+      updateLoadingState({ state, key: 'nestedLoadingState', loading: true });
     },
 
     searchUser() {},
@@ -48,7 +48,7 @@ const userSlice = createSlice({
     },
 
     getUserProfile(state) {
-      updateLoadingState(state, 'loadingState', true);
+      updateLoadingState({ state, key: 'loadingState', loading: true });
     },
 
     setUserProfile(state, { payload }) {

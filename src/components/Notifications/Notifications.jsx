@@ -34,6 +34,8 @@ function Notifications() {
     // console.log(notify);
     if (notify.target.targetType === 'blogPost')
       navigate(`/blog/${notify.location}`, { state: notify.target?.options });
+    else if (notify.target.targetType === 'post' && notify.target.options?.isNewTag)
+      navigate(`/profile/${id}/profile-review/tags`, { state: notify.target?.options });
     else if (notify.target.targetType === 'post')
       navigate(`/post/${notify.location}`, { state: notify.target?.options });
 

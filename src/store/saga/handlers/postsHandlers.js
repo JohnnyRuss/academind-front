@@ -14,6 +14,7 @@ import {
   setShowOnProfile,
   setHiddenPost,
   setRemovedTag,
+  setErrorOnLoadingState,
 } from '../../reducers/postsDataReducer';
 
 import { resetCreatePost } from '../../reducers/createPostReducer';
@@ -140,7 +141,8 @@ function* getPostHandler({ payload: postId }) {
     const { data } = yield call(queryGetPost, postId);
     yield put(setSinglePost(data));
   } catch (error) {
-    showError(error, 'getPostHandler');
+    yield put(setErrorOnLoadingState(error?.response?.data?.message || error.message));
+    // showError(error, 'getPostHandler');
   }
 }
 
