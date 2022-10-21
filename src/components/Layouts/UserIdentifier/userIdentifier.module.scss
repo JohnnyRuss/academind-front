@@ -1,14 +1,43 @@
 @use '../../../styles/helpers/helpers' as *;
 
 .userIdentifierRe {
-  @include flexBox;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  grid-template-rows: repeat(2, 1fr);
+  column-gap: 1rem;
   color: color('darkGreyColor');
   font-weight: weight('boldWeight');
   font-size: size('smallSize');
 
-  .identifierDetails {
-    @include flexBox(column);
+  & [data-img] {
+    grid-column: 1/2;
+    grid-row: 1/3;
+  }
+
+  .identifierUserName {
+    text-transform: capitalize;
+    grid-column: 2;
+    grid-row: 1;
+    align-self:flex-end;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .timeAndAudience {
+    grid-column: 2/4;
+    grid-row: 2;
+    @include flexBox;
+    @include flexProperty(flex-start, center);
+    gap: 0.5rem;
+    font-size: size('smallerSize');
+    font-weight: weight('thinWeight');
+  }
+
+  .childBox{
+    grid-column: 3;
+    grid-row: 1;
   }
 
   .identifierDetails,
@@ -18,22 +47,6 @@
 
   div[data-tags] {
     margin-left: -0.5rem;
-  }
-
-  .identifierUserName {
-    text-transform: capitalize;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  .timeAndAudience {
-    @include flexBox;
-    @include flexProperty(flex-start, center);
-    gap: 0.5rem;
-    font-size: size('smallerSize');
-    font-weight: weight('thinWeight');
   }
 
   .dateTimeAgo {

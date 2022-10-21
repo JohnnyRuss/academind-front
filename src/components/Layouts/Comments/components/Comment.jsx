@@ -68,6 +68,7 @@ function Comment({ type, data, handlers, className }) {
         handleDeleteComment={() => handleDeleteComment({ type, postId, commentId, replyId })}
       />
       <CommentActions
+        reactions={comment.reactions}
         createdAt={comment.createdAt}
         handleReaction={() => handleReactionOnComment({ type, postId, commentId, replyId })}
         handleReply={handleReplyCredentials}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useWindowDimention } from '../../hooks';
+import { useWindowDimention, useScroll } from '../../hooks';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -11,6 +11,8 @@ import { StandSpinner, BlockSpinner } from '../Interface';
 import { Stand, RightBar, CategoriesNav } from './components/Blog';
 
 function Blog({ posts, loading, hasMore, handleNext }) {
+  useScroll({ target: 'window' });
+
   const [limit, setLimit] = useState(1500);
   const { width } = useWindowDimention();
   useEffect(() => {

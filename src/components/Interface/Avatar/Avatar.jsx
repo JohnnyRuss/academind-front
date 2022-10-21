@@ -1,7 +1,7 @@
 import styles from './avatar.module.scss';
 import { Image } from '../';
 
-function Avatar({ img = '/img/avatar.png', onClick = () => {}, className }) {
+function Avatar({ img = '/img/avatar.png', onClick = () => {} }) {
   return (
     <Image
       src={img}

@@ -2,12 +2,14 @@ export { default as useBlurOnBody } from './util/useBlurOnBody';
 export { default as useCommentPin } from './util/useCommentPin';
 export { default as useRestrictBodyOverflow } from './util/useRestrictBodyOverflow';
 export { default as useCounter } from './util/useCounter';
-export { default as useScrollUp } from './util/useScrollUp';
+export { default as useScroll } from './util/useScroll';
 export { default as useWindowDimention } from './util/useWindowDimention';
 
 export { default as useComments } from './layoutBased/useComments';
 export { default as usePost } from './layoutBased/usePost';
 export { default as useUpdateUserCover } from './layoutBased/useUpdateUserCover';
+export { default as useScrollOnNotifyAtCommentReply } from './layoutBased/useScrollOnNotifyAtCommentReply';
+export { default as useScrollOnNotifyAtComment } from './layoutBased/useScrollOnNotifyAtComment';
 
 export { default as useCommentsQuery } from './queries/useCommentsQuery';
 export { default as usePostQuery } from './queries/usePostQuery';

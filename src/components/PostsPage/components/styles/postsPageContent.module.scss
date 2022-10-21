@@ -11,6 +11,7 @@
   .postsPageContentScroll {
     @include flexBox(column);
     gap: 5rem;
+    padding-top: 3rem;
 
     @include respond(phone-small) {
       gap: 3rem;

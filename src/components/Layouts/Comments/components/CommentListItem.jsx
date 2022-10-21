@@ -1,7 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-
-import { useComments } from '../../../../hooks';
+import { useComments, useScrollOnNotifyAtCommentReply } from '../../../../hooks';
 import { Comment, RepliesThread } from './';
 
 /**
@@ -27,23 +24,7 @@ function CommentListItem({
     resetCommentCredentials,
   } = useComments();
 
-  const [scrollToComment, setScrollToComment] = useState(false);
-
-  useEffect(() => {
-    if (!notifyOnComment || notifyOnComment.commentId !== comment._id) return;
-    handleShowReplies();
-    setScrollToComment(true);
-  }, []);
-
-  useEffect(() => {
-    if (!scrollToComment) return;
-
-    document
-      .getElementById(notifyOnComment.replyId)
-      ?.scrollIntoView({ block: 'center', behavior: 'smooth' });
-
-    setScrollToComment(false);
-  }, [scrollToComment]);
+  useScrollOnNotifyAtCommentReply({ handleShowReplies, notifyOnComment, comment });
 
   return (
     <>

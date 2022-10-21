@@ -25,7 +25,7 @@ function Post() {
   }, []);
 
   return (
-    <div style={{ marginTop: '9rem' }}>
+    <div style={{ marginTop: '6rem', paddingTop:'6rem' }}>
       {loading && <StandSpinner />}
       {!loading && !error && posts[0] && (
         <SinglePost data={posts[0]} notifyOnComment={pathState?.commentId ? pathState : null} />

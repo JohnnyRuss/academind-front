@@ -1,8 +1,8 @@
 import styles from './styles/feedContainer.module.scss';
-import { useScrollUp } from '../../hooks';
+import { useScroll } from '../../hooks';
 
 function Container({ children }) {
-  useScrollUp('top');
+  useScroll({ target: 'window'});
   return <div className={styles.feedContainer}>{children}</div>;
 }
 

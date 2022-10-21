@@ -109,6 +109,7 @@ const commentsDataSlice = createSlice({
         .comments.find((comment) => comment._id === params.commentId);
 
       comment.likesAmount = data.likesAmount;
+      comment.reactions = data.reactions;
     },
 
     reactOnCommentReply() {},
@@ -122,6 +123,7 @@ const commentsDataSlice = createSlice({
         .replies.find((reply) => reply._id === params.replyId);
 
       commentReply.likesAmount = data.likesAmount;
+      commentReply.reactions = data.reactions;
     },
 
     pinComment() {},

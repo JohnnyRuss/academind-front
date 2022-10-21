@@ -1,8 +1,8 @@
 import styles from './components/styles/postsPageContainer.module.scss';
-import { useScrollUp } from '../../hooks';
+import { useScroll } from '../../hooks';
 
 function PostsPageContainer({ children }) {
-  useScrollUp('top');
+  useScroll({ target: 'window' });
   return <div className={styles.postsPageContainer}>{children}</div>;
 }
 

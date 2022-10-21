@@ -11,6 +11,7 @@
   @include scrollBar('&', 1rem, 1rem, 2rem, 2rem);
 
   .shareIdentifier {
+    align-items: flex-start;
     background: color('whiteColor');
     position: fixed;
     z-index: 99;

@@ -1,6 +1,11 @@
 @use '../../../../../styles/helpers/helpers' as *;
 
 .identifierPostTouch {
+  & [data-identifier-userName] {
+    grid-row: 1/3;
+    align-self: center;
+  }
+
   @include respond(phone-small) {
     gap: 0.5rem;
 

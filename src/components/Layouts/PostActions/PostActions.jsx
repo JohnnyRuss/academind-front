@@ -1,8 +1,11 @@
+import { useSelector } from 'react-redux';
+
+import { selectUserId } from '../../../store/selectors/userSelectors';
 import { usePostQuery, usePost } from '../../../hooks';
 import { destructurePostShareData } from '../../../lib/destructurers';
 
 import styles from './components/styles/postActions.module.scss';
-import { LikeBTN, DislikeBTN, CommentBTN, ShareBTN } from './components';
+import { ReactionBTN, CommentBTN, ShareBTN } from './components';
 
 /**
  * is user in Post component as well as BlogPost component
@@ -14,6 +17,8 @@ import { LikeBTN, DislikeBTN, CommentBTN, ShareBTN } from './components';
  * @returns
  */
 function PostActions({ className, setShowCommnents, data, redirect }) {
+  const { id } = useSelector(selectUserId);
+
   const { reactOnPostHandler } = usePostQuery();
   const { activateSharePostModal } = usePost();
 
@@ -35,10 +40,22 @@ function PostActions({ className, setShowCommnents, data, redirect }) {
     activateSharePostModal(destructurePostShareData(data));
   }
 
+  const isUserInteracted = data.reactions?.find((reaction) => reaction.author === id);
+
   return (
     <form className={`${styles.postActions} ${className || ''}`}>
-      <LikeBTN reactOnPostHandler={reactionHandler} likesAmount={data?.likesAmount} />
-      <DislikeBTN reactOnPostHandler={reactionHandler} dislikesAmount={data?.dislikesAmount} />
+      <ReactionBTN
+        reactOnPostHandler={reactionHandler}
+        reactionsAmount={data?.likesAmount}
+        reaction={true}
+        isUserInteracted={isUserInteracted?.reaction}
+      />
+      <ReactionBTN
+        reactOnPostHandler={reactionHandler}
+        reactionsAmount={data?.dislikesAmount}
+        reaction={false}
+        isUserInteracted={isUserInteracted?.reaction}
+      />
       <CommentBTN
         redirect={redirect}
         commentsAmount={data?.commentsAmount}

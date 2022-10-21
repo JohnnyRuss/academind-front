@@ -2,13 +2,15 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setSearchKey } from '../../store/reducers/friendsReducer';
-import { useForeignUser } from '../../hooks';
+import { useForeignUser, useScroll } from '../../hooks';
 
 import styles from './components/styles/friendsPageNavigation.module.scss';
 import { SearchBar } from '../Layouts';
 import { Link } from '../Interface';
 
 function Friends() {
+  useScroll({ target: 'elem', scrollTo: 'friends__page--navigation-bar' });
+
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
@@ -25,7 +27,7 @@ function Friends() {
   }
 
   return (
-    <nav className={styles.friendsNav}>
+    <nav className={styles.friendsNav} id='friends__page--navigation-bar'>
       <Link
         path={`/profile/${profileId}/friends/all-friends`}
         className={activeRoute('all-friends')}>

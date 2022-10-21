@@ -1,4 +1,4 @@
-import { usePost } from '../../hooks';
+import { usePost, useScroll } from '../../hooks';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -7,10 +7,12 @@ import { Post, DeletedPost, ScrollEnd } from '../Layouts';
 import { Spinner, BlockSpinner } from '../Interface';
 
 function Bookmarks({ loading, hasMore, handleNext, posts }) {
+  useScroll({ target: 'elem', scrollTo: 'bookmarks__page', options: { block: 'start' } });
+
   const { activatePostMediaHandler, activateUpdatePostModal } = usePost();
 
   return (
-    <div className={styles.bookmarks}>
+    <div className={styles.bookmarks} id='bookmarks__page'>
       {loading && <Spinner />}
       <InfiniteScroll
         hasMore={hasMore}

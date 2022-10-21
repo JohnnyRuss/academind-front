@@ -6,6 +6,7 @@
   right: 2rem;
   width: 27rem;
   min-height: 5rem;
+  max-height: 50rem;
   padding: 0.5rem;
   background: color(whiteColor);
   font-size: size(smallerSize);
@@ -13,8 +14,9 @@
   gap: 0.25rem;
   border-bottom-left-radius: 0.75rem;
   border-bottom-right-radius: 0.75rem;
-  animation: moveTop 0.2s forwards;
+  animation: moveBottom 0.2s forwards;
   @include boxShadowBlack(0, 1rem, 0.3);
+  @include scrollBar('&');
 
   .cleanerBtnsBox {
     color: color(blueColor);

@@ -1,15 +1,22 @@
 @use '../../../../../styles/helpers/helpers' as *;
 
 .comment {
-  width: max-content;
-  max-width: 85%;
   position: relative;
-  padding-right: 2rem;
 
   .commentHeader {
     @include flexBox;
     @include flexProperty(flex-start, center);
     gap: 1rem;
+    width: max-content;
+  }
+
+  .commentUserIdentifier{
+    column-gap: 0.75rem;
+
+    & [data-identifier-userName] {
+      grid-row: 1/3;
+      align-self: center;
+    }
   }
 
   .commentUserIdentifier figure[data-img] {

@@ -1,9 +1,10 @@
 @use '../../../../../styles/helpers/helpers' as *;
 
 .commentOptBox {
-  position: absolute;
-  right: 0;
+  position: relative;
   margin-top: 0.5rem;
+  margin-left: auto;
+  margin-right: 1rem;
 
   .commentOptMainBtn {
     @include flexBox;
@@ -20,6 +21,7 @@
     z-index: 99;
     right: 0;
     top: 1.5rem;
+    width: 13rem;
     @include flexBox(column);
     @include flexProperty(flex-start, flex-start);
     gap: 0.5rem;
@@ -27,7 +29,7 @@
     font-size: size('regullarSize');
     text-transform: capitalize;
     background: color('whiteColor');
-    animation: moveTop 0.2s;
+    // animation: moveLeft 0.2s;
     @include boxShadowBlack(0.25rem, 0.5rem, 0.25);
 
     & .optBtn {

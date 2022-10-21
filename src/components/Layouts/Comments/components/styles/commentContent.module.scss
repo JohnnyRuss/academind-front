@@ -3,8 +3,6 @@
 .commentContent {
   @include flexBox;
   gap: 5rem;
-  margin-top: -1.2rem;
-  padding-bottom: 1.2rem;
 
   @include respond(tab-portrate) {
     margin-top: -0.5rem;
@@ -13,14 +11,15 @@
   }
 
   .commentText {
-    margin: 0.5rem 0 0 4.7rem;
+    margin-left: 4rem;
     color: color('darkGreyColor');
     font-size: size('smallSize');
+    max-width: calc(85% - 4rem);
   }
 
   .commentReactions {
     position: absolute;
-    right: -1.5rem;
+    right: 3rem;
     bottom: 0;
     @include flexBox;
     gap: 0.25rem;

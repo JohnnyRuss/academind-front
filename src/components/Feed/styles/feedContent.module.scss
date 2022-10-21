@@ -2,11 +2,10 @@
 
 .feedContent {
   flex: 1;
-  margin-top: 6rem;
   padding-top: 4rem;
   @include flexBox(column);
   align-items: center;
-  gap: 5rem;
+  gap: 2rem;
 
   .feedInfiniteScroll {
     @include flexBox(column);

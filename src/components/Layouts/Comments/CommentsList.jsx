@@ -3,7 +3,12 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectPostCommentsById } from '../../../store/selectors/postSelectors';
-import { useCommentPin, useComments, useCommentsQuery } from '../../../hooks';
+import {
+  useCommentPin,
+  useComments,
+  useCommentsQuery,
+  useScrollOnNotifyAtComment,
+} from '../../../hooks';
 
 import styles from './components/styles/commentsList.module.scss';
 import { TextAreaWithTag } from '../';
@@ -43,14 +48,7 @@ function CommentsList({ postId, postAuthorId, commentsAmount, notifyOnComment })
     handleGetPostComments();
   }, []);
 
-  useEffect(() => {
-    if (!notifyOnComment) return;
-
-    !notifyOnComment.replyId &&
-      document
-        .getElementById(notifyOnComment.commentId)
-        ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, []);
+  useScrollOnNotifyAtComment({ notifyOnComment });
 
   return (
     <div className={styles.commentsList}>

@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
+
 import styles from './userIdentifier.module.scss';
-import { TimeAgo, Avatar, Link } from '../../Interface';
+import { TimeAgo, Avatar } from '../../Interface';
 import { Audience } from '../';
 
 /**
@@ -22,20 +24,21 @@ function UserIdentifier({
   className,
 }) {
   return (
-    <div className={`${styles.userIdentifierRe} ${className || ''}`}>
+    <div className={`${styles.userIdentifierRe} ${className || ''}`} data-user-identifier>
       <Avatar img={img} />
-      <span className={styles.identifierDetails}>
-        <Link path={`/profile/${userId}/posts`} className={styles.identifierUserName}>
-          {userName}
-        </Link>
-        {withTime && (
-          <div className={styles.timeAndAudience}>
-            <TimeAgo date={timeAgo} className={styles.dateTimeAgo} />
-            <Audience audience={audience} />
-          </div>
-        )}
-      </span>
-      {children}
+      <Link
+        to={`/profile/${userId}/posts`}
+        className={styles.identifierUserName}
+        data-identifier-userName>
+        {userName}
+      </Link>
+      {withTime && (
+        <div className={styles.timeAndAudience}>
+          <TimeAgo date={timeAgo} className={styles.dateTimeAgo} />
+          <Audience audience={audience} />
+        </div>
+      )}
+      <span className={styles.childBox}>{children}</span>
     </div>
   );
 }
