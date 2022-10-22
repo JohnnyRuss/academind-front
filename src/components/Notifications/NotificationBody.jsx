@@ -20,13 +20,32 @@ function NotificationBody({
     setActiveNotifyModal((prev) => !prev);
   };
 
+  function showNotificationMessage(notify) {
+    if (notify.target?.options?.postAuthorUserName) {
+      const message = notify.message.split(`${'PostAuthorPlaceholder'}`);
+      return (
+        <>
+          <strong className={styles.userName}>{notify.from.userName}</strong>{' '}
+          <span>{message[0]}</span> <strong>{notify.target.options.postAuthorUserName}</strong>
+          <span>{message[1]}</span>
+        </>
+      );
+    } else
+      return (
+        <>
+          <strong className={styles.userName}>{notify.from.userName}</strong>{' '}
+          <span>{notify.message}</span>
+        </>
+      );
+  }
+
   return (
     <div
       className={`${styles.notifyBody} ${notify.read ? '' : styles.unRead}`}
       onClick={() => handleNavigate(notify)}>
       <Image src={notify.from.profileImg} className={styles.notifyFig} />
       <p>
-        <strong className={styles.userName}>{notify.from.userName}</strong> <span>{notify.message}</span>
+        {showNotificationMessage(notify)}
         <TimeAgo date={notify.createdAt} className={styles.notifyTime} />
       </p>
       <div className={styles.notifyPopUpBox}>

@@ -38,7 +38,7 @@ function UserIdentifier({
           <Audience audience={audience} />
         </div>
       )}
-      <span className={styles.childBox}>{children}</span>
+      <span className={styles.childBox} data-identifier-child>{children}</span>
     </div>
   );
 }
