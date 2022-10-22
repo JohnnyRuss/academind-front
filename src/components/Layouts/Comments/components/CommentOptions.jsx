@@ -5,7 +5,7 @@ import { DotsHorizontalIcon, DeleteIcon, PinIcon, UpdateIcon } from '../../Icons
 import DeletionPopUp from '../../DeletionPopUp/DeletionPopUp';
 
 function CommentOptions({
-  belongsActiveUser,
+  commentBelongsToActiveUser,
   postBelongsToActiveUser,
   pinHandler,
   updateHandler,
@@ -45,7 +45,7 @@ function CommentOptions({
                 <span>pin</span>
               </button>
             )}
-            {belongsActiveUser && (
+            {commentBelongsToActiveUser && (
               <button
                 className={styles.optBtn}
                 onClick={() => {
@@ -56,7 +56,7 @@ function CommentOptions({
                 <span>update</span>
               </button>
             )}
-            {postBelongsToActiveUser && (
+            {(postBelongsToActiveUser || commentBelongsToActiveUser) && (
               <button
                 className={`${styles.optBtn} ${styles.deleteBtn}`}
                 onClick={handleDeletePopUp}>

@@ -6,6 +6,7 @@ import { selectUserId } from '../../store/selectors/userSelectors';
 import { selectPosts } from '../../store/selectors/postSelectors';
 import { getBookmarks, startNestedLoading } from '../../store/reducers/userReducer';
 import { resetPosts } from '../../store/reducers/postsDataReducer';
+import { resetComments } from '../../store/reducers/commentsDataReducer';
 
 import { useRestrictPrivateRoute } from '../../hooks';
 
@@ -34,7 +35,11 @@ function BookmarksPage() {
   useEffect(() => {
     dispatch(startNestedLoading());
     dispatch(getBookmarks({ id, page: 1, limit: BOOKMARKS_POSTS_COUNT_PER_REQ, hasMore: false }));
-    return () => dispatch(resetPosts());
+
+    return () => {
+      dispatch(resetPosts());
+      dispatch(resetComments());
+    };
   }, []);
 
   return <Bookmarks loading={loading} hasMore={hasMore} handleNext={handleNext} posts={posts} />;

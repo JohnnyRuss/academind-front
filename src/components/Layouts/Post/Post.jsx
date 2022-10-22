@@ -54,7 +54,6 @@ function Post({
           <CommentsList
             postId={data._id}
             postAuthorId={data.author._id}
-            commentsAmount={data.commentsAmount}
             notifyOnComment={notifyOnComment}
           />
         </Suspense>

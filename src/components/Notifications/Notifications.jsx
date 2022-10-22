@@ -31,13 +31,17 @@ function Notifications() {
   const [activeNotification, setActiveNotification] = useState('');
 
   function handleNavigate(notify) {
-    // console.log(notify);
+    // console.log(notify)
     if (notify.target.targetType === 'blogPost')
       navigate(`/blog/${notify.location}`, { state: notify.target?.options });
     else if (notify.target.targetType === 'post' && notify.target.options?.isNewTag)
       navigate(`/profile/${id}/profile-review/tags`, { state: notify.target?.options });
     else if (notify.target.targetType === 'post')
       navigate(`/post/${notify.location}`, { state: notify.target?.options });
+    else if (notify.target.targetType === 'user' && notify.target.options.isRequested)
+      navigate(`/profile/${id}/friends/pending-requests`);
+    else if (notify.target.targetType === 'user' && notify.target.options.isConfirmed)
+      navigate(`/profile/${notify.location}/posts`);
 
     dispatch(setActiveNotifications(false));
 

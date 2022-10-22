@@ -18,7 +18,14 @@ const commentsDataSlice = createSlice({
 
     setPostComments(state, { payload }) {
       const { postId, data } = payload;
-      state.comments = [...state.comments, { postId, comments: data }];
+
+      const existingCommentsBockIndex = state.comments.findIndex(
+        (block) => block.postId === postId
+      );
+
+      if (existingCommentsBockIndex >= 0) state.comments[existingCommentsBockIndex].comments = data;
+      else state.comments = [...state.comments, { postId, comments: data }];
+
       updateLoadingState({ state, key: 'getCommentsLoadingState', loading: false });
     },
 
@@ -150,6 +157,10 @@ const commentsDataSlice = createSlice({
 
       commentReply.pin = data.pin;
     },
+
+    resetComments(state) {
+      state.comments = [];
+    },
   },
 });
 
@@ -177,4 +188,5 @@ export const {
   setPinnedComment,
   pinCommentReply,
   setPinnedCommentReply,
+  resetComments,
 } = commentsDataSlice.actions;

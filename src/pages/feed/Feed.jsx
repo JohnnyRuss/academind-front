@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getFeedPosts, startLoading } from '../../store/reducers/userReducer';
 import { resetPosts } from '../../store/reducers/postsDataReducer';
+import { resetComments } from '../../store/reducers/commentsDataReducer';
 import { selectPosts } from '../../store/selectors/postSelectors';
 import { selectUserId } from '../../store/selectors/userSelectors';
 
@@ -35,7 +36,11 @@ function Feed() {
   useEffect(() => {
     dispatch(startLoading());
     dispatch(getFeedPosts({ id, page: 1, limit: FEED_POSTS_COUNT_PER_REQ, hasMore: false }));
-    return () => dispatch(resetPosts());
+    
+    return () => {
+      dispatch(resetPosts());
+      dispatch(resetComments());
+    };
   }, []);
 
   if (loading) return <StandSpinner />;

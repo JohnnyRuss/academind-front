@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import { resetPosts } from '../../store/reducers/postsDataReducer';
+import { resetComments } from '../../store/reducers/commentsDataReducer';
 import { selectPosts } from '../../store/selectors/postSelectors';
 import { getProfilePosts } from '../../store/reducers/userReducer';
-import { resetPosts } from '../../store/reducers/postsDataReducer';
 
 import { PROFILE_POSTS_COUNT_PER_REQ } from '../../lib/config';
 
@@ -31,7 +32,11 @@ function PostPage() {
 
   useEffect(() => {
     dispatch(getProfilePosts({ id, page: 1, limit: PROFILE_POSTS_COUNT_PER_REQ, hasMore: false }));
-    return () => dispatch(resetPosts());
+
+    return () => {
+      dispatch(resetPosts());
+      dispatch(resetComments())
+    };
   }, [dispatch, id]);
 
   if (loading) return <StandSpinner />;

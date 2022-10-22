@@ -5,11 +5,12 @@
   padding-top: 4rem;
   @include flexBox(column);
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 
   .feedInfiniteScroll {
     @include flexBox(column);
     gap: 4rem;
+    padding-top: 3rem;
   }
 
   @include respond(tab-portrate) {

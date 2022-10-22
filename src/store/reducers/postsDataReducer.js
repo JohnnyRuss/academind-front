@@ -200,11 +200,11 @@ const postsDataSlice = createSlice({
     },
 
     resetPosts(state) {
-      state.posts = [];
-      state.results = '';
+      if (state.posts[0]) state.posts = [];
       if (state.topRatedBlogPosts[0]) state.topRatedBlogPosts = [];
       if (state.topRatedPublishers[0]) state.topRatedPublishers = [];
       if (state.relatedPosts[0]) state.relatedPosts = [];
+      state.results = '';
     },
   },
 });

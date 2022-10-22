@@ -29,7 +29,7 @@ function UserIdentifier({
       <Link
         to={`/profile/${userId}/posts`}
         className={styles.identifierUserName}
-        data-identifier-userName>
+        data-identifier-username>
         {userName}
       </Link>
       {withTime && (

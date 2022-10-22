@@ -1,4 +1,6 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import styles from './styles/content.module.scss';
 import { Media, Article, RelatedPosts } from './';
@@ -6,6 +8,11 @@ import { PostActions, CommentsList } from '../../../Layouts';
 
 function Content({ post }) {
   const [showComments, setShowComments] = useState(false);
+  const { state: pathState } = useLocation();
+
+  useEffect(() => {
+    pathState?.commentId && setShowComments(true);
+  }, []);
 
   return (
     <>
@@ -18,7 +25,7 @@ function Content({ post }) {
           <CommentsList
             postId={post._id}
             postAuthorId={post?.author._id}
-            commentsAmount={post.commentsAmount}
+            notifyOnComment={pathState?.commentId ? pathState : null}
           />
         )}
       </div>

@@ -15,7 +15,7 @@ import { TextAreaWithTag } from '../';
 import { InlineSpinner } from '../../Interface';
 import { CommentListItem } from './components';
 
-function CommentsList({ postId, postAuthorId, commentsAmount, notifyOnComment }) {
+function CommentsList({ postId, postAuthorId, notifyOnComment }) {
   const { loading } = useSelector(({ commentsData }) => commentsData.getCommentsLoadingState);
 
   const data = useSelector((state) => selectPostCommentsById(state, postId));
@@ -44,7 +44,6 @@ function CommentsList({ postId, postAuthorId, commentsAmount, notifyOnComment })
   );
 
   useEffect(() => {
-    if (data || commentsAmount === 0) return;
     handleGetPostComments();
   }, []);
 

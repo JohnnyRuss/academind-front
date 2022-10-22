@@ -46,7 +46,7 @@ function CommentContent({
       )}
       <CommentOptions
         postBelongsToActiveUser={postBelongsToActiveUser}
-        belongsActiveUser={commentBelongsToActiveUser}
+        commentBelongsToActiveUser={commentBelongsToActiveUser}
         pinHandler={handlePinComment}
         updateHandler={handleUpdateCredentials}
         deleteHandler={handleDeleteComment}

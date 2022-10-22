@@ -39,7 +39,7 @@ const friendsSlice = createSlice({
     },
 
     setDeletedFriend(state, { payload }) {
-      state.allFriends = state.allFriends.filter((friend) => friend.friend._id !== payload);
+      state.allFriends = state.allFriends.filter((friend) => friend._id !== payload);
     },
 
     getPendingRequests(state) {
@@ -73,6 +73,12 @@ const friendsSlice = createSlice({
     setCanceledRequest(state, { payload }) {
       state.sentRequests = state.sentRequests.filter((request) => request.adressat._id !== payload);
     },
+
+    resetFriends(state) {
+      if (state.allFriends[0]) state.allFriends = [];
+      else if (state.pendingRequests[0]) state.pendingRequests = [];
+      else if (state.sentRequests[0]) state.sentRequests = [];
+    },
   },
 });
 
@@ -94,4 +100,5 @@ export const {
   getSentRequests,
   setSentRequests,
   setCanceledRequest,
+  resetFriends,
 } = friendsSlice.actions;
