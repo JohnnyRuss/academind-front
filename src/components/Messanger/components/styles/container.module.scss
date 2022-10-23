@@ -1,0 +1,7 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.messangerContainer {
+  display: flex;
+  height: calc(100vh - 6rem);
+  margin-top: 6rem;
+}

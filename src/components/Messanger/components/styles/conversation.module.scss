@@ -1,0 +1,35 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.conversationBox {
+  @include flexBox;
+  gap: .75rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.7rem;
+  margin-right: 0.5rem;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: color(whiteColor);
+  }
+
+  .infoBox {
+    @include flexBox(column);
+    padding-top: 0.5rem;
+  }
+
+  .conversationAuthor {
+    font-size: 1.4rem;
+  }
+
+  .miniBox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .conversationLastMessage,
+  .conversationDate {
+    font-size: 1.2rem;
+  }
+}

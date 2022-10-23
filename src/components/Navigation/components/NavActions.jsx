@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setActiveNotifications } from '../../../store/reducers/activeUserReducer';
@@ -33,7 +34,9 @@ function NavActions() {
         <UserFriendRequestsIcon />
       </button>
       <button>
-        <EmailIcon />
+        <Link to="/messanger">
+          <EmailIcon />
+        </Link>
       </button>
       <button onClick={onFocus} className='notification--nav__btn'>
         <NotificationIcon />

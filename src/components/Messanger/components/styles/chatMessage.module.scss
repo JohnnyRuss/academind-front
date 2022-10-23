@@ -1,0 +1,59 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.chatMessageGroupBox {
+  @include flexBox(column);
+  gap: 0.1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  // background: red;
+
+  .messageText {
+    background: color(whiteShadeColor);
+    padding: 0.5rem;
+    width: 70%;
+    max-width: max-content;
+    border-radius: 1rem;
+    // background: green;
+  }
+
+  .messageText.singleInGroup {
+    border-radius: 1rem;
+  }
+
+  .messageText.firstInGroup {
+    border-bottom-left-radius: 0rem;
+  }
+
+  .messageText.middleInGroup {
+    border-top-left-radius: 0rem;
+    border-bottom-left-radius: 0rem;
+  }
+
+  .messageText.lastInGroup {
+    border-top-left-radius: 0rem;
+  }
+
+  .messageText.activeUserMsg {
+    background: color(blueColor);
+    color: color(whiteColor);
+    margin-left: auto;
+  }
+
+  .messageText.activeUserMsg.firstInGroup {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 0rem;
+  }
+
+  .messageText.activeUserMsg.middleInGroup {
+    border-top-right-radius: 0rem;
+    border-top-left-radius: 1rem;
+    border-bottom-right-radius: 0rem;
+    border-bottom-left-radius: 1rem;
+  }
+
+  .messageText.activeUserMsg.lastInGroup {
+    border-top-right-radius: 0rem;
+    border-top-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+}

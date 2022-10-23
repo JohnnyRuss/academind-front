@@ -1,0 +1,36 @@
+@use '../../../../styles/helpers/helpers' as *;
+
+.inputBox {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  padding: 0 1rem 0 0.5rem;
+
+  .textArea {
+    resize: none;
+    width: 100%;
+    border-radius: 1.5rem;
+    padding: 0 1rem;
+    padding-top: 0.6rem;
+    background: rgba(242, 242, 242, 1);
+    outline: none;
+
+    &::placeholder {
+      font-size: 1.6rem;
+    }
+  }
+
+  .iconBox {
+    display: flex;
+    align-items: center;
+    font-size: 2.5rem;
+
+    & svg {
+      display: block;
+      cursor: pointer;
+      color: rgba(3, 85, 191, 1);
+    }
+  }
+}
