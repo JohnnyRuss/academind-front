@@ -2,7 +2,7 @@
 
 .reviewContainer {
   margin-top: 4rem;
-  min-height: 5rem;
+  min-height: 20rem;
   @include flexBox(column);
   gap: 4rem;
 

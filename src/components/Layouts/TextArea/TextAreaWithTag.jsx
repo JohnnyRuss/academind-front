@@ -76,8 +76,8 @@ function TextAreaWithTag({
     removeTag(id);
   }
 
-  return (
-    <form className={styles.textAreaForm} onSubmit={submitHandler}>
+  return (    
+    <form className={styles.textAreaForm} onSubmit={submitHandler} data-text-area-with-tag>
       {tags[0] && <TagsList tags={tags} deleteTagCandidate={deleteTagCandidate} />}
       <div className={styles.fields}>
         <TextareaAutosize

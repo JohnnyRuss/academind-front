@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setActiveNotifications } from '../../../store/reducers/activeUserReducer';
+import { useBlurOnBody } from '../../../hooks';
 
 import styles from './styles/navActions.module.scss';
 import { NavSearchBar, NavAvatar } from './';
@@ -16,9 +17,14 @@ function NavActions() {
 
   const { activeNotifications } = useSelector(({ activeUser }) => activeUser);
 
-  function controllNotifications() {
-    dispatch(setActiveNotifications(!activeNotifications));
-  }
+  const activateNotifications = () => dispatch(setActiveNotifications(!activeNotifications));
+
+  const deactivateNotifications = () => dispatch(setActiveNotifications(false));
+
+  const { onFocus } = useBlurOnBody(activateNotifications, deactivateNotifications, [
+    'notification--modal',
+    'notification--nav__btn',
+  ]);
 
   return (
     <div className={styles.mainNavActions}>
@@ -29,7 +35,7 @@ function NavActions() {
       <button>
         <EmailIcon />
       </button>
-      <button onClick={controllNotifications}>
+      <button onClick={onFocus} className='notification--nav__btn'>
         <NotificationIcon />
       </button>
       <button className={styles.mainNavActionsBurgerBtn}>

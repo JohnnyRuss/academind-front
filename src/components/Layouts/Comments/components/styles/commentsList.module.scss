@@ -13,4 +13,10 @@
   .commentTextArea {
     width: calc(100% - 6rem);
   }
+
+  .commentsMessage {
+    text-align: center;
+    text-transform: capitalize;
+    color: $message-fade-color;
+  }
 }

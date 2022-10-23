@@ -61,7 +61,7 @@ function Notifications() {
   }, []);
 
   return (
-    <div className={styles.notificationPopUp}>
+    <div className={`${styles.notificationPopUp} notification--modal`}>
       <div className={styles.cleanerBtnsBox}>
         <button onClick={handleMarkAllAsRead}>mark all as read</button>
         <button onClick={handleDeleteAllNotification}>clear all notifications</button>

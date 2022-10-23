@@ -12,7 +12,7 @@ import {
 
 import styles from './components/styles/commentsList.module.scss';
 import { TextAreaWithTag } from '../';
-import { InlineSpinner } from '../../Interface';
+import { BlockSpinner } from '../../Interface';
 import { CommentListItem } from './components';
 
 function CommentsList({ postId, postAuthorId, notifyOnComment }) {
@@ -51,17 +51,21 @@ function CommentsList({ postId, postAuthorId, notifyOnComment }) {
 
   return (
     <div className={styles.commentsList}>
-      {loading && <InlineSpinner />}
-      {comments?.map((comment) => (
-        <CommentListItem
-          comment={comment}
-          setUpdateParentComment={setUpdateParentComment}
-          postId={postId}
-          postAuthorId={postAuthorId}
-          notifyOnComment={notifyOnComment?.replyId ? notifyOnComment : null}
-          key={comment._id}
-        />
-      ))}
+      {loading && <BlockSpinner />}
+      {!loading &&
+        comments?.map((comment) => (
+          <CommentListItem
+            comment={comment}
+            setUpdateParentComment={setUpdateParentComment}
+            postId={postId}
+            postAuthorId={postAuthorId}
+            notifyOnComment={notifyOnComment?.replyId ? notifyOnComment : null}
+            key={comment._id}
+          />
+        ))}
+      {!loading && !comments[0] && (
+        <p className={styles.commentsMessage}>there are no comments yet</p>
+      )}
       {/* main textfield which is fixed on the bottom */}
       <TextAreaWithTag
         text={text}

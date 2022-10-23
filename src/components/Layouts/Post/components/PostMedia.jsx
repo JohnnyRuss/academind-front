@@ -1,4 +1,3 @@
-import { uid } from 'uid';
 import { Image } from '../../../Interface';
 import styles from './styles/postMedia.module.scss';
 
@@ -14,7 +13,7 @@ function PostMedia({ activateMedia, media, className }) {
           src={media}
           loading='lazy'
           className={`${styles.postMedia} ${className || ''}`}
-          key={uid(6)}
+          key={media}
         />
       ))}
       {media.length > 5 && (

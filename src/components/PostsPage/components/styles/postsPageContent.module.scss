@@ -3,7 +3,7 @@
 .postsPageContent {
   flex: 4;
   margin: 4rem 0 1rem;
-
+  
   @include respond(phone) {
     width: 100%;
   }
@@ -12,6 +12,10 @@
     @include flexBox(column);
     gap: 5rem;
     padding-top: 3rem;
+
+    &::-webkit-scrollbar{
+      display: none;
+    }
 
     @include respond(phone-small) {
       gap: 3rem;
