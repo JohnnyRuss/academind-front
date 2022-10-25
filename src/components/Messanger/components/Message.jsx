@@ -3,9 +3,9 @@ import ChatMessage from './ChatMessage';
 
 function Message({ msgGroup, activeUserId, adressatImage }) {
   return (
-    <p className={styles.messageBox}>
+    <div className={styles.messageBox}>
       <ChatMessage msgGroup={msgGroup} activeUserId={activeUserId} adressatImage={adressatImage} />
-    </p>
+    </div>
   );
 }
 

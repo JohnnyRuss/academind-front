@@ -1,41 +1,53 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { selectUserId } from '../../store/selectors/userSelectors';
+import { groupMessages } from '../../lib/groupMessages';
+import { fixLineBreaks } from '../../functions';
 
 import styles from './components/styles/feed.module.scss';
 import Message from './components/Message';
-import TextInput from './components/TextInput';
 import { Avatar } from '../Interface';
-
-import { groupMessages } from '../../lib/groupMessages';
+import { TextArea } from '../Layouts';
 
 function Feed({ conversation }) {
+  const { id } = useSelector(selectUserId);
   const { conversationId } = useParams();
-  const activeUserId = 2;
   const groupedMessages = groupMessages(conversation.messages);
+
+  const adressat = useMemo(() => {
+    return conversation.users.find((user) => user._id !== id);
+  }, [conversation.users, id]);
 
   const chatRef = useRef();
 
   useEffect(() => {
     chatRef.current.scrollTop = chatRef.current.scrollHeight;
   }, [conversationId]);
-  console.log(conversation);
+
+  function handleMessage(text) {
+    const val = fixLineBreaks(text);
+    console.log(val)
+  }
+
   return (
     <div className={styles.messangerFeedContainer}>
       <div className={styles.feedHeadingBox}>
-        <Avatar img={conversation?.adressatImage} />
-        <p className={styles.feedAuthor}>{conversation?.adressatName}</p>
+        <Avatar img={adressat.profileImg} />
+        <p className={styles.feedAuthor}>{adressat.userName}</p>
       </div>
       <div ref={chatRef} className={styles.feedContentBox}>
-        {groupedMessages.map((msgGroup, i) => (
+        {/* {groupedMessages.map((msgGroup, i) => (
           <Message
             key={`message ${i}`}
             msgGroup={msgGroup}
-            activeUserId={activeUserId}
-            adressatImage={conversation.adressatImage}
+            activeUserId={id}
+            adressatImage={adressat.profileImg}
           />
-        ))}
+        ))} */}
       </div>
-      <TextInput />
+      <TextArea withBtn={false} placeholder='Aa' handler={handleMessage} />
     </div>
   );
 }

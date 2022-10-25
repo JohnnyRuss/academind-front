@@ -1,16 +1,15 @@
 import styles from './styles/conversation.module.scss';
-import { Avatar } from '../../Interface';
+import { Avatar, TimeAgo } from '../../Interface';
 
-function Conversation({ author, authorImage, message, timeAgo }) {
+function Conversation({ author, lastMessage }) {
   return (
     <div className={styles.conversationBox}>
-      {/* <Image dimention={['5rem', '5rem']} radius='50%' src={authorImage} /> */}
-      <Avatar img={authorImage} />
+      <Avatar img={author.profileImg} />
       <div className={styles.infoBox}>
-        <p className={styles.conversationAuthor}>{author}</p>
+        <p className={styles.conversationAuthor}>{author.userName}</p>
         <div className={styles.miniBox}>
-          <p className={styles.conversationLastMessage}>{message}</p>
-          <p className={styles.conversationDate}>{timeAgo}</p>
+          <p className={styles.conversationLastMessage}>{lastMessage.message}</p>
+          <TimeAgo className={styles.conversationDate} date={lastMessage.createdAt} />
         </div>
       </div>
     </div>

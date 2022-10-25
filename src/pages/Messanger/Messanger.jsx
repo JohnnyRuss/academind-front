@@ -2,14 +2,14 @@ import MessangerContainer from '../../components/Messanger/MessangerContainer';
 import SideBar from '../../components/Messanger/SideBar';
 import Feed from '../../components/Messanger/Feed';
 
-import { conversations } from '../../lib/conversations';
+import allConversations from "../../lib/all-conversations.json"
+import conv from "../../lib/conv.json"
 
 function Messanger() {
-  const defaultConversation = conversations[0];
   return (
     <MessangerContainer>
-      <SideBar conversations={conversations} />
-      {true && <Feed conversation={defaultConversation} />}
+      <SideBar conversations={allConversations} />
+      {true && <Feed conversation={conv} />}
     </MessangerContainer>
   );
 }

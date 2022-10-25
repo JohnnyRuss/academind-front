@@ -1,27 +1,31 @@
+/* eslint-disable array-callback-return */
 export function groupMessages(messages) {
   if (!messages) return;
 
-  let msgChain = [];
-  let nestedChain = [];
+  let group = [];
+  let groupedChat = [];
+
+  function copyAndDelete(message) {
+    groupedChat = [...group];
+    group = [];
+    if (message) group.push(message);
+    return groupedChat;
+  }
 
   return messages
-    .map((msg, i, arr) => {
-      function copyAndDelete(message) {
-        nestedChain = [...msgChain];
-        msgChain = [];
-        if (message) msgChain.push(message);
-        return nestedChain;
-      }
-
-      if ((arr[i + 1] && msg?.user === arr[i + 1]?.user) || msg?.user === arr[i - 1]?.user) {
-        if (msgChain[0] && msgChain[0].user !== msg.user) return copyAndDelete(msg);
-        else msgChain.push(msg);
-      } else if (msg.user !== arr[i - 1]?.user && msgChain[0]) return copyAndDelete(msg);
-      else if (msgChain[0] && msgChain[0].user === msg.user) {
-        msgChain.push(msg);
-        return copyAndDelete();
-      } else return copyAndDelete(msg);
+    .map((msg, i, chat) => {
+      if (
+        (chat[i + 1] && msg?.author === chat[i + 1]?.author) ||
+        msg?.author === chat[i - 1]?.author
+      ) {
+        if (group[0] && group[0].author !== msg.author) return copyAndDelete(msg);
+        else group.push(msg);
+      } else if (msg.author !== chat[i - 1]?.author && group[0]) return copyAndDelete(msg);
+      // else if (group[0] && group[0].author === msg.author) {
+      //   group.push(msg);
+      //   return copyAndDelete();
+      // } else return copyAndDelete(msg);
     })
     .filter((msgBlock) => Array.isArray(msgBlock) && msgBlock.length >= 1)
-    .concat([msgChain]);
+    .concat([group]);
 }

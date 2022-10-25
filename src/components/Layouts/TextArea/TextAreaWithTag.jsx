@@ -28,7 +28,6 @@ function TextAreaWithTag({
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       submitHandler();
-      // submitHandler(text, tags);
       setText('');
     }
   }
@@ -36,7 +35,6 @@ function TextAreaWithTag({
   function submitBtnHandler(e) {
     e.preventDefault();
     submitHandler();
-    // submitHandler(text, tags);
     setText('');
   }
 

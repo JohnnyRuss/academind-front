@@ -4,7 +4,14 @@ import TextareaAutosize from 'react-textarea-autosize';
 import styles from './components/styles/textArea.module.scss';
 import { SendIcon } from '../Icons/icons';
 
-function TextArea({ handler = (text) => {}, className, placeholder, focus, defaultValue }) {
+function TextArea({
+  handler = (text) => {},
+  className,
+  placeholder,
+  focus,
+  defaultValue,
+  withBtn = true,
+}) {
   const [text, setText] = useState('');
 
   function textAreaSubmit(e) {
@@ -39,9 +46,11 @@ function TextArea({ handler = (text) => {}, className, placeholder, focus, defau
           onKeyDown={textAreaSubmit}
           className={`${styles.textArea} ${className}`}
         />
-        <button className={styles.textAreaBtn} type='submit'>
-          <SendIcon />
-        </button>
+        {withBtn && (
+          <button className={styles.textAreaBtn} type='submit'>
+            <SendIcon />
+          </button>
+        )}
       </div>
     </form>
   );
