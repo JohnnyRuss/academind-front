@@ -33,7 +33,7 @@ function TextArea({
   }, [defaultValue]);
 
   return (
-    <form className={styles.textAreaForm} onSubmit={submitHandler}>
+    <form className={styles.textAreaForm} onSubmit={submitHandler} data-text-area-form-box>
       <div className={styles.fields}>
         <TextareaAutosize
           id='test'

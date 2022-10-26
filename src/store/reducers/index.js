@@ -10,6 +10,7 @@ import { aboutReducer } from './aboutReducer';
 import { createPostReducer } from './createPostReducer';
 import { portalReducer } from './portalReducer';
 import { friendsReducer } from './friendsReducer';
+import { conversationReducer } from './conversationReducer';
 
 const persistedActvieUserConfig = {
   key: 'ActiveUser',
@@ -29,4 +30,5 @@ export const rootReducer = combineReducers({
   createPost: createPostReducer,
   portal: portalReducer,
   friends: friendsReducer,
+  conversation: conversationReducer,
 });

@@ -1,52 +1,43 @@
-import { useEffect, useRef, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectUserId } from '../../store/selectors/userSelectors';
+import { selectActiveConversation } from '../../store/selectors/conversationSelectors';
 import { groupMessages } from '../../lib/groupMessages';
 import { fixLineBreaks } from '../../functions';
 
 import styles from './components/styles/feed.module.scss';
-import Message from './components/Message';
-import { Avatar } from '../Interface';
+import FeedHeader from './components/FeedHeader';
+import FeedMessagesList from './components/FeedMessagesList';
+import { Spinner } from '../Interface';
 import { TextArea } from '../Layouts';
 
-function Feed({ conversation }) {
+function Feed() {
   const { id } = useSelector(selectUserId);
-  const { conversationId } = useParams();
+
+  const {
+    conversation,
+    loadingState: { loading },
+  } = useSelector(selectActiveConversation);
+
   const groupedMessages = groupMessages(conversation.messages);
 
   const adressat = useMemo(() => {
-    return conversation.users.find((user) => user._id !== id);
+    return conversation.users?.find((user) => user._id !== id);
   }, [conversation.users, id]);
-
-  const chatRef = useRef();
-
-  useEffect(() => {
-    chatRef.current.scrollTop = chatRef.current.scrollHeight;
-  }, [conversationId]);
 
   function handleMessage(text) {
     const val = fixLineBreaks(text);
-    console.log(val)
+    console.log(val);
   }
 
   return (
     <div className={styles.messangerFeedContainer}>
-      <div className={styles.feedHeadingBox}>
-        <Avatar img={adressat.profileImg} />
-        <p className={styles.feedAuthor}>{adressat.userName}</p>
-      </div>
-      <div ref={chatRef} className={styles.feedContentBox}>
-        {/* {groupedMessages.map((msgGroup, i) => (
-          <Message
-            key={`message ${i}`}
-            msgGroup={msgGroup}
-            activeUserId={id}
-            adressatImage={adressat.profileImg}
-          />
-        ))} */}
-      </div>
+      {loading && <Spinner />}
+      <FeedHeader adressat={adressat} />
+      {!loading && Object.values(conversation)[0] && (
+        <FeedMessagesList groupedMessages={groupedMessages} adressat={adressat} activeUserId={id} />
+      )}
       <TextArea withBtn={false} placeholder='Aa' handler={handleMessage} />
     </div>
   );

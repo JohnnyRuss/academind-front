@@ -1,9 +1,17 @@
+import { useParams, Link } from 'react-router-dom';
+
 import styles from './styles/conversation.module.scss';
 import { Avatar, TimeAgo } from '../../Interface';
 
-function Conversation({ author, lastMessage }) {
+function Conversation({ author, lastMessage, conversationId }) {
+  const { id } = useParams();
+
   return (
-    <div className={styles.conversationBox}>
+    <Link
+      to={conversationId}
+      className={`${styles.conversationBox} ${
+        conversationId === id && styles.activeConversationBox
+      }`}>
       <Avatar img={author.profileImg} />
       <div className={styles.infoBox}>
         <p className={styles.conversationAuthor}>{author.userName}</p>
@@ -12,7 +20,7 @@ function Conversation({ author, lastMessage }) {
           <TimeAgo className={styles.conversationDate} date={lastMessage.createdAt} />
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

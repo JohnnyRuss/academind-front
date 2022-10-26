@@ -21,10 +21,11 @@ export function groupMessages(messages) {
         if (group[0] && group[0].author !== msg.author) return copyAndDelete(msg);
         else group.push(msg);
       } else if (msg.author !== chat[i - 1]?.author && group[0]) return copyAndDelete(msg);
+      else return copyAndDelete(msg);
       // else if (group[0] && group[0].author === msg.author) {
       //   group.push(msg);
       //   return copyAndDelete();
-      // } else return copyAndDelete(msg);
+      // }
     })
     .filter((msgBlock) => Array.isArray(msgBlock) && msgBlock.length >= 1)
     .concat([group]);
