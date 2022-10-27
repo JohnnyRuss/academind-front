@@ -4,18 +4,21 @@ import {
   getAllConversations,
   getLastConversation,
   getConversation,
+  deleteConversation,
 } from '../../reducers/conversationReducer';
 
 import {
   getAllConversationsHandler,
   getConversationHandler,
   getLastConversationHandler,
+  deleteConversationHandler,
 } from '../handlers/conversationHandlers';
 
 function* converastionSaga() {
   yield takeLatest(getAllConversations, getAllConversationsHandler);
   yield takeLatest(getLastConversation, getLastConversationHandler);
   yield takeLatest(getConversation, getConversationHandler);
+  yield takeLatest(deleteConversation, deleteConversationHandler);
 }
 
 export default converastionSaga;

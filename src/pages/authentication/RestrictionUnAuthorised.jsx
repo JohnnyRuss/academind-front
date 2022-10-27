@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { socket } from '../../store/socket';
 
 import { useAuthValidation } from '../../hooks';
 

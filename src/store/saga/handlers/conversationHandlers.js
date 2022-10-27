@@ -1,11 +1,16 @@
 import { call, put } from 'redux-saga/effects';
 
-import { setAllConversations, setActiveConversation } from '../../reducers/conversationReducer';
+import {
+  setAllConversations,
+  setActiveConversation,
+  setDeletedConversation,
+} from '../../reducers/conversationReducer';
 
 import {
   queryGetAllConversations,
   queryGetLastConversation,
   queryGetConversation,
+  queryDeleteConversation,
 } from '../api/conversationQueries';
 
 export function* getAllConversationsHandler({ payload: userId }) {
@@ -30,6 +35,15 @@ export function* getConversationHandler({ payload: conversationId }) {
   try {
     const { data } = yield call(queryGetConversation, conversationId);
     yield put(setActiveConversation(data));
+  } catch (error) {
+    showError(error, 'getConversationHandler');
+  }
+}
+
+export function* deleteConversationHandler({ payload: conversationId }) {
+  try {
+    yield call(queryDeleteConversation, conversationId);
+    yield put(setDeletedConversation(conversationId));
   } catch (error) {
     showError(error, 'getConversationHandler');
   }

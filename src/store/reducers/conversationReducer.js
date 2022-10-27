@@ -31,6 +31,17 @@ const conversationSlice = createSlice({
       state.activeConversation = payload;
       updateLoadingState({ state, key: 'loadingState', loading: false });
     },
+
+    deleteConversation(state) {},
+
+    setDeletedConversation(state, { payload }) {
+      state.allConversations = state.allConversations.filter((conv) => conv._id !== payload);
+    },
+
+    resetConversation(state) {
+      state.activeConversation = {};
+      state.allConversations = [];
+    },
   },
 });
 
@@ -41,4 +52,7 @@ export const {
   getLastConversation,
   getConversation,
   setActiveConversation,
+  deleteConversation,
+  setDeletedConversation,
+  resetConversation,
 } = conversationSlice.actions;

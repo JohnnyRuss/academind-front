@@ -1,4 +1,6 @@
+import { useNavigate } from 'react-router-dom';
 import { useFriendsQuery } from '../../../hooks';
+import { axiosQuery } from '../../../store/axiosConfig';
 
 import styles from './styles/friendShip.module.scss';
 import {
@@ -11,6 +13,8 @@ import {
 } from '../../Layouts';
 
 function FriendShip({ friendShip, profileId, setFriendShip }) {
+  const navigate = useNavigate();
+
   const {
     sendFriendRequestHandler,
     cancelFriendRequestHandler,
@@ -18,6 +22,15 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
     confirmFriendRequestHandler,
     deleteFriendHandler,
   } = useFriendsQuery();
+
+  async function handleConversation() {
+    try {
+      const { data } = await axiosQuery.post(`/conversation/${profileId}`);
+      navigate(`/messanger/${data.conversationId}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={styles.friendShipBTNBox}>
@@ -61,7 +74,7 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
           }}
         />
       )}
-      <SendMessageBTN />
+      <SendMessageBTN onClick={handleConversation} />
     </div>
   );
 }

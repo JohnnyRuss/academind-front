@@ -1,15 +1,17 @@
 import { axiosQuery } from '../../axiosConfig';
 
-async function queryGetAllConversations(userId) {
+export async function queryGetAllConversations(userId) {
   return await axiosQuery(`/conversation/${userId}/all`);
 }
 
-async function queryGetLastConversation(userId) {
+export async function queryGetLastConversation(userId) {
   return await axiosQuery(`/conversation/${userId}/last`);
 }
 
-async function queryGetConversation(conversationId) {
+export async function queryGetConversation(conversationId) {
   return await axiosQuery(`/conversation/${conversationId}`);
 }
 
-export { queryGetAllConversations, queryGetLastConversation, queryGetConversation };
+export async function queryDeleteConversation(conversationId) {
+  return await axiosQuery.delete(`/conversation/${conversationId}`);
+}

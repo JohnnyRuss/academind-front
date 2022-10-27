@@ -16,8 +16,8 @@ function Conversation({ author, lastMessage, conversationId }) {
       <div className={styles.infoBox}>
         <p className={styles.conversationAuthor}>{author.userName}</p>
         <div className={styles.miniBox}>
-          <p className={styles.conversationLastMessage}>{lastMessage.message}</p>
-          <TimeAgo className={styles.conversationDate} date={lastMessage.createdAt} />
+          <p className={styles.conversationLastMessage}>{lastMessage?.message}</p>
+          <TimeAgo className={styles.conversationDate} date={lastMessage?.createdAt} />
         </div>
       </div>
     </Link>

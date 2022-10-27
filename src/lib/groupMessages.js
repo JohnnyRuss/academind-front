@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 export function groupMessages(messages) {
-  if (!messages) return;
+  if (!messages || !messages[0]) return [];
 
   let group = [];
   let groupedChat = [];
