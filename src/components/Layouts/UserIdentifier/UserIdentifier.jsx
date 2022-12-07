@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import styles from './userIdentifier.module.scss';
-import { TimeAgo, Avatar } from '../../Interface';
-import { Audience } from '../';
+import styles from "./userIdentifier.module.scss";
+import { TimeAgo, Avatar } from "../../Interface";
+import { Audience, TimeAgoAndAudience } from "../";
 
 /**
  * shows user image||avatar, userName and timeAgo Text
@@ -15,8 +15,8 @@ import { Audience } from '../';
  */
 function UserIdentifier({
   userId,
-  userName = 'userName',
-  img = '/img/avatar.png',
+  userName = "userName",
+  img = "/img/avatar.png",
   withTime = true,
   timeAgo,
   audience,
@@ -24,21 +24,22 @@ function UserIdentifier({
   className,
 }) {
   return (
-    <div className={`${styles.userIdentifierRe} ${className || ''}`} data-user-identifier>
+    <div
+      className={`${styles.userIdentifierRe} ${className || ""}`}
+      data-user-identifier
+    >
       <Avatar img={img} />
       <Link
         to={`/profile/${userId}/posts`}
         className={styles.identifierUserName}
-        data-identifier-username>
+        data-identifier-username
+      >
         {userName}
       </Link>
-      {withTime && (
-        <div className={styles.timeAndAudience}>
-          <TimeAgo date={timeAgo} className={styles.dateTimeAgo} />
-          <Audience audience={audience} />
-        </div>
-      )}
-      <span className={styles.childBox} data-identifier-child>{children}</span>
+      {withTime && <TimeAgoAndAudience audience={audience} timeAgo={timeAgo} />}
+      <span className={styles.childBox} data-identifier-child>
+        {children}
+      </span>
     </div>
   );
 }

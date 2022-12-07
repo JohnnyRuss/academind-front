@@ -1,0 +1,68 @@
+@use "../abstract/functions" as *;
+@use "../variables/variables" as *;
+
+/* ======================== */
+/* ===== Nav Desktop ===== */
+/* ====================== */
+
+// NavBox
+$nav-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
+$nav-height: 6rem;
+$nav-bg: color("blueColor");
+$nav-txt-color: $txt-light;
+
+// NavList
+$nav-list-gap: 1rem;
+
+// NavActions
+$nav-actions-gap: 2rem;
+$nav-actions-pad: 1rem;
+$nav-actions-svg-fs: size("bigSize");
+
+// NavSearchBar
+$nav-searchbar-window-z: -1;
+$nav-searchbar-window-top: -4rem;
+$nav-searchbar-window-w: 100%;
+$nav-searchbar-window-h: 30rem;
+$nav-searchbar-window-bg: $bg-light;
+$nav-searchbar-window-color: $txt-dark;
+$nav-searchbar-window-shadow: 0 1rem 3rem 0 rgba(0, 0, 0, 0.3);
+
+$nav-searchbar-window-result-z: 2;
+$nav-searchbar-window-result-top: 8rem;
+$nav-searchbar-window-result-w: 100%;
+$nav-searchbar-window-result-max-h: calc(
+  100% - $nav-searchbar-window-result-top
+);
+$nav-searchbar-window-result-gap: 0.8rem;
+$nav-searchbar-window-result-pad: 0 1rem 1rem 1rem;
+$nav-searchbar-window-result-item-gap: 1rem;
+
+// NavAvatar
+$nav-avatar-modal-w: 15rem;
+$nav-avatar-modal-right: -2rem;
+$nav-avatar-modal-top: 5.3rem;
+$nav-avatar-modal-pad: 0.5rem;
+$nav-avatar-modal-color: $txt-dark;
+$nav-avatar-modal-bg: $bg-light;
+$nav-avatar-modal-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+$nav-avatar-modal-radius: 0.35rem;
+
+/* ======================= */
+/* ===== Nav Mobile ===== */
+/* ===================== */
+
+// NavList
+$nav-list-bg-m: $bg-light;
+$nav-list-color-m: $txt-dark;
+$nav-list-w-m: 20rem;
+$nav-list-top-m: 6rem;
+$nav-list-right-m: 0;
+$nav-list-pad-m: 1rem;
+
+// NavSearchBar
+$nav-searchbar-h-m: 2rem;
+
+// NavActions
+$nav-actions-gap-m: 1.5rem;
+$nav-actions-svg-fs-m: size("regullarSize");

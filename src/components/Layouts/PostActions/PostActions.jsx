@@ -4,7 +4,7 @@ import { selectUserId } from '../../../store/selectors/userSelectors';
 import { usePostQuery, usePost } from '../../../hooks';
 import { destructurePostShareData } from '../../../lib/destructurers';
 
-import styles from './components/styles/postActions.module.scss';
+import styles from './components/postActions.module.scss';
 import { ReactionBTN, CommentBTN, ShareBTN } from './components';
 
 /**

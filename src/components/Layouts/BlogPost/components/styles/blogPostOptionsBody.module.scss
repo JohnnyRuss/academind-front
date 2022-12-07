@@ -1,28 +1,12 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/blog-post" as *;
+@use "../../../../../styles/helpers/components/layouts/modalWindowSm" as *;
 
 .blogPostOptionsList {
   position: absolute;
-  right: 0;
-  top: 2rem;
-  background: color(whiteColor);
-  @include boxShadowBlack(0, 1rem, 0.3);
-  width: 13rem;
-  min-height: 3rem;
-  padding: 0.5rem;
-  @include flexBox(column);
-  @include flexProperty(center, flex-start);
-  gap: 0.5rem;
-  text-transform: capitalize;
-  font-size: size(regullarSize);
-  animation: moveTop 0.15s;
+  right: $blog-post-options-list-right;
+  top: $blog-post-options-list-top;
+  width: $blog-post-options-list-w;
+  min-height: $blog-post-options-list-min-h;
 
-  button {
-    @include flexBox;
-    @include flexProperty(flex-start, center);
-    gap: 0.25rem;
-
-    & svg {
-      font-size: size(bigSize);
-    }
-  }
+  @include modalWindowSm;
 }

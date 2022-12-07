@@ -1,7 +1,6 @@
 @use './helpers/abstract/functions' as *;
-@use './helpers/components/media' as *;
-@use './helpers/components/components' as *;
-@use 'sass:meta';
+@use './helpers/abstract/media' as *;
+@use './helpers/abstract/components' as *;
 
 *,
 *::before,
@@ -14,14 +13,6 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
-
-  @include respond(tab-landscape) {
-    font-size: 56.25% !important; // 1rem == 9px
-  }
-
-  @include respond(tab-portrate) {
-    font-size: 50%; // 1rem == 8px
-  }
 
   @include respond(large-desktop) {
     font-size: 75%; // 1rem == 12px

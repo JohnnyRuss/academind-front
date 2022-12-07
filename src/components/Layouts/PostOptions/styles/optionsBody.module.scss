@@ -1,4 +1,6 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/abstract/functions" as *;
+@use "../../../../styles/helpers/abstract/animation" as *;
+@use "../../../../styles/helpers/components/layouts/modalWindowSm" as *;
 
 .postOptionsModal {
   position: absolute;
@@ -7,41 +9,10 @@
   top: 3rem;
   min-height: 6rem;
   min-width: 20rem;
-  animation: moveTop 0.2s;
-  @include flexBox(column);
-  @include flexProperty(flex-start, flex-start);
-  gap: 0.5rem;
-  padding: 1rem;
-  font-size: size('regullarSize');
-  text-transform: capitalize;
-  color: color('darkLightGreyColor');
-  background: color('whiteColor');
-  @include boxShadowBlack(0.25rem, 0.5rem, 0.25);
+  @include modalWindowSm;
 
-  %hover {
-    & {
-      transition: all 0.2s ease-out;
-
-      &:hover {
-        color: color('blackColor');
-      }
-    }
-  }
-
-  .postOptBtn {
-    width: 100%;
-    @include flexBox;
-    @include flexProperty(flex-start, center);
-    gap: 0.5rem;
-    @extend %hover;
-
-    &.postOptBtnDelete:hover {
-      color: color('redColor');
-    }
-  }
-
-  & svg {
-    font-size: size('bigSize');
+  .postOptBtnDelete:hover {
+    color: color("redColor");
   }
 
   & span {
@@ -50,21 +21,17 @@
   }
 
   .bookmark svg {
-    font-size: size('regullarSize');
+    font-size: size("regullarSize");
   }
 
   .audienceBox {
     width: 100%;
-    @include flexBox(column);
-    @include flexProperty(center, flex-start);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 
     .audienceMainBtn {
-      width: 100%;
-      @include flexBox;
-      @include flexProperty(flex-start, center);
-      gap: 0.5rem;
-      @extend %hover;
-
       .arrowIndicator {
         margin-left: auto;
         transition: all 0.2s;
@@ -78,18 +45,12 @@
     .audienceOptionsList {
       width: 85%;
       align-self: flex-end;
-      @include flexBox(column);
-      @include flexProperty(center, flex-start);
-      gap: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: $modal-list-gap;
       @include moveBottom(0.2s);
-
-      & button {
-        @include flexBox;
-        @include flexProperty(flex-start, center);
-        gap: 0.5rem;
-        width: 100%;
-        @extend %hover;
-      }
     }
   }
 }

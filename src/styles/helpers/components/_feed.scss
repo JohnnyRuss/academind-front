@@ -1,0 +1,21 @@
+@use "../variables/variables" as *;
+
+/* ==========================*/
+/* ===== Feed Desktop ===== */
+/* ======================= */
+$feed-pad-top: 4rem;
+$feed-gap: 1rem;
+$feed-scroll-gap: 4rem;
+$feed-scroll-pad-top: 3rem;
+
+/* ======================== */
+/* ===== Feed Tablet ===== */
+/* ====================== */
+$feed-content-w-t: $post-w-def; // CreatePost and Post components by default on tab breakpoint gets 100% width value but on feed we need keep width on 60rem
+
+/* ======================== */
+/* ===== Feed Mobile ===== */
+/* ====================== */
+$feed-scroll-gap-mobile: 3rem;
+$feed-gap-m: 4rem;
+$feed-pad-m: 3rem 2rem 0 2rem;

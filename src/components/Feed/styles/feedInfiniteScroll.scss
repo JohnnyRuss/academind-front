@@ -1,4 +1,4 @@
-@use "../../../styles/helpers/helpers" as *;
+@use "../../../styles/helpers/abstract/media" as *;
 
 .infinite-scroll-component__outerdiv {
   @include respond(phone){

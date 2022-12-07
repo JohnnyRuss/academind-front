@@ -1,0 +1,32 @@
+@use "../../../../styles/helpers/components/layouts/postActions" as *;
+
+.postActions {
+  display: flex;
+  gap: $post-actions-gap;
+  border-top: $post-actions-border-t;
+  padding: $post-actions-pad;
+
+  & button a,
+  & button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: $post-actions-btn-gap;
+  }
+
+  & button span {
+    font-size: $post-actions-btn-fs;
+  }
+
+  & button svg {
+    font-size: $post-actions-btn-svg-fs;
+  }
+
+  & button:nth-child(3) {
+    margin-left: auto;
+  }
+
+  [data-user-liked] svg {
+    color: $post-actions-reacted-btn-color;
+  }
+}

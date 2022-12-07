@@ -1,21 +1,23 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/navigation" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .mainNavActions {
   flex: 3;
-  @include flexBox;
-  @include flexProperty(flex-end, center);
-  gap: 2rem;
-  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: $nav-actions-gap;
+  padding: $nav-actions-pad;
 
   @include respond(phone) {
-    gap: 1.5rem;
+    gap: $nav-actions-gap-m;
   }
 
   & svg {
-    font-size: size('bigSize');
+    font-size: $nav-actions-svg-fs;
 
     @include respond(phone-small) {
-      font-size: size('regullarSize');
+      font-size: $nav-actions-svg-fs-m;
     }
   }
 

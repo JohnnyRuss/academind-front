@@ -1,4 +1,4 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use '../../../../styles/helpers/components/navigation' as *;
 
 .navAvatarBox {
   position: relative;
@@ -6,24 +6,15 @@
 
   .navAvatarModal {
     position: absolute;
-    width: 15rem;
-    right: -2rem;
-    top: 5.3rem;
-    padding: 0.5rem;
-    color: color(darkGreyColor);
-    background: color(whiteColor);
-    @include boxShadowBlack(0, 1rem, 0.2);
+    width: $nav-avatar-modal-w;
+    right: $nav-avatar-modal-right;
+    top: $nav-avatar-modal-top;
+    padding: $nav-avatar-modal-pad;
+    color: $nav-avatar-modal-color;
+    background: $nav-avatar-modal-bg;
+    box-shadow: $nav-avatar-modal-shadow;
     animation: moveTop 0.2s;
     text-transform: capitalize;
-  }
-
-  & a {
-    @include flexBox;
-    @include flexProperty(flex-start, center);
-    gap: 0.5rem;
-  }
-
-  & svg {
-    font-size: size(smallSize);
+    border-bottom-left-radius: $nav-avatar-modal-radius;
   }
 }

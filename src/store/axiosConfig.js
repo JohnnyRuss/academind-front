@@ -32,10 +32,10 @@ export const axiosQuery = axios.create({
 export const axiosFormDataQuery = axios.create({
   baseURL: process.env.REACT_APP_API_END_POINT,
   withCredentials: true,
-  // headers: {
-  //   Authorization: `Bearer ${getJWT()}`,
-  //   'content-type': 'multipart/form-data',
-  // },
+  headers: {
+    // Authorization: `Bearer ${getJWT()}`,
+    'content-type': 'multipart/form-data',
+  },
 });
 
 let refreshTokenPromise;

@@ -1,0 +1,41 @@
+@use "../abstract/functions" as *;
+@use "../variables/variables" as *;
+
+// PostBox
+$post-w: $post-w-def;
+$post-pad: 1rem;
+$post-radius: $rounded-sm-on-lg;
+$post-bg: $bg-light;
+$post-shadow: $post-shadow-def;
+
+// Post User Identifier
+$post-identifier-fig-dimention: $identifier-fig-lg;
+
+// Post Description
+$post-desc-fs: $txt-base-sm;
+$post-desc-color: $txt-dark;
+$post-desc-mar: 1rem 0 0.5rem 0.75rem;
+
+// Post Media
+$post-media-order: -1;
+$post-media-multy-layover-fs: $txt-big;
+$post-media-radius: $rounded-sm-on-lg;
+$post-media-multy-layover-radius: $rounded-sm-on-lg;
+$post-media-multy-layover-bg: rgba(0, 0, 0, 0.6);
+$post-media-multy-layover-color: $txt-light;
+
+//  Shared Post Authentic Result
+$shared-auth-post-gap: 1rem;
+$shared-auth-post-mar: 0.5rem 1.5rem 1rem 1.5rem;
+$shared-auth-post-pad: 0.5rem 1rem 0.5rem 1rem;
+$shared-auth-post-radius: 0.3rem;
+$shared-auth-post-bg: $bg-dark-light;
+$shared-auth-post-media-order: -1;
+$shared-auth-post-identifier-fs: $txt-thumbnail;
+$shared-auth-post-identifier-fig-dimention: $identifier-fig-md;
+$shared-auth-post-desc-fs: $txt-thumbnail;
+
+// Shared Blog Post
+$shared-blog-post-fig-ratio: 2/1;
+$shared-blog-post-title-fs: $txt-base;
+$shared-blog-post-fs: $txt-thumbnail;

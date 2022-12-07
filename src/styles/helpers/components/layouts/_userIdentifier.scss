@@ -1,0 +1,6 @@
+@use "../../abstract/functions" as *;
+@use "../../variables/variables" as *;
+
+$identifier-color: $txt-dark;
+$identifier-fw: weight("boldWeight");
+$identifier-fs: $txt-base-sm;

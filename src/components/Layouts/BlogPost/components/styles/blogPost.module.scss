@@ -1,46 +1,46 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/helpers" as *;
+@use "../../../../../styles/helpers/components/blog-post" as *;
 
 .blogPost {
   position: relative;
-  border: 1px solid color('darkLightGreyColor');
-  background: color('whiteColor');
+  border: $blog-post-border;
+  border-radius: $blog-post-border-radius;
+  background: $blog-post-bg;
+  box-shadow: $blog-post-shadow;
 
   .blogPostMedia {
-    width: 100%;
-    aspect-ratio: 3/1;
-    margin: 0 1rem 0 0;
+    width: $blog-post-media-w;
+    aspect-ratio: $blog-post-media-ratio;
+    margin: $blog-post-media-mar;
     overflow: hidden;
 
     & img {
-      @include fitImage;
+      width: 100%;
+      height: 100%;
+      object-position: center;
+      object-fit: cover;
     }
   }
 
   .blogPostInfo {
     flex: 5;
-    padding: 1rem;
+    padding: $blog-post-info-pad;
   }
 
   .blogPostShortDesc {
-    margin-top: 1rem;
-    font-size: size('smallSize');
-    @include hyphens;
-    color: color('darkGreyColor');
-  }
-
-  .showMoreBtn {
-    display: inline;
-    background: color('whiteShadeColor');
-    padding: 0 0.5rem;
-    border-radius: 1rem;
-    font-weight: weight('mediumWeight');
-    font-size: inherit;
-    margin-left: 0.25rem;
+    margin-top: $blog-post-desc-mt;
+    font-size: $blog-post-desc-fs;
+    color: $blog-post-desc-color;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
   }
 
   .devideRow {
-    @include flexBox;
-    @include flexProperty(space-between, flex-start);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     flex-wrap: wrap;
   }
 }

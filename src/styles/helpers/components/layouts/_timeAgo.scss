@@ -1,0 +1,6 @@
+@use "../../abstract/functions" as *;
+@use "../../variables/variables" as *;
+
+$time-ago-fs: $txt-thumbnail-sm;
+$time-ago-fw: weight("thinWeight");
+$time-ago-color: $txt-gray;

@@ -1,32 +1,35 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/helpers" as *;
+@use "../../../../styles/helpers/components/navigation" as *;
 
 .searchWindow {
   position: absolute;
-  z-index: -1;
-  top: -4rem;
-  width: 100%;
-  height: 30rem;
-  background: color(whiteColor);
-  color: color(darkGreyColor);
-  @include boxShadowBlack(1rem, 3rem, 0.3);
+  z-index: $nav-searchbar-window-z;
+  top: $nav-searchbar-window-top;
+  width: $nav-searchbar-window-w;
+  height: $nav-searchbar-window-h;
+  background: $nav-searchbar-window-bg;
+  color: $nav-searchbar-window-color;
+  box-shadow: $nav-searchbar-window-shadow;
   text-transform: capitalize;
 
   .resultsList {
     position: absolute;
-    z-index: 2;
-    top: 8rem;
-    width: 100%;
-    max-height: calc(100% - 8rem);
+    z-index: $nav-searchbar-window-result-z;
+    top: $nav-searchbar-window-result-top;
+    width: $nav-searchbar-window-result-w;
+    max-height: $nav-searchbar-window-result-max-h;
     overflow: auto;
-    @include scrollBar('&');
-    @include flexBox(column);
-    gap: 0.8rem;
-    padding: 0 1rem 1rem 1rem;
+    @include scrollBar("&");
+    display: flex;
+    flex-direction: column;
+    gap: $nav-searchbar-window-result-gap;
+    padding: $nav-searchbar-window-result-pad;
 
     &Item {
-      @include flexBox;
-      @include flexProperty(flex-start, center);
-      gap: 1rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: $nav-searchbar-window-result-item-gap;
     }
   }
 }

@@ -1,0 +1,10 @@
+@use "../../abstract/functions" as *;
+@use "../../variables/variables" as *;
+
+$post-actions-border-t: 1px solid color("blackColor");
+$post-actions-gap: 1rem;
+$post-actions-pad: 1rem 0.5rem 0;
+$post-actions-btn-gap: 0.4rem;
+$post-actions-btn-fs: $txt-base-sm;
+$post-actions-btn-svg-fs: $txt-big;
+$post-actions-reacted-btn-color: color("blueColor");
