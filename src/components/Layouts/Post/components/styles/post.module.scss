@@ -1,14 +1,16 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/abstract//media" as *;
+@use "../../../../../styles/helpers/components/post" as *;
 
 .post {
   position: relative;
-  width: 60rem;
+  width: $post-w;
   margin: 0 auto;
-  @include flexBox(column);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  background: color('whiteColor');
-  @include boxShadowBlack(0, 1rem, 0.2);
+  display: flex;
+  flex-direction: column;
+  padding: $post-pad;
+  border-radius: $post-radius;
+  background: $post-bg;
+  box-shadow: $post-shadow;
 
   @include respond(tab-portrate) {
     width: 100%;

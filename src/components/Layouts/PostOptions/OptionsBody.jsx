@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { useSavePostQuery, usePostQuery } from '../../../hooks';
+import { useSavePostQuery, usePostQuery } from "../../../hooks";
 
-import styles from './styles/optionsBody.module.scss';
-import ActiveUserRelated from './ActiveUserRelated';
-import { Spinner } from '../../Interface';
+import styles from "./styles/optionsBody.module.scss";
+import ActiveUserRelated from "./ActiveUserRelated";
+import { Spinner } from "../../Interface";
 import {
   BookmarkFillIcon,
   BookmarkOutlineIcon,
   ErrorIcon,
   RemoveIcon,
   HideIcon,
-} from '../Icons/icons';
+} from "../Icons/icons";
 
 function OptionsBody({
   postId,
@@ -38,7 +38,11 @@ function OptionsBody({
       {loading && <Spinner />}
       {!loading && (
         <>
-          <button className={`${styles.postOptBtn} ${styles.bookmark}`} onClick={handleSavePost}>
+          <button
+            className={`${styles.postOptBtn} ${styles.bookmark}`}
+            onClick={handleSavePost}
+            data-modal-sm-btn
+          >
             {optionsRules?.isBookmarked && <BookmarkFillIcon />}
             {!optionsRules?.isBookmarked && <BookmarkOutlineIcon />}
             <span>save</span>
@@ -55,19 +59,28 @@ function OptionsBody({
             />
           )}
           {optionsRules?.isTagged && (
-            <button className={styles.postOptBtn} onClick={removeTagHandler}>
+            <button
+              className={styles.postOptBtn}
+              onClick={removeTagHandler}
+              data-modal-sm-btn
+            >
               <RemoveIcon />
               <span>remove tag</span>
             </button>
           )}
           {!isBlogPostOptions &&
-            (optionsRules?.belongsToUserAndIsVisible || optionsRules?.isTaggedAndIsVisible) && (
-              <button className={styles.postOptBtn} onClick={hideFromProfileHandler}>
+            (optionsRules?.belongsToUserAndIsVisible ||
+              optionsRules?.isTaggedAndIsVisible) && (
+              <button
+                className={styles.postOptBtn}
+                onClick={hideFromProfileHandler}
+                data-modal-sm-btn
+              >
                 <HideIcon />
                 <span>hide from profile</span>
               </button>
             )}
-          <button className={styles.postOptBtn}>
+          <button className={styles.postOptBtn} data-modal-sm-btn>
             <ErrorIcon />
             <span>report</span>
           </button>

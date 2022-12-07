@@ -1,0 +1,8 @@
+@use "../../abstract/functions" as *;
+@use "../../variables/variables" as *;
+
+$blog-post-show-more-btn-bg: $bg-dark-light;
+$blog-post-show-more-btn-fw: weight("mediumWeight");
+$blog-post-show-more-btn-pad: 0 0.5rem;
+$blog-post-show-more-btn-radius: 1rem;
+$blog-post-show-more-btn-ml: 0.25rem;

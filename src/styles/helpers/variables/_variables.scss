@@ -1,2 +1,29 @@
+@use "../abstract/functions" as *;
+
 $container-width: 1140px;
 $message-fade-color: rgba(164, 174, 186, 0.8);
+
+$post-w-def: 60rem;
+$post-shadow-def: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+
+// Base Colors
+$txt-dark: color-U("txt-dark");
+$txt-light: color-U("txt-light");
+$txt-gray: color-U("txt-gray");
+$bg-light: color-U("bg-light");
+$bg-dark-light: color-U("bg-dark-light");
+
+// Typography
+$txt-big: size("bigSize");
+$txt-base: size("regullarSize");
+$txt-base-sm: size("smallSize");
+$txt-thumbnail: size("smallerSize");
+$txt-thumbnail-sm: size("smallestSize");
+
+// Border-radius
+$rounded-sm-on-lg: 0.5rem;
+
+//Identifier fig
+$identifier-fig-lg: 4rem;
+$identifier-fig-md: 3.5rem;
+$identifier-fig-sm: 2rem;

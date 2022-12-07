@@ -1,7 +1,7 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/post" as *;
 
 .postDescription {
-  margin: 1rem 0 .5rem .75rem;
-  color: color('darkGreyColor');
-  font-size: size('smallSize');
+  margin: $post-desc-mar;
+  color: $post-desc-color;
+  font-size: $post-desc-fs;
 }

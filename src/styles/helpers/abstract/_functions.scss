@@ -6,6 +6,10 @@
   @return map-get($colors, $color);
 }
 
+@function color-U($color) {
+  @return map-get($utility-colors, $color);
+}
+
 @function size($size) {
   @return map-get($fontSize, $size);
 }

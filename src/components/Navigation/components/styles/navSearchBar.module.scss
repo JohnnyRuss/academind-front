@@ -1,14 +1,15 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/abstract/media" as *;
+@use "../../../../styles/helpers/components/navigation" as *;
 
 .mainNavSearch {
   position: relative;
   padding: 0 1rem;
-  @include flexBox;
-  @include flexProperty(center);
+  display: flex;
+  justify-content: center;
 
   &Bar {
     @include respond(phone-small) {
-      height: 2rem;
+      height: $nav-searchbar-h-m;
     }
   }
 }

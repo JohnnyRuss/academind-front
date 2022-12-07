@@ -1,12 +1,8 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/post" as *;
 
 .sharedPostHeaderIdentifier {
   & figure[data-img] {
-    width: 4rem;
-    height: 4rem;
-  }
-
-  & span[data-time-ago] {
-    font-size: size('smallestSize');
+    width: $post-identifier-fig-dimention;
+    height: $post-identifier-fig-dimention;
   }
 }

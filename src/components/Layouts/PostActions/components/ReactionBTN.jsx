@@ -1,12 +1,21 @@
-import styles from './styles/reactionBtn.module.scss';
-import { DislikeIcon, LikeIcon } from '../../Icons/icons';
+import { DislikeIcon, LikeIcon } from "../../Icons/icons";
 
-function ReactionBTN({ reactOnPostHandler, reactionsAmount, reaction, isUserInteracted }) {
+function ReactionBTN({
+  reactOnPostHandler,
+  reactionsAmount,
+  reaction,
+  isUserInteracted,
+}) {
+  const p =
+    isUserInteracted === reaction
+      ? { "data-user-liked": "data-user-interacted" }
+      : "";
   return (
     <button
+      {...p}
       data-reaction={reaction}
       onClick={reactOnPostHandler}
-      className={isUserInteracted === reaction ? styles.userLiked : ''}>
+    >
       {reaction ? <LikeIcon /> : <DislikeIcon />}
       <span>({reactionsAmount})</span>
     </button>

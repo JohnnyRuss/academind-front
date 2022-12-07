@@ -1,4 +1,4 @@
-@use '../abstract/functions' as *;
+@use './functions' as *;
 @use './animation' as *;
 
 @mixin scrollBar($element, $width: 1rem, $radius: 2rem, $blockStart: 0rem, $blockEnd: 0rem) {

@@ -1,20 +1,21 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/navigation" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .mainNavList {
   flex: 4;
-  @include flexBox;
-  gap: 1rem;
+  display: flex;
+  gap: $nav-list-gap;
   text-transform: uppercase;
 
   @include respond(tab-portrate) {
     position: absolute;
-    background: color('whiteColor');
-    color: color('darkGreyColor');
+    background: $nav-list-bg-m;
+    color: $nav-list-color-m;
     flex-direction: column;
-    width: 20rem;
-    top: 6rem;
-    right: 0;
-    padding: 1rem;
+    width: $nav-list-w-m;
+    top: $nav-list-top-m;
+    right: $nav-list-right-m;
+    padding: $nav-list-pad-m;
     visibility: hidden;
   }
 }

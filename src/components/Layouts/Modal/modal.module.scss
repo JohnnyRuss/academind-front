@@ -1,4 +1,4 @@
-@use '../../../styles/helpers/helpers' as *;
+@use "../../../styles/helpers/helpers" as *;
 
 .modalContent {
   .modalCloseBtn {
@@ -6,6 +6,10 @@
     z-index: 999;
     top: 1rem;
     right: 1rem;
-    font-size: size('largeSize');
+    font-size: size("largeSize");
+  }
+
+  .modalCloseBtn svg {
+    color: color("whiteColor");
   }
 }

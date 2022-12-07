@@ -1,0 +1,29 @@
+@use "../abstract/functions" as *;
+@use "../variables/variables" as *;
+
+// Blog Post Box
+$blog-post-border: 1px solid color("darkLightGreyColor");
+$blog-post-border-radius: $rounded-sm-on-lg;
+$blog-post-bg: $bg-light;
+$blog-post-shadow: $post-shadow-def;
+
+// Blog Post Media
+$blog-post-media-w: 100%;
+$blog-post-media-ratio: 3/1;
+$blog-post-media-mar: 0 1rem 0 0;
+
+// Blog Post Info Box
+$blog-post-info-pad: 1rem;
+
+// Blog Post Description
+$blog-post-desc-mt: 1rem;
+$blog-post-desc-fs: $txt-base-sm;
+$blog-post-desc-color: $txt-dark;
+
+// Blog Post Options
+$blog-post-options-z: 1;
+$blog-post-options-btn-fs: size("bigSize");
+
+$blog-post-options-list-right: -1.5rem;
+$blog-post-options-list-top: 2rem;
+$blog-post-options-list-w: 15rem;

@@ -1,10 +1,10 @@
-import { usePost } from '../../hooks';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { usePost } from "../../hooks";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-import "./styles/feedInfiniteScroll.scss"
-import styles from './styles/feedContent.module.scss';
-import { Post, CreatePost, ScrollEnd } from '../Layouts';
-import { BlockSpinner } from '../Interface';
+import "./styles/feedInfiniteScroll.scss";
+import styles from "./styles/feedContent.module.scss";
+import { Post, CreatePost, ScrollEnd } from "../Layouts";
+import { BlockSpinner } from "../Interface";
 
 function FeedContent({ hasMore, handleNext, posts }) {
   const { activatePostMediaHandler, activateSharePostModal } = usePost();
@@ -19,8 +19,7 @@ function FeedContent({ hasMore, handleNext, posts }) {
         loader={<BlockSpinner />}
         endMessage={<ScrollEnd />}
         className={styles.feedInfiniteScroll}
-        
-        >
+      >
         {posts.map((post) => (
           <Post
             options={{ report: true, save: true }}

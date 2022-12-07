@@ -1,7 +1,5 @@
-@use '../../../styles/helpers/helpers' as *;
-
 .feedContainer {
-  @include flexBox;
+  display: flex;
   gap: 2rem;
   margin-top: 6rem;
 }

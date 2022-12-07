@@ -1,0 +1,15 @@
+@use "../../../styles/helpers/components/layouts/showMoreInlineBTN" as *;
+
+.showMoreBtn {
+  display: inline;
+  font-size: inherit;
+  padding: $blog-post-show-more-btn-pad;
+  margin-left: $blog-post-show-more-btn-ml;
+  font-weight: $blog-post-show-more-btn-fw;
+  border-radius: $blog-post-show-more-btn-radius;
+  background: $blog-post-show-more-btn-bg;
+
+  &.showMoreBtnTransparent {
+    background: none;
+  }
+}

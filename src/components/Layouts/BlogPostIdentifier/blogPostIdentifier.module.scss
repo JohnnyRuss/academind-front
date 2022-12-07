@@ -1,10 +1,10 @@
-@use '../../../styles/helpers/helpers' as *;
+@use "../../../styles/helpers/components/layouts/blogPostIdentifier" as *;
 
-.reviewUserDetails {
-  @include flexBox(column);
-  gap: 1rem;
+.reviewDetails {
+  display: flex;
+  flex-direction: column;
+  gap: $blog-post-review-gap;
   width: 100%;
-  color: color('darkGreyColor');
 
   .blogPostTitle {
     text-transform: capitalize;
@@ -13,19 +13,20 @@
 
     & h3 {
       width: max(40%, 100%);
-      font-size: size('largeSize');
-      font-weight: weight('boldWeight');
+      font-size: $blog-post-title-fs;
+      font-weight: $blog-post-title-fw;
     }
   }
 
   .publisher {
-    @include flexBox;
-    @include flexProperty(flex-start, center);
-    gap: 0.25rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: $blog-post-publisher-gap;
 
     .blogPostUserName {
-      font-weight: weight(mediumWeight);
-      font-size: size(smallerSize);
+      font-size: $blog-post-publisher-fs;
+      font-weight: $blog-post-publisher-fw;
       text-transform: capitalize;
 
       &:hover {
@@ -33,40 +34,30 @@
       }
     }
 
-    [data-img] {
-      max-width: 2rem;
-      max-height: 2rem;
-      border-radius: 50%;
-      overflow: hidden !important;
+    [data-tags] {
+      font-size: $blog-post-publisher-fs;
     }
 
-    [data-tags] {
-      font-size: size(smallerSize);
+    [data-img] {
+      max-width: $blog-post-publisher-fig-dimention;
+      max-height: $blog-post-publisher-fig-dimention;
+      border-radius: 50%;
+      overflow: hidden !important;
     }
   }
 
   .blogPostCategories {
-    @include flexBox;
-    @include flexProperty(flex-start, center);
-    gap: 0.5rem;
+    display: flex;
     flex-wrap: wrap;
-    font-size: size(smallSize);
+    justify-content: flex-start;
+    align-items: center;
+    gap: $blog-post-categories-gap;
+    font-size: $blog-post-categories-fs;
 
     span {
-      background: color(blueTintColor);
-      padding: 0 0.5rem;
-      border-radius: 1rem;
-    }
-  }
-
-  .blogPostTimeAgoBox {
-    @include flexBox;
-    @include flexProperty(flex-start, center);
-    gap: 0.5rem;
-    font-size: inherit;
-
-    & svg {
-      margin-top: -0.2rem;
+      background: $blog-post-categories-bg;
+      padding: $blog-post-categories-pad;
+      border-radius: $blog-post-categories-radius;
     }
   }
 }
