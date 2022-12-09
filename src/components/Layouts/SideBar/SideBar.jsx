@@ -6,7 +6,7 @@ import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
 import styles from './sideBar.module.scss';
 import { ArrowLeftRectingle, HomeIcon, FeedIcon, TagIcon } from '../Icons/icons';
 import { Avatar, Link } from '../../Interface';
-import { BlogLabelsPopUp } from '../';
+// import { BlogLabelsPopUp } from '../';
 
 function SideBar({ className, children }) {
   const [open, setOpen] = useState(false);
@@ -65,7 +65,7 @@ function SideBar({ className, children }) {
           <span className={styles['col-2']}>{children}</span>
         </div>
       </div>
-      {open && <BlogLabelsPopUp setOpen={setOpen} />}
+      {/* {open && <BlogLabelsPopUp setOpen={setOpen} />} */}
     </>
   );
 }

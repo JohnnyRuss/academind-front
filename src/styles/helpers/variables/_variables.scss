@@ -21,9 +21,13 @@ $txt-thumbnail: size("smallerSize");
 $txt-thumbnail-sm: size("smallestSize");
 
 // Border-radius
-$rounded-sm-on-lg: 0.5rem;
+$rounded-sm: 0.5rem;
 
 //Identifier fig
 $identifier-fig-lg: 4rem;
 $identifier-fig-md: 3.5rem;
+$identifier-fig-xsm: 3rem;
 $identifier-fig-sm: 2rem;
+
+//
+$options-list-min-h: 8rem;

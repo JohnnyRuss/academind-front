@@ -6,20 +6,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: $nav-actions-gap;
-  padding: $nav-actions-pad;
-
-  @include respond(phone) {
-    gap: $nav-actions-gap-m;
-  }
-
-  & svg {
-    font-size: $nav-actions-svg-fs;
-
-    @include respond(phone-small) {
-      font-size: $nav-actions-svg-fs-m;
-    }
-  }
+  @include actions;
 
   &BurgerBtn {
     display: none;

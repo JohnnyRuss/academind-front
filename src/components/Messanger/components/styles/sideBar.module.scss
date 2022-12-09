@@ -1,19 +1,14 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/abstract/components" as *;
+@use "../../../../styles/helpers/components/messanger" as *;
 
 .sideBar {
   flex: 1;
-  max-width: 30rem;
-  padding: 1rem;
-  background: color(whiteShaderColor);
+  @include sideBarContainer;
 
   .contentBox {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin: 1rem 0;
-    height: 85vh;
-    padding: 1rem;
 
-    @include scrollBar('&');
+    @include scrollBar("&");
   }
 }

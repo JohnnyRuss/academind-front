@@ -1,0 +1,210 @@
+@use "../variables/variables" as *;
+@use "../abstract/functions" as *;
+
+@mixin messanger {
+  height: calc(100vh - 6rem);
+  margin-top: 6rem;
+}
+
+/*=============================
+ ========== SideBar ==========
+============================*/
+
+@mixin sideBarContainer {
+  max-width: 30rem;
+  padding: 0rem;
+  background: $bg-dark-light;
+
+  .contentBox {
+    height: 85vh;
+    gap: 0.25rem;
+    padding: 2rem 1rem;
+  }
+}
+
+@mixin conversationBox {
+  gap: 1rem;
+  padding: 0.7rem 0.5rem;
+  border-radius: $rounded-sm;
+  margin-right: 0rem;
+
+  &.activeConversationBox {
+    background: color("whiteColor");
+  }
+
+  &:not(.activeConversationBox):hover {
+    background: color("blueTintColor");
+  }
+
+  &.unRead .unReadDot {
+    margin-top: 0.75rem;
+  }
+
+  &.unRead:not(.activeConversationBox) .unReadDot {
+    width: 1rem;
+    height: 1rem;
+    background: color("blueColor");
+  }
+
+  &.unRead:not(.activeConversationBox) .infoBox .conversationAuthor {
+    font-weight: 700;
+  }
+
+  &.unRead:not(.activeConversationBox) {
+    background: color("blueTintColor");
+  }
+}
+
+@mixin conversationBoxInfo {
+  .conversationAuthor {
+    font-size: $txt-base-sm;
+    font-weight: weight("mediumWeight");
+  }
+
+  .miniBox {
+    gap: 0.5rem;
+    font-size: $txt-thumbnail;
+  }
+
+  .conversationDate {
+    margin-top: 0.1rem;
+    display: inline-block;
+  }
+}
+
+@mixin conversationOptions {
+  right: 0.2rem;
+  top: 1rem;
+
+  .dotBtn {
+    font-size: $txt-big;
+  }
+
+  .optBtnBox {
+    background: $bg-light;
+    right: 0.25rem;
+    top: 1.5rem;
+    width: max-content;
+    padding: 0.25rem 0.75rem;
+    border-radius: $rounded-sm;
+    font-size: $txt-base-sm;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    .optBtn {
+      gap: 0.5rem;
+
+      svg {
+        color: color("redColor");
+        font-size: $txt-base;
+      }
+    }
+  }
+}
+
+/*==========================
+=========== Feed ==========
+=========================*/
+
+$msg-item-base-radius: 0.5rem;
+$msg-fs: $txt-base-sm;
+
+@mixin messangerFeedContainer {
+  padding: 1rem;
+  background: $bg-light;
+}
+
+@mixin messangerFeedHeader {
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid color(darkGreyColor);
+
+  .feedAuthor {
+    font-size: $txt-base-sm;
+    font-weight: weight(mediumWeight);
+  }
+}
+
+@mixin msgList {
+  gap: 0.75rem;
+  margin: 0 1rem 0 0;
+  padding: 1rem;
+}
+
+@mixin msgBox {
+  gap: 0.5rem;
+  width: 100%;
+  font-size: $txt-thumbnail;
+
+  & [data-img] {
+    width: $identifier-fig-xsm;
+    height: $identifier-fig-xsm;
+  }
+}
+
+@mixin msgGroup {
+  gap: 0.1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  font-size: $msg-fs;
+}
+
+@mixin msgGroupItem {
+  background: $bg-dark-light;
+  padding: 0.5rem 1rem;
+  width: max-content;
+  max-width: 70%;
+  border-radius: 1rem;
+
+  &.activeUserMsg {
+    background: color("blueColor");
+    color: color("whiteColor");
+    margin-left: auto;
+  }
+
+  @include msgItemRound;
+  @include activeUserMsgItemRound;
+}
+
+@mixin msgItemRound {
+  &.singleInGroup {
+    border-radius: $msg-item-base-radius;
+  }
+
+  &.firstInGroup {
+    border-radius: $msg-item-base-radius;
+    border-top-left-radius: calc($msg-item-base-radius * 2);
+    border-bottom-left-radius: 0rem;
+  }
+
+  &.middleInGroup {
+    border-radius: $msg-item-base-radius;
+    border-top-left-radius: 0rem;
+    border-bottom-left-radius: 0rem;
+  }
+
+  &.lastInGroup {
+    border-radius: $msg-item-base-radius;
+    border-bottom-left-radius: calc($msg-item-base-radius * 2);
+    border-top-left-radius: 0rem;
+  }
+}
+
+@mixin activeUserMsgItemRound {
+  &.activeUserMsg.firstInGroup {
+    border-radius: $msg-item-base-radius;
+    border-top-right-radius: calc($msg-item-base-radius * 2);
+    border-bottom-right-radius: 0rem;
+  }
+
+  &.activeUserMsg.middleInGroup {
+    border-radius: $msg-item-base-radius;
+    border-top-right-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+  }
+
+  &.activeUserMsg.lastInGroup {
+    border-radius: $msg-item-base-radius;
+    border-bottom-right-radius: calc($msg-item-base-radius * 2);
+    border-top-right-radius: 0rem;
+  }
+}

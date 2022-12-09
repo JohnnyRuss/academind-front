@@ -24,6 +24,8 @@ export { default as IsFriendBTN } from "./RequestBTN/IsFriendBTN";
 
 export { default as Audience } from "./Audience/Audience";
 export { default as SelectAudience } from "./SelectAudience/SelectAudience";
+export { default as TimeAgo } from "./TimeAgo/TimeAgo";
+export { default as TimeAgoLong } from "./TimeAgo/TimeAgoLong";
 export { default as TimeAgoAndAudience } from "./TimeAgoAndAudience/TimeAgoAndAudience";
 
 export { default as CreatePost } from "./CreatePost/CreatePost";
@@ -33,7 +35,7 @@ export { default as CreateBlogPostModal } from "./CreateBlogPost/CreateBlogPostM
 
 export { default as SideBar } from "./SideBar/SideBar";
 export { default as MultiCarousel } from "./MultiCarousel/MultiCarousel";
-export { default as BlogLabelsPopUp } from "./BlogLabelsPopUp/BlogLabelsPopUp";
+// export { default as BlogLabelsPopUp } from "./BlogLabelsPopUp/BlogLabelsPopUp";
 export { default as BlogPost } from "./BlogPost/BlogPost";
 export { default as SwiperSlider } from "./SwiperSlider/SwiperSlider";
 export { default as CommentsList } from "./Comments/CommentsList";

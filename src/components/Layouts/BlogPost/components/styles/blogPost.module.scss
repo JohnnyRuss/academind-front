@@ -1,17 +1,10 @@
-@use "../../../../../styles/helpers/helpers" as *;
 @use "../../../../../styles/helpers/components/blog-post" as *;
 
 .blogPost {
   position: relative;
-  border: $blog-post-border;
-  border-radius: $blog-post-border-radius;
-  background: $blog-post-bg;
-  box-shadow: $blog-post-shadow;
+  @include blogPostContainer;
 
   .blogPostMedia {
-    width: $blog-post-media-w;
-    aspect-ratio: $blog-post-media-ratio;
-    margin: $blog-post-media-mar;
     overflow: hidden;
 
     & img {
@@ -24,13 +17,9 @@
 
   .blogPostInfo {
     flex: 5;
-    padding: $blog-post-info-pad;
   }
 
   .blogPostShortDesc {
-    margin-top: $blog-post-desc-mt;
-    font-size: $blog-post-desc-fs;
-    color: $blog-post-desc-color;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     -ms-hyphens: auto;

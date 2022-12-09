@@ -1,17 +1,13 @@
-@use "../../../../../styles/helpers/abstract//media" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
 @use "../../../../../styles/helpers/components/post" as *;
 
 .post {
   position: relative;
-  width: $post-w;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding: $post-pad;
-  border-radius: $post-radius;
-  background: $post-bg;
-  box-shadow: $post-shadow;
-
+  @include post;
+  
   @include respond(tab-portrate) {
     width: 100%;
   }

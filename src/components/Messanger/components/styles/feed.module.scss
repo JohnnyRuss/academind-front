@@ -1,12 +1,13 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/messanger" as *;
 
 .messangerFeedContainer {
   flex: 3;
-  @include flexBox(column);
-  padding: 1rem;
-  background: color(whiteColor);
+  display: flex;
+  flex-direction: column;
+  
   position: relative;
   height: 100%;
+  @include messangerFeedContainer;
 
   [data-text-area-form-box] {
     margin-top: auto;

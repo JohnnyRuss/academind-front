@@ -3,7 +3,7 @@ import { selectUserId } from '../../../../store/selectors/userSelectors';
 
 import styles from './styles/commentActions.module.scss';
 import { LikeIcon, ReplyIcon } from '../../Icons/icons';
-import { TimeAgo } from '../../../Interface';
+import { TimeAgo } from '../..';
 
 function CommentActions({ createdAt, reactions, handleReaction, handleReply }) {
   const { id } = useSelector(selectUserId);

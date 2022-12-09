@@ -1,31 +1,32 @@
-import { useState, useEffect } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
+import { useState, useEffect } from "react";
+import TextareaAutosize from "react-textarea-autosize";
 
-import styles from './components/styles/textArea.module.scss';
-import { SendIcon } from '../Icons/icons';
+import styles from "./components/styles/textArea.module.scss";
+import { SendIcon } from "../Icons/icons";
 
 function TextArea({
   handler = (text) => {},
   className,
   placeholder,
   focus,
+  onFocus = () => {},
   defaultValue,
   withBtn = true,
 }) {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   function textAreaSubmit(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handler(text);
-      setText('');
+      setText("");
     }
   }
 
   function submitHandler(e) {
     e.preventDefault();
     handler(text);
-    setText('');
+    setText("");
   }
 
   useEffect(() => {
@@ -33,13 +34,18 @@ function TextArea({
   }, [defaultValue]);
 
   return (
-    <form className={styles.textAreaForm} onSubmit={submitHandler} data-text-area-form-box>
+    <form
+      className={styles.textAreaForm}
+      onSubmit={submitHandler}
+      data-text-area-form-box
+    >
       <div className={styles.fields}>
         <TextareaAutosize
-          id='test'
+          id="test"
           minRows={1}
           maxRows={5}
           placeholder={placeholder}
+          onFocus={onFocus}
           value={text}
           autoFocus={focus}
           onChange={(e) => setText(e.target.value)}
@@ -47,7 +53,7 @@ function TextArea({
           className={`${styles.textArea} ${className}`}
         />
         {withBtn && (
-          <button className={styles.textAreaBtn} type='submit'>
+          <button className={styles.textAreaBtn} type="submit">
             <SendIcon />
           </button>
         )}

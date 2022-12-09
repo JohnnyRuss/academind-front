@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { updateLoadingState } from './helpers';
+import { createSlice } from "@reduxjs/toolkit";
+import { updateLoadingState } from "./helpers";
 
 const conversationSlice = createSlice({
-  name: 'conversation',
+  name: "conversation",
   initialState: {
     loadingState: {
       loading: false,
       error: false,
-      message: '',
+      message: "",
     },
     allConversations: [],
     activeConversation: {},
@@ -20,22 +20,37 @@ const conversationSlice = createSlice({
     },
 
     getLastConversation(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({ state, key: "loadingState", loading: true });
     },
 
     getConversation(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({ state, key: "loadingState", loading: true });
     },
 
     setActiveConversation(state, { payload }) {
       state.activeConversation = payload;
-      updateLoadingState({ state, key: 'loadingState', loading: false });
+      updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
-    deleteConversation(state) {},
+    sendMessage() {},
+
+    setNewMessage(state, { payload }) {
+      const { conversation: conversationId } = payload;
+
+      state.allConversations
+        .find((conversation) => conversation._id === conversationId)
+        ?.messages.push(payload);
+
+      if (state.activeConversation._id === conversationId)
+        state.activeConversation.messages.push(payload);
+    },
+
+    deleteConversation() {},
 
     setDeletedConversation(state, { payload }) {
-      state.allConversations = state.allConversations.filter((conv) => conv._id !== payload);
+      state.allConversations = state.allConversations.filter(
+        (conv) => conv._id !== payload
+      );
     },
 
     resetConversation(state) {
@@ -52,6 +67,8 @@ export const {
   getLastConversation,
   getConversation,
   setActiveConversation,
+  sendMessage,
+  setNewMessage,
   deleteConversation,
   setDeletedConversation,
   resetConversation,

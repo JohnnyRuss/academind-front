@@ -1,47 +1,15 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/messanger" as *;
 
 .conversationBox {
-  @include flexBox;
-  gap: 0.75rem;
+  position: relative;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 0.7rem;
-  margin-right: 0.5rem;
   transition: all 0.15s ease;
+  @include conversationBox;
 
-  &.activeConversationBox{
-    background: color(blueTintColor);
-  }
-
-  &:not(.activeConversationBox):hover {
-    background: color(whiteColor);
-  }
-
-  .infoBox {
-    @include flexBox(column);
-    padding-top: 0.5rem;
-  }
-
-  .conversationAuthor {
-    font-size: 1.4rem;
-    text-transform: capitalize;
-    font-weight: weight(mediumWeight);
-  }
-
-  .miniBox {
-    @include flexBox;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .conversationLastMessage,
-  .conversationDate {
-    font-size: 1.2rem;
-  }
-
-  .conversationDate {
-    font-size: size(smallestSize);
-    font-weight: weight(mediumWeight);
-    margin-top: 0.25rem;
+  &.unRead .unReadDot {
+    border-radius: 100%;
+    margin-left: auto;
   }
 }

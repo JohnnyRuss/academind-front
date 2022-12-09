@@ -1,0 +1,21 @@
+@use "../../../../styles/helpers/components/messanger" as *;
+
+.conversationOptions {
+  position: absolute;
+  display: none;
+  @include conversationOptions;
+
+  .optBtnBox {
+    position: absolute;
+    text-transform: capitalize;
+
+    .optBtn {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+[data-conversation-box]:hover .conversationOptions {
+  display: block;
+}

@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import styles from './styles/notificationBody.module.scss';
-import { TimeAgo, Image } from '../Interface';
-import { DotsHorizontalIcon, DeleteIcon, ReadIcon } from '../Layouts/Icons/icons';
+import styles from "./styles/notificationBody.module.scss";
+import {
+  DotsHorizontalIcon,
+  DeleteIcon,
+  ReadIcon,
+} from "../Layouts/Icons/icons";
+import { TimeAgo } from "../Layouts";
+import { Image } from "../Interface";
 
 function NotificationBody({
   notify,
@@ -22,18 +27,19 @@ function NotificationBody({
 
   function showNotificationMessage(notify) {
     if (notify.target?.options?.postAuthorUserName) {
-      const message = notify.message.split(`${'PostAuthorPlaceholder'}`);
+      const message = notify.message.split(`${"PostAuthorPlaceholder"}`);
       return (
         <>
-          <strong className={styles.userName}>{notify.from.userName}</strong>{' '}
-          <span>{message[0]}</span> <strong>{notify.target.options.postAuthorUserName}</strong>
+          <strong className={styles.userName}>{notify.from.userName}</strong>{" "}
+          <span>{message[0]}</span>{" "}
+          <strong>{notify.target.options.postAuthorUserName}</strong>
           <span>{message[1]}</span>
         </>
       );
     } else
       return (
         <>
-          <strong className={styles.userName}>{notify.from.userName}</strong>{' '}
+          <strong className={styles.userName}>{notify.from.userName}</strong>{" "}
           <span>{notify.message}</span>
         </>
       );
@@ -41,8 +47,9 @@ function NotificationBody({
 
   return (
     <div
-      className={`${styles.notifyBody} ${notify.read ? '' : styles.unRead}`}
-      onClick={() => handleNavigate(notify)}>
+      className={`${styles.notifyBody} ${notify.read ? "" : styles.unRead}`}
+      onClick={() => handleNavigate(notify)}
+    >
       <Image src={notify.from.profileImg} className={styles.notifyFig} />
       <p>
         {showNotificationMessage(notify)}
@@ -59,7 +66,8 @@ function NotificationBody({
                 e.stopPropagation();
                 handleMarkAsRead(notify._id);
                 setActiveNotifyModal(false);
-              }}>
+              }}
+            >
               <ReadIcon />
               mark as read
             </button>
@@ -68,7 +76,8 @@ function NotificationBody({
                 e.stopPropagation();
                 handleDeleteNotify(notify._id);
                 setActiveNotifyModal(false);
-              }}>
+              }}
+            >
               <DeleteIcon />
               delete
             </button>

@@ -2,18 +2,17 @@
 @use "../../../../../styles/helpers/components/post" as *;
 
 .postMediaBox {
-  order: $post-media-order;
   display: grid;
   gap: 0.5rem;
   justify-content: center;
   margin-bottom: 0.75rem;
+  @include postMedia;
 
   .postMedia {
     align-self: center;
     width: 100%;
     height: 100%;
     aspect-ratio: 1/1;
-    border-radius: $post-media-radius;
     overflow: hidden;
     cursor: grab;
 
@@ -34,10 +33,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: $post-media-multy-layover-fs;
-    border-radius: $post-media-multy-layover-radius;
-    background: $post-media-multy-layover-bg;
-    color: $post-media-multy-layover-color;
   }
 
   &--1 {

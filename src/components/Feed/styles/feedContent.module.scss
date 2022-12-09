@@ -1,39 +1,14 @@
-@use "../../../styles/helpers/abstract/media" as *;
 @use "../../../styles/helpers/components/feed" as *;
 
 .feedContent {
   flex: 1;
-  padding-top: $feed-pad-top;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: $feed-gap;
+  @include feed;
 
   .feedInfiniteScroll {
     display: flex;
     flex-direction: column;
-    gap: $feed-scroll-gap;
-    padding-top: $feed-scroll-pad-top;
-  }
-
-  @include respond(tab-portrate) {
-    .feedPost,
-    .feedCreatePost {
-      width: $feed-content-w-t;
-    }
-  }
-
-  @include respond(phone) {
-    padding: $feed-pad-m;
-    gap: $feed-gap-m;
-
-    .feedInfiniteScroll {
-      gap: $feed-scroll-gap-mobile;
-    }
-
-    .feedPost,
-    .feedCreatePost {
-      width: 100%;
-    }
   }
 }

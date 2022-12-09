@@ -1,29 +1,97 @@
 @use "../abstract/functions" as *;
 @use "../variables/variables" as *;
 
-// Blog Post Box
-$blog-post-border: 1px solid color("darkLightGreyColor");
-$blog-post-border-radius: $rounded-sm-on-lg;
-$blog-post-bg: $bg-light;
-$blog-post-shadow: $post-shadow-def;
+@mixin blogPostContainer {
+  border: 1px solid color("darkLightGreyColor");
+  border-radius: $rounded-sm;
+  background: $bg-light;
+  box-shadow: $post-shadow-def;
 
-// Blog Post Media
-$blog-post-media-w: 100%;
-$blog-post-media-ratio: 3/1;
-$blog-post-media-mar: 0 1rem 0 0;
+  .blogPostMedia {
+    width: 100%;
+    aspect-ratio: 3/1;
+    margin: 0 1rem 0 0;
+  }
 
-// Blog Post Info Box
-$blog-post-info-pad: 1rem;
+  .blogPostInfo {
+    padding: 1rem;
+  }
 
-// Blog Post Description
-$blog-post-desc-mt: 1rem;
-$blog-post-desc-fs: $txt-base-sm;
-$blog-post-desc-color: $txt-dark;
+  .blogPostShortDesc {
+    margin-top: 1rem;
+    font-size: $txt-base-sm;
+    color: $txt-dark;
+  }
+}
 
-// Blog Post Options
-$blog-post-options-z: 1;
-$blog-post-options-btn-fs: size("bigSize");
+@mixin blogPostOptions {
+  z-index: 1;
 
-$blog-post-options-list-right: -1.5rem;
-$blog-post-options-list-top: 2rem;
-$blog-post-options-list-w: 15rem;
+  .blogPostOptBtn {
+    font-size: size("bigSize");
+  }
+}
+
+@mixin blogPostOptionsList {
+  right: -1.5rem;
+  top: 2rem;
+  width: 15rem;
+  min-height: $options-list-min-h;
+}
+
+@mixin blogPostReviewDetails {
+  gap: 1rem;
+
+  .blogPostTitle h3 {
+    font-size: $txt-big;
+    font-weight: weight("boldWeight");
+  }
+
+  .publisher {
+    gap: 0.25rem;
+
+    .blogPostUserName {
+      font-size: $txt-thumbnail;
+      font-weight: weight("mediumWeight");
+    }
+
+    [data-tags] {
+      font-size: $txt-thumbnail;
+    }
+
+    [data-img] {
+      max-width: $identifier-fig-sm;
+      max-height: $identifier-fig-sm;
+    }
+  }
+
+  .blogPostCategories {
+    gap: 0.5rem;
+    font-size: $txt-thumbnail;
+
+    span {
+      background: color("blueTintColor");
+      padding: 0.15rem 0.5rem;
+      border-radius: 1rem;
+    }
+  }
+}
+
+@mixin blogPostUserInteractionReview {
+  margin-top: 0.5rem;
+  gap: 1rem;
+  font-size: size("smallSize");
+  padding-right: 2.8rem;
+
+  .blogPostInteractions {
+    gap: 1rem;
+
+    span {
+      gap: 0.25rem;
+
+      & svg {
+        font-size: size(bigSize);
+      }
+    }
+  }
+}

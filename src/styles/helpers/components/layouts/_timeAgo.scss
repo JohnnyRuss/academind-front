@@ -1,6 +1,8 @@
 @use "../../abstract/functions" as *;
 @use "../../variables/variables" as *;
 
-$time-ago-fs: $txt-thumbnail-sm;
-$time-ago-fw: weight("thinWeight");
-$time-ago-color: $txt-gray;
+@mixin timeAgo {
+  font-size: $txt-thumbnail-sm;
+  font-weight: weight("thinWeight");
+  color: $txt-gray;
+}

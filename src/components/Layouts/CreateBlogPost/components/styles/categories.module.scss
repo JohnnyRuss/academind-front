@@ -1,4 +1,14 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/abstract/functions" as *;
+
+@mixin flexBox($dir: row) {
+  display: flex;
+  flex-direction: $dir;
+}
+
+@mixin flexProperty($justify: flex-start, $align: flex-start) {
+  justify-content: $justify;
+  align-items: $align;
+}
 
 .categoriesBox {
   .categoriesForm {

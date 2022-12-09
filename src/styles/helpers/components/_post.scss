@@ -1,41 +1,94 @@
 @use "../abstract/functions" as *;
 @use "../variables/variables" as *;
 
-// PostBox
-$post-w: $post-w-def;
-$post-pad: 1rem;
-$post-radius: $rounded-sm-on-lg;
-$post-bg: $bg-light;
-$post-shadow: $post-shadow-def;
+@mixin post {
+  width: $post-w-def;
+  padding: 1rem;
+  border-radius: $rounded-sm;
+  background: $bg-light;
+  box-shadow: $post-shadow-def;
+}
 
-// Post User Identifier
-$post-identifier-fig-dimention: $identifier-fig-lg;
+@mixin postBodyUserIdentifier {
+  & figure[data-img] {
+    width: $identifier-fig-lg;
+    height: $identifier-fig-lg;
+  }
+}
 
-// Post Description
-$post-desc-fs: $txt-base-sm;
-$post-desc-color: $txt-dark;
-$post-desc-mar: 1rem 0 0.5rem 0.75rem;
+@mixin postDescription {
+  font-size: $txt-base-sm;
+  margin: 1rem 0 0.5rem 0.75rem;
+  color: $txt-dark;
+}
 
-// Post Media
-$post-media-order: -1;
-$post-media-multy-layover-fs: $txt-big;
-$post-media-radius: $rounded-sm-on-lg;
-$post-media-multy-layover-radius: $rounded-sm-on-lg;
-$post-media-multy-layover-bg: rgba(0, 0, 0, 0.6);
-$post-media-multy-layover-color: $txt-light;
+@mixin postMedia {
+  order: -1;
 
-//  Shared Post Authentic Result
-$shared-auth-post-gap: 1rem;
-$shared-auth-post-mar: 0.5rem 1.5rem 1rem 1.5rem;
-$shared-auth-post-pad: 0.5rem 1rem 0.5rem 1rem;
-$shared-auth-post-radius: 0.3rem;
-$shared-auth-post-bg: $bg-dark-light;
-$shared-auth-post-media-order: -1;
-$shared-auth-post-identifier-fs: $txt-thumbnail;
-$shared-auth-post-identifier-fig-dimention: $identifier-fig-md;
-$shared-auth-post-desc-fs: $txt-thumbnail;
+  .postMedia {
+    border-radius: $rounded-sm;
+  }
 
-// Shared Blog Post
-$shared-blog-post-fig-ratio: 2/1;
-$shared-blog-post-title-fs: $txt-base;
-$shared-blog-post-fs: $txt-thumbnail;
+  .multiLayOver {
+    font-size: $txt-big;
+    border-radius: $rounded-sm;
+    background: rgba(0, 0, 0, 0.6);
+    color: $txt-light;
+  }
+}
+
+@mixin authenticPost {
+  gap: 1rem;
+  margin: 0.5rem 1.5rem 1rem 1.5rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 0.3rem;
+  background: $bg-dark-light;
+
+  .media {
+    order: -1;
+  }
+
+  .postAuthenticIdentifier {
+    font-size: $txt-thumbnail;
+
+    & figure[data-img] {
+      width: $identifier-fig-md;
+      height: $identifier-fig-md;
+    }
+  }
+
+  .description {
+    margin-top: -0.5rem;
+    font-size: $txt-thumbnail;
+  }
+}
+
+@mixin sharedBlogPost {
+  [data-blog-post-identifier] {
+    gap: 0.75rem;
+  }
+
+  [data-title] {
+    font-size: $txt-base;
+  }
+
+  & > [data-img] {
+    aspect-ratio: 2/1;
+  }
+
+  [data-categories-list] {
+    font-size: $txt-thumbnail;
+  }
+
+  [data-user-interacion] {
+    font-size: $txt-thumbnail;
+
+    & svg {
+      font-size: $txt-base;
+    }
+  }
+
+  [data-article-text] {
+    font-size: $txt-thumbnail;
+  }
+}

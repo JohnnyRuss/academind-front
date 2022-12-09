@@ -4,30 +4,14 @@
 .shareAuthentic {
   display: flex;
   flex-direction: column;
-  gap: $shared-auth-post-gap;
-  margin: $shared-auth-post-mar;
-  padding: $shared-auth-post-pad;
-  border-radius: $shared-auth-post-radius;
-  background: $shared-auth-post-bg;
+  @include authenticPost;
 
   .media {
-    order: $shared-auth-post-media-order;
     margin: 0;
   }
 
   .postAuthenticIdentifier {
-    font-size: $shared-auth-post-identifier-fs;
     align-items: flex-start;
-
-    & figure[data-img] {
-      width: $shared-auth-post-identifier-fig-dimention;
-      height: $shared-auth-post-identifier-fig-dimention;
-    }
-  }
-
-  .description {
-    margin-top: -0.5rem;
-    font-size: $shared-auth-post-desc-fs;
   }
 
   [data-deleted-post] {
@@ -39,44 +23,12 @@
   }
 }
 
-.postBody {
-  .postAuthenticIdentifier {
-    align-items: flex-start;
-
-    & figure[data-img] {
-      width: $post-identifier-fig-dimention;
-      height: $post-identifier-fig-dimention;
-    }
-  }
+.postBody .postAuthenticIdentifier {
+  align-items: flex-start;
+  @include postBodyUserIdentifier;
 }
 
 .shareAuthentic .referencedBlogPost,
 .postBody .referencedBlogPost {
-  [data-blog-post-identifier] {
-    gap: 0.75rem;
-  }
-
-  [data-title] {
-    font-size: $shared-blog-post-title-fs;
-  }
-
-  & > [data-img] {
-    aspect-ratio: $shared-blog-post-fig-ratio;
-  }
-
-  [data-categories-list] {
-    font-size: $shared-blog-post-fs;
-  }
-
-  [data-user-interacion] {
-    font-size: $shared-blog-post-fs;
-
-    & svg {
-      font-size: $shared-blog-post-title-fs;
-    }
-  }
-
-  [data-article-text] {
-    font-size: $shared-blog-post-fs;
-  }
+  @include sharedBlogPost;
 }

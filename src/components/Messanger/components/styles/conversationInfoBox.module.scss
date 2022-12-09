@@ -1,0 +1,16 @@
+@use "../../../../styles/helpers/components/messanger" as *;
+
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  @include conversationBoxInfo;
+
+  .conversationAuthor {
+    text-transform: capitalize;
+  }
+
+  .miniBox {
+    display: flex;
+    align-items: center;
+  }
+}

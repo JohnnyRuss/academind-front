@@ -1,26 +1,20 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/blog-post" as *;
+
+%flex-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 
 .blogPostUserInteractionsBox {
-  @include flexBox;
-  @include flexProperty(flex-start, center);
-  gap: 1rem;
-  font-size: size('smallSize');
-  padding-right: 2.8rem;
+  @extend %flex-row;
+  @include blogPostUserInteractionReview;
 
   .blogPostInteractions {
-    @include flexBox;
-    @include flexProperty(flex-start, center);
-    gap: 1rem;
+    @extend %flex-row;
 
     span {
-      @include flexBox;
-      @include flexProperty(flex-start, center);
-      gap: 0.25rem;
-
-      & svg {
-        font-size: size(bigSize);
-      }
+      @extend %flex-row;
     }
   }
 }
-

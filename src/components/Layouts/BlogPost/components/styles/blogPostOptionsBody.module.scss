@@ -3,10 +3,7 @@
 
 .blogPostOptionsList {
   position: absolute;
-  right: $blog-post-options-list-right;
-  top: $blog-post-options-list-top;
-  width: $blog-post-options-list-w;
-  min-height: $blog-post-options-list-min-h;
 
+  @include blogPostOptionsList;
   @include modalWindowSm;
 }

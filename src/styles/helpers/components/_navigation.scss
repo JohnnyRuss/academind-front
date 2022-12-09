@@ -1,68 +1,105 @@
 @use "../abstract/functions" as *;
+@use "../abstract/media" as *;
 @use "../variables/variables" as *;
 
-/* ======================== */
-/* ===== Nav Desktop ===== */
-/* ====================== */
+@mixin nav {
+  height: 6rem;
+  padding: 0 1rem;
+  gap: 1rem;
+  background: color("blueColor");
+  color: $txt-light;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
 
-// NavBox
-$nav-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
-$nav-height: 6rem;
-$nav-bg: color("blueColor");
-$nav-txt-color: $txt-light;
+  &Logo {
+    padding: 1rem;
+    font-size: size("headingSmallSize");
+    font-weight: weight("boldWeight");
+  }
 
-// NavList
-$nav-list-gap: 1rem;
+  @include respond(phone-small) {
+    height: 4.5rem;
 
-// NavActions
-$nav-actions-gap: 2rem;
-$nav-actions-pad: 1rem;
-$nav-actions-svg-fs: size("bigSize");
+    &Logo {
+      font-size: size("headingSecondarySize");
+    }
+  }
+}
 
-// NavSearchBar
-$nav-searchbar-window-z: -1;
-$nav-searchbar-window-top: -4rem;
-$nav-searchbar-window-w: 100%;
-$nav-searchbar-window-h: 30rem;
-$nav-searchbar-window-bg: $bg-light;
-$nav-searchbar-window-color: $txt-dark;
-$nav-searchbar-window-shadow: 0 1rem 3rem 0 rgba(0, 0, 0, 0.3);
+@mixin navList {
+  gap: 1rem;
 
-$nav-searchbar-window-result-z: 2;
-$nav-searchbar-window-result-top: 8rem;
-$nav-searchbar-window-result-w: 100%;
-$nav-searchbar-window-result-max-h: calc(
-  100% - $nav-searchbar-window-result-top
-);
-$nav-searchbar-window-result-gap: 0.8rem;
-$nav-searchbar-window-result-pad: 0 1rem 1rem 1rem;
-$nav-searchbar-window-result-item-gap: 1rem;
+  @include respond(tab-portrate) {
+    flex-direction: column;
+    width: 20rem;
+    position: absolute;
+    top: 6rem;
+    right: 0;
+    padding: 1rem;
+    background: $bg-light;
+    color: $txt-dark;
+    visibility: hidden;
+  }
+}
 
-// NavAvatar
-$nav-avatar-modal-w: 15rem;
-$nav-avatar-modal-right: -2rem;
-$nav-avatar-modal-top: 5.3rem;
-$nav-avatar-modal-pad: 0.5rem;
-$nav-avatar-modal-color: $txt-dark;
-$nav-avatar-modal-bg: $bg-light;
-$nav-avatar-modal-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
-$nav-avatar-modal-radius: 0.35rem;
+@mixin searchBar {
+  padding: 0 1rem;
 
-/* ======================= */
-/* ===== Nav Mobile ===== */
-/* ===================== */
+  &Bar {
+    @include respond(phone-small) {
+      height: 2rem;
+    }
+  }
+}
 
-// NavList
-$nav-list-bg-m: $bg-light;
-$nav-list-color-m: $txt-dark;
-$nav-list-w-m: 20rem;
-$nav-list-top-m: 6rem;
-$nav-list-right-m: 0;
-$nav-list-pad-m: 1rem;
+@mixin searchWindow {
+  z-index: -1;
+  top: -4rem;
+  width: 100%;
+  height: 30rem;
+  background: $bg-light;
+  color: $txt-dark;
+  box-shadow: 0 1rem 3rem 0 rgba(0, 0, 0, 0.3);
 
-// NavSearchBar
-$nav-searchbar-h-m: 2rem;
+  $top: 8rem;
 
-// NavActions
-$nav-actions-gap-m: 1.5rem;
-$nav-actions-svg-fs-m: size("regullarSize");
+  .resultsList {
+    z-index: 2;
+    top: $top;
+    width: 100%;
+    max-height: calc(100% - $top);
+    gap: 0.8rem;
+    padding: 0 1rem 1rem 1rem;
+
+    &Item {
+      gap: 1rem;
+    }
+  }
+}
+
+@mixin actions {
+  gap: 2rem;
+  padding: 1rem;
+
+  @include respond(phone) {
+    gap: 1.5rem;
+  }
+
+  & svg {
+    font-size: size("bigSize");
+
+    @include respond(phone-small) {
+      font-size: size("regullarSize");
+    }
+  }
+}
+
+@mixin avatarModal {
+  width: 15rem;
+  right: -2rem;
+  top: 5.3rem;
+  padding: 0.5rem;
+  color: $txt-dark;
+  background: $bg-light;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  border-bottom-left-radius: 0.35rem;
+}

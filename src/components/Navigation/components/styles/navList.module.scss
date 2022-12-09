@@ -1,21 +1,8 @@
 @use "../../../../styles/helpers/components/navigation" as *;
-@use "../../../../styles/helpers/abstract/media" as *;
 
 .mainNavList {
   flex: 4;
   display: flex;
-  gap: $nav-list-gap;
   text-transform: uppercase;
-
-  @include respond(tab-portrate) {
-    position: absolute;
-    background: $nav-list-bg-m;
-    color: $nav-list-color-m;
-    flex-direction: column;
-    width: $nav-list-w-m;
-    top: $nav-list-top-m;
-    right: $nav-list-right-m;
-    padding: $nav-list-pad-m;
-    visibility: hidden;
-  }
+  @include navList;
 }

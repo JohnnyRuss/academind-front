@@ -1,35 +1,23 @@
-@use "../../../../styles/helpers/helpers" as *;
+@use "../../../../styles/helpers/abstract/components" as *;
 @use "../../../../styles/helpers/components/navigation" as *;
 
 .searchWindow {
   position: absolute;
-  z-index: $nav-searchbar-window-z;
-  top: $nav-searchbar-window-top;
-  width: $nav-searchbar-window-w;
-  height: $nav-searchbar-window-h;
-  background: $nav-searchbar-window-bg;
-  color: $nav-searchbar-window-color;
-  box-shadow: $nav-searchbar-window-shadow;
   text-transform: capitalize;
+  @include searchWindow;
 
   .resultsList {
     position: absolute;
-    z-index: $nav-searchbar-window-result-z;
-    top: $nav-searchbar-window-result-top;
-    width: $nav-searchbar-window-result-w;
-    max-height: $nav-searchbar-window-result-max-h;
-    overflow: auto;
-    @include scrollBar("&");
     display: flex;
+    overflow: auto;
     flex-direction: column;
-    gap: $nav-searchbar-window-result-gap;
-    padding: $nav-searchbar-window-result-pad;
+    @include scrollBar("&");
+
 
     &Item {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: $nav-searchbar-window-result-item-gap;
     }
   }
 }

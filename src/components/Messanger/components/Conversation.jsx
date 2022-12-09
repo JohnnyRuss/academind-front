@@ -1,26 +1,39 @@
-import { useParams, Link } from 'react-router-dom';
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-import styles from './styles/conversation.module.scss';
-import { Avatar, TimeAgo } from '../../Interface';
+import styles from "./styles/conversation.module.scss";
+import { Avatar } from "../../Interface";
 
-function Conversation({ author, lastMessage, conversationId }) {
+import ConversationInfoBox from "./ConversationInfoBox";
+import ConversationOptions from "./ConversationOptions";
+
+function Conversation({ author, conversationId, lastMessage }) {
   const { id } = useParams();
 
+  const [openConversationOption, setOpenConversationOption] = useState(false);
+  const navigate = useNavigate();
   return (
-    <Link
-      to={conversationId}
+    <div
+      onClick={() => navigate(conversationId)}
+      onMouseLeave={() =>
+        openConversationOption && setOpenConversationOption(false)
+      }
       className={`${styles.conversationBox} ${
         conversationId === id && styles.activeConversationBox
-      }`}>
+      } ${false && styles.unRead}`}
+      data-conversation-box
+    >
       <Avatar img={author.profileImg} />
-      <div className={styles.infoBox}>
-        <p className={styles.conversationAuthor}>{author.userName}</p>
-        <div className={styles.miniBox}>
-          <p className={styles.conversationLastMessage}>{lastMessage?.message}</p>
-          <TimeAgo className={styles.conversationDate} date={lastMessage?.createdAt} />
-        </div>
-      </div>
-    </Link>
+      <ConversationInfoBox
+        userName={author.userName}
+        lastMessage={lastMessage}
+      />
+      <span className={styles.unReadDot}></span>
+      <ConversationOptions
+        openConversationOption={openConversationOption}
+        setOpenConversationOption={setOpenConversationOption}
+      />
+    </div>
   );
 }
 
