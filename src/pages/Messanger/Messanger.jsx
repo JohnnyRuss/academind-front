@@ -7,7 +7,7 @@ import {
   selectAllConversations,
 } from "../../store/selectors/conversationSelectors";
 import { IoContext } from "../../store/Io";
-import { useConversationQuery } from "../../hooks";
+import { useConversationQuery, useBadgeQuery } from "../../hooks";
 
 import MessangerContainer from "../../components/Messanger/MessangerContainer";
 import SideBar from "../../components/Messanger/SideBar";
@@ -25,6 +25,7 @@ function Messanger() {
   const { allConversations, allConversationState } = useSelector(
     selectAllConversations
   );
+  
   const { isNew, id: newConversationId } = useSelector(
     selectNewConversationAlert
   );
@@ -41,10 +42,13 @@ function Messanger() {
     handleMarkAsRead,
   } = useConversationQuery();
 
+  const { resetMessageCountHandler } = useBadgeQuery();
+
   /*
   fetches all conversations on components mount and resets them on component unmount 
   */
   useEffect(() => {
+    resetMessageCountHandler();
     setIsMounting(false);
     getAllConversationsQuery();
     return () => handleResetConversations();

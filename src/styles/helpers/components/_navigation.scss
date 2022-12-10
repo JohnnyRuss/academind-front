@@ -80,6 +80,18 @@
   gap: 2rem;
   padding: 1rem;
 
+  .actionBadge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -40%);
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 100%;
+    font-size: 1.1rem;
+    background: color("redColor");
+  }
+
   @include respond(phone) {
     gap: 1.5rem;
   }

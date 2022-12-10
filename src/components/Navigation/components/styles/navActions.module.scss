@@ -15,4 +15,15 @@
       display: flex;
     }
   }
+
+  .actionBtn {
+    position: relative;
+  }
+
+  .actionBadge {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
