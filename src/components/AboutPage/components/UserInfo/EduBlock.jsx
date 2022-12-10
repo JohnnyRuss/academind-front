@@ -1,12 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
-import { activateOption, setUpdateCredentials } from '../../../../store/reducers/aboutReducer';
-import { formatDate } from '../../../../functions';
-import { useForeignUser } from '../../../../hooks';
+import {
+  activateOption,
+  setUpdateCredentials,
+} from "../../../../store/reducers/aboutReducer";
+import { formatDate } from "../../../../lib";
+import { useForeignUser } from "../../../../hooks";
 
-import styles from './styles/infoBlock.module.scss';
-import { GraduationIcon, CaseIcon } from '../../../Layouts/Icons/icons';
-import { AddInfoBTN, InfoOptions } from './';
+import styles from "./styles/infoBlock.module.scss";
+import { GraduationIcon, CaseIcon } from "../../../Layouts/Icons/icons";
+import { AddInfoBTN, InfoOptions } from "./";
 
 /**
  * user education and workplace infos root component
@@ -15,24 +18,28 @@ import { AddInfoBTN, InfoOptions } from './';
  */
 function EduBlock({ userInfo }) {
   const dispatch = useDispatch();
-  const { activeOptTarget, activeOpt } = useSelector(({ aboutPage }) => aboutPage.dom);
+  const { activeOptTarget, activeOpt } = useSelector(
+    ({ aboutPage }) => aboutPage.dom
+  );
 
   const activateOptions = (target) => dispatch(activateOption(target));
 
   const handleUpdate = (info, target) =>
     dispatch(setUpdateCredentials({ credentials: info, target }));
 
-  const { isActiveUser } = useForeignUser('basedOnLocation');
+  const { isActiveUser } = useForeignUser("basedOnLocation");
 
   return (
     <div className={styles.infoBlock}>
       <h3>Education</h3>
-      {isActiveUser && <AddInfoBTN caption='education' name='education' />}
+      {isActiveUser && <AddInfoBTN caption="education" name="education" />}
       <div className={styles.verticalDevider}>
         {userInfo?.education?.[0] ? (
           userInfo?.education.map((clg, i) => (
             <div className={styles.verticalDeviderItem} key={clg._id}>
-              <GraduationIcon className={`${styles.icon} ${styles.smallIcon}`} />
+              <GraduationIcon
+                className={`${styles.icon} ${styles.smallIcon}`}
+              />
               <span>
                 <span>studied in </span>
                 <strong>{clg.collage} </strong>
@@ -53,7 +60,7 @@ function EduBlock({ userInfo }) {
                   activateOptions={activateOptions}
                   name={`education-${i}`}
                   deleteHandler={() => {}}
-                  updateHandler={() => handleUpdate(clg, 'education')}
+                  updateHandler={() => handleUpdate(clg, "education")}
                 />
               )}
             </div>
@@ -66,7 +73,7 @@ function EduBlock({ userInfo }) {
         )}
       </div>
       <h3>Workplaces</h3>
-      {isActiveUser && <AddInfoBTN caption='workplace' name='workplace' />}
+      {isActiveUser && <AddInfoBTN caption="workplace" name="workplace" />}
       <div className={styles.verticalDevider}>
         {userInfo?.workplace?.[0] ? (
           userInfo.workplace.map((wrp, i) => (
@@ -90,7 +97,7 @@ function EduBlock({ userInfo }) {
                   activateOptions={activateOptions}
                   name={`workplace-${i}`}
                   deleteHandler={() => {}}
-                  updateHandler={() => handleUpdate(wrp, 'workplace')}
+                  updateHandler={() => handleUpdate(wrp, "workplace")}
                 />
               )}
             </div>

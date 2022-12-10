@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import { useFriendsQuery } from '../../../hooks';
-import { axiosQuery } from '../../../store/axiosConfig';
+import { useNavigate } from "react-router-dom";
+import { useFriendsQuery } from "../../../hooks";
+import { axiosQuery } from "../../../store/axiosConfig";
 
-import styles from './styles/friendShip.module.scss';
+import styles from "./styles/friendShip.module.scss";
 import {
   DeleteRequestBTN,
   CancelRequestBTN,
@@ -10,7 +10,7 @@ import {
   SendRequestBTN,
   IsFriendBTN,
   SendMessageBTN,
-} from '../../Layouts';
+} from "../../Layouts";
 
 function FriendShip({ friendShip, profileId, setFriendShip }) {
   const navigate = useNavigate();
@@ -26,7 +26,9 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
   async function handleConversation() {
     try {
       const { data } = await axiosQuery.post(`/conversation/${profileId}`);
-      navigate(`/messanger/${data.conversationId}`);
+      navigate(`/messanger/${data.conversationId}`, {
+        state: { isNew: data?.isNew },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -38,7 +40,11 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
         <IsFriendBTN
           deleteHanlder={() => {
             deleteFriendHandler(profileId);
-            setFriendShip((prev) => ({ ...prev, isFriend: false, isForeign: true }));
+            setFriendShip((prev) => ({
+              ...prev,
+              isFriend: false,
+              isForeign: true,
+            }));
           }}
         />
       )}
@@ -46,7 +52,11 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
         <SendRequestBTN
           onClick={() => {
             sendFriendRequestHandler(profileId);
-            setFriendShip((prev) => ({ ...prev, isSentRequest: true, isForeign: false }));
+            setFriendShip((prev) => ({
+              ...prev,
+              isSentRequest: true,
+              isForeign: false,
+            }));
           }}
         />
       )}
@@ -54,7 +64,11 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
         <ConfirmRequestBtn
           onClick={() => {
             confirmFriendRequestHandler(profileId);
-            setFriendShip((prev) => ({ ...prev, isPendingRequest: false, isFriend: true }));
+            setFriendShip((prev) => ({
+              ...prev,
+              isPendingRequest: false,
+              isFriend: true,
+            }));
           }}
         />
       )}
@@ -62,7 +76,11 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
         <DeleteRequestBTN
           onClick={() => {
             deleteFriendRequestHandler(profileId);
-            setFriendShip((prev) => ({ ...prev, isPendingRequest: false, isForeign: true }));
+            setFriendShip((prev) => ({
+              ...prev,
+              isPendingRequest: false,
+              isForeign: true,
+            }));
           }}
         />
       )}
@@ -70,7 +88,11 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
         <CancelRequestBTN
           onClick={() => {
             cancelFriendRequestHandler(profileId);
-            setFriendShip((prev) => ({ ...prev, isSentRequest: false, isForeign: true }));
+            setFriendShip((prev) => ({
+              ...prev,
+              isSentRequest: false,
+              isForeign: true,
+            }));
           }}
         />
       )}

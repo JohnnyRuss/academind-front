@@ -1,4 +1,4 @@
-function destructureFormData(target) {
+export default function destructureFormData(target) {
   const formData = new FormData(target);
 
   const output = {};
@@ -9,5 +9,3 @@ function destructureFormData(target) {
 
   return output;
 }
-
-export default destructureFormData;

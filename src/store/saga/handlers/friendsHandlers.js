@@ -1,6 +1,6 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put } from "redux-saga/effects";
 
-import { isRoute } from '../../../utils/window-location';
+import { isRoute } from "../../../lib/window-location";
 
 import {
   setFriends,
@@ -10,7 +10,7 @@ import {
   setSentRequests,
   setCanceledRequest,
   setDeletedFriend,
-} from '../../reducers/friendsReducer';
+} from "../../reducers/friendsReducer";
 
 import {
   querySendRequest,
@@ -21,49 +21,49 @@ import {
   queryGetAllFriends,
   queryGetPendingRequests,
   queryGetSentRequests,
-} from '../api/friendsQueries';
+} from "../api/friendsQueries";
 
 function* sendRequestHandler({ payload: userId }) {
   try {
     yield call(querySendRequest, userId);
   } catch (error) {
-    showError(error, 'sendRequestHandler');
+    showError(error, "sendRequestHandler");
   }
 }
 
 function* cancelRequestHandler({ payload: userId }) {
   try {
     yield call(queryCancelRequest, userId);
-    if (isRoute('sent-requests')) yield put(setCanceledRequest(userId));
+    if (isRoute("sent-requests")) yield put(setCanceledRequest(userId));
   } catch (error) {
-    showError(error, 'cancelRequestHandler');
+    showError(error, "cancelRequestHandler");
   }
 }
 
 function* deleteRequestHandler({ payload: userId }) {
   try {
     yield call(queryDeleteRequest, userId);
-    if (isRoute('pending-requests')) yield put(setDeletedRequest(userId));
+    if (isRoute("pending-requests")) yield put(setDeletedRequest(userId));
   } catch (error) {
-    showError(error, 'deleteRequestHandler');
+    showError(error, "deleteRequestHandler");
   }
 }
 
 function* confirmRequestHandler({ payload: userId }) {
   try {
     yield call(queryConfirmRequest, userId);
-    if (isRoute('pending-requests')) yield put(setConfirmedRequest(userId));
+    if (isRoute("pending-requests")) yield put(setConfirmedRequest(userId));
   } catch (error) {
-    showError(error, 'confirmRequestHandler');
+    showError(error, "confirmRequestHandler");
   }
 }
 
 function* deleteFriendtHandler({ payload: userId }) {
   try {
     yield call(queryDeleteFriend, userId);
-    if (isRoute('all-friends')) yield put(setDeletedFriend(userId));
+    if (isRoute("all-friends")) yield put(setDeletedFriend(userId));
   } catch (error) {
-    showError(error, 'deleteFriendtHandler');
+    showError(error, "deleteFriendtHandler");
   }
 }
 
@@ -72,7 +72,7 @@ function* getAllFriendsHandler({ payload: userId }) {
     const { data } = yield call(queryGetAllFriends, userId);
     yield put(setFriends(data));
   } catch (error) {
-    showError(error, 'getAllFriendsHandler');
+    showError(error, "getAllFriendsHandler");
   }
 }
 
@@ -81,7 +81,7 @@ function* getPendingRequestsHandler({ payload: userId }) {
     const { data } = yield call(queryGetPendingRequests, userId);
     yield put(setPendingRequests(data));
   } catch (error) {
-    showError(error, 'getPendingRequestsHandler');
+    showError(error, "getPendingRequestsHandler");
   }
 }
 
@@ -90,7 +90,7 @@ function* getSentRequestsHandler({ payload: userId }) {
     const { data } = yield call(queryGetSentRequests, userId);
     yield put(setSentRequests(data));
   } catch (error) {
-    showError(error, 'getSentRequestsHandler');
+    showError(error, "getSentRequestsHandler");
   }
 }
 

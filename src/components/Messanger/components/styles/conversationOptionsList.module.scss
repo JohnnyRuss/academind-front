@@ -1,0 +1,18 @@
+@use "../../../../styles/helpers/components/messanger" as *;
+
+.optBtnBox {
+  position: absolute;
+  text-transform: capitalize;
+  @include conversationOptionsList;
+
+  .optBtn {
+    display: flex;
+    align-items: center;
+  }
+
+  .optIconBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

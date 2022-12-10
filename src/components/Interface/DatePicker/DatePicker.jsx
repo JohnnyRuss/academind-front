@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { formatDate } from '../../../functions';
+import { formatDate } from "../../../lib";
 
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
-import styles from './datePicker.module.scss';
+import styles from "./datePicker.module.scss";
 
 function DatePicker({ className, date = new Date(), name, id, defaultDate }) {
   const [value, onChange] = useState(date);
@@ -19,14 +19,21 @@ function DatePicker({ className, date = new Date(), name, id, defaultDate }) {
   return (
     <div className={`${styles.dtPckrBoxRe} ${className}`}>
       <input
-        type='text'
+        type="text"
         name={name}
         value={value}
         className={styles.dtPckrBoxRePlaceholder}
         onChange={() => {}}
       />
-      <input type='checkbox' id={`${id || 'selectedDate'}`} className={styles.dtPckrBoxReSelectedDate} />
-      <label htmlFor={id || 'selectedDate'} className={styles.dtPckrBoxReLabbel}>
+      <input
+        type="checkbox"
+        id={`${id || "selectedDate"}`}
+        className={styles.dtPckrBoxReSelectedDate}
+      />
+      <label
+        htmlFor={id || "selectedDate"}
+        className={styles.dtPckrBoxReLabbel}
+      >
         {formatDate(value)}
       </label>
       <Calendar

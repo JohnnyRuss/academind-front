@@ -5,6 +5,7 @@ import {
   setActiveConversation,
   setDeletedConversation,
   setNewMessage,
+  setMarkAsRead,
 } from "../../reducers/conversationReducer";
 
 import {
@@ -13,6 +14,7 @@ import {
   queryGetConversation,
   queryDeleteConversation,
   sendMessageQuery,
+  markAsReadQuery,
 } from "../api/conversationQueries";
 
 export function* getAllConversationsHandler({ payload: userId }) {
@@ -51,12 +53,22 @@ export function* sendMessageHandler({ payload: { adressatId, body } }) {
   }
 }
 
+export function* markAsReadHandler({ payload }) {
+  try {
+    // console.log(payload);
+    yield call(markAsReadQuery, payload);
+    yield put(setMarkAsRead(payload));
+  } catch (error) {
+    showError(error, "markAsReadHandler");
+  }
+}
+
 export function* deleteConversationHandler({ payload: conversationId }) {
   try {
     yield call(queryDeleteConversation, conversationId);
     yield put(setDeletedConversation(conversationId));
   } catch (error) {
-    showError(error, "getConversationHandler");
+    showError(error, "deleteConversationHandler");
   }
 }
 

@@ -79,25 +79,34 @@
   .dotBtn {
     font-size: $txt-big;
   }
+}
 
-  .optBtnBox {
-    background: $bg-light;
-    right: 0.25rem;
-    top: 1.5rem;
-    width: max-content;
-    padding: 0.25rem 0.75rem;
-    border-radius: $rounded-sm;
-    font-size: $txt-base-sm;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+@mixin conversationOptionsList {
+  z-index: 1;
+  background: $bg-light;
+  right: 0.25rem;
+  top: 1.5rem;
+  width: max-content;
+  padding: 0.25rem 0.75rem;
+  border-radius: $rounded-sm;
+  font-size: $txt-base-sm;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
-    .optBtn {
-      gap: 0.5rem;
+  .optBtn {
+    gap: 0.5rem;
 
-      svg {
-        color: color("redColor");
-        font-size: $txt-base;
-      }
+    &.optDeleteBtn svg {
+      color: color("redColor");
+      font-size: $txt-big;
     }
+
+    svg {
+      font-size: $txt-base;
+    }
+  }
+
+  .optIconBox {
+    width: 1.8rem;
   }
 }
 
@@ -138,6 +147,20 @@ $msg-fs: $txt-base-sm;
   & [data-img] {
     width: $identifier-fig-xsm;
     height: $identifier-fig-xsm;
+  }
+}
+
+@mixin isReadLabel {
+  $is-read-label-w: 1rem;
+
+  font-size: 1rem;
+  margin-top: -0.5rem;
+
+  &::before {
+    right: calc(100% + $is-read-label-w / 4);
+    width: $is-read-label-w;
+    height: $is-read-label-w;
+    background: url("../../../../public/icons/check.webp");
   }
 }
 

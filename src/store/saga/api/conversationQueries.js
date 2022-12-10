@@ -19,3 +19,9 @@ export async function queryDeleteConversation(conversationId) {
 export async function sendMessageQuery({ adressatId, body }) {
   return await axiosQuery.patch(`/conversation/${adressatId}`, body);
 }
+
+export async function markAsReadQuery({ conversationId, adressatId }) {
+  return await axiosQuery.patch(
+    `/conversation/${conversationId}/read/${adressatId}`
+  );
+}

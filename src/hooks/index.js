@@ -18,6 +18,7 @@ export { default as useAboutUserQuery } from './queries/useAboutUserQuery';
 export { default as useSavePostQuery } from './queries/useSavePostQuery';
 export { default as useHelperQueries } from './queries/useHelperQueries';
 export { default as useProfileReviewQuery } from './queries/useProfileReviewQuery';
+export { default as useConversationQuery } from './queries/useConversationQuery';
 
 export { default as useAuthValidation } from './auth/useAuthValidation';
 export { default as useRestrictAuthenticated } from './auth/useRestrictAuthenticated';

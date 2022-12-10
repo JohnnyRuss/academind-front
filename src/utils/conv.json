@@ -1,0 +1,102 @@
+{
+  "_id": "6357d5a483248bb5e8f6a3e7",
+  "users": [
+    {
+      "_id": "62fbaf941fffa1f725217953",
+      "userName": "john russ",
+      "profileImg": "http://localhost:4000/user-62fbaf941fffa1f725217953-1663680406023--original.webp"
+    },
+    {
+      "_id": "63022fd21afbedd194623296",
+      "userName": "ross geller",
+      "profileImg": "http://localhost:4000/user-63022fd21afbedd194623296-1663694517041--original.webp"
+    }
+  ],
+  "createdAt": "2022-10-25T12:25:08.763Z",
+  "updatedAt": "2022-10-25T12:25:08.763Z",
+  "__v": 0,
+  "messages": [
+    {
+      "_id": "6357d5a483248bb5e8f6a3eb",
+      "conversation": "6357d5a483248bb5e8f6a3e7",
+      "author": "62fbaf941fffa1f725217953",
+      "message": "tt 13",
+      "createdAt": "2022-10-25T12:25:08.879Z",
+      "updatedAt": "2022-10-25T12:25:08.879Z",
+      "__v": 0
+    },
+    {
+      "_id": "6357d5a983248bb5e8f6a402",
+      "conversation": "6357d5a483248bb5e8f6a3e7",
+      "author": "62fbaf941fffa1f725217953",
+      "message": "tt 14",
+      "createdAt": "2022-10-25T12:25:13.123Z",
+      "updatedAt": "2022-10-25T12:25:13.123Z",
+      "__v": 0
+    },
+    {
+      "_id": "6357d5ad83248bb5e8f6a417",
+      "conversation": "6357d5a483248bb5e8f6a3e7",
+      "author": "62fbaf941fffa1f725217953",
+      "message": "tt 15",
+      "createdAt": "2022-10-25T12:25:17.005Z",
+      "updatedAt": "2022-10-25T12:25:17.005Z",
+      "__v": 0
+    },
+    {
+      "_id": "6357d5e983248bb5e8f6a42f",
+      "conversation": "6357d5a483248bb5e8f6a3e7",
+      "author": "63022fd21afbedd194623296",
+      "message": "tt 16",
+      "createdAt": "2022-10-25T12:26:17.783Z",
+      "updatedAt": "2022-10-25T12:26:17.783Z",
+      "__v": 0
+    },
+    {
+      "_id": "6357d60383248bb5e8f6a445",
+      "conversation": "6357d5a483248bb5e8f6a3e7",
+      "author": "62fbaf941fffa1f725217953",
+      "message": "tt 17",
+      "createdAt": "2022-10-25T12:26:43.001Z",
+      "updatedAt": "2022-10-25T12:26:43.001Z",
+      "__v": 0
+    },
+    {
+      "_id": "6357d60783248bb5e8f6a45a",
+      "conversation": "6357d5a483248bb5e8f6a3e7",
+      "author": "62fbaf941fffa1f725217953",
+      "message": "tt 18",
+      "createdAt": "2022-10-25T12:26:47.612Z",
+      "updatedAt": "2022-10-25T12:26:47.612Z",
+      "__v": 0
+    },
+    {
+      "_id": "6357d61a83248bb5e8f6a470",
+      "conversation": "6357d5a483248bb5e8f6a3e7",
+      "author": "63022fd21afbedd194623296",
+      "message": "tt 19",
+      "createdAt": "2022-10-25T12:27:06.664Z",
+      "updatedAt": "2022-10-25T12:27:06.664Z",
+      "__v": 0
+    },
+    {
+      "_id": "6357d62183248bb5e8f6a485",
+      "conversation": "6357d5a483248bb5e8f6a3e7",
+      "author": "63022fd21afbedd194623296",
+      "message": "tt 20",
+      "createdAt": "2022-10-25T12:27:13.197Z",
+      "updatedAt": "2022-10-25T12:27:13.197Z",
+      "__v": 0
+    },
+    {
+      "_id": "6357d62583248bb5e8f6a49a",
+      "conversation": "6357d5a483248bb5e8f6a3e7",
+      "author": "63022fd21afbedd194623296",
+      "message": "tt 21",
+      "createdAt": "2022-10-25T12:27:17.212Z",
+      "updatedAt": "2022-10-25T12:27:17.212Z",
+      "__v": 0
+    }
+  ],
+  "id": "6357d5a483248bb5e8f6a3e7"
+}

@@ -1,9 +1,12 @@
-import { DotsHorizontalIcon, DeleteIcon } from "../../Layouts/Icons/icons";
 import styles from "./styles/conversationOptions.module.scss";
+import { DotsHorizontalIcon } from "../../Layouts/Icons/icons";
+import ConversationOptionsList from "./ConversationOptionsList";
 
 function ConversationOptions({
   setOpenConversationOption,
   openConversationOption,
+  conversationId,
+  adressatId,
 }) {
   return (
     <div className={styles.conversationOptions}>
@@ -16,18 +19,11 @@ function ConversationOptions({
         <DotsHorizontalIcon className={styles.dotBtn} />
       </button>
       {openConversationOption && (
-        <div className={styles.optBtnBox}>
-          <button
-            className={styles.optBtn}
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpenConversationOption(false);
-            }}
-          >
-            <DeleteIcon />
-            <span>delete conversation</span>
-          </button>
-        </div>
+        <ConversationOptionsList
+          adressatId={adressatId}
+          conversationId={conversationId}
+          setOpenConversationOption={setOpenConversationOption}
+        />
       )}
     </div>
   );

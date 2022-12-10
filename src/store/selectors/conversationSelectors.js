@@ -1,7 +1,9 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-const selectedConversations = ({ conversation }) =>
-  conversation.allConversations;
+const selectedConversations = ({ conversation }) => ({
+  allConversations: conversation.allConversations,
+  allConversationState: conversation.getAllLoadingState,
+});
 
 export const selectAllConversations = createSelector(
   selectedConversations,
@@ -10,7 +12,7 @@ export const selectAllConversations = createSelector(
 
 const selectedActiveConversation = ({ conversation }) => ({
   conversation: conversation.activeConversation,
-  loadingState: conversation.loadingState,
+  conversationState: conversation.loadingState,
 });
 
 export const selectActiveConversation = createSelector(
@@ -20,3 +22,9 @@ export const selectActiveConversation = createSelector(
 
 export const selectConversationById = ({ conversation }, id) =>
   conversation.allConversations.find((conversation) => conversation._id === id);
+
+export const selectConversationState = ({ conversation }) =>
+  conversation.loadingState;
+
+export const selectAllConversationState = ({ conversation }) =>
+  conversation.getAllLoadingState;

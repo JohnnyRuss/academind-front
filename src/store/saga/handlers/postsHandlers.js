@@ -39,7 +39,7 @@ import {
   queryRemoveTagOnPost,
 } from '../api/postQueries';
 
-import { allowNewPostSet, isRoute } from '../../../utils/window-location';
+import { allowNewPostSet, isRoute } from '../../../lib/window-location';
 
 function* createPostHandler({ payload: body }) {
   try {

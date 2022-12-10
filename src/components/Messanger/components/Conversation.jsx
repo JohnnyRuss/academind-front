@@ -1,37 +1,54 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { selectUserId } from "../../../store/selectors/userSelectors";
 
 import styles from "./styles/conversation.module.scss";
 import { Avatar } from "../../Interface";
-
 import ConversationInfoBox from "./ConversationInfoBox";
 import ConversationOptions from "./ConversationOptions";
 
-function Conversation({ author, conversationId, lastMessage }) {
+function Conversation({ conversationId, adressatId, author, lastMessage }) {
+  const navigate = useNavigate();
+
   const { id } = useParams();
+  const { id: activeUserId } = useSelector(selectUserId);
 
   const [openConversationOption, setOpenConversationOption] = useState(false);
-  const navigate = useNavigate();
+
+  function handleNavigateToConversation() {
+    navigate(conversationId);
+  }
+
   return (
     <div
-      onClick={() => navigate(conversationId)}
+      onClick={() => handleNavigateToConversation()}
       onMouseLeave={() =>
         openConversationOption && setOpenConversationOption(false)
       }
       className={`${styles.conversationBox} ${
         conversationId === id && styles.activeConversationBox
-      } ${false && styles.unRead}`}
+      } ${
+        !lastMessage?.isRead &&
+        lastMessage?.author !== activeUserId &&
+        styles.unRead
+      }`}
       data-conversation-box
     >
       <Avatar img={author.profileImg} />
       <ConversationInfoBox
         userName={author.userName}
         lastMessage={lastMessage}
+        s
+        lastMessagePrefix={lastMessage?.author === activeUserId}
       />
       <span className={styles.unReadDot}></span>
       <ConversationOptions
         openConversationOption={openConversationOption}
         setOpenConversationOption={setOpenConversationOption}
+        conversationId={conversationId}
+        adressatId={adressatId}
       />
     </div>
   );

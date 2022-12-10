@@ -8,4 +8,29 @@
   @include msgList;
 
   @include scrollBar("&", 1rem, 2rem, 1rem, 1rem);
+
+  .isReadLabel {
+    margin-left: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    animation: move_bottom 0.2s ease-out;
+    @include isReadLabel;
+    
+    &::before {
+      content: "";
+      position: absolute;
+      background-position: center;
+      background-size: 100%;
+    }
+  }
+}
+
+@keyframes move_bottom {
+  0% {
+    transform: translateY(-0.5rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

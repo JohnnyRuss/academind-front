@@ -9,14 +9,22 @@ const conversationSlice = createSlice({
       error: false,
       message: "",
     },
+    getAllLoadingState: {
+      loading: false,
+      error: false,
+      message: "",
+    },
     allConversations: [],
-    activeConversation: {},
+    activeConversation: null,
   },
   reducers: {
-    getAllConversations() {},
+    getAllConversations(state) {
+      updateLoadingState({ state, key: "getAllLoadingState", loading: true });
+    },
 
     setAllConversations(state, { payload }) {
       state.allConversations = payload;
+      updateLoadingState({ state, key: "getAllLoadingState", loading: false });
     },
 
     getLastConversation(state) {
@@ -41,7 +49,7 @@ const conversationSlice = createSlice({
         .find((conversation) => conversation._id === conversationId)
         ?.messages.push(payload);
 
-      if (state.activeConversation._id === conversationId)
+      if (state.activeConversation?._id === conversationId)
         state.activeConversation.messages.push(payload);
     },
 
@@ -49,12 +57,36 @@ const conversationSlice = createSlice({
 
     setDeletedConversation(state, { payload }) {
       state.allConversations = state.allConversations.filter(
-        (conv) => conv._id !== payload
+        (conv) => conv?._id !== payload
       );
+
+      if (
+        payload === state.activeConversation?._id &&
+        state.allConversations[0]
+      )
+        state.activeConversation = state.allConversations[0];
+      else if (!state.allConversations[0]) state.activeConversation = null;
+    },
+
+    markAsRead() {},
+
+    setMarkAsRead(state, { payload }) {
+      const { conversationId, adressatId } = payload;
+      if (state.activeConversation?._id === conversationId)
+        state.activeConversation?.messages
+          .filter((msg) => msg.isRead === false && msg.author === adressatId)
+          .forEach((msg) => (msg.isRead = true));
+
+      state.allConversations
+        .find((conv) => conv._id === conversationId)
+        ?.messages.filter(
+          (msg) => msg.isRead === false && msg.author === adressatId
+        )
+        .forEach((msg) => (msg.isRead = true));
     },
 
     resetConversation(state) {
-      state.activeConversation = {};
+      state.activeConversation = null;
       state.allConversations = [];
     },
   },
@@ -69,6 +101,8 @@ export const {
   setActiveConversation,
   sendMessage,
   setNewMessage,
+  markAsRead,
+  setMarkAsRead,
   deleteConversation,
   setDeletedConversation,
   resetConversation,

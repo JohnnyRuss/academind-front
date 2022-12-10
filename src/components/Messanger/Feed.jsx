@@ -1,12 +1,15 @@
 import { useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { useConversationQuery } from "../../hooks";
 import { selectUserId } from "../../store/selectors/userSelectors";
 import { selectActiveConversation } from "../../store/selectors/conversationSelectors";
-import { groupMessages } from "../../lib/groupMessages";
-import { fixLineBreaks } from "../../functions";
-import { sendMessage } from "../../store/reducers/conversationReducer";
+
+import {
+  groupMessages,
+  fixLineBreaks,
+} from "../../lib";
 
 import styles from "./components/styles/feed.module.scss";
 import FeedHeader from "./components/FeedHeader";
@@ -16,44 +19,50 @@ import { TextArea } from "../Layouts";
 
 function Feed() {
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { id } = useSelector(selectUserId);
+  const { id: activeUserId } = useSelector(selectUserId);
 
   const {
     conversation,
-    loadingState: { loading },
+    conversationState: { loading },
   } = useSelector(selectActiveConversation);
 
   const groupedMessages = useMemo(
-    () => groupMessages(conversation.messages),
-    [conversation.messages]
+    () => (conversation ? groupMessages(conversation.messages) : []),
+    [conversation?.messages]
   );
 
   const adressat = useMemo(() => {
-    return conversation.users?.find((user) => user._id !== id);
-  }, [conversation.users, id]);
+    return conversation
+      ? conversation.users?.find((user) => user._id !== activeUserId)
+      : null;
+  }, [conversation?.users, activeUserId]);
+
+  const { sendMessageQuery } = useConversationQuery();
 
   function handleMessage(text) {
     const val = fixLineBreaks(text);
-    dispatch(sendMessage({ adressatId: adressat._id, body: { message: val } }));
+    sendMessageQuery({ adressatId: adressat._id, body: { message: val } });
   }
 
-  function onFocusHandler() {
+  function onFocusHandler(e) {
+    e.preventDefault();
     if (pathname === "/messanger") navigate(`/messanger/${conversation._id}`);
   }
 
   return (
     <div className={styles.messangerFeedContainer}>
       {loading && <Spinner />}
-      <FeedHeader adressat={adressat} />
-      {!loading && Object.values(conversation)[0] && (
-        <FeedMessagesList
-          groupedMessages={groupedMessages}
-          adressat={adressat}
-          activeUserId={id}
-        />
+      {!loading && conversation && (
+        <>
+          <FeedHeader adressat={adressat} />
+          <FeedMessagesList
+            groupedMessages={groupedMessages}
+            adressat={adressat}
+            activeUserId={activeUserId}
+          />
+        </>
       )}
       <TextArea
         withBtn={false}
