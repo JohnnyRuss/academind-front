@@ -40,7 +40,6 @@ function Conversation({ conversationId, adressatId, author, lastMessage }) {
       <ConversationInfoBox
         userName={author.userName}
         lastMessage={lastMessage}
-        s
         lastMessagePrefix={lastMessage?.author === activeUserId}
       />
       <span className={styles.unReadDot}></span>

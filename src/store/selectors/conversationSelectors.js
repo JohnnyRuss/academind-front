@@ -28,3 +28,6 @@ export const selectConversationState = ({ conversation }) =>
 
 export const selectAllConversationState = ({ conversation }) =>
   conversation.getAllLoadingState;
+
+export const selectNewConversationAlert = ({ conversation }) =>
+  conversation.newConversationAlert;

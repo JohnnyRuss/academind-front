@@ -6,6 +6,7 @@ import {
   getAllConversations,
   getLastConversation,
   getConversation,
+  getNewConversation,
   deleteConversation,
   sendMessage,
   // Non API Tasks
@@ -35,12 +36,16 @@ function useConversationQuery(props) {
     dispatch(getConversation(id));
   }
 
+  function getNewConversationQuery(newConversationId) {
+    dispatch(getNewConversation(newConversationId));
+  }
+
   function deleteConversationQuery(conversationId) {
     dispatch(deleteConversation(conversationId));
   }
 
-  function sendMessageQuery({ adressatId, body }) {
-    dispatch(sendMessage({ adressatId, body }));
+  function sendMessageQuery({ adressatId, conversationId, body }) {
+    dispatch(sendMessage({ adressatId, conversationId, body }));
   }
 
   // Non API Tasks
@@ -62,6 +67,7 @@ function useConversationQuery(props) {
     getAllConversationsQuery,
     getLastConversationQuery,
     getConversationQuery,
+    getNewConversationQuery,
     deleteConversationQuery,
     sendMessageQuery,
     // Non API Tasks

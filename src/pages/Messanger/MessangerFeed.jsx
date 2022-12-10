@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 import {
   selectActiveConversation,
@@ -9,8 +9,6 @@ import {
 import { selectUserId } from "../../store/selectors/userSelectors";
 import { useConversationQuery } from "../../hooks";
 
-import { getConversationLastMsg } from "../../lib";
-
 import Feed from "../../components/Messanger/Feed";
 
 let isValidConversation = true;
@@ -18,6 +16,7 @@ let isValidConversation = true;
 function MessangerFeed() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const { id: conversationRoute } = useParams();
 
   const { deleteConversationQuery, markAsReadQuery } = useConversationQuery();
 
@@ -26,12 +25,14 @@ function MessangerFeed() {
   const { allConversations } = useSelector(selectAllConversations);
 
   useEffect(() => {
-    const lastMsg = getConversationLastMsg(conversation);
+    if (!conversation) return;
 
-    if (!lastMsg) return;
-    else if (
-      lastMsg.author === activeUserId ||
-      (lastMsg.author !== activeUserId && lastMsg.isRead)
+    const lastMsg = conversation.lastMessage;
+
+    if (
+      lastMsg.isRead ||
+      conversationRoute !== conversation._id ||
+      lastMsg.author === activeUserId
     )
       return;
 

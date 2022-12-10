@@ -6,10 +6,7 @@ import { useConversationQuery } from "../../hooks";
 import { selectUserId } from "../../store/selectors/userSelectors";
 import { selectActiveConversation } from "../../store/selectors/conversationSelectors";
 
-import {
-  groupMessages,
-  fixLineBreaks,
-} from "../../lib";
+import { groupMessages, fixLineBreaks } from "../../lib";
 
 import styles from "./components/styles/feed.module.scss";
 import FeedHeader from "./components/FeedHeader";
@@ -43,7 +40,11 @@ function Feed() {
 
   function handleMessage(text) {
     const val = fixLineBreaks(text);
-    sendMessageQuery({ adressatId: adressat._id, body: { message: val } });
+    sendMessageQuery({
+      adressatId: adressat._id,
+      conversationId: conversation._id,
+      body: { message: val },
+    });
   }
 
   function onFocusHandler(e) {
@@ -61,6 +62,7 @@ function Feed() {
             groupedMessages={groupedMessages}
             adressat={adressat}
             activeUserId={activeUserId}
+            lastMessage={conversation.lastMessage}
           />
         </>
       )}

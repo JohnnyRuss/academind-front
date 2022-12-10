@@ -2,6 +2,10 @@ import { useEffect, useContext, useState } from "react";
 import { useParams, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import {
+  selectNewConversationAlert,
+  selectAllConversations,
+} from "../../store/selectors/conversationSelectors";
 import { IoContext } from "../../store/Io";
 import { useConversationQuery } from "../../hooks";
 
@@ -18,11 +22,19 @@ function Messanger() {
     (state) => state.conversation.loadingState.loading
   );
 
+  const { allConversations, allConversationState } = useSelector(
+    selectAllConversations
+  );
+  const { isNew, id: newConversationId } = useSelector(
+    selectNewConversationAlert
+  );
+
   const {
     // API Tasks
     getAllConversationsQuery,
     getLastConversationQuery,
     getConversationQuery,
+    getNewConversationQuery,
     // Non API Tasks
     handleResetConversations,
     handleSetNewMessage,
@@ -44,9 +56,18 @@ function Messanger() {
   2. and when user stands on specific conversation. in that case conversation is fetched by conversationID
    */
   useEffect(() => {
-    !id && getLastConversationQuery();
+    !id &&
+      !allConversationState.loading &&
+      allConversations[0] &&
+      getLastConversationQuery();
+
     id && getConversationQuery(id);
-  }, [id]);
+  }, [id, allConversationState.loading]);
+
+  useEffect(() => {
+    if (!isNew) return;
+    getNewConversationQuery(newConversationId);
+  }, [isNew]);
 
   /*
   get new messages in real time

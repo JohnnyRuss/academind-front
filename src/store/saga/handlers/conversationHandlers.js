@@ -3,6 +3,7 @@ import { call, put } from "redux-saga/effects";
 import {
   setAllConversations,
   setActiveConversation,
+  setNewConversation,
   setDeletedConversation,
   setNewMessage,
   setMarkAsRead,
@@ -44,9 +45,24 @@ export function* getConversationHandler({ payload: conversationId }) {
   }
 }
 
-export function* sendMessageHandler({ payload: { adressatId, body } }) {
+export function* getNewConversationHandler({ payload: conversationId }) {
   try {
-    const { data } = yield call(sendMessageQuery, { adressatId, body });
+    const { data } = yield call(queryGetConversation, conversationId);
+    yield put(setNewConversation(data));
+  } catch (error) {
+    showError(error, "getNewConversationHandler");
+  }
+}
+
+export function* sendMessageHandler({
+  payload: { adressatId, conversationId, body },
+}) {
+  try {
+    const { data } = yield call(sendMessageQuery, {
+      conversationId,
+      adressatId,
+      body,
+    });
     yield put(setNewMessage(data));
   } catch (error) {
     showError(error, "sendMessageHandler");
@@ -55,9 +71,8 @@ export function* sendMessageHandler({ payload: { adressatId, body } }) {
 
 export function* markAsReadHandler({ payload }) {
   try {
-    // console.log(payload);
-    yield call(markAsReadQuery, payload);
-    yield put(setMarkAsRead(payload));
+    const { data } = yield call(markAsReadQuery, payload);
+    yield put(setMarkAsRead(data));
   } catch (error) {
     showError(error, "markAsReadHandler");
   }

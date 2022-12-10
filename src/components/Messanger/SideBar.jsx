@@ -32,7 +32,7 @@ function SideBar() {
                   (user) => user._id !== activeUserId
                 )}
                 conversationId={conversation._id}
-                lastMessage={getConversationLastMsg(conversation)}
+                lastMessage={conversation.lastMessage}
                 adressatId={
                   conversation.users?.find((user) => user._id !== activeUserId)
                     ._id

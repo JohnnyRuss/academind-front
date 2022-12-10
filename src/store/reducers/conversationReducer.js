@@ -14,6 +14,10 @@ const conversationSlice = createSlice({
       error: false,
       message: "",
     },
+    newConversationAlert: {
+      isNew: false,
+      id: "",
+    },
     allConversations: [],
     activeConversation: null,
   },
@@ -40,17 +44,45 @@ const conversationSlice = createSlice({
       updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
+    getNewConversation() {},
+
+    setNewConversation(state, { payload }) {
+      state.allConversations.unshift(payload);
+
+      state.newConversationAlert = {
+        id: "",
+        isNew: false,
+      };
+    },
+
     sendMessage() {},
 
     setNewMessage(state, { payload }) {
-      const { conversation: conversationId } = payload;
+      const { message, lastMessage } = payload;
 
-      state.allConversations
-        .find((conversation) => conversation._id === conversationId)
-        ?.messages.push(payload);
+      const conversationInScope = state.allConversations.find(
+        (conversation) => conversation._id === message.conversation
+      );
 
-      if (state.activeConversation?._id === conversationId)
-        state.activeConversation.messages.push(payload);
+      if (conversationInScope) {
+        conversationInScope.messages.push(message);
+        conversationInScope.lastMessage = lastMessage;
+      }
+
+      if (state.activeConversation?._id === message.conversation) {
+        state.activeConversation.messages.push(message);
+        state.activeConversation.lastMessage = lastMessage;
+      }
+
+      if (
+        !conversationInScope &&
+        state.activeConversation?._id !== message.conversation
+      ) {
+        state.newConversationAlert = {
+          id: message.conversation,
+          isNew: true,
+        };
+      }
     },
 
     deleteConversation() {},
@@ -71,18 +103,15 @@ const conversationSlice = createSlice({
     markAsRead() {},
 
     setMarkAsRead(state, { payload }) {
-      const { conversationId, adressatId } = payload;
-      if (state.activeConversation?._id === conversationId)
-        state.activeConversation?.messages
-          .filter((msg) => msg.isRead === false && msg.author === adressatId)
-          .forEach((msg) => (msg.isRead = true));
+      const { conversationId, body } = payload;
 
-      state.allConversations
-        .find((conv) => conv._id === conversationId)
-        ?.messages.filter(
-          (msg) => msg.isRead === false && msg.author === adressatId
-        )
-        .forEach((msg) => (msg.isRead = true));
+      if (state.activeConversation?._id === conversationId) {
+        state.activeConversation.lastMessage = body;
+      }
+
+      state.allConversations.find(
+        (conv) => conv._id === conversationId
+      ).lastMessage = body;
     },
 
     resetConversation(state) {
@@ -99,6 +128,8 @@ export const {
   getLastConversation,
   getConversation,
   setActiveConversation,
+  getNewConversation,
+  setNewConversation,
   sendMessage,
   setNewMessage,
   markAsRead,
