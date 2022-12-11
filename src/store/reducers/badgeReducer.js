@@ -17,25 +17,36 @@ const badgeSlice = createSlice({
     },
   },
   reducers: {
-    getRequestCount() {},
+    getUnseenRequestsCount() {},
 
-    setRequestCount(state, { payload }) {
+    setUnseenRequestsCount(state, { payload }) {
       state.requestCount = {
         count: payload.length,
         ids: payload,
       };
     },
 
-    getMessageCount() {},
+    resetUnseenRequestsCount() {},
 
-    setMessageCount(state, { payload }) {
+    setResetedRequestsCount(state) {
+      state.requestCount = {
+        count: 0,
+        ids: [],
+      };
+    },
+
+    getUnseenConversationsCount() {},
+
+    setUnseenConversationsCount(state, { payload }) {
       state.messageCount = {
         count: payload.length,
         ids: payload,
       };
     },
 
-    resetMessageCount(state) {
+    resetUnseenConversationsCount() {},
+
+    setResetedConversationsCount(state) {
       state.messageCount = {
         count: 0,
         ids: [],
@@ -55,11 +66,14 @@ const badgeSlice = createSlice({
 
 export const badgeReducer = badgeSlice.reducer;
 export const {
-  getRequestCount,
-  setRequestCount,
-  getMessageCount,
-  setMessageCount,
-  resetMessageCount,
+  getUnseenRequestsCount,
+  setUnseenRequestsCount,
+  resetUnseenRequestsCount,
+  setResetedRequestsCount,
+  getUnseenConversationsCount,
+  setUnseenConversationsCount,
+  resetUnseenConversationsCount,
+  setResetedConversationsCount,
   getNotificationCount,
   setNotificationCount,
 } = badgeSlice.actions;

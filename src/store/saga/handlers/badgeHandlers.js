@@ -1,28 +1,52 @@
 import { call, put } from "redux-saga/effects";
 
 import {
-  getRequestCountQuery,
-  getMessageCountQuery,
+  getUnseenRequestsCountQuery,
+  markRequestsAsSeenQuery,
+  getUnseenConversationsCountQuery,
+  markConversationsAsSeenQuery,
   getNotificationCountQuery,
 } from "../api/badgeQueries";
 
 import {
-  setRequestCount,
-  setMessageCount,
+  setUnseenRequestsCount,
+  setResetedRequestsCount,
+  setUnseenConversationsCount,
+  setResetedConversationsCount,
   setNotificationCount,
 } from "../../reducers/badgeReducer";
 
-export function* getRequestCountHandler({ payload: userId }) {
-  const { data } = yield call(getRequestCountQuery, userId);
-  yield put(setRequestCount(data));
+export function* getUnseenRequestCountHandler({ payload: userId }) {
+  try {
+    const { data } = yield call(getUnseenRequestsCountQuery, userId);
+    yield put(setUnseenRequestsCount(data));
+  } catch (error) {}
 }
 
-export function* getMessageCountHandler({ payload: userId }) {
-  const { data } = yield call(getMessageCountQuery, userId);
-  yield put(setMessageCount(data));
+export function* markRequestsAsSeenHandler({ payload: userId }) {
+  try {
+    yield call(markRequestsAsSeenQuery, userId);
+    yield put(setResetedRequestsCount());
+  } catch (error) {}
+}
+
+export function* getUnseenConversationsCountHandler({ payload: userId }) {
+  try {
+    const { data } = yield call(getUnseenConversationsCountQuery, userId);
+    yield put(setUnseenConversationsCount(data));
+  } catch (error) {}
+}
+
+export function* markConversationsAsSeenHandler({ payload: userId }) {
+  try {
+    yield call(markConversationsAsSeenQuery, userId);
+    yield put(setResetedConversationsCount());
+  } catch (error) {}
 }
 
 export function* getNotificationCountHandler({ payload: userId }) {
-  const { data } = yield call(getNotificationCountQuery, userId);
-  yield put(setNotificationCount(data));
+  try {
+    const { data } = yield call(getNotificationCountQuery, userId);
+    yield put(setNotificationCount(data));
+  } catch (error) {}
 }

@@ -1,31 +1,47 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import { getPendingRequests } from '../../store/reducers/friendsReducer';
-import { useFriendsQuery } from '../../hooks';
+import { useFriendsQuery, useBadgeQuery } from "../../hooks";
+import { selectPendingRequestsPageState } from "../../store/selectors/friendsSelector";
+import { selectRequestCount } from "../../store/selectors/badgeSelectors";
 
-import styles from './components/styles/request.module.scss';
-import { DeleteRequestBTN, ConfirmRequestBtn } from '../Layouts';
-import { Spinner } from '../Interface';
-import RequestItemBody from './components/RequestItemBody';
+import styles from "./components/styles/request.module.scss";
+import { DeleteRequestBTN, ConfirmRequestBtn } from "../Layouts";
+import { Spinner } from "../Interface";
+import RequestItemBody from "./components/RequestItemBody";
 
 function PendingRequests() {
-  const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id: userId } = useParams();
 
-  const { confirmFriendRequestHandler, deleteFriendRequestHandler } = useFriendsQuery();
+  const [isMounting, setIsMounting] = useState(true);
+
+  const unSeenRequestsCount = useSelector(selectRequestCount);
 
   const {
     loadingState: { loading },
     pendingRequests,
     searchKey,
-  } = useSelector(({ friends }) => friends);
+  } = useSelector(selectPendingRequestsPageState);
+
+  const {
+    confirmFriendRequestQuery,
+    deleteFriendRequestQuery,
+    getPendingRequestsQuery,
+  } = useFriendsQuery();
+
+  const { resetUnseenRequestsCountQuery } = useBadgeQuery();
 
   useEffect(() => {
-    dispatch(getPendingRequests(id));
+    setIsMounting(false);
+    getPendingRequestsQuery(userId);
   }, []);
+
+  useEffect(() => {
+    if (!loading && !isMounting && unSeenRequestsCount > 0)
+      resetUnseenRequestsCountQuery(userId);
+  }, [loading]);
 
   return (
     <div className={styles.requestsList}>
@@ -42,9 +58,14 @@ function PendingRequests() {
               img={adressat.profileImg}
               userName={adressat.userName}
               userId={adressat._id}
-              muntuals={adressat.muntuals}>
-              <DeleteRequestBTN onClick={() => deleteFriendRequestHandler(adressat._id)} />
-              <ConfirmRequestBtn onClick={() => confirmFriendRequestHandler(adressat._id)} />
+              muntuals={adressat.muntuals}
+            >
+              <DeleteRequestBTN
+                onClick={() => deleteFriendRequestQuery(adressat._id)}
+              />
+              <ConfirmRequestBtn
+                onClick={() => confirmFriendRequestQuery(adressat._id)}
+              />
             </RequestItemBody>
           ))}
     </div>

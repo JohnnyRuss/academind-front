@@ -6,6 +6,7 @@ import {
   selectNewConversationAlert,
   selectAllConversations,
 } from "../../store/selectors/conversationSelectors";
+import { selectUserId } from "../../store/selectors/userSelectors";
 import { IoContext } from "../../store/Io";
 import { useConversationQuery, useBadgeQuery } from "../../hooks";
 
@@ -16,6 +17,8 @@ import Feed from "../../components/Messanger/Feed";
 function Messanger() {
   const { socket } = useContext(IoContext);
 
+  const { id: activeUserId } = useSelector(selectUserId);
+
   const { id } = useParams();
   const [isMounting, setIsMounting] = useState(true);
   const loading = useSelector(
@@ -25,9 +28,13 @@ function Messanger() {
   const { allConversations, allConversationState } = useSelector(
     selectAllConversations
   );
-  
+
   const { isNew, id: newConversationId } = useSelector(
     selectNewConversationAlert
+  );
+
+  const unseenConversationsCount = useSelector(
+    (state) => state.badges.messageCount.count
   );
 
   const {
@@ -42,17 +49,25 @@ function Messanger() {
     handleMarkAsRead,
   } = useConversationQuery();
 
-  const { resetMessageCountHandler } = useBadgeQuery();
+  const { resetUnseenConversationsCountQuery } = useBadgeQuery();
 
   /*
   fetches all conversations on components mount and resets them on component unmount 
   */
   useEffect(() => {
-    resetMessageCountHandler();
     setIsMounting(false);
     getAllConversationsQuery();
     return () => handleResetConversations();
   }, []);
+
+  useEffect(() => {
+    if (
+      !allConversationState.loading &&
+      !isMounting &&
+      unseenConversationsCount > 0
+    )
+      resetUnseenConversationsCountQuery(activeUserId);
+  }, [allConversationState.loading]);
 
   /* 
   this component is used in two cases 

@@ -1,29 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-import { useForeignUser, useFriendsQuery } from '../../hooks';
-import { getAllFriends } from '../../store/reducers/friendsReducer';
+import { useForeignUser, useFriendsQuery } from "../../hooks";
+import { selectAllFriendsPageState } from "../../store/selectors/friendsSelector";
 
-import styles from './components/styles/allFriends.module.scss';
-import FriendOptions from './components/FriendOptions';
-import { Image, Spinner, Link } from '../Interface';
+import styles from "./components/styles/allFriends.module.scss";
+import FriendOptions from "./components/FriendOptions";
+import { Image, Spinner, Link } from "../Interface";
 
 function AllFriends() {
-  const dispatch = useDispatch();
+  const { isActiveUser, profileId } = useForeignUser("basedOnLocation");
 
-  const { isActiveUser, profileId } = useForeignUser('basedOnLocation');
-
-  const { deleteFriendHandler } = useFriendsQuery();
+  const { deleteFriendQuery, getAllFriendsQuery } = useFriendsQuery();
 
   const {
     loadingState: { loading },
     allFriends,
     searchKey,
-  } = useSelector(({ friends }) => friends);
+  } = useSelector(selectAllFriendsPageState);
 
   useEffect(() => {
-    dispatch(getAllFriends(profileId));
+    getAllFriendsQuery(profileId);
   }, []);
 
   return (
@@ -38,12 +36,19 @@ function AllFriends() {
           .map((friend) => (
             <div className={styles.friend} key={friend._id}>
               <Image src={friend.profileImg} className={styles.friendImg} />
-              <Link path={`/profile/${friend._id}/posts`} className={styles.friendName}>
+              <Link
+                path={`/profile/${friend._id}/posts`}
+                className={styles.friendName}
+              >
                 {friend.userName}
               </Link>
-              <span className={styles.muntuals}>{friend.muntuals} muntual friends</span>
+              <span className={styles.muntuals}>
+                {friend.muntual} muntual friends
+              </span>
               {isActiveUser && (
-                <FriendOptions deleteFriendHandler={() => deleteFriendHandler(friend._id)} />
+                <FriendOptions
+                  deleteFriendHandler={() => deleteFriendQuery(friend._id)}
+                />
               )}
             </div>
           ))}

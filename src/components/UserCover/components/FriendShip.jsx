@@ -16,11 +16,11 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
   const navigate = useNavigate();
 
   const {
-    sendFriendRequestHandler,
-    cancelFriendRequestHandler,
-    deleteFriendRequestHandler,
-    confirmFriendRequestHandler,
-    deleteFriendHandler,
+    sendFriendRequestQuery,
+    cancelFriendRequestQuery,
+    deleteFriendRequestQuery,
+    confirmFriendRequestQuery,
+    deleteFriendQuery,
   } = useFriendsQuery();
 
   async function handleConversation() {
@@ -30,7 +30,7 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
         state: { isNew: data?.isNew },
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -39,7 +39,7 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
       {friendShip?.isFriend && (
         <IsFriendBTN
           deleteHanlder={() => {
-            deleteFriendHandler(profileId);
+            deleteFriendQuery(profileId);
             setFriendShip((prev) => ({
               ...prev,
               isFriend: false,
@@ -51,7 +51,7 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
       {friendShip?.isForeign && (
         <SendRequestBTN
           onClick={() => {
-            sendFriendRequestHandler(profileId);
+            sendFriendRequestQuery(profileId);
             setFriendShip((prev) => ({
               ...prev,
               isSentRequest: true,
@@ -63,7 +63,7 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
       {friendShip?.isPendingRequest && (
         <ConfirmRequestBtn
           onClick={() => {
-            confirmFriendRequestHandler(profileId);
+            confirmFriendRequestQuery(profileId);
             setFriendShip((prev) => ({
               ...prev,
               isPendingRequest: false,
@@ -75,7 +75,7 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
       {friendShip?.isPendingRequest && (
         <DeleteRequestBTN
           onClick={() => {
-            deleteFriendRequestHandler(profileId);
+            deleteFriendRequestQuery(profileId);
             setFriendShip((prev) => ({
               ...prev,
               isPendingRequest: false,
@@ -87,7 +87,7 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
       {friendShip?.isSentRequest && (
         <CancelRequestBTN
           onClick={() => {
-            cancelFriendRequestHandler(profileId);
+            cancelFriendRequestQuery(profileId);
             setFriendShip((prev) => ({
               ...prev,
               isSentRequest: false,

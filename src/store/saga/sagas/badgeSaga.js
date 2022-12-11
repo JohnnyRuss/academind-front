@@ -1,19 +1,31 @@
 import { takeLatest } from "redux-saga/effects";
 
 import {
-  getRequestCount,
-  getMessageCount,
+  getUnseenRequestsCount,
+  resetUnseenRequestsCount,
+  getUnseenConversationsCount,
+  resetUnseenConversationsCount,
   getNotificationCount,
 } from "../../reducers/badgeReducer";
 
 import {
-  getRequestCountHandler,
-  getMessageCountHandler,
+  getUnseenRequestCountHandler,
+  markRequestsAsSeenHandler,
+  getUnseenConversationsCountHandler,
+  markConversationsAsSeenHandler,
   getNotificationCountHandler,
 } from "../handlers/badgeHandlers";
 
 export default function* badgeSaga() {
-  yield takeLatest(getRequestCount, getRequestCountHandler);
-  yield takeLatest(getMessageCount, getMessageCountHandler);
+  yield takeLatest(getUnseenRequestsCount, getUnseenRequestCountHandler);
+  yield takeLatest(resetUnseenRequestsCount, markRequestsAsSeenHandler);
+  yield takeLatest(
+    getUnseenConversationsCount,
+    getUnseenConversationsCountHandler
+  );
+  yield takeLatest(
+    resetUnseenConversationsCount,
+    markConversationsAsSeenHandler
+  );
   yield takeLatest(getNotificationCount, getNotificationCountHandler);
 }

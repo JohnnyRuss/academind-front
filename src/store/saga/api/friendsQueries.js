@@ -9,7 +9,7 @@ async function queryCancelRequest(userId) {
 }
 
 async function queryDeleteRequest(userId) {
-  return await axiosQuery.post(`/user/${userId}/cancel-request`);
+  return await axiosQuery.delete(`/user/${userId}/cancel-request`);
 }
 
 async function queryConfirmRequest(userId) {

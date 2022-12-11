@@ -36,14 +36,14 @@ function NavActions() {
   );
 
   const {
-    getRequestCountQuery,
-    getMessageCountQuery,
+    getUnseenRequestCountQuery,
+    getUnseenConversationsCountQuery,
     getNotificationCountQuery,
   } = useBadgeQuery();
 
   useEffect(() => {
-    getRequestCountQuery(activeUserId);
-    getMessageCountQuery(activeUserId);
+    getUnseenRequestCountQuery(activeUserId);
+    getUnseenConversationsCountQuery(activeUserId);
     getNotificationCountQuery(activeUserId);
   }, []);
 

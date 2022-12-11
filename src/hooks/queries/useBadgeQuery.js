@@ -1,36 +1,41 @@
 import { useDispatch } from "react-redux";
 import {
-  getRequestCount,
-  getMessageCount,
+  getUnseenRequestsCount,
+  getUnseenConversationsCount,
+  resetUnseenConversationsCount,
   getNotificationCount,
-  resetMessageCount,
+  resetUnseenRequestsCount,
 } from "../../store/reducers/badgeReducer";
 
 export default function useBadgeQuery() {
   const dispatch = useDispatch();
 
-  // API Tasks
-  function getRequestCountQuery(userId) {
-    dispatch(getRequestCount(userId));
+  function getUnseenRequestCountQuery(userId) {
+    dispatch(getUnseenRequestsCount(userId));
   }
 
-  function getMessageCountQuery(userId) {
-    dispatch(getMessageCount(userId));
+  function resetUnseenRequestsCountQuery(userId) {
+    console.log('runs reset unseen request count');
+    dispatch(resetUnseenRequestsCount(userId));
+  }
+
+  function getUnseenConversationsCountQuery(userId) {
+    dispatch(getUnseenConversationsCount(userId));
+  }
+
+  function resetUnseenConversationsCountQuery(userId) {
+    dispatch(resetUnseenConversationsCount(userId));
   }
 
   function getNotificationCountQuery(userId) {
     dispatch(getNotificationCount(userId));
   }
 
-  // NoN API Tasks
-  function resetMessageCountHandler() {
-    dispatch(resetMessageCount());
-  }
-
   return {
-    getRequestCountQuery,
-    getMessageCountQuery,
-    resetMessageCountHandler,
+    getUnseenRequestCountQuery,
+    resetUnseenRequestsCountQuery,
+    getUnseenConversationsCountQuery,
+    resetUnseenConversationsCountQuery,
     getNotificationCountQuery,
   };
 }

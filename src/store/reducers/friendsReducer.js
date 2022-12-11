@@ -1,18 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { updateLoadingState } from './helpers';
+import { createSlice } from "@reduxjs/toolkit";
+import { updateLoadingState } from "./helpers";
 
 const friendsSlice = createSlice({
-  name: 'friends',
+  name: "friends",
   initialState: {
     loadingState: {
       loading: false,
       error: false,
-      message: '',
+      message: "",
     },
     allFriends: [],
     pendingRequests: [],
     sentRequests: [],
-    searchKey: '',
+    searchKey: "",
   },
   reducers: {
     setSearchKey(state, { payload }) {
@@ -30,25 +30,34 @@ const friendsSlice = createSlice({
     deleteFriend() {},
 
     getAllFriends(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({ state, key: "loadingState", loading: true });
     },
 
     setFriends(state, { payload }) {
-      state.allFriends = [...payload];
-      updateLoadingState({ state, key: 'loadingState', loading: false });
+      state.allFriends = payload.map((friend) => ({
+        ...friend.friend,
+        muntual: friend.muntual,
+      }));
+      updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
     setDeletedFriend(state, { payload }) {
-      state.allFriends = state.allFriends.filter((friend) => friend._id !== payload);
+      state.allFriends = state.allFriends.filter(
+        (friend) => friend._id !== payload
+      );
     },
 
     getPendingRequests(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({ state, key: "loadingState", loading: true });
     },
 
     setPendingRequests(state, { payload }) {
-      state.pendingRequests = [...payload];
-      updateLoadingState({ state, key: 'loadingState', loading: false });
+      state.pendingRequests = state.sentRequests = payload.map((req) => ({
+        ...req.pendingRequest,
+        muntuals: req.muntuals,
+      }));
+      
+      updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
     setDeletedRequest(state, { payload }) {
@@ -58,20 +67,28 @@ const friendsSlice = createSlice({
     },
 
     setConfirmedRequest(state, { payload }) {
-      state.pendingRequests = state.pendingRequests.filter((request) => request._id !== payload);
+      state.pendingRequests = state.pendingRequests.filter(
+        (request) => request._id !== payload
+      );
     },
 
     getSentRequests(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({ state, key: "loadingState", loading: true });
     },
 
     setSentRequests(state, { payload }) {
-      state.sentRequests = [...payload];
-      updateLoadingState({ state, key: 'loadingState', loading: false });
+      state.sentRequests = payload.map((req) => ({
+        ...req.sentRequest,
+        muntuals: req.muntuals,
+      }));
+
+      updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
     setCanceledRequest(state, { payload }) {
-      state.sentRequests = state.sentRequests.filter((request) => request.adressat._id !== payload);
+      state.sentRequests = state.sentRequests.filter(
+        (request) => request.adressat._id !== payload
+      );
     },
 
     resetFriends(state) {

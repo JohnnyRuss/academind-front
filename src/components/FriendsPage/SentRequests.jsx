@@ -1,30 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-import { getSentRequests } from '../../store/reducers/friendsReducer';
-import { useFriendsQuery } from '../../hooks';
-import { selectUserId } from '../../store/selectors/userSelectors';
+import { useFriendsQuery } from "../../hooks";
+import { selectUserId } from "../../store/selectors/userSelectors";
+import { selectSentRequestsPageState } from "../../store/selectors/friendsSelector";
 
-import styles from './components/styles/request.module.scss';
-import { CancelRequestBTN } from '../Layouts';
-import { Spinner } from '../Interface';
-import RequestItemBody from './components/RequestItemBody';
+import styles from "./components/styles/request.module.scss";
+import { CancelRequestBTN } from "../Layouts";
+import { Spinner } from "../Interface";
+import RequestItemBody from "./components/RequestItemBody";
 
 function SentRequests() {
-  const dispatch = useDispatch();
   const { id } = useSelector(selectUserId);
-
-  const { cancelFriendRequestHandler } = useFriendsQuery();
-
   const {
     loadingState: { loading },
     sentRequests,
     searchKey,
-  } = useSelector(({ friends }) => friends);
+  } = useSelector(selectSentRequestsPageState);
+
+  const { cancelFriendRequestQuery, getSentRequestsQuery } = useFriendsQuery();
 
   useEffect(() => {
-    dispatch(getSentRequests(id));
+    getSentRequestsQuery(id);
   }, []);
 
   return (
@@ -42,8 +40,11 @@ function SentRequests() {
               img={adressat.profileImg}
               userName={adressat.userName}
               userId={adressat._id}
-              muntuals={adressat.muntuals}>
-              <CancelRequestBTN onClick={() => cancelFriendRequestHandler(adressat._id)} />
+              muntuals={adressat.muntuals}
+            >
+              <CancelRequestBTN
+                onClick={() => cancelFriendRequestQuery(adressat._id)}
+              />
             </RequestItemBody>
           ))}
     </div>
