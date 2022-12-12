@@ -1,4 +1,5 @@
 import { call, put } from "redux-saga/effects";
+import { showError } from "./errorHandler";
 
 import { isRoute } from "../../../lib/window-location";
 
@@ -23,7 +24,7 @@ import {
   queryGetSentRequests,
 } from "../api/friendsQueries";
 
-function* sendRequestHandler({ payload: userId }) {
+export function* sendRequestHandler({ payload: userId }) {
   try {
     yield call(querySendRequest, userId);
   } catch (error) {
@@ -31,7 +32,7 @@ function* sendRequestHandler({ payload: userId }) {
   }
 }
 
-function* cancelRequestHandler({ payload: userId }) {
+export function* cancelRequestHandler({ payload: userId }) {
   try {
     yield call(queryCancelRequest, userId);
     if (isRoute("sent-requests")) yield put(setCanceledRequest(userId));
@@ -40,7 +41,7 @@ function* cancelRequestHandler({ payload: userId }) {
   }
 }
 
-function* deleteRequestHandler({ payload: userId }) {
+export function* deleteRequestHandler({ payload: userId }) {
   try {
     yield call(queryDeleteRequest, userId);
     if (isRoute("pending-requests")) yield put(setDeletedRequest(userId));
@@ -49,7 +50,7 @@ function* deleteRequestHandler({ payload: userId }) {
   }
 }
 
-function* confirmRequestHandler({ payload: userId }) {
+export function* confirmRequestHandler({ payload: userId }) {
   try {
     yield call(queryConfirmRequest, userId);
     if (isRoute("pending-requests")) yield put(setConfirmedRequest(userId));
@@ -58,7 +59,7 @@ function* confirmRequestHandler({ payload: userId }) {
   }
 }
 
-function* deleteFriendtHandler({ payload: userId }) {
+export function* deleteFriendtHandler({ payload: userId }) {
   try {
     yield call(queryDeleteFriend, userId);
     if (isRoute("all-friends")) yield put(setDeletedFriend(userId));
@@ -67,7 +68,7 @@ function* deleteFriendtHandler({ payload: userId }) {
   }
 }
 
-function* getAllFriendsHandler({ payload: userId }) {
+export function* getAllFriendsHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryGetAllFriends, userId);
     yield put(setFriends(data));
@@ -76,7 +77,7 @@ function* getAllFriendsHandler({ payload: userId }) {
   }
 }
 
-function* getPendingRequestsHandler({ payload: userId }) {
+export function* getPendingRequestsHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryGetPendingRequests, userId);
     yield put(setPendingRequests(data));
@@ -85,7 +86,7 @@ function* getPendingRequestsHandler({ payload: userId }) {
   }
 }
 
-function* getSentRequestsHandler({ payload: userId }) {
+export function* getSentRequestsHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryGetSentRequests, userId);
     yield put(setSentRequests(data));
@@ -93,24 +94,3 @@ function* getSentRequestsHandler({ payload: userId }) {
     showError(error, "getSentRequestsHandler");
   }
 }
-
-function showError(error, location) {
-  console.log({
-    error: true,
-    location: `sagaHandler - ${location}`,
-    message: error?.response?.data?.message || error.message,
-    err: error,
-    stack: error.stack,
-  });
-}
-
-export {
-  sendRequestHandler,
-  cancelRequestHandler,
-  deleteRequestHandler,
-  confirmRequestHandler,
-  deleteFriendtHandler,
-  getAllFriendsHandler,
-  getPendingRequestsHandler,
-  getSentRequestsHandler,
-};

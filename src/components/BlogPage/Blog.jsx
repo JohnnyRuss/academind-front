@@ -1,17 +1,22 @@
-import { useEffect, useState } from 'react';
-import { useWindowDimention, useScroll } from '../../hooks';
+import { useEffect, useState } from "react";
+import { useWindowDimention, useScroll } from "../../hooks";
 
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from "react-infinite-scroll-component";
 
-import './components/Blog/styles/blogPageInfiniteScroll.scss';
-import styles from './components/Blog/styles/blog.module.scss';
+import "./components/Blog/styles/blogPageInfiniteScroll.scss";
+import styles from "./components/Blog/styles/blog.module.scss";
 // import { SideBar } from '../Layouts';
-import { BlogPost, CreateBlogPostTouch, ScrollEnd } from '../Layouts';
-import { StandSpinner, BlockSpinner } from '../Interface';
-import { Stand, RightBar, CategoriesNav } from './components/Blog';
+import {
+  BlogPost,
+  CreateBlogPostTouch,
+  ScrollEnd,
+  StandSpinner,
+  BlockSpinner,
+} from "../Layouts";
+import { Stand, RightBar, CategoriesNav } from "./components/Blog";
 
 function Blog({ posts, loading, hasMore, handleNext }) {
-  useScroll({ target: 'window' });
+  useScroll({ target: "window" });
 
   const [limit, setLimit] = useState(1500);
   const { width } = useWindowDimention();
@@ -39,7 +44,8 @@ function Blog({ posts, loading, hasMore, handleNext }) {
             hasMore={hasMore}
             loader={<BlockSpinner />}
             endMessage={<ScrollEnd />}
-            className={styles.blogPostsScrollBox}>
+            className={styles.blogPostsScrollBox}
+          >
             {posts.map((post) => (
               <BlogPost post={post} key={post._id} limitation={limit} />
             ))}

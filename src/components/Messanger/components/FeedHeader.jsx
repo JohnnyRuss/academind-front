@@ -1,5 +1,5 @@
-import { Avatar } from '../../Interface';
-import styles from './styles/feedHeader.module.scss';
+import { Avatar } from "../../Layouts";
+import styles from "./styles/feedHeader.module.scss";
 
 function FeedHeader({ adressat }) {
   return (

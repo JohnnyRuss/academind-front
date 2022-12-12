@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { searchUser, resetSearchResult } from '../../../store/reducers/userReducer';
 import { useBlurOnBody } from '../../../hooks';
+import { selectUserSearchResult } from '../../../store/selectors/userSelectors';
 
 import styles from './styles/navSearchBar.module.scss';
 import { SearchBarWindow } from './';
@@ -30,7 +31,7 @@ function NavSearchBar() {
     setActiveWindow(false);
   }
 
-  const result = useSelector(({ user }) => user.searchResult);
+  const result = useSelector(selectUserSearchResult);
 
   useEffect(() => {
     const timer = setTimeout(async () => {

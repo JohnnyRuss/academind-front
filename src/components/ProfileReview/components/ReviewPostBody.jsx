@@ -1,23 +1,36 @@
-import styles from './styles/tagReviewPostBody.module.scss';
-import { Post } from '../../Layouts';
-import { BTN } from '../../Interface';
+import styles from "./styles/tagReviewPostBody.module.scss";
+import { Post, BTN } from "../../Layouts";
 
-function ReviewPostBody({ onHiddens, post, removeTagHandler, showOnProfileHandler }) {
+function ReviewPostBody({
+  onHiddens,
+  post,
+  removeTagHandler,
+  showOnProfileHandler,
+}) {
   return (
     <div className={styles.postWrapper}>
       <Post data={post} />
       <div className={styles.reviewBtnBox}>
         {!onHiddens && (
           <>
-            <BTN onClick={() => removeTagHandler(post._id)} className={styles.removeTagBtn}>
+            <BTN
+              onClick={() => removeTagHandler(post._id)}
+              className={styles.removeTagBtn}
+            >
               remove tag
             </BTN>
-            <BTN onClick={() => showOnProfileHandler(post._id, false)} className={styles.hideBtn}>
+            <BTN
+              onClick={() => showOnProfileHandler(post._id, false)}
+              className={styles.hideBtn}
+            >
               hide from profile
             </BTN>
           </>
         )}
-        <BTN onClick={() => showOnProfileHandler(post._id, true)} className={styles.addBtn}>
+        <BTN
+          onClick={() => showOnProfileHandler(post._id, true)}
+          className={styles.addBtn}
+        >
           add to profile
         </BTN>
       </div>

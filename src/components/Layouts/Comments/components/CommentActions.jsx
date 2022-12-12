@@ -1,17 +1,23 @@
-import { useSelector } from 'react-redux';
-import { selectUserId } from '../../../../store/selectors/userSelectors';
+import { useSelector } from "react-redux";
+import { selectActiveUserId } from "../../../../store/selectors/activeUserSelectors";
 
-import styles from './styles/commentActions.module.scss';
-import { LikeIcon, ReplyIcon } from '../../Icons/icons';
-import { TimeAgo } from '../..';
+import styles from "./styles/commentActions.module.scss";
+import { LikeIcon, ReplyIcon } from "../../Icons/icons";
+import { TimeAgo } from "../..";
 
 function CommentActions({ createdAt, reactions, handleReaction, handleReply }) {
-  const { id } = useSelector(selectUserId);
-  const isUserInteracted = reactions.find((reaction) => reaction.author === id)?.reaction;
+  const activeUserId = useSelector(selectActiveUserId);
+  
+  const isUserInteracted = reactions.find(
+    (reaction) => reaction.author === activeUserId
+  )?.reaction;
 
   return (
     <div className={styles.commentActions}>
-      <button onClick={handleReaction} className={isUserInteracted ? styles.userLiked : ''}>
+      <button
+        onClick={handleReaction}
+        className={isUserInteracted ? styles.userLiked : ""}
+      >
         <LikeIcon />
       </button>
       <button onClick={handleReply}>

@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { useForeignUser, useFriendsQuery } from "../../hooks";
 import { selectAllFriendsPageState } from "../../store/selectors/friendsSelector";
 
 import styles from "./components/styles/allFriends.module.scss";
 import FriendOptions from "./components/FriendOptions";
-import { Image, Spinner, Link } from "../Interface";
+import { Image, Spinner } from "../Layouts";
 
 function AllFriends() {
   const { isActiveUser, profileId } = useForeignUser("basedOnLocation");
@@ -37,7 +38,7 @@ function AllFriends() {
             <div className={styles.friend} key={friend._id}>
               <Image src={friend.profileImg} className={styles.friendImg} />
               <Link
-                path={`/profile/${friend._id}/posts`}
+                to={`/profile/${friend._id}/posts`}
                 className={styles.friendName}
               >
                 {friend.userName}

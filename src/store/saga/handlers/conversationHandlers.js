@@ -1,4 +1,5 @@
 import { call, put } from "redux-saga/effects";
+import { showError } from "./errorHandler";
 
 import {
   setAllConversations,
@@ -85,14 +86,4 @@ export function* deleteConversationHandler({ payload: conversationId }) {
   } catch (error) {
     showError(error, "deleteConversationHandler");
   }
-}
-
-function showError(error, location) {
-  console.log({
-    error: true,
-    location: `sagaHandler - ${location}`,
-    message: error?.response?.data?.message || error.message,
-    err: error,
-    stack: error.stack,
-  });
 }

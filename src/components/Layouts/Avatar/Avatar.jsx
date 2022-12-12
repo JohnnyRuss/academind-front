@@ -1,5 +1,5 @@
 import styles from './avatar.module.scss';
-import { Image } from '../';
+import { Image } from '../../Layouts';
 
 function Avatar({ img = '/img/avatar.png', onClick = () => {} }) {
   return (

@@ -17,5 +17,9 @@ export async function markConversationsAsSeenQuery(userId) {
 }
 
 export async function getNotificationCountQuery(userId) {
-  return await axiosQuery(`/notifications/${userId}/count`);
+  return await axiosQuery(`/notifications/${userId}/unseen`);
+}
+
+export async function markNotificationsAsSeenQuery(userId) {
+  return await axiosQuery.patch(`/notifications/${userId}/unseen`);
 }

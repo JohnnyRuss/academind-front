@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserId } from "../../store/selectors/userSelectors";
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 import {
   // API Tasks
   markAsRead,
@@ -17,7 +17,7 @@ import {
 
 function useConversationQuery(props) {
   const dispatch = useDispatch();
-  const { id: userId } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
 
   // API Tasks
   function markAsReadQuery({ conversationId, adressatId }) {
@@ -25,11 +25,11 @@ function useConversationQuery(props) {
   }
 
   function getAllConversationsQuery() {
-    dispatch(getAllConversations(userId));
+    dispatch(getAllConversations(activeUserId));
   }
 
   function getLastConversationQuery() {
-    dispatch(getLastConversation(userId));
+    dispatch(getLastConversation(activeUserId));
   }
 
   function getConversationQuery(id) {

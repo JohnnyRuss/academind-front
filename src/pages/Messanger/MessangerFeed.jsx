@@ -6,7 +6,7 @@ import {
   selectActiveConversation,
   selectAllConversations,
 } from "../../store/selectors/conversationSelectors";
-import { selectUserId } from "../../store/selectors/userSelectors";
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 import { useConversationQuery } from "../../hooks";
 
 import Feed from "../../components/Messanger/Feed";
@@ -20,7 +20,7 @@ function MessangerFeed() {
 
   const { deleteConversationQuery, markAsReadQuery } = useConversationQuery();
 
-  const { id: activeUserId } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
   const { conversation } = useSelector(selectActiveConversation);
   const { allConversations } = useSelector(selectAllConversations);
 

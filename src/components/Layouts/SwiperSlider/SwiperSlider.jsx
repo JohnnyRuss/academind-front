@@ -1,31 +1,37 @@
-import { useState } from 'react';
-import { uid } from 'uid';
+import { useState } from "react";
+import { uid } from "uid";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Thumbs } from 'swiper';
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Thumbs } from "swiper";
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/thumbs';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
 
-import { Image } from '../../Interface';
+import { Image } from "../../Layouts";
 
 SwiperCore.use([Navigation, Thumbs]);
 
 function SwiperSlider({ mediaFiles, initialSlide }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
   return (
     <>
       <Swiper
-        thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+        thumbs={{
+          swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+        }}
         spaceBetween={50}
         slidesPerView={1}
         navigation
         initialSlide={initialSlide}
-        className={`swiperLocale ${mediaFiles.length < 2 ? 'swiperLocaleFull' : ''}`}>
+        className={`swiperLocale ${
+          mediaFiles.length < 2 ? "swiperLocaleFull" : ""
+        }`}
+      >
         {mediaFiles?.map((media) => (
           <SwiperSlide key={uid(6)}>
-            <Image src={media} alt='post media' className='activeMedia' />
+            <Image src={media} alt="post media" className="activeMedia" />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -35,10 +41,11 @@ function SwiperSlider({ mediaFiles, initialSlide }) {
           onSwiper={setThumbsSwiper}
           spaceBetween={10}
           slidesPerView={10}
-          className='swiperThumbsLocale'>
+          className="swiperThumbsLocale"
+        >
           {mediaFiles?.map((media) => (
-            <SwiperSlide key={uid(6)} className='thumbItem'>
-              <Image src={media} alt='post media' className='thumbMedia' />
+            <SwiperSlide key={uid(6)} className="thumbItem">
+              <Image src={media} alt="post media" className="thumbMedia" />
             </SwiperSlide>
           ))}
         </Swiper>

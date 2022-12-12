@@ -1,5 +1,5 @@
 import styles from './styles/tagsWindow.module.scss';
-import { Image } from '../../../Interface';
+import { Image } from '../../../Layouts';
 
 function TagsWindow({ result, handleCandidate }) {
   return (

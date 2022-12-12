@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectUserId } from "../../store/selectors/userSelectors.js";
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 import { selectAllConversations } from "../../store/selectors/conversationSelectors.js";
 
 import { getConversationLastMsg } from "../../lib";
@@ -8,7 +8,7 @@ import styles from "./components/styles/sideBar.module.scss";
 import Conversation from "./components/Conversation";
 
 function SideBar() {
-  const { id: activeUserId } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
   const { allConversations: conversations } = useSelector(
     selectAllConversations
   );

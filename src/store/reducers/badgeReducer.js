@@ -53,12 +53,21 @@ const badgeSlice = createSlice({
       };
     },
 
-    getNotificationCount() {},
+    getUnseenNotificationsCount() {},
 
-    setNotificationCount(state, { payload }) {
+    setUnseenNotificationsCount(state, { payload }) {
       state.notificationCount = {
         count: payload.length,
         ids: payload,
+      };
+    },
+
+    resetUnseenNotificationsCount() {},
+
+    setResetedNotificationsCount(state) {
+      state.notificationCount = {
+        count: 0,
+        ids: [],
       };
     },
   },
@@ -74,6 +83,8 @@ export const {
   setUnseenConversationsCount,
   resetUnseenConversationsCount,
   setResetedConversationsCount,
-  getNotificationCount,
-  setNotificationCount,
+  getUnseenNotificationsCount,
+  setUnseenNotificationsCount,
+  resetUnseenNotificationsCount,
+  setResetedNotificationsCount,
 } = badgeSlice.actions;

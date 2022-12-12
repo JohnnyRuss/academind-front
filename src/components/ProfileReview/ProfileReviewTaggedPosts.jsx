@@ -1,17 +1,16 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import { selectPosts } from '../../store/selectors/postSelectors';
-import { useProfileReviewQuery } from '../../hooks';
+import { selectPosts } from "../../store/selectors/postSelectors";
+import { selectActiveUserLoadingState } from "../../store/selectors/activeUserSelectors";
+import { useProfileReviewQuery } from "../../hooks";
 
-import styles from './components/styles/review.module.scss';
-import ReviewPostBody from './components/ReviewPostBody';
-import { BlockSpinner } from '../Interface';
+import styles from "./components/styles/review.module.scss";
+import ReviewPostBody from "./components/ReviewPostBody";
+import { BlockSpinner } from "../Layouts";
 
 function ProfileReviewTaggedPosts() {
-  const {
-    loadingState: { loading },
-  } = useSelector(({ activeUser }) => activeUser);
   const { posts } = useSelector(selectPosts);
+  const { loading } = useSelector(selectActiveUserLoadingState);
   const { showOnProfileHandler, removeTagHandler } = useProfileReviewQuery();
 
   return (
@@ -28,7 +27,9 @@ function ProfileReviewTaggedPosts() {
             key={post._id}
           />
         ))}
-      {!loading && !posts[0] && <p className={styles.message}>there are no pending posts</p>}
+      {!loading && !posts[0] && (
+        <p className={styles.message}>there are no pending posts</p>
+      )}
     </div>
   );
 }

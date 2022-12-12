@@ -1,5 +1,6 @@
-import styles from './styles/searchBarWindow.module.scss';
-import { Link, Avatar } from '../../Interface';
+import { Link } from 'react-router-dom';
+import styles from "./styles/searchBarWindow.module.scss";
+import { Avatar } from "../../Layouts";
 
 function SearchBarWindow({ result, onChooseHandler }) {
   return (
@@ -7,10 +8,11 @@ function SearchBarWindow({ result, onChooseHandler }) {
       <div className={styles.resultsList}>
         {result?.map((result) => (
           <Link
-            path={`/profile/${result._id}/posts`}
+            to={`/profile/${result._id}/posts`}
             key={result._id}
             className={styles.resultsListItem}
-            onClick={onChooseHandler}>
+            onClick={onChooseHandler}
+          >
             <Avatar img={result.profileImg} />
             <span>{result.userName}</span>
           </Link>

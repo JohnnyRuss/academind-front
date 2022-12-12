@@ -23,10 +23,10 @@ export const selectActiveConversation = createSelector(
 export const selectConversationById = ({ conversation }, id) =>
   conversation.allConversations.find((conversation) => conversation._id === id);
 
-export const selectConversationState = ({ conversation }) =>
+export const selectConversationLoadingState = ({ conversation }) =>
   conversation.loadingState;
 
-export const selectAllConversationState = ({ conversation }) =>
+export const selectAllConversationLoadingState = ({ conversation }) =>
   conversation.getAllLoadingState;
 
 export const selectNewConversationAlert = ({ conversation }) =>

@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import { selectUserId } from '../../store/selectors/userSelectors';
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 
 /**
  * @param {*} basedOn basedOnId | basedOnLocation
@@ -9,7 +9,7 @@ import { selectUserId } from '../../store/selectors/userSelectors';
  * @returns
  */
 function useForeignUser(basedOn, userId) {
-  const { id: activeUserId } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
   const { id: profileId } = useParams();
 
   const run = {

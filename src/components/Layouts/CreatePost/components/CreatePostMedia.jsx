@@ -1,6 +1,6 @@
 import styles from './styles/createPostMedia.module.scss';
 import { CloseXIcon, CloseIcon } from '../../Icons/icons';
-import { Image } from '../../../Interface';
+import { Image } from '../../../Layouts';
 
 function CreatePostMedia({ files, handleDiscardMedia }) {
   return (

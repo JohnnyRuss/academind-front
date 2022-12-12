@@ -32,3 +32,5 @@ export const selectAllFriendsPageState = createSelector(
   selectedAllFriendsPageState,
   (memorised) => memorised
 );
+
+export const selectSearchKey = ({ friends }) => friends.searchKey;

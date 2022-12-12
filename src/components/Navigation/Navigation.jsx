@@ -1,13 +1,14 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { Link } from "../Interface";
+import { selectActiveUser } from "../../store/selectors/activeUserSelectors";
+
 import styles from "./components/styles/navigation.module.scss";
 import { NavList, NavActions } from "./components";
 
 function Navigation() {
-  const { isAuthenticated } = useSelector(({ activeUser }) => activeUser.user);
+  const { isAuthenticated } = useSelector(selectActiveUser);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -32,8 +33,8 @@ function Navigation() {
       )}
       {!isAuthenticated && (
         <>
-          <Link path="/authentication/login">Login</Link>
-          <Link path="/authentication/register">Register</Link>
+          <Link to="/authentication/login">Login</Link>
+          <Link to="/authentication/register">Register</Link>
         </>
       )}
     </div>

@@ -1,11 +1,10 @@
-import { usePost } from '../../../hooks';
+import { usePost } from "../../../hooks";
 
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from "react-infinite-scroll-component";
 
-import "./styles/postsPageInfiniteScroll.scss"
-import styles from './styles/postsPageContent.module.scss';
-import { Post, ScrollEnd } from '../../Layouts';
-import { BlockSpinner } from '../../Interface';
+import "./styles/postsPageInfiniteScroll.scss";
+import styles from "./styles/postsPageContent.module.scss";
+import { Post, ScrollEnd, BlockSpinner } from "../../Layouts";
 
 function PostsPagePostsList({ children, data, infinite }) {
   const { activatePostMediaHandler, activateUpdatePostModal } = usePost();
@@ -20,7 +19,8 @@ function PostsPagePostsList({ children, data, infinite }) {
         hasMore={hasMore}
         loader={<BlockSpinner />}
         endMessage={<ScrollEnd />}
-        className={styles.postsPageContentScroll}>
+        className={styles.postsPageContentScroll}
+      >
         {data?.map((post) => (
           <Post
             key={post._id}

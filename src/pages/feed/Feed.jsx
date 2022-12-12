@@ -1,42 +1,56 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { getFeedPosts, startLoading } from '../../store/reducers/userReducer';
-import { resetPosts } from '../../store/reducers/postsDataReducer';
-import { resetComments } from '../../store/reducers/commentsDataReducer';
-import { selectPosts } from '../../store/selectors/postSelectors';
-import { selectUserId } from '../../store/selectors/userSelectors';
+import { getFeedPosts, startLoading } from "../../store/reducers/userReducer";
+import { resetPosts } from "../../store/reducers/postsDataReducer";
+import { resetComments } from "../../store/reducers/commentsDataReducer";
+import { selectPosts } from "../../store/selectors/postSelectors";
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
+import { selectPostsLoadingState } from "../../store/selectors/postSelectors";
 
-import { FEED_POSTS_COUNT_PER_REQ } from '../../lib/config';
+import { FEED_POSTS_COUNT_PER_REQ } from "../../lib/config";
 
 import {
   FeedContainer,
   FeedContent,
   FeedSideBarRight,
   FeedSideBarLeft,
-} from '../../components/Feed';
-// import { SideBar as SideBarLeft } from '../../components/Layouts';
-import { StandSpinner } from '../../components/Interface';
+} from "../../components/Feed";
+import { StandSpinner } from "../../components/Layouts";
 
 function Feed() {
   const dispatch = useDispatch();
 
-  const { loading } = useSelector(({ user }) => user.loadingState);
+  const { loading } = useSelector(selectPostsLoadingState);
   const { posts, hasMore } = useSelector(selectPosts);
 
   const [page, setPage] = useState(1);
   async function handleNext() {
-    dispatch(getFeedPosts({ id, page: page + 1, limit: FEED_POSTS_COUNT_PER_REQ, hasMore: true }));
+    dispatch(
+      getFeedPosts({
+        id: activeUserId,
+        page: page + 1,
+        limit: FEED_POSTS_COUNT_PER_REQ,
+        hasMore: true,
+      })
+    );
     setPage((prev) => (prev += 1));
   }
 
-  const { id } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
 
   useEffect(() => {
     dispatch(startLoading());
-    dispatch(getFeedPosts({ id, page: 1, limit: FEED_POSTS_COUNT_PER_REQ, hasMore: false }));
-    
+    dispatch(
+      getFeedPosts({
+        id: activeUserId,
+        page: 1,
+        limit: FEED_POSTS_COUNT_PER_REQ,
+        hasMore: false,
+      })
+    );
+
     return () => {
       dispatch(resetPosts());
       dispatch(resetComments());

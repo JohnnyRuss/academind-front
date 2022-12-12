@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import {
   resetUpdateState,
   setTitle,
@@ -13,10 +13,11 @@ import {
   setUpdateFile,
   removeUpdateFiles,
   setUpdateAudience,
-} from '../../store/reducers/portalReducer';
-import { usePostQuery, useRestrictBodyOverflow } from '../../hooks';
+} from "../../store/reducers/portalReducer";
+import { usePostQuery, useRestrictBodyOverflow } from "../../hooks";
+import { selectUpdateBlogPostPortal } from "../../store/selectors/portalSelectors";
 
-import { CreateBlogPostModal } from '../Layouts';
+import { CreateBlogPostModal } from "../Layouts";
 
 function UpdateBlogPostPortal() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function UpdateBlogPostPortal() {
     updatePostData,
     updatePostMediaFiles,
     updatePostLoadingState: { loading },
-  } = useSelector(({ portal }) => portal);
+  } = useSelector(selectUpdateBlogPostPortal);
 
   const { _id, title, article, categories, tags } = updatePostData;
 
@@ -40,13 +41,13 @@ function UpdateBlogPostPortal() {
 
   const handleText = (value) => dispatch(setText(value));
 
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState("");
 
   function handleAddCategory(e) {
     e.preventDefault();
-    if (category.startsWith('#')) {
-      dispatch(addCategory(category.replace('#', '')));
-      setCategory('');
+    if (category.startsWith("#")) {
+      dispatch(addCategory(category.replace("#", "")));
+      setCategory("");
     }
   }
 
@@ -65,7 +66,7 @@ function UpdateBlogPostPortal() {
   function publishPost() {
     handlePostPublish({
       params: {
-        operationType: 'update',
+        operationType: "update",
       },
       credentials: {
         title,

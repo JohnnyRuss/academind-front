@@ -1,14 +1,15 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import {
+  selectTopRatedBlogPosts,
+  selectTopRatedBlogPostsLoadingState,
+} from "../../../../store/selectors/postSelectors";
 
-import styles from './styles/topRatedPosts.module.scss';
-import { BlogPost } from '../../../Layouts';
-import { Spinner } from '../../../Interface';
+import styles from "./styles/topRatedPosts.module.scss";
+import { BlogPost, Spinner } from "../../../Layouts";
 
 function TopRatedPosts() {
-  const {
-    topRatedBlogPosts: posts,
-    topRatedPostsLoadingState: { loading },
-  } = useSelector(({ postsData }) => postsData);
+  const posts = useSelector(selectTopRatedBlogPosts);
+  const { loading } = useSelector(selectTopRatedBlogPostsLoadingState);
 
   return (
     <div className={styles.topRatedPosts}>

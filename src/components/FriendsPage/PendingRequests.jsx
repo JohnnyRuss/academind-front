@@ -8,8 +8,7 @@ import { selectPendingRequestsPageState } from "../../store/selectors/friendsSel
 import { selectRequestCount } from "../../store/selectors/badgeSelectors";
 
 import styles from "./components/styles/request.module.scss";
-import { DeleteRequestBTN, ConfirmRequestBtn } from "../Layouts";
-import { Spinner } from "../Interface";
+import { DeleteRequestBTN, ConfirmRequestBtn, Spinner } from "../Layouts";
 import RequestItemBody from "./components/RequestItemBody";
 
 function PendingRequests() {
@@ -17,13 +16,12 @@ function PendingRequests() {
 
   const [isMounting, setIsMounting] = useState(true);
 
-  const unSeenRequestsCount = useSelector(selectRequestCount);
-
   const {
     loadingState: { loading },
     pendingRequests,
     searchKey,
   } = useSelector(selectPendingRequestsPageState);
+  const unSeenRequestsCount = useSelector(selectRequestCount);
 
   const {
     confirmFriendRequestQuery,

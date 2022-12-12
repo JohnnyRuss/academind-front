@@ -5,8 +5,10 @@ import { useSelector } from "react-redux";
 import {
   selectNewConversationAlert,
   selectAllConversations,
+  selectConversationLoadingState,
 } from "../../store/selectors/conversationSelectors";
-import { selectUserId } from "../../store/selectors/userSelectors";
+import { selectMessageCount } from "../../store/selectors/badgeSelectors";
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 import { IoContext } from "../../store/Io";
 import { useConversationQuery, useBadgeQuery } from "../../hooks";
 
@@ -17,13 +19,11 @@ import Feed from "../../components/Messanger/Feed";
 function Messanger() {
   const { socket } = useContext(IoContext);
 
-  const { id: activeUserId } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
 
   const { id } = useParams();
   const [isMounting, setIsMounting] = useState(true);
-  const loading = useSelector(
-    (state) => state.conversation.loadingState.loading
-  );
+  const { loading } = useSelector(selectConversationLoadingState);
 
   const { allConversations, allConversationState } = useSelector(
     selectAllConversations
@@ -33,9 +33,7 @@ function Messanger() {
     selectNewConversationAlert
   );
 
-  const unseenConversationsCount = useSelector(
-    (state) => state.badges.messageCount.count
-  );
+  const unseenConversationsCount = useSelector(selectMessageCount);
 
   const {
     // API Tasks

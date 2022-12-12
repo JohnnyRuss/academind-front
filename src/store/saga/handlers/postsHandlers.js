@@ -1,4 +1,5 @@
-import { call, put, select } from 'redux-saga/effects';
+import { call, put, select } from "redux-saga/effects";
+import { showError } from "./errorHandler";
 
 import {
   setPosts,
@@ -15,10 +16,13 @@ import {
   setHiddenPost,
   setRemovedTag,
   setErrorOnLoadingState,
-} from '../../reducers/postsDataReducer';
+} from "../../reducers/postsDataReducer";
 
-import { resetCreatePost } from '../../reducers/createPostReducer';
-import { resetUpdateState, resetSharePostModal } from '../../reducers/portalReducer';
+import { resetCreatePost } from "../../reducers/createPostReducer";
+import {
+  resetUpdateState,
+  resetSharePostModal,
+} from "../../reducers/portalReducer";
 
 import {
   queryCreatePost,
@@ -37,58 +41,64 @@ import {
   queryAddPostToProfile,
   queryHidePostFromProfile,
   queryRemoveTagOnPost,
-} from '../api/postQueries';
+} from "../api/postQueries";
 
-import { allowNewPostSet, isRoute } from '../../../lib/window-location';
+import { allowNewPostSet, isRoute } from "../../../lib/window-location";
 
-function* createPostHandler({ payload: body }) {
+export function* createPostHandler({ payload: body }) {
   try {
     const { data } = yield call(queryCreatePost, body);
     yield put(setNewPost(data));
     yield put(resetCreatePost());
   } catch (error) {
-    showError(error, 'createPostHandler');
+    showError(error, "createPostHandler");
   }
 }
 
-function* deletePostHandler({ payload: postId }) {
+export function* deletePostHandler({ payload: postId }) {
   try {
     yield call(queryDeletePost, postId);
     yield put(setDeletedPost(postId));
   } catch (error) {
-    showError(error, 'deletePostHandler');
+    showError(error, "deletePostHandler");
   }
 }
 
-function* updatePostHandler({ payload: { params, body } }) {
+export function* updatePostHandler({ payload: { params, body } }) {
   try {
-    const { data } = yield call(queryUpdatePost, { postId: params.postId, body });
+    const { data } = yield call(queryUpdatePost, {
+      postId: params.postId,
+      body,
+    });
     yield put(setUpdatedPost({ params, data }));
     yield put(resetUpdateState());
   } catch (error) {
-    showError(error, 'updatePostHandler');
+    showError(error, "updatePostHandler");
   }
 }
 
-function* changePostAudienceHandler({ payload: { params, body } }) {
+export function* changePostAudienceHandler({ payload: { params, body } }) {
   try {
-    const { data } = yield call(queryChangePostAudience, { postId: params.postId, body });
+    const { data } = yield call(queryChangePostAudience, {
+      postId: params.postId,
+      body,
+    });
     yield put(setUpdatedPostAudience({ params, data }));
   } catch (error) {
-    showError(error, 'changePostAudienceHandler');
+    showError(error, "changePostAudienceHandler");
   }
 }
 
-function* reactOnPostHandler({ payload: { postId, body } }) {
+export function* reactOnPostHandler({ payload: { postId, body } }) {
   try {
     const { data } = yield call(queryPostReaction, { postId, body });
     yield put(setPostReaction({ postId, data }));
   } catch (error) {
-    showError(error, 'reactOnPostHandler');
+    showError(error, "reactOnPostHandler");
   }
 }
 
-function* sharePostHandler({ payload: { postId, body } }) {
+export function* sharePostHandler({ payload: { postId, body } }) {
   try {
     const { data } = yield call(querySharePost, { postId, body });
 
@@ -97,127 +107,102 @@ function* sharePostHandler({ payload: { postId, body } }) {
 
     yield put(resetSharePostModal());
   } catch (error) {
-    showError(error, 'sharePostHandler');
+    showError(error, "sharePostHandler");
   }
 }
 
-function* savePostHandler({ payload: postId }) {
+export function* savePostHandler({ payload: postId }) {
   try {
     yield call(querySavePost, postId);
   } catch (error) {
-    showError(error, 'savePostHandler');
+    showError(error, "savePostHandler");
   }
 }
 
-function* getBlogPostsHandler({ payload: { page, limit, hasMore, query } }) {
+export function* getBlogPostsHandler({
+  payload: { page, limit, hasMore, query },
+}) {
   try {
     const { data } = yield call(queryBlogPosts, page, limit, hasMore, query);
     yield put(setPosts({ data: data.data, results: data.results }));
   } catch (error) {
-    showError(error, 'getBlogPostsHandler');
+    showError(error, "getBlogPostsHandler");
   }
 }
 
-function* getTopRatedPublishersHandler({ payload: limit }) {
+export function* getTopRatedPublishersHandler({ payload: limit }) {
   try {
     const { data } = yield call(queryTopRatedPublishers, limit);
     yield put(setTopRatedPublishers(data));
   } catch (error) {
-    showError(error, 'getTopRatedPublishersHandler');
+    showError(error, "getTopRatedPublishersHandler");
   }
 }
 
-function* getTopRatedBlogPostsHandler({ payload: limit }) {
+export function* getTopRatedBlogPostsHandler({ payload: limit }) {
   try {
     const { data } = yield call(queryTopRatedBlogPosts, limit);
     yield put(setTopRatedBlogPosts(data));
   } catch (error) {
-    showError(error, 'getTopRatedBlogPostsHandler');
+    showError(error, "getTopRatedBlogPostsHandler");
   }
 }
 
-function* getPostHandler({ payload: postId }) {
+export function* getPostHandler({ payload: postId }) {
   try {
     const { data } = yield call(queryGetPost, postId);
     yield put(setSinglePost(data));
   } catch (error) {
-    yield put(setErrorOnLoadingState(error?.response?.data?.message || error.message));
+    yield put(
+      setErrorOnLoadingState(error?.response?.data?.message || error.message)
+    );
     // showError(error, 'getPostHandler');
   }
 }
 
-function* getRelatedPostsHandler({ payload: { postId, limit } }) {
+export function* getRelatedPostsHandler({ payload: { postId, limit } }) {
   try {
     const { data } = yield call(queryRelatedPosts, postId, limit);
     yield put(setRelatedPosts(data));
   } catch (error) {
-    showError(error, 'getPostHandler');
+    showError(error, "getPostHandler");
   }
 }
 
-function* showPostOnProfileHandler({ payload: { postId, body } }) {
+export function* showPostOnProfileHandler({ payload: { postId, body } }) {
   try {
     yield call(queryShowPostOnProfile, postId, body);
     yield put(setShowOnProfile(postId));
   } catch (error) {
-    showError(error, 'showPostOnProfileHandler');
+    showError(error, "showPostOnProfileHandler");
   }
 }
 
-function* addPostToProfileHandler({ payload: postId }) {
+export function* addPostToProfileHandler({ payload: postId }) {
   try {
     yield call(queryAddPostToProfile, postId);
     yield put(setShowOnProfile(postId));
   } catch (error) {
-    showError(error, 'addPostToProfileHandler');
+    showError(error, "addPostToProfileHandler");
   }
 }
 
-function* hidePostFromProfileHandler({ payload: postId }) {
+export function* hidePostFromProfileHandler({ payload: postId }) {
   try {
-    const excludeIf = isRoute('posts') || isRoute('tags') || isRoute('hidden');
+    const excludeIf = isRoute("posts") || isRoute("tags") || isRoute("hidden");
     yield call(queryHidePostFromProfile, postId);
     if (excludeIf) yield put(setHiddenPost(postId));
   } catch (error) {
-    showError(error, 'hidePostFromProfileHandler');
+    showError(error, "hidePostFromProfileHandler");
   }
 }
 
-function* removeTagOnPostHandler({ payload: postId }) {
+export function* removeTagOnPostHandler({ payload: postId }) {
   try {
-    const excludeIf = isRoute('posts') || isRoute('tags') || isRoute('hidden');
+    const excludeIf = isRoute("posts") || isRoute("tags") || isRoute("hidden");
     const { data } = yield call(queryRemoveTagOnPost, postId);
     yield put(setRemovedTag({ data, remove: excludeIf ? true : false }));
   } catch (error) {
-    showError(error, 'removeTagOnPostHandler');
+    showError(error, "removeTagOnPostHandler");
   }
 }
-
-function showError(error, location) {
-  console.log({
-    error: true,
-    location: `sagaHandler - ${location}`,
-    message: error?.response?.data?.message || error.message,
-    err: error,
-    stack: error.stack,
-  });
-}
-
-export {
-  createPostHandler,
-  deletePostHandler,
-  updatePostHandler,
-  changePostAudienceHandler,
-  reactOnPostHandler,
-  sharePostHandler,
-  savePostHandler,
-  getBlogPostsHandler,
-  getPostHandler,
-  getTopRatedPublishersHandler,
-  getTopRatedBlogPostsHandler,
-  getRelatedPostsHandler,
-  showPostOnProfileHandler,
-  addPostToProfileHandler,
-  hidePostFromProfileHandler,
-  removeTagOnPostHandler,
-};

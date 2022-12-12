@@ -1,7 +1,7 @@
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import { StandSpinner } from "./components/Interface";
+import { StandSpinner } from "./components/Layouts";
 import { Navigation, UserCover } from "./components";
 
 import RestrictionAuthorised from "./pages/authentication/RestrictionAuthorised";

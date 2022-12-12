@@ -1,12 +1,17 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
+import { selectActiveUserShortInfo } from "../../../store/selectors/activeUserSelectors";
 
-import { Modal } from '../';
-import { BTN, InlineStandSpinner } from '../../Interface';
-import { UserIdentifier, TextAreaWithTag, SelectAudience } from '../';
-import styles from './components/styles/createBlogPostModal.module.scss';
-import { TitleField, Categories, CreateBlogPostMedia } from './components';
+import {
+  UserIdentifier,
+  TextAreaWithTag,
+  SelectAudience,
+  Modal,
+  BTN,
+  InlineStandSpinner,
+} from "../";
+import styles from "./components/styles/createBlogPostModal.module.scss";
+import { TitleField, Categories, CreateBlogPostMedia } from "./components";
 
 function CreateBlogPost({
   isOpen,
@@ -31,17 +36,22 @@ function CreateBlogPost({
   files,
   loading,
 }) {
-  const { userName, image } = useSelector(selectActiveUserInfo);
+  const { userName, image } = useSelector(selectActiveUserShortInfo);
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen} className={styles.createBlogPostModal}>
+    <Modal
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      className={styles.createBlogPostModal}
+    >
       <div className={styles.fields}>
         {loading && <InlineStandSpinner />}
         <UserIdentifier
           userName={userName}
           img={image}
           withTime={false}
-          className={styles.blogPostIdentifier}>
+          className={styles.blogPostIdentifier}
+        >
           <div className={styles.blogPostAudience}>
             <SelectAudience
               audience={audience}
@@ -70,7 +80,7 @@ function CreateBlogPost({
             setTag={handleAddTag}
             removeTag={handleRemoveTag}
             className={styles.blogPostTextField}
-            placeholder='article'
+            placeholder="article"
           />
         </div>
         <CreateBlogPostMedia

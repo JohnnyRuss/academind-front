@@ -1,11 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import { selectUserId } from '../../../store/selectors/userSelectors';
-import { usePostQuery, usePost } from '../../../hooks';
-import { destructurePostShareData } from '../../../lib/destructurers';
+import { selectActiveUserId } from "../../../store/selectors/activeUserSelectors";
+import { usePostQuery, usePost } from "../../../hooks";
+import { destructurePostShareData } from "../../../lib/destructurers";
 
-import styles from './components/postActions.module.scss';
-import { ReactionBTN, CommentBTN, ShareBTN } from './components';
+import styles from "./components/postActions.module.scss";
+import { ReactionBTN, CommentBTN, ShareBTN } from "./components";
 
 /**
  * is user in Post component as well as BlogPost component
@@ -17,7 +17,7 @@ import { ReactionBTN, CommentBTN, ShareBTN } from './components';
  * @returns
  */
 function PostActions({ className, setShowCommnents, data, redirect }) {
-  const { id } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
 
   const { reactOnPostHandler } = usePostQuery();
   const { activateSharePostModal } = usePost();
@@ -40,10 +40,12 @@ function PostActions({ className, setShowCommnents, data, redirect }) {
     activateSharePostModal(destructurePostShareData(data));
   }
 
-  const isUserInteracted = data.reactions?.find((reaction) => reaction.author === id);
+  const isUserInteracted = data.reactions?.find(
+    (reaction) => reaction.author === activeUserId
+  );
 
   return (
-    <form className={`${styles.postActions} ${className || ''}`}>
+    <form className={`${styles.postActions} ${className || ""}`}>
       <ReactionBTN
         reactOnPostHandler={reactionHandler}
         reactionsAmount={data?.likesAmount}

@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
 import {
   getUnseenRequestsCount,
+  resetUnseenRequestsCount,
   getUnseenConversationsCount,
   resetUnseenConversationsCount,
-  getNotificationCount,
-  resetUnseenRequestsCount,
+  getUnseenNotificationsCount,
+  resetUnseenNotificationsCount,
 } from "../../store/reducers/badgeReducer";
 
 export default function useBadgeQuery() {
@@ -15,7 +16,6 @@ export default function useBadgeQuery() {
   }
 
   function resetUnseenRequestsCountQuery(userId) {
-    console.log('runs reset unseen request count');
     dispatch(resetUnseenRequestsCount(userId));
   }
 
@@ -28,7 +28,12 @@ export default function useBadgeQuery() {
   }
 
   function getNotificationCountQuery(userId) {
-    dispatch(getNotificationCount(userId));
+    dispatch(getUnseenNotificationsCount(userId));
+  }
+
+  function resetUnseenNotificationsCountQuery(userId) {
+    console.log("runs unseen notifies count reset");
+    dispatch(resetUnseenNotificationsCount(userId));
   }
 
   return {
@@ -37,5 +42,6 @@ export default function useBadgeQuery() {
     getUnseenConversationsCountQuery,
     resetUnseenConversationsCountQuery,
     getNotificationCountQuery,
+    resetUnseenNotificationsCountQuery,
   };
 }

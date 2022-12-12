@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useConversationQuery } from "../../hooks";
-import { selectUserId } from "../../store/selectors/userSelectors";
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 import { selectActiveConversation } from "../../store/selectors/conversationSelectors";
 
 import { groupMessages, fixLineBreaks } from "../../lib";
@@ -11,19 +11,17 @@ import { groupMessages, fixLineBreaks } from "../../lib";
 import styles from "./components/styles/feed.module.scss";
 import FeedHeader from "./components/FeedHeader";
 import FeedMessagesList from "./components/FeedMessagesList";
-import { Spinner } from "../Interface";
-import { TextArea } from "../Layouts";
+import { TextArea, Spinner } from "../Layouts";
 
 function Feed() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const { id: activeUserId } = useSelector(selectUserId);
-
   const {
     conversation,
     conversationState: { loading },
   } = useSelector(selectActiveConversation);
+  const activeUserId = useSelector(selectActiveUserId);
 
   const groupedMessages = useMemo(
     () => (conversation ? groupMessages(conversation.messages) : []),

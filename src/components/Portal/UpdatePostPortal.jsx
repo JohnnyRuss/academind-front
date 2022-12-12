@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   resetUpdateState,
@@ -8,10 +8,11 @@ import {
   removeUpdateTag,
   removeUpdateFiles,
   setUpdateAudience,
-} from '../../store/reducers/portalReducer';
-import { usePostQuery, useRestrictBodyOverflow } from '../../hooks';
+} from "../../store/reducers/portalReducer";
+import { usePostQuery, useRestrictBodyOverflow } from "../../hooks";
+import { selectUpdatePostPortal } from "../../store/selectors/portalSelectors";
 
-import { CreatePostModal } from '../Layouts';
+import { CreatePostModal } from "../Layouts";
 
 function UpdatePostPortal() {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function UpdatePostPortal() {
     updatePostData,
     updatePostMediaFiles,
     updatePostLoadingState: { loading },
-  } = useSelector(({ portal }) => portal);
+  } = useSelector(selectUpdatePostPortal);
 
   const { description, tags, audience } = updatePostData;
 
@@ -42,7 +43,7 @@ function UpdatePostPortal() {
   function publishPost() {
     handlePostPublish({
       params: {
-        operationType: 'update',
+        operationType: "update",
       },
       credentials: {
         audience,

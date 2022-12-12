@@ -1,12 +1,9 @@
-import { useLocation } from 'react-router-dom';
-
-import { useScroll } from '../../hooks';
-
-import styles from './components/styles/profileReviewNav.module.scss';
-import { Link } from '../Interface';
+import { useLocation, Link } from "react-router-dom";
+import { useScroll } from "../../hooks";
+import styles from "./components/styles/profileReviewNav.module.scss";
 
 function ProfileReviewNav() {
-  useScroll({ target: 'elem', scrollTo: 'profile-review__page--nav-bar' });
+  useScroll({ target: "elem", scrollTo: "profile-review__page--nav-bar" });
 
   const { pathname } = useLocation();
 
@@ -15,11 +12,11 @@ function ProfileReviewNav() {
   }
 
   return (
-    <nav className={styles.profileReviewNav} id='profile-review__page--nav-bar'>
-      <Link path='tags' className={activeRoute('tags')}>
+    <nav className={styles.profileReviewNav} id="profile-review__page--nav-bar">
+      <Link to="tags" className={activeRoute("tags")}>
         tagged posts
       </Link>
-      <Link path='hidden' className={activeRoute('hidden')}>
+      <Link to="hidden" className={activeRoute("hidden")}>
         hidden posts
       </Link>
     </nav>

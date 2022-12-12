@@ -3,26 +3,25 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { useFriendsQuery } from "../../hooks";
-import { selectUserId } from "../../store/selectors/userSelectors";
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 import { selectSentRequestsPageState } from "../../store/selectors/friendsSelector";
 
 import styles from "./components/styles/request.module.scss";
-import { CancelRequestBTN } from "../Layouts";
-import { Spinner } from "../Interface";
+import { CancelRequestBTN, Spinner } from "../Layouts";
 import RequestItemBody from "./components/RequestItemBody";
 
 function SentRequests() {
-  const { id } = useSelector(selectUserId);
   const {
     loadingState: { loading },
     sentRequests,
     searchKey,
   } = useSelector(selectSentRequestsPageState);
+  const activeUserId = useSelector(selectActiveUserId);
 
   const { cancelFriendRequestQuery, getSentRequestsQuery } = useFriendsQuery();
 
   useEffect(() => {
-    getSentRequestsQuery(id);
+    getSentRequestsQuery(activeUserId);
   }, []);
 
   return (

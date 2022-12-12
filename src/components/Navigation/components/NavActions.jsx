@@ -2,7 +2,11 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectUserId } from "../../../store/selectors/userSelectors";
+import {
+  selectActiveUserId,
+  selectIsActiveNotifications,
+} from "../../../store/selectors/activeUserSelectors";
+import { selectAllBadgeCount } from "../../../store/selectors/badgeSelectors";
 import { setActiveNotifications } from "../../../store/reducers/activeUserReducer";
 import { useBlurOnBody, useBadgeQuery } from "../../../hooks";
 
@@ -18,11 +22,10 @@ import {
 function NavActions() {
   const dispatch = useDispatch();
 
-  const { activeNotifications } = useSelector(({ activeUser }) => activeUser);
-  const { id: activeUserId } = useSelector(selectUserId);
-  const { requestCount, messageCount, notificationCount } = useSelector(
-    (state) => state.badges
-  );
+  const activeNotifications = useSelector(selectIsActiveNotifications);
+  const activeUserId = useSelector(selectActiveUserId);
+  const { requestCount, messageCount, notificationCount } =
+    useSelector(selectAllBadgeCount);
 
   const activateNotifications = () =>
     dispatch(setActiveNotifications(!activeNotifications));
@@ -54,16 +57,16 @@ function NavActions() {
         <Link to={`/profile/${activeUserId}/friends/pending-requests`}>
           <UserFriendRequestsIcon />
         </Link>
-        {requestCount.count > 0 && (
-          <span className={styles.actionBadge}>{requestCount.count}</span>
+        {requestCount > 0 && (
+          <span className={styles.actionBadge}>{requestCount}</span>
         )}
       </button>
       <button className={styles.actionBtn}>
         <Link to="/messanger">
           <EmailIcon />
         </Link>
-        {messageCount.count > 0 && (
-          <span className={styles.actionBadge}>{messageCount.count}</span>
+        {messageCount > 0 && (
+          <span className={styles.actionBadge}>{messageCount}</span>
         )}
       </button>
       <button
@@ -71,8 +74,8 @@ function NavActions() {
         className={`notification--nav__btn ${styles.actionBtn}`}
       >
         <NotificationIcon />
-        {notificationCount.count > 0 && (
-          <span className={styles.actionBadge}>{notificationCount.count}</span>
+        {notificationCount > 0 && (
+          <span className={styles.actionBadge}>{notificationCount}</span>
         )}
       </button>
       <button className={styles.mainNavActionsBurgerBtn}>

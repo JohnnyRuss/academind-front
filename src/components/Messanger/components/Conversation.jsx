@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { selectUserId } from "../../../store/selectors/userSelectors";
+import { selectActiveUserId } from "../../../store/selectors/activeUserSelectors";
 
 import styles from "./styles/conversation.module.scss";
-import { Avatar } from "../../Interface";
+import { Avatar } from "../../Layouts";
 import ConversationInfoBox from "./ConversationInfoBox";
 import ConversationOptions from "./ConversationOptions";
 
@@ -13,7 +13,7 @@ function Conversation({ conversationId, adressatId, author, lastMessage }) {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const { id: activeUserId } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
 
   const [openConversationOption, setOpenConversationOption] = useState(false);
 

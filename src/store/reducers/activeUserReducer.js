@@ -1,23 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { updateLoadingState } from './helpers';
+import { createSlice } from "@reduxjs/toolkit";
+import { updateLoadingState } from "./helpers";
 
 const activeUserSlice = createSlice({
-  name: 'activeUser',
+  name: "activeUser",
   initialState: {
     loadingState: {
       loading: null,
       error: false,
-      message: '',
+      message: "",
+    },
+    notificationLoadingState: {
+      loading: null,
+      error: false,
+      message: "",
+    },
+    pendingPostsLoadingState: {
+      loading: null,
+      error: false,
+      message: "",
     },
     user: {
-      _id: '',
-      email: '',
-      firstName: '',
-      lastName: '',
-      userName: '',
-      profileImg: '',
-      coverImg: '',
-      role: '',
+      _id: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      userName: "",
+      profileImg: "",
+      coverImg: "",
+      role: "",
       createdAt: null,
       isAuthenticated: false,
     },
@@ -26,11 +36,11 @@ const activeUserSlice = createSlice({
   },
   reducers: {
     login(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({ state, key: "loadingState", loading: true });
     },
 
     resetLoadingState(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: null });
+      updateLoadingState({ state, key: "loadingState", loading: null });
     },
 
     setActiveUser(state, { payload }) {
@@ -48,9 +58,12 @@ const activeUserSlice = createSlice({
       };
 
       Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
-      localStorage.setItem('academind_passport', JSON.stringify(payload.accessToken));
+      localStorage.setItem(
+        "academind_passport",
+        JSON.stringify(payload.accessToken)
+      );
 
-      updateLoadingState({ state, key: 'loadingState', loading: false });
+      updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
     setUpdatedUserCover(state, { payload }) {
@@ -65,18 +78,28 @@ const activeUserSlice = createSlice({
     },
 
     getNotifications(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({
+        state,
+        key: "notificationLoadingState",
+        loading: true,
+      });
     },
 
     setNotifications(state, { payload }) {
       state.notifications = payload;
-      updateLoadingState({ state, key: 'loadingState', loading: false });
+      updateLoadingState({
+        state,
+        key: "notificationLoadingState",
+        loading: false,
+      });
     },
 
     deleteNotification() {},
 
     setDeletedNotification(state, { payload }) {
-      state.notifications = state.notifications.filter((notify) => notify._id !== payload);
+      state.notifications = state.notifications.filter(
+        (notify) => notify._id !== payload
+      );
     },
 
     deleteAllNotification() {},
@@ -88,40 +111,53 @@ const activeUserSlice = createSlice({
     markNotificationAsRead() {},
 
     setMarkedNotification(state, { payload }) {
-      const i = state.notifications.findIndex((notify) => notify._id === payload._id);
+      const i = state.notifications.findIndex(
+        (notify) => notify._id === payload._id
+      );
       state.notifications[i] = { ...state.notifications[i], ...payload };
     },
 
     markAllNotificationAsRead() {},
 
     setAllNotificationAsRead(state) {
-      state.notifications = state.notifications.map((notify) => ({ ...notify, read: true }));
+      state.notifications = state.notifications.map((notify) => ({
+        ...notify,
+        read: true,
+      }));
     },
 
     getPendingPosts(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({
+        state,
+        key: "pendingPostsLoadingState",
+        loading: true,
+      });
     },
 
     getHiddenPosts(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({
+        state,
+        key: "pendingPostsLoadingState",
+        loading: true,
+      });
     },
 
     logOut(state) {
       const temp = {
-        _id: '',
-        email: '',
-        firstName: '',
-        lastName: '',
-        userName: '',
-        profileImg: '',
-        coverImg: '',
+        _id: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        userName: "",
+        profileImg: "",
+        coverImg: "",
         createdAt: null,
-        role: '',
+        role: "",
         isAuthenticated: false,
       };
 
       Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
-      localStorage.removeItem('academind_passport');
+      localStorage.removeItem("academind_passport");
     },
   },
 });

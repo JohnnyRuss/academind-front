@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 
 import styles from "./components/styles/blogPost.module.scss";
-import { Image } from "../../Interface";
-import { BlogPostIdentifier, ShowMoreInlineBTN } from "../../Layouts";
+import { BlogPostIdentifier, ShowMoreInlineBTN, Image } from "../../Layouts";
 import { ReviewUserInteraction } from "./components";
 
 function BlogPost({ post, limitation = 1500, className, referenced, id }) {

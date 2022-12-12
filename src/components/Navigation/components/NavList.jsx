@@ -1,17 +1,17 @@
-import { useSelector } from 'react-redux';
-import { selectUserId } from '../../../store/selectors/userSelectors';
+import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { selectActiveUserId } from "../../../store/selectors/activeUserSelectors";
 
-import { Link } from '../../Interface';
-import styles from './styles/navList.module.scss';
+import styles from "./styles/navList.module.scss";
 
 function NavList() {
-  const { id } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
 
   return (
     <ul className={styles.mainNavList}>
-      <Link path='/feed'>Feed</Link>
-      <Link path={`/profile/${id}/posts`}>Profile</Link>
-      <Link path='/blog'>Blog</Link>
+      <Link to="/feed">Feed</Link>
+      <Link to={`/profile/${activeUserId}/posts`}>Profile</Link>
+      <Link to="/blog">Blog</Link>
     </ul>
   );
 }

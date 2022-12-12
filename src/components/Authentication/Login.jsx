@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { createAxiosQuery } from '../../store/axiosConfig';
-import { selectAuthenticationLoadingState } from '../../store/selectors/userSelectors';
+import { selectActiveUserLoadingState } from '../../store/selectors/activeUserSelectors';
 import { login, resetLoadingState } from '../../store/reducers/activeUserReducer';
 
 import styles from './auth.module.scss';
@@ -12,7 +11,7 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading } = useSelector(selectAuthenticationLoadingState);
+  const { loading } = useSelector(selectActiveUserLoadingState);
 
   async function submitHandler(e) {
     e.preventDefault();

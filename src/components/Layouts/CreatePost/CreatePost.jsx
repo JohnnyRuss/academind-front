@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   setCreatePostIsOpen,
@@ -10,12 +10,13 @@ import {
   setText,
   setAudience,
   resetCreatePost,
-} from '../../../store/reducers/createPostReducer';
-import { usePostQuery, useRestrictBodyOverflow } from '../../../hooks';
+} from "../../../store/reducers/createPostReducer";
+import { selectCreatePost } from "../../../store/selectors/createPostSelectors";
+import { usePostQuery, useRestrictBodyOverflow } from "../../../hooks";
 
-import styles from './components/styles/createPost.module.scss';
-import { CreatePostTouch } from './components';
-import CreatePostModal from './CreatePostModal';
+import styles from "./components/styles/createPost.module.scss";
+import { CreatePostTouch } from "./components";
+import CreatePostModal from "./CreatePostModal";
 
 function CreatePost({ className }) {
   const dispatch = useDispatch();
@@ -24,11 +25,11 @@ function CreatePost({ className }) {
     createPostIsOpen,
     activeSelectedMedia,
     text,
-    files,
     tags,
+    files,
     audience,
     loadingState: { loading },
-  } = useSelector(({ createPost }) => createPost);
+  } = useSelector(selectCreatePost);
 
   const handleText = (txt) => dispatch(setText(txt));
 
@@ -67,8 +68,8 @@ function CreatePost({ className }) {
   function publishPost() {
     handlePostPublish({
       params: {
-        operationType: 'publish',
-        type: 'post',
+        operationType: "publish",
+        type: "post",
       },
       credentials: {
         audience,
@@ -80,7 +81,7 @@ function CreatePost({ className }) {
   }
 
   return (
-    <div className={`${styles.createPost} ${className || ''}`}>
+    <div className={`${styles.createPost} ${className || ""}`}>
       <CreatePostTouch setIsOpen={activateModal} />
       {createPostIsOpen && (
         <CreatePostModal

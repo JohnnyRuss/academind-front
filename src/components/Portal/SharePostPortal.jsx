@@ -1,33 +1,40 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   resetSharePostModal,
   addShareTag,
   removeShareTag,
   setShareAudience,
-} from '../../store/reducers/portalReducer';
-import { useRestrictBodyOverflow, usePostQuery } from '../../hooks';
-import { selectActiveUserInfo } from '../../store/selectors/userSelectors';
+} from "../../store/reducers/portalReducer";
+import { useRestrictBodyOverflow, usePostQuery } from "../../hooks";
+import { selectSharePostPortal } from "../../store/selectors/portalSelectors";
+import { selectActiveUserShortInfo } from "../../store/selectors/activeUserSelectors";
 
-import { Modal, PostAuthentic, UserIdentifier, TextAreaWithTag, SelectAudience } from '../Layouts';
-import { BTN, InlineStandSpinner } from '../Interface';
-import styles from './styles/sharePostPortal.module.scss';
+import {
+  Modal,
+  PostAuthentic,
+  UserIdentifier,
+  TextAreaWithTag,
+  SelectAudience,
+  BTN,
+  InlineStandSpinner,
+} from "../Layouts";
+import styles from "./styles/sharePostPortal.module.scss";
 
 function SharePostPortal() {
   const dispatch = useDispatch();
-
-  const { userName, image } = useSelector(selectActiveUserInfo);
 
   const {
     sharePostModalIsOpen,
     sharePostData,
     shareAudience,
     sharePostLoadingState: { loading },
-  } = useSelector(({ portal }) => portal);
+  } = useSelector(selectSharePostPortal);
+  const { userName, image } = useSelector(selectActiveUserShortInfo);
 
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   const handleTag = (tag) => dispatch(addShareTag(tag));
 
@@ -49,16 +56,21 @@ function SharePostPortal() {
     <Modal
       isOpen={sharePostModalIsOpen}
       setIsOpen={deactivateHandler}
-      extraStyles={{ background: 'white' }}>
+      extraStyles={{ background: "white" }}
+    >
       {loading && <InlineStandSpinner />}
       <div className={styles.sharePostModal}>
         <UserIdentifier
           img={image}
           userName={userName}
           withTime={false}
-          className={styles.shareIdentifier}>
+          className={styles.shareIdentifier}
+        >
           <div className={styles.shareSelectAudience}>
-            <SelectAudience audience={shareAudience} handleAudience={handleAudience} />
+            <SelectAudience
+              audience={shareAudience}
+              handleAudience={handleAudience}
+            />
           </div>
         </UserIdentifier>
         <TextAreaWithTag
@@ -67,7 +79,7 @@ function SharePostPortal() {
           tags={sharePostData.tags}
           setTag={handleTag}
           removeTag={handleRemoveTag}
-          placeholder='description'
+          placeholder="description"
           className={styles.descriptionField}
         />
         <PostAuthentic
@@ -86,7 +98,8 @@ function SharePostPortal() {
                 tags: sharePostData?.tags,
                 description: text,
               })
-            }>
+            }
+          >
             post
           </BTN>
         </span>

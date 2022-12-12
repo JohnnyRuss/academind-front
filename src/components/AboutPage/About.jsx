@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { deActivateTarget, getUserAboutData, resetData } from '../../store/reducers/aboutReducer';
+import { selectAboutUserData } from '../../store/selectors/aboutPageSelectors';
 
 import styles from './components/about.module.scss';
 import { UserInfo } from './components/UserInfo';
@@ -17,7 +18,7 @@ function About() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const data = useSelector(({ aboutPage }) => aboutPage.data);
+  const data = useSelector(selectAboutUserData);
 
   useEffect(() => {
     dispatch(getUserAboutData(id));

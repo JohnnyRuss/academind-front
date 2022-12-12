@@ -1,5 +1,3 @@
-@use "../../../styles//helpers/helpers" as *;
-
 .avatar {
   width: 4.5rem;
   height: 4.5rem;
@@ -7,7 +5,10 @@
   overflow: hidden;
 
   & img {
-    @include fitImage;
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
     border-radius: inherit;
   }
 }

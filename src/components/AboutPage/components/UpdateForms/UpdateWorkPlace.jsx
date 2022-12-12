@@ -1,40 +1,52 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
-import { useAboutUserQuery } from '../../../../hooks';
+import {
+  selectAboutProccessUpdate,
+  selectAboutUpdateCredentials,
+} from "../../../../store/selectors/aboutPageSelectors";
+import { useAboutUserQuery } from "../../../../hooks";
 
-import styles from './styles/form.module.scss';
-import { BTN, Input, TextField, DatePicker } from '../../../Interface';
+import styles from "./styles/form.module.scss";
+import { BTN, DatePicker, Input, TextField } from "../../../Layouts";
 
 function UpdateWorkPlace() {
-  const { updateCredentials, proccessUpdate } = useSelector(({ aboutPage }) => aboutPage.dom);
+  const updateCredentials = useSelector(selectAboutUpdateCredentials);
+  const proccessUpdate = useSelector(selectAboutProccessUpdate);
 
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState("");
 
-  const { cancelHandler, handleConfirm, formRef } = useAboutUserQuery('workplace');
+  const { cancelHandler, handleConfirm, formRef } =
+    useAboutUserQuery("workplace");
 
   return (
-    <form className={styles.updateFormMain} ref={formRef} onSubmit={handleConfirm}>
-      <h1 className={styles.formTitleUpdate}>{proccessUpdate ? 'update' : 'add'} your workplace</h1>
+    <form
+      className={styles.updateFormMain}
+      ref={formRef}
+      onSubmit={handleConfirm}
+    >
+      <h1 className={styles.formTitleUpdate}>
+        {proccessUpdate ? "update" : "add"} your workplace
+      </h1>
       <Input
-        placeholder='company'
+        placeholder="company"
         className={styles.inpUpdate}
         defaultValue={updateCredentials?.company}
-        name='company'
+        name="company"
       />
       <Input
-        placeholder='position'
+        placeholder="position"
         className={styles.inpUpdate}
         defaultValue={updateCredentials?.position}
-        name='position'
+        name="position"
       />
       <TextField
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        placeholder='description...'
+        placeholder="description..."
         className={styles.descriptionText}
         defaultValue={updateCredentials?.description}
-        name='description'
+        name="description"
       />
       <label>Working Years</label>
       <div className={styles.rowBox}>
@@ -43,19 +55,25 @@ function UpdateWorkPlace() {
           <DatePicker
             className={styles.picker}
             defaultDate={
-              proccessUpdate ? new Date(updateCredentials?.workingYears.from) : new Date()
+              proccessUpdate
+                ? new Date(updateCredentials?.workingYears.from)
+                : new Date()
             }
-            name='from'
-            id='from'
+            name="from"
+            id="from"
           />
         </div>
         <div className={styles.columnBox}>
           <label>to</label>
           <DatePicker
             className={styles.picker}
-            defaultDate={proccessUpdate ? new Date(updateCredentials?.workingYears.to) : new Date()}
-            name='to'
-            id='to'
+            defaultDate={
+              proccessUpdate
+                ? new Date(updateCredentials?.workingYears.to)
+                : new Date()
+            }
+            name="to"
+            id="to"
           />
         </div>
         {/* <div className={styles.columnBox}>
@@ -67,7 +85,7 @@ function UpdateWorkPlace() {
         <BTN className={styles.secondaryBtnUpdate} onClick={cancelHandler}>
           cancel
         </BTN>
-        <BTN className={styles.primaryBtnUpdate} type='submit'>
+        <BTN className={styles.primaryBtnUpdate} type="submit">
           confirm
         </BTN>
       </div>

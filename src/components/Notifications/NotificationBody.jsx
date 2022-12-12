@@ -6,8 +6,7 @@ import {
   DeleteIcon,
   ReadIcon,
 } from "../Layouts/Icons/icons";
-import { TimeAgo } from "../Layouts";
-import { Image } from "../Interface";
+import { TimeAgo, Image } from "../Layouts";
 
 function NotificationBody({
   notify,

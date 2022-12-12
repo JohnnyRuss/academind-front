@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { selectActiveUserInfo } from "../../../store/selectors/userSelectors";
+import { selectActiveUserShortInfo } from "../../../store/selectors/activeUserSelectors";
 import { logOut } from "../../../store/reducers/activeUserReducer";
 
 import styles from "./styles/navAvatar.module.scss";
-import { Avatar, Link } from "../../Interface";
+import { Avatar } from "../../Layouts";
 
 function NavAvatar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { image, id, userName } = useSelector(selectActiveUserInfo);
+  const { image, _id, userName } = useSelector(selectActiveUserShortInfo);
   const [openAvatar, setOpenAvatar] = useState(false);
 
   function handleLogOut() {
@@ -28,7 +28,7 @@ function NavAvatar() {
         <ul className={styles.navAvatarModal}>
           <li>
             <Link
-              path={`/profile/${id}/posts`}
+              to={`/profile/${_id}/posts`}
               onClick={() => setOpenAvatar(false)}
             >
               {userName}

@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 
 import { IoContext } from "../../store/Io";
 
-import { selectActiveUserInfo } from "../../store/selectors/userSelectors";
+import { selectActiveUserShortInfo } from "../../store/selectors/activeUserSelectors";
 import { useAuthValidation } from "../../hooks";
 
-import { StandSpinner } from "../../components/Interface";
+import { StandSpinner } from "../../components/Layouts";
 import Notifications from "../../components/Notifications/Notifications";
 
 const MediaPortal = lazy(() => import("../../components/Portal/MediaPortal"));
@@ -35,7 +35,7 @@ function RestrictionUnAuthorised() {
 
   const { activeNotifications } = useSelector(({ activeUser }) => activeUser);
 
-  const activeUser = useSelector(selectActiveUserInfo);
+  const activeUser = useSelector(selectActiveUserShortInfo);
 
   useEffect(() => {
     connection(activeUser);
