@@ -24,6 +24,8 @@ import {
   queryGetSentRequests,
 } from "../api/friendsQueries";
 
+import { setNewFriend } from "../../reducers/userReducer";
+
 export function* sendRequestHandler({ payload: userId }) {
   try {
     yield call(querySendRequest, userId);
@@ -52,8 +54,12 @@ export function* deleteRequestHandler({ payload: userId }) {
 
 export function* confirmRequestHandler({ payload: userId }) {
   try {
-    yield call(queryConfirmRequest, userId);
-    if (isRoute("pending-requests")) yield put(setConfirmedRequest(userId));
+    const { data } = yield call(queryConfirmRequest, userId);
+    
+    if (isRoute("pending-requests")) {
+      yield put(setNewFriend(data));
+      yield put(setConfirmedRequest(userId));
+    }
   } catch (error) {
     showError(error, "confirmRequestHandler");
   }

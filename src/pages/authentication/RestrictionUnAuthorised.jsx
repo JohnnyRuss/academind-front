@@ -4,7 +4,11 @@ import { useSelector } from "react-redux";
 
 import { IoContext } from "../../store/Io";
 
-import { selectActiveUserShortInfo } from "../../store/selectors/activeUserSelectors";
+import {
+  selectActiveUserShortInfo,
+  selectIsActiveNotifications,
+} from "../../store/selectors/activeUserSelectors";
+import { selectAllModalActiveStatus } from "../../store/selectors/portalSelectors";
 import { useAuthValidation } from "../../hooks";
 
 import { StandSpinner } from "../../components/Layouts";
@@ -31,11 +35,9 @@ function RestrictionUnAuthorised() {
     updatePostModalIsOpen,
     sharePostModalIsOpen,
     updateBlogPostModalIsOpen,
-  } = useSelector(({ portal }) => portal);
-
-  const { activeNotifications } = useSelector(({ activeUser }) => activeUser);
-
+  } = useSelector(selectAllModalActiveStatus);
   const activeUser = useSelector(selectActiveUserShortInfo);
+  const activeNotifications = useSelector(selectIsActiveNotifications);
 
   useEffect(() => {
     connection(activeUser);

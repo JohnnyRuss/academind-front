@@ -1,17 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import { IoContext } from "../../store/Io";
+
 import { selectActiveUser } from "../../store/selectors/activeUserSelectors";
+import { useBadgeQuery } from "../../hooks";
 
 import styles from "./components/styles/navigation.module.scss";
 import { NavList, NavActions } from "./components";
 
 function Navigation() {
-  const { isAuthenticated } = useSelector(selectActiveUser);
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const { socket } = useContext(IoContext);
+
+  const { isAuthenticated } = useSelector(selectActiveUser);
+
+  const {
+    encreaseUnseenRequestsCountHandler,
+    encreaseUnseenConversationsCountHandler,
+    encreaseUnseenNotificationsCountHandler
+  } = useBadgeQuery();
 
   useEffect(() => {
     if (
@@ -21,6 +32,24 @@ function Navigation() {
     )
       navigate("/feed");
   }, [pathname, isAuthenticated, navigate]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("receive_new_friend_request", (data) => {
+      encreaseUnseenRequestsCountHandler(data);
+    });
+
+    socket.on("receive_new_notification", (data) => {
+      encreaseUnseenNotificationsCountHandler(data);
+    });
+
+    if (!pathname.startsWith("/messanger")) {
+      socket.on("receive_new_message", (data) => {
+        encreaseUnseenConversationsCountHandler(data);
+      });
+    }
+  }, [socket]);
 
   return (
     <div className={styles.mainNav}>

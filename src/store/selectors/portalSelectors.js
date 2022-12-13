@@ -9,6 +9,18 @@ export const selectMediaFiles = ({ portal }) => portal.mediaModalIsOpen;
 export const selectUpdatePostModalIsOpen = ({ portal }) =>
   portal.updatePostModalIsOpen;
 
+const selectedAllModalActiveStatus = ({ portal }) => ({
+  mediaModalIsOpen: portal.mediaModalIsOpen,
+  updatePostModalIsOpen: portal.updatePostModalIsOpen,
+  sharePostModalIsOpen: portal.sharePostModalIsOpen,
+  updateBlogPostModalIsOpen: portal.updateBlogPostModalIsOpen,
+});
+
+export const selectAllModalActiveStatus = createSelector(
+  selectedAllModalActiveStatus,
+  (memorised) => memorised
+);
+
 const selectedSharePostPortal = ({ portal }) => ({
   sharePostModalIsOpen: portal.sharePostModalIsOpen,
   sharePostData: portal.sharePostData,

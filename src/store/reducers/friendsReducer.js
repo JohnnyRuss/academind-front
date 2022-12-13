@@ -87,7 +87,7 @@ const friendsSlice = createSlice({
 
     setCanceledRequest(state, { payload }) {
       state.sentRequests = state.sentRequests.filter(
-        (request) => request.adressat._id !== payload
+        (request) => request._id !== payload
       );
     },
 
