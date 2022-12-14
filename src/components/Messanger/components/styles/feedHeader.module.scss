@@ -1,9 +1,9 @@
 @use "../../../../styles/helpers/components/messanger" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .feedHeadingBox {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  @include flexBox;
+  @include flexProperty(flex-start, center);
   @include messangerFeedHeader;
 
   .feedAuthor {

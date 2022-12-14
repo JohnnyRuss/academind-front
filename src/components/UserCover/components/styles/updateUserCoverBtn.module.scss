@@ -1,4 +1,6 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/user-cover" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .updateUserCoverBtn {
   grid-row: 4;
@@ -6,31 +8,14 @@
   justify-self: end;
   align-self: end;
   @include flexBox;
-  gap: 2rem;
 
-  @include respond(tab-landscape) {
+  @include media-1280 {
     grid-column: 2;
-    margin-right: 2rem;
   }
 
-  @include respond(phone) {
+  @include media-680 {
     grid-row: 6;
-    margin: 0;
     justify-self: center;
     align-self: center;
-  }
-
-  @include respond(phone-small) {
-    gap: 1rem;
-    
-    button {
-      width: 6rem;
-      font-size: size(smallerSize);
-    }
-  }
-
-  .cancelUpdateBtn {
-    background: color(whiteShadeColor);
-    color: color(darkGreyColor);
   }
 }

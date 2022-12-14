@@ -1,4 +1,5 @@
-@use '../../../styles/helpers/helpers' as *;
+@use "../../../styles/helpers/abstract/functions" as *;
+@use "../../../styles/helpers/abstract/components" as *;
 
 .textArea {
   position: relative;

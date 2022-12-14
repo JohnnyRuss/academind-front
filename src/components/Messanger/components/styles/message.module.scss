@@ -1,8 +1,8 @@
 @use "../../../../styles/helpers/components/messanger" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .messageBox {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  @include flexBox;
+  @include flexProperty(flex-start,flex-start);
   @include msgBox;
 }

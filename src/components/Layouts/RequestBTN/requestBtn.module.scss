@@ -1,18 +1,20 @@
-@use '../../../styles/helpers/helpers' as *;
+@use "../../../styles/helpers/abstract/functions" as *;
+@use "../../../styles/helpers/abstract/animation" as *;
+@use "../../../styles/helpers/abstract/mixins" as *;
 
 .btn {
-  font-size: size('smallerSize');
+  font-size: size("smallerSize");
   text-transform: capitalize;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   @include flexBox;
   @include flexProperty(flex-start, center);
   gap: 0.5rem;
-  @include boxShadowBlack(0, 0.5rem, 0.1);
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
   outline: none;
 
   & > svg {
-    font-size: size('regullarSize');
+    font-size: size("regullarSize");
   }
 
   & span {
@@ -23,8 +25,8 @@
   &.sendBtn,
   &.deleteBtn,
   &.cancelBtn {
-    background: color('whiteShaderColor');
-    color: color('darkGreyColor');
+    background: color("whiteShaderColor");
+    color: color("darkGreyColor");
     transition: all 0.2s;
 
     &:hover {
@@ -34,8 +36,8 @@
 
   &.sendMessageBtn,
   &.confirmBtn {
-    background: color('blueColor');
-    color: color('whiteColor');
+    background: color("blueColor");
+    color: color("whiteColor");
     transition: all 0.2s;
 
     &:hover {
@@ -51,10 +53,10 @@
     position: absolute;
     bottom: -4rem;
     width: max-content;
-    background: color('whiteColor');
-    @include boxShadowBlack(0, 1rem, 0.2);
+    background: color("whiteColor");
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
     border-radius: 0.5rem;
-    animation: moveTop 0.2s;
+    @include animateMoveTop;
   }
 
   .deleteFromFriendsBtn {
@@ -63,6 +65,6 @@
   }
 
   .deleteFromFriendsBtn:hover {
-    color: color(redColor);
+    color: color("redColor");
   }
 }

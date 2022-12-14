@@ -1,8 +1,9 @@
 @use "../../../../styles/helpers/components/navigation" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .mainNavSearch {
   position: relative;
-  display: flex;
-  justify-content: center;
+  @include flexBox;
+  @include flexProperty(center, flex-start);
   @include searchBar;
 }

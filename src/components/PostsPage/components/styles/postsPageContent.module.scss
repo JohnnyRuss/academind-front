@@ -1,37 +1,21 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/posts-page" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .postsPageContent {
   flex: 4;
-  margin: 4rem 0 1rem;
-  
-  @include respond(phone) {
-    width: 100%;
-  }
+  @include postsPageContent;
 
   .postsPageContentScroll {
     @include flexBox(column);
-    gap: 5rem;
-    padding-top: 3rem;
 
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       display: none;
     }
-
-    @include respond(phone-small) {
-      gap: 3rem;
-      margin-top: 3rem;
-    }
   }
 
-  @include respond(phone) {
+  @include media-680 {
     flex: 1;
     align-self: center;
-    max-width: 80%;
-    gap: 3rem;
-  }
-
-  @include respond(phone-small) {
-    max-width: 100%;
-    margin: 2rem 0;
   }
 }

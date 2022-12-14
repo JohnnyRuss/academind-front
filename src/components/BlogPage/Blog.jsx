@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import "./components/Blog/styles/blogPageInfiniteScroll.scss";
 import styles from "./components/Blog/styles/blog.module.scss";
-// import { SideBar } from '../Layouts';
+
 import {
   BlogPost,
   CreateBlogPostTouch,

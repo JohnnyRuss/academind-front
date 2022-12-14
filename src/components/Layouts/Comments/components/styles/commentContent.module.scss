@@ -1,19 +1,19 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/abstract/functions" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
 
 .commentContent {
   @include flexBox;
   gap: 5rem;
 
-  @include respond(tab-portrate) {
-    // margin-top: -0.5rem;
-    // margin-left: -1rem;
+  @include media-960 {
     gap: 2rem;
   }
 
   .commentText {
     margin-left: 4rem;
-    color: color('darkGreyColor');
-    font-size: size('smallSize');
+    color: color("darkGreyColor");
+    font-size: size("smallSize");
     max-width: calc(85% - 4rem);
   }
 
@@ -25,21 +25,21 @@
     gap: 0.25rem;
     padding: 0 0.5rem;
     border-radius: 5rem;
-    @include boxShadowBlack(0, 0.5rem, 0.15);
-    background: color(whiteColor);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
+    background: color("whiteColor");
     cursor: pointer;
 
     & span {
-      font-size: size(smallSize);
+      font-size: size("smallSize");
     }
   }
 
   .showMoreBtn {
     cursor: pointer;
-    background: color('whiteShadeColor');
-    color: color('blackColor');
+    background: color("whiteShadeColor");
+    color: color("blackColor");
     padding: 0 0.5rem;
     border-radius: 1rem;
-    font-size: size('smallerSize');
+    font-size: size("smallerSize");
   }
 }

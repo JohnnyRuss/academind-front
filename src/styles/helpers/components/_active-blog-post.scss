@@ -1,0 +1,52 @@
+@use "../abstract/functions" as *;
+@use "../variables/variables" as *;
+
+@mixin activeBlogPostContainer {
+  margin-top: 6rem;
+  row-gap: 3rem;
+  background: color(whiteColor);
+  min-height: 100vh;
+}
+
+@mixin blogPostMedia {
+  min-height: 25vw;
+  margin-top: 1.5rem;
+}
+
+@mixin blogPostArticle {
+  padding: 0 2rem;
+  color: color("darkGreyColor");
+
+  .article {
+    margin-top: 2rem;
+  }
+}
+
+@mixin blogPostActionsBox {
+  padding-bottom: 1rem;
+}
+
+@mixin relatedPostsContainer {
+  padding: 0 2rem;
+  gap: 4rem;
+
+  [data-blog-post-identifier] {
+    gap: 0.75rem;
+  }
+
+  [data-title] {
+    font-size: size(regullarSize);
+  }
+
+  [data-categories-list] {
+    font-size: size(smallestSize);
+  }
+
+  [data-user-interacion] {
+    font-size: size("smallerSize");
+
+    & svg {
+      font-size: size(regullarSize);
+    }
+  }
+}

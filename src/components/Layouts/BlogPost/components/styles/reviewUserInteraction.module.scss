@@ -1,20 +1,18 @@
 @use "../../../../../styles/helpers/components/blog-post" as *;
-
-%flex-row {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
+@use "../../../../../styles/helpers/abstract/mixins" as *;
 
 .blogPostUserInteractionsBox {
-  @extend %flex-row;
+  @include flexBox;
+  @include flexProperty(flex-start, center);
   @include blogPostUserInteractionReview;
 
   .blogPostInteractions {
-    @extend %flex-row;
+    @include flexBox;
+    @include flexProperty(flex-start, center);
 
     span {
-      @extend %flex-row;
+      @include flexBox;
+      @include flexProperty(flex-start, center);
     }
   }
 }

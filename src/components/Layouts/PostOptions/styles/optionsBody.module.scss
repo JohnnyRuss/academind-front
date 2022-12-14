@@ -1,6 +1,7 @@
+@use "../../../../styles/helpers/components/layouts/modalWindowSm" as *;
 @use "../../../../styles/helpers/abstract/functions" as *;
 @use "../../../../styles/helpers/abstract/animation" as *;
-@use "../../../../styles/helpers/components/layouts/modalWindowSm" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .postOptionsModal {
   position: absolute;
@@ -26,10 +27,8 @@
 
   .audienceBox {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    @include flexBox(column);
+    @include flexProperty(center, flex-start);
 
     .audienceMainBtn {
       .arrowIndicator {
@@ -45,12 +44,10 @@
     .audienceOptionsList {
       width: 85%;
       align-self: flex-end;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
+      @include flexBox(column);
+      @include flexProperty(center, flex-start);
       gap: $modal-list-gap;
-      @include moveBottom(0.2s);
+      @include animateMoveBottom(0.2s);
     }
   }
 }

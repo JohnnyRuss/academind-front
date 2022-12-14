@@ -1,8 +1,9 @@
 @use "../../../../styles/helpers/components/navigation" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .mainNavList {
   flex: 4;
-  display: flex;
   text-transform: uppercase;
+  @include flexBox;
   @include navList;
 }

@@ -1,29 +1,16 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/posts-page" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .postsPageUserFriends {
   width: 100%;
-  padding: 1rem;
-  border-radius: 0.8rem;
-  font-size: size('smallerSize');
-  background: color('whiteColor');
-  @include boxShadowBlack(0, 1rem, 0.3);
+  @include postsPageUserFriends;
 
   .userFriendsIntro {
     display: grid;
     grid-template: repeat(2, min-content) / repeat(2, 1fr);
-    margin-bottom: 1rem;
-    padding: 0 0.8rem;
-    text-transform: capitalize;
-    color: color('blackColor');
-  }
-
-  .introTitle {
-    font-weight: weight('boldWeight');
-    font-size: size('regullarSize');
   }
 
   .showAll {
-    color: color('blueColor');
     justify-self: end;
   }
 
@@ -32,13 +19,12 @@
     grid-template: repeat(3, 10rem) / repeat(3, 10rem);
     justify-content: center;
     justify-items: center;
-    row-gap: 0.5rem;
 
-    @include respond(phone) {
+    @include media-680 {
       grid-template: repeat(3, 13rem) / repeat(3, 1fr);
     }
 
-    @include respond(phone-small) {
+    @include media-480 {
       grid-template: repeat(3, 10rem) / repeat(3, 1fr);
     }
   }
@@ -49,33 +35,7 @@
     justify-items: center;
   }
 
-  .friendImg {
-    height: 8.5rem;
-    border-radius: 0.8rem;
-    overflow: hidden;
-    aspect-ratio: 1/1;
-
-    @include respond(phone) {
-      height: 11.5rem;
-    }
-
-    @include respond(phone-small) {
-      height: 8.5rem;
-    }
-
-    & img {
-      @include fitImage;
-    }
-  }
-
   .friendName {
     display: inline-block;
-    color: color('blackColor');
-    text-transform: capitalize;
-    font-weight: weight('boldWeight');
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }

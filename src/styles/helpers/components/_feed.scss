@@ -1,6 +1,11 @@
 @use "../variables/variables" as *;
 @use "../abstract/media" as *;
 
+@mixin feedContainer {
+  gap: 2rem;
+  margin-top: 6rem;
+}
+
 @mixin feed {
   padding-top: 4rem;
   gap: 1rem;
@@ -10,14 +15,14 @@
     padding-top: 3rem;
   }
 
-  @include respond(tab-portrate) {
+  @include media-960 {
     .feedPost,
     .feedCreatePost {
       width: $post-w-def;
     }
   }
 
-  @include respond(phone) {
+  @include media-680 {
     padding: 3rem 2rem 0 2rem;
     gap: 4rem;
 

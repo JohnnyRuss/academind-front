@@ -4,7 +4,7 @@ export const selectMediaModalIsOpen = ({ portal }) => portal.mediaModalIsOpen;
 
 export const selectActiveMediaIndex = ({ portal }) => portal.activeMediaIndex;
 
-export const selectMediaFiles = ({ portal }) => portal.mediaModalIsOpen;
+export const selectMediaFiles = ({ portal }) => portal.mediaFiles;
 
 export const selectUpdatePostModalIsOpen = ({ portal }) =>
   portal.updatePostModalIsOpen;

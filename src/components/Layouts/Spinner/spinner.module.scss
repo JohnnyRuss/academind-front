@@ -1,10 +1,13 @@
-@use '../../../styles/helpers/helpers' as *;
+@use "../../../styles/helpers/abstract/functions" as *;
+@use "../../../styles/helpers/abstract/animation" as *;
+@use "../../../styles/helpers/abstract/mixins" as *;
 
 %spinner {
   display: block;
   animation: spinner 1s ease infinite;
-  font-size: size('extraLargeSize');
-  color: color('blueColor');
+  @include animateSpinner;
+  font-size: size("extraLargeSize");
+  color: color("blueColor");
 }
 
 .spinnerBox {
@@ -15,7 +18,7 @@
 
   .spinner {
     @extend %spinner;
-    animation: spinnerFixed 1s ease infinite;
+    @include animateSpinnerFixed;
   }
 }
 
@@ -65,10 +68,10 @@
 
 .blockSpinnerBox {
   text-align: center;
-  font-size: size('extraLargeSize');
-  color: color('blueColor');
+  font-size: size("extraLargeSize");
+  color: color("blueColor");
 
   .spinner {
-    animation: spinnerFixed 1s ease infinite;
+    @include animateSpinnerFixed;
   }
 }

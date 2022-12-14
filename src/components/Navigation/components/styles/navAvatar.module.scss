@@ -7,7 +7,6 @@
   .navAvatarModal {
     position: absolute;
     text-transform: capitalize;
-    animation: moveTop 0.2s;
     @include avatarModal;
   }
 }

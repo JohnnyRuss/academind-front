@@ -1,25 +1,14 @@
 @use "../../../styles/helpers/components/blog-post" as *;
+@use "../../../styles/helpers/abstract/mixins" as *;
 
 .reviewDetails {
-  display: flex;
-  flex-direction: column;
+  @include flexBox(column);
   width: 100%;
   @include blogPostReviewDetails;
 
-  .blogPostTitle {
-    text-transform: capitalize;
-    width: max-content;
-    max-width: 90%;
-
-    & h3 {
-      width: max(40%, 100%);
-    }
-  }
-
   .publisher {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    @include flexBox;
+    @include flexProperty(flex-start, center);
 
     .blogPostUserName {
       text-transform: capitalize;
@@ -36,9 +25,8 @@
   }
 
   .blogPostCategories {
-    display: flex;
+    @include flexBox;
+    @include flexProperty(flex-start, center);
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
   }
 }

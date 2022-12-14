@@ -1,9 +1,10 @@
 @use "../abstract/functions" as *;
 @use "../abstract/media" as *;
 @use "../variables/variables" as *;
+@use "../abstract/animation" as *;
 
 @mixin nav {
-  height: 6rem;
+  height: $nav-height;
   padding: 0 1rem;
   gap: 1rem;
   background: color("blueColor");
@@ -16,7 +17,7 @@
     font-weight: weight("boldWeight");
   }
 
-  @include respond(phone-small) {
+  @include media-480 {
     height: 4.5rem;
 
     &Logo {
@@ -28,7 +29,7 @@
 @mixin navList {
   gap: 1rem;
 
-  @include respond(tab-portrate) {
+  @include media-960 {
     flex-direction: column;
     width: 20rem;
     position: absolute;
@@ -45,7 +46,7 @@
   padding: 0 1rem;
 
   &Bar {
-    @include respond(phone-small) {
+    @include media-480 {
       height: 2rem;
     }
   }
@@ -92,14 +93,14 @@
     background: color("redColor");
   }
 
-  @include respond(phone) {
+  @include media-680 {
     gap: 1.5rem;
   }
 
   & svg {
     font-size: size("bigSize");
 
-    @include respond(phone-small) {
+    @include media-480 {
       font-size: size("regullarSize");
     }
   }
@@ -114,4 +115,5 @@
   background: $bg-light;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
   border-bottom-left-radius: 0.35rem;
+  @include animateMoveTop;
 }

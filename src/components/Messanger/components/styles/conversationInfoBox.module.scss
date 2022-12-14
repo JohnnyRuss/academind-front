@@ -1,8 +1,8 @@
 @use "../../../../styles/helpers/components/messanger" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .infoBox {
-  display: flex;
-  flex-direction: column;
+  @include flexBox(column);
   @include conversationBoxInfo;
 
   .conversationAuthor {
@@ -10,7 +10,7 @@
   }
 
   .miniBox {
-    display: flex;
-    align-items: center;
+    @include flexBox;
+    @include flexProperty(flex-start, center);
   }
 }

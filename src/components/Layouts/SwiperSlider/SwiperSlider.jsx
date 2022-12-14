@@ -12,7 +12,7 @@ import { Image } from "../../Layouts";
 
 SwiperCore.use([Navigation, Thumbs]);
 
-function SwiperSlider({ mediaFiles, initialSlide }) {
+function SwiperSlider({ mediaFiles = [], initialSlide }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (

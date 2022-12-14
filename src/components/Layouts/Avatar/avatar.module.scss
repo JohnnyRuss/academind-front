@@ -1,3 +1,5 @@
+@use "../../../styles/helpers/abstract/mixins" as *;
+
 .avatar {
   width: 4.5rem;
   height: 4.5rem;
@@ -5,10 +7,7 @@
   overflow: hidden;
 
   & img {
-    width: 100%;
-    height: 100%;
-    object-position: center;
-    object-fit: cover;
+    @include fitImage;
     border-radius: inherit;
   }
 }

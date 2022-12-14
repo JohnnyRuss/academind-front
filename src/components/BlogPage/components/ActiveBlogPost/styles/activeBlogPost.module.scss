@@ -1,16 +1,15 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../../styles/helpers/components/active-blog-post" as *;
 
 .activeBlogPostBox {
   position: relative;
-  margin-top: 6rem;
   display: grid;
   grid-template-columns: 32rem 1fr 32rem;
   grid-template-rows: repeat(4, max-content);
-  row-gap: 3rem;
-  background: color(whiteColor);
-  min-height: 100vh;
+  @include activeBlogPostContainer;
 
-  @include respond(tab-landscape) {
+  @include media-1280 {
     @include flexBox(column);
   }
 }

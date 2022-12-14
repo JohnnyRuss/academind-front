@@ -42,9 +42,16 @@
 @mixin blogPostReviewDetails {
   gap: 1rem;
 
-  .blogPostTitle h3 {
-    font-size: $txt-big;
-    font-weight: weight("boldWeight");
+  .blogPostTitle {
+    width: max-content;
+    max-width: 90%;
+    text-transform: capitalize;
+
+    h3 {
+      font-size: $txt-big;
+      font-weight: weight("boldWeight");
+      width: max(40%, 100%);
+    }
   }
 
   .publisher {

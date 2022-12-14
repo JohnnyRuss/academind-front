@@ -1,13 +1,13 @@
-@use "../../../../styles/helpers/abstract/components" as *;
 @use "../../../../styles/helpers/components/messanger" as *;
+@use "../../../../styles/helpers/abstract/components" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .sideBar {
   flex: 1;
   @include sideBarContainer;
 
   .contentBox {
-    display: flex;
-    flex-direction: column;
+    @include flexBox(column);
 
     @include scrollBar("&");
   }

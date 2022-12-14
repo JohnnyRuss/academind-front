@@ -1,6 +1,6 @@
-@use './helpers/abstract/functions' as *;
-@use './helpers/abstract/media' as *;
-@use './helpers/abstract/components' as *;
+@use "./helpers/abstract/functions" as *;
+@use "./helpers/abstract/media" as *;
+@use "./helpers/abstract/components" as *;
 
 *,
 *::before,
@@ -13,24 +13,20 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
-
-  @include respond(large-desktop) {
-    font-size: 75%; // 1rem == 12px
-  }
 }
 
 html body {
-  font-size: size('regullarSize');
-  font-weight: weight('regullarWeight');
+  font-size: size("regullarSize");
+  font-weight: weight("regullarWeight");
   line-height: 1.4;
-  font-family: 'Poppins', sans-serif;
-  background: color('whiteShadeColor');
-  color: color('lightGrey');
+  font-family: "Poppins", sans-serif;
+  background: color("whiteShadeColor");
+  color: color("lightGrey");
   overflow: auto;
   overflow-x: hidden;
 }
 
-@include scrollBar('body');
+@include scrollBar("body");
 
 html body a {
   text-decoration: none;
@@ -78,6 +74,6 @@ html body ul li {
 html body a::selection,
 html body input::selection,
 html body textarea::selection {
-  background: color('blueColor');
-  color: color('whiteColor');
+  background: color("blueColor");
+  color: color("whiteColor");
 }

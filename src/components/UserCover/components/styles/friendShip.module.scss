@@ -1,43 +1,30 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/user-cover" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .friendShipBTNBox {
   grid-row: 4;
   grid-column: 3;
   justify-self: end;
-  width: 60%;
   @include flexBox;
   @include flexProperty(flex-end, center);
   flex-wrap: wrap;
-  gap: 1.2rem;
-  padding-top: 0.5rem;
+  @include friendShip;
 
-  @include respond(tab-landscape) {
+  @include media-1280 {
     grid-column: 2;
-    margin-right: 3rem;
   }
 
-  @include respond(tab-portrate) {
+  @include media-960 {
     grid-row: 5;
-    width: 100%;
-    margin-left: 3rem;
-    margin-right: 0rem;
     justify-self: start;
     justify-content: flex-start;
-
-    & button {
-      font-size: size(smallestSize);
-    }
   }
 
-  @include respond(phone) {
+  @include media-680 {
     grid-column: 1/-1;
     grid-row: 6;
     justify-self: center;
     justify-content: center;
-    margin: 0;
-
-    & button {
-      padding: 0.5rem 1rem;
-    }
   }
 }

@@ -1,37 +1,17 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/abstract/media" as *;
+@use "../../../../styles/helpers/components/user-cover" as *;
 
 .userNameAndEmail {
   padding: 0 3rem 3rem 1rem;
   grid-area: 4 / 3 / 5 / 4;
-  width: 40%;
+  @include userNameAndEmail;
 
-  @include respond(tab-landscape) {
+  @include media-1280 {
     grid-area: 4 / 2 / 5 / -1;
-    margin-left: 3rem;
   }
 
-  @include respond(tab-portrate) {
-    width: 100%;
-  }
-  
-  @include respond(phone) {
+  @include media-680 {
     grid-row: 5;
     grid-column: 2;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-  }
-
-  .userName {
-    font-size: size('bigSize');
-    text-transform: capitalize;
-    color: color('blackColor');
-    font-weight: weight('boldWeight');
-  }
-
-  @include respond(phone) {
-    .userName {
-      font-size: size('regullarSize');
-    }
   }
 }

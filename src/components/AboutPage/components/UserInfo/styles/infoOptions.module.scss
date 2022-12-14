@@ -1,12 +1,13 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../../styles/helpers/abstract/functions" as *;
 
 .infoOptBox {
   position: relative;
 
   .infoOptBtn {
-    color: color('darkLightGreyColor');
+    color: color("darkLightGreyColor");
     & svg {
-      font-size: size('bigSize');
+      font-size: size("bigSize");
     }
   }
 
@@ -19,11 +20,11 @@
     @include flexProperty(flex-start, flex-start);
     gap: 0.5rem;
     padding: 1rem;
-    font-size: size('regullarSize');
+    font-size: size("regullarSize");
     text-transform: capitalize;
-    background: color('whiteColor');
+    background: color("whiteColor");
     animation: moveTop 0.2s;
-    @include boxShadowBlack(0.25rem, 0.5rem, 0.25);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
 
     & .optBtn {
       @include flexBox;
@@ -34,15 +35,15 @@
     }
 
     & .optBtn:hover {
-      color: color('blackColor');
+      color: color("blackColor");
     }
 
     & .deleteBtn.deleteBtn:hover {
-      color: color('redColor');
+      color: color("redColor");
     }
 
     & svg {
-      font-size: size('bigSize');
+      font-size: size("bigSize");
     }
   }
 }

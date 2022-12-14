@@ -1,14 +1,13 @@
 @use "../../../styles/helpers/components/feed" as *;
+@use "../../../styles/helpers/abstract/mixins" as *;
 
 .feedContent {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flexBox(column);
+  @include flexProperty(flex-start, center);
   @include feed;
 
   .feedInfiniteScroll {
-    display: flex;
-    flex-direction: column;
+    @include flexBox(column);
   }
 }

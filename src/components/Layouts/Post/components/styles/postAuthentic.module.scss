@@ -1,9 +1,9 @@
 @use "../../../../../styles/helpers/components/post" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
 
 // all elements selected under the .shareAuthentic defines different order of post elements if post is shared--> you can see more information in jsx code !!!
 .shareAuthentic {
-  display: flex;
-  flex-direction: column;
+  @include flexBox(column);
   @include authenticPost;
 
   .media {

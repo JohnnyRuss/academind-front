@@ -1,4 +1,5 @@
 @use "../../../../styles/helpers/components/navigation" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .mainNav {
   position: fixed;
@@ -6,9 +7,8 @@
   right: 0;
   top: 0rem;
   z-index: 9999;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  @include flexBox;
+  @include flexProperty(flex-start, center);
   @include nav;
 
   &Logo {

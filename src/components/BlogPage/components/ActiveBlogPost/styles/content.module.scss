@@ -1,11 +1,12 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/active-blog-post" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
 
-.comments {
+.actionsBox {
   grid-column: 2;
   grid-row: 4;
-  padding-bottom: 1rem;
+  @include blogPostActionsBox;
 
-  @include respond(tab-landscape) {
+  @include media-1280 {
     order: 5;
   }
 }

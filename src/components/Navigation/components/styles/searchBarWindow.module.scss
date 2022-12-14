@@ -1,5 +1,6 @@
-@use "../../../../styles/helpers/abstract/components" as *;
 @use "../../../../styles/helpers/components/navigation" as *;
+@use "../../../../styles/helpers/abstract/components" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .searchWindow {
   position: absolute;
@@ -8,16 +9,13 @@
 
   .resultsList {
     position: absolute;
-    display: flex;
+    @include flexBox(column);
     overflow: auto;
-    flex-direction: column;
     @include scrollBar("&");
 
-
     &Item {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+      @include flexBox;
+      @include flexProperty(flex-start, center);
     }
   }
 }

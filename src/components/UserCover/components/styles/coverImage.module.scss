@@ -1,8 +1,10 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/user-cover" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .cover {
   grid-area: 1 / 1 / 4 / -1;
   position: relative;
+  @include coverImage;
 
   .coverImg {
     width: 100%;
@@ -12,34 +14,6 @@
     & img {
       @include fitImage;
       border-radius: inherit;
-    }
-  }
-
-  .changeMediaBtn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 4rem;
-    height: 4rem;
-    background: rgba(color('darkLightGreyColor'), 0.7);
-    font-size: size('largeSize');
-    @include flexBox;
-    @include flexProperty(center, center);
-    border-radius: 50%;
-    color: color('whiteColor');
-
-    @include respond(phone) {
-      width: 3rem;
-      height: 3rem;
-
-      & svg {
-        font-size: size('regullarSize');
-      }
-    }
-
-    @include respond(phone-small) {
-      width: 2.5rem;
-      height: 2.5rem;
     }
   }
 }

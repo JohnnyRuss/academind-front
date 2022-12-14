@@ -1,4 +1,6 @@
-@use '../../../styles/helpers/helpers' as *;
+@use '../../../styles/helpers/abstract/mixins' as *;
+@use '../../../styles/helpers/abstract/functions' as *;
+@use '../../../styles/helpers/abstract/media' as *;
 
 .searchField {
   background: color('whiteShadeColor');
@@ -29,7 +31,7 @@
     }
   }
 
-  @include respond(phone) {
+  @include media-680 {
     .searchFieldInp {
       display: none;
     }
