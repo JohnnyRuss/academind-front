@@ -1,32 +1,16 @@
-@use "../../../styles/helpers/components/layouts/blogPostIdentifier" as *;
+@use "../../../styles/helpers/components/blog-post" as *;
+@use "../../../styles/helpers/abstract/mixins" as *;
 
 .reviewDetails {
-  display: flex;
-  flex-direction: column;
-  gap: $blog-post-review-gap;
+  @include flexBox(column);
   width: 100%;
-
-  .blogPostTitle {
-    text-transform: capitalize;
-    width: max-content;
-    max-width: 90%;
-
-    & h3 {
-      width: max(40%, 100%);
-      font-size: $blog-post-title-fs;
-      font-weight: $blog-post-title-fw;
-    }
-  }
+  @include blogPostReviewDetails;
 
   .publisher {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: $blog-post-publisher-gap;
+    @include flexBox;
+    @include flexProperty(flex-start, center);
 
     .blogPostUserName {
-      font-size: $blog-post-publisher-fs;
-      font-weight: $blog-post-publisher-fw;
       text-transform: capitalize;
 
       &:hover {
@@ -34,30 +18,15 @@
       }
     }
 
-    [data-tags] {
-      font-size: $blog-post-publisher-fs;
-    }
-
     [data-img] {
-      max-width: $blog-post-publisher-fig-dimention;
-      max-height: $blog-post-publisher-fig-dimention;
       border-radius: 50%;
       overflow: hidden !important;
     }
   }
 
   .blogPostCategories {
-    display: flex;
+    @include flexBox;
+    @include flexProperty(flex-start, center);
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: $blog-post-categories-gap;
-    font-size: $blog-post-categories-fs;
-
-    span {
-      background: $blog-post-categories-bg;
-      padding: $blog-post-categories-pad;
-      border-radius: $blog-post-categories-radius;
-    }
   }
 }

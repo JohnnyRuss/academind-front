@@ -1,12 +1,12 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/active-blog-post" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
 
 .postIntro {
   grid-column: 2;
   grid-row: 2;
-  padding: 0 2rem;
-  color: color('darkGreyColor');
+  @include blogPostArticle;
 
-  @include respond(tab-landscape) {
+  @include media-1280 {
     order: 2;
   }
 
@@ -17,6 +17,5 @@
   .article {
     grid-column: 1;
     grid-row: 3;
-    margin-top: 2rem;
   }
 }

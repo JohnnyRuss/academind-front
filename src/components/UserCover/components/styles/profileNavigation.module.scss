@@ -1,46 +1,22 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/user-cover" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .nav {
-  height: 100%;
   grid-area: 6 / 2 / -1 / 4;
-  padding: 0 3rem;
-  font-weight: weight('boldWeight');
-  text-transform: capitalize;
-  border-top: 1px solid color('darkGreyColor');
-  color: color('darkGreyColor');
+  @include profileNavigation;
 
-  @include respond(tab-landscape) {
+  @include media-1280 {
     grid-area: 6 / 1 / -1 / -1;
   }
-  
-  @include respond(phone) {
-    grid-area: 7 / 1 / -1 / -1;
-    padding: 0 2rem;
-  }
 
-  @include respond(phone-small) {
-    font-size: size('smallerSize');
-    padding: 0 1rem;
+  @include media-680 {
+    grid-area: 7 / 1 / -1 / -1;
   }
 
   .navList {
     height: 100%;
     @include flexBox;
     @include flexProperty(flex-start, center);
-    gap: 2.5rem;
-
-    @include respond(phone) {
-      gap: 0.5rem;
-    }
-
-    & li {
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-    }
-  }
-
-  .active {
-    color: color('blueColor');
-    background: color('blueTintColor');
   }
 }

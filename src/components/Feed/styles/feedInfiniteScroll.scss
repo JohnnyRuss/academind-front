@@ -1,7 +1,7 @@
 @use "../../../styles/helpers/abstract/media" as *;
 
 .infinite-scroll-component__outerdiv {
-  @include respond(phone){
+  @include media-680{
     width: 100%;
   }
 }

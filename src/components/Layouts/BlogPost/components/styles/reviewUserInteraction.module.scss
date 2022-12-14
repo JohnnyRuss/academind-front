@@ -1,26 +1,18 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/blog-post" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
 
 .blogPostUserInteractionsBox {
   @include flexBox;
   @include flexProperty(flex-start, center);
-  gap: 1rem;
-  font-size: size('smallSize');
-  padding-right: 2.8rem;
+  @include blogPostUserInteractionReview;
 
   .blogPostInteractions {
     @include flexBox;
     @include flexProperty(flex-start, center);
-    gap: 1rem;
 
     span {
       @include flexBox;
       @include flexProperty(flex-start, center);
-      gap: 0.25rem;
-
-      & svg {
-        font-size: size(bigSize);
-      }
     }
   }
 }
-

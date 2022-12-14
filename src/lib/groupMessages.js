@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-export function groupMessages(messages) {
+export default function groupMessages(messages) {
   if (!messages || !messages[0]) return [];
 
   let group = [];

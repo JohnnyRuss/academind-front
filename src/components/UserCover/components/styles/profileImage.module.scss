@@ -1,70 +1,19 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/user-cover" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .profile {
   grid-area: 3 / 2 / 5 / 3;
   justify-self: start;
   align-self: center;
   position: relative;
+  @include profileImage;
 
-  @include respond(tab-landscape) {
+  @include media-1280 {
     grid-area: 3 / 1 / 5 / 2;
-    margin-left: 3rem;
   }
 
-  @include respond(phone) {
+  @include media-680 {
     grid-area: 2 / 2 / 5 / 2;
-    margin: 0;
     justify-self: center;
-  }
-
-  .profileImg {
-    width: 16rem;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid color('whiteColor');
-
-    & img {
-      @include fitImage;
-    }
-
-    @include respond(phone) {
-      width: 13rem;
-    }
-
-    @include respond(phone-small) {
-      width: 11rem;
-    }
-  }
-
-  .changeMediaBtn {
-    position: absolute;
-    bottom: 1.2rem;
-    right: 0.6rem;
-    width: 4rem;
-    height: 4rem;
-    font-size: size('largeSize');
-    @include flexBox;
-    @include flexProperty(center, center);
-    border-radius: 50%;
-    background: rgba(color('darkLightGreyColor'), 0.7);
-    color: color('whiteColor');
-
-    @include respond(phone) {
-      width: 3rem;
-      height: 3rem;
-
-      & svg {
-        font-size: size('regullarSize');
-      }
-    }
-
-    @include respond(phone-small) {
-      width: 2.5rem;
-      height: 2.5rem;
-
-      bottom: 1rem;
-      right: 0rem;
-    }
   }
 }

@@ -1,57 +1,115 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Outlet } from 'react-router-dom';
+import { useEffect, useContext, useState } from "react";
+import { useParams, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { socket } from '../../store/socket';
 import {
-  getAllConversations,
-  getConversation,
-  getLastConversation,
-  resetConversation,
-  deleteConversation,
-} from '../../store/reducers/conversationReducer';
-import { selectUserId } from '../../store/selectors/userSelectors';
-import { selectActiveConversation } from '../../store/selectors/conversationSelectors';
+  selectNewConversationAlert,
+  selectAllConversations,
+  selectConversationLoadingState,
+} from "../../store/selectors/conversationSelectors";
+import { selectMessageCount } from "../../store/selectors/badgeSelectors";
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
+import { IoContext } from "../../store/Io";
+import { useConversationQuery, useBadgeQuery } from "../../hooks";
 
-import MessangerContainer from '../../components/Messanger/MessangerContainer';
-import SideBar from '../../components/Messanger/SideBar';
-import Feed from '../../components/Messanger/Feed';
+import MessangerContainer from "../../components/Messanger/MessangerContainer";
+import SideBar from "../../components/Messanger/SideBar";
+import Feed from "../../components/Messanger/Feed";
 
 function Messanger() {
+  const { socket } = useContext(IoContext);
+
+  const activeUserId = useSelector(selectActiveUserId);
+
   const { id } = useParams();
-  const dispatch = useDispatch();
+  const [isMounting, setIsMounting] = useState(true);
+  const { loading } = useSelector(selectConversationLoadingState);
 
-  const { conversation } = useSelector(selectActiveConversation);
-  const { id: userId } = useSelector(selectUserId);
+  const { allConversations, allConversationState } = useSelector(
+    selectAllConversations
+  );
 
+  const { isNew, id: newConversationId } = useSelector(
+    selectNewConversationAlert
+  );
+
+  const unseenConversationsCount = useSelector(selectMessageCount);
+
+  const {
+    // API Tasks
+    getAllConversationsQuery,
+    getLastConversationQuery,
+    getConversationQuery,
+    getNewConversationQuery,
+    // Non API Tasks
+    handleResetConversations,
+    handleSetNewMessage,
+    handleMarkAsRead,
+  } = useConversationQuery();
+
+  const { resetUnseenConversationsCountQuery } = useBadgeQuery();
+
+  /*
+  fetches all conversations on components mount and resets them on component unmount 
+  */
   useEffect(() => {
-    dispatch(getAllConversations(userId));
-
-    socket.on('test', (data) => {
-      console.log(data);
-    });
-
-    return () => dispatch(resetConversation());
+    setIsMounting(false);
+    getAllConversationsQuery();
+    return () => handleResetConversations();
   }, []);
 
   useEffect(() => {
-    !id && dispatch(getLastConversation(userId));
-    id && dispatch(getConversation(id));
-  }, [id]);
+    if (
+      !allConversationState.loading &&
+      !isMounting &&
+      unseenConversationsCount > 0
+    )
+      resetUnseenConversationsCountQuery(activeUserId);
+  }, [allConversationState.loading]);
+
+  /* 
+  this component is used in two cases 
+  1. when user recently is redirected into the messanger and and the active conversation is not chosen yet Page fetches active user last conversation automaticaly with userID
+  2. and when user stands on specific conversation. in that case conversation is fetched by conversationID
+   */
+  useEffect(() => {
+    !id &&
+      !allConversationState.loading &&
+      allConversations[0] &&
+      getLastConversationQuery();
+
+    id && getConversationQuery(id);
+  }, [id, allConversationState.loading]);
 
   useEffect(() => {
-    return () => {
-      if (Object.values(conversation)[0] && !conversation.messages[0])
-        dispatch(deleteConversation(conversation._id));
-    };
-  }, [conversation]);
+    if (!isNew) return;
+    getNewConversationQuery(newConversationId);
+  }, [isNew]);
+
+  /*
+  get new messages in real time
+  */
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("receive_new_message", (data) => {
+      handleSetNewMessage(data);
+    });
+
+    socket.on("receive_message_isRead", (data) => {
+      handleMarkAsRead(data);
+    });
+  }, [socket]);
 
   return (
     <MessangerContainer>
       <SideBar />
-      {!id && <Feed />}
-      <Outlet />
+      {!isMounting && !loading && (
+        <>
+          {!id && <Feed />}
+          <Outlet />
+        </>
+      )}
     </MessangerContainer>
   );
 }

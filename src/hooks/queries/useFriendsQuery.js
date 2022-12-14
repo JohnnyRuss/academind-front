@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 
 import {
   sendFriendRequest,
@@ -6,37 +6,55 @@ import {
   deleteFriendRequest,
   confirmFriendRequest,
   deleteFriend,
-} from '../../store/reducers/friendsReducer';
+  getPendingRequests,
+  getSentRequests,
+  getAllFriends,
+} from "../../store/reducers/friendsReducer";
 
 function useFriendsQuery() {
   const dispatch = useDispatch();
 
-  function sendFriendRequestHandler(userId) {
+  function sendFriendRequestQuery(userId) {
     dispatch(sendFriendRequest(userId));
   }
 
-  function cancelFriendRequestHandler(userId) {
+  function cancelFriendRequestQuery(userId) {
     dispatch(cancelFriendRequest(userId));
   }
 
-  function deleteFriendRequestHandler(userId) {
+  function deleteFriendRequestQuery(userId) {
     dispatch(deleteFriendRequest(userId));
   }
 
-  function confirmFriendRequestHandler(userId) {
+  function confirmFriendRequestQuery(userId) {
     dispatch(confirmFriendRequest(userId));
   }
 
-  function deleteFriendHandler(userId) {
+  function deleteFriendQuery(userId) {
     dispatch(deleteFriend(userId));
   }
 
+  function getPendingRequestsQuery(userId) {
+    dispatch(getPendingRequests(userId));
+  }
+
+  function getSentRequestsQuery(id) {
+    dispatch(getSentRequests(id));
+  }
+
+  function getAllFriendsQuery(profileId) {
+    dispatch(getAllFriends(profileId));
+  }
+
   return {
-    sendFriendRequestHandler,
-    cancelFriendRequestHandler,
-    deleteFriendRequestHandler,
-    confirmFriendRequestHandler,
-    deleteFriendHandler,
+    sendFriendRequestQuery,
+    cancelFriendRequestQuery,
+    deleteFriendRequestQuery,
+    confirmFriendRequestQuery,
+    deleteFriendQuery,
+    getPendingRequestsQuery,
+    getSentRequestsQuery,
+    getAllFriendsQuery,
   };
 }
 

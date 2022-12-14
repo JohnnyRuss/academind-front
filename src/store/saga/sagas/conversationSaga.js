@@ -1,24 +1,33 @@
-import { takeLatest, takeEvery } from 'redux-saga/effects';
+import { takeLatest, takeEvery } from "redux-saga/effects";
 
 import {
   getAllConversations,
   getLastConversation,
   getConversation,
   deleteConversation,
-} from '../../reducers/conversationReducer';
+  sendMessage,
+  markAsRead,
+  getNewConversation,
+} from "../../reducers/conversationReducer";
 
 import {
   getAllConversationsHandler,
   getConversationHandler,
+  getNewConversationHandler,
   getLastConversationHandler,
   deleteConversationHandler,
-} from '../handlers/conversationHandlers';
+  sendMessageHandler,
+  markAsReadHandler,
+} from "../handlers/conversationHandlers";
 
 function* converastionSaga() {
   yield takeLatest(getAllConversations, getAllConversationsHandler);
   yield takeLatest(getLastConversation, getLastConversationHandler);
   yield takeLatest(getConversation, getConversationHandler);
+  yield takeEvery(getNewConversation, getNewConversationHandler);
   yield takeLatest(deleteConversation, deleteConversationHandler);
+  yield takeEvery(sendMessage, sendMessageHandler);
+  yield takeLatest(markAsRead, markAsReadHandler);
 }
 
 export default converastionSaga;

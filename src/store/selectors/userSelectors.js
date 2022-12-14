@@ -1,17 +1,8 @@
-import { createSelector } from '@reduxjs/toolkit';
+import { createSelector } from "@reduxjs/toolkit";
 
-export const selectAuthenticationLoadingState = ({ activeUser }) => activeUser.loadingState;
+export const selectUserLoadingState = ({ user }) => user.loadingState;
 
-export const selectActiveUserInfo = ({ activeUser }) => ({
-  userName: activeUser.user.userName,
-  email: activeUser.user.email,
-  image: activeUser.user.profileImg,
-  id: activeUser.user._id,
-});
-
-export const selectUserId = ({ activeUser }) => ({
-  id: activeUser.user._id,
-});
+export const selectUserNestedLoadingState = ({ user }) => user.loadingState;
 
 export const selectUserNameAndEmail = ({ user }) => ({
   userName: user.user.userName,
@@ -48,11 +39,9 @@ const selectedUserCover = ({ user, activeUser }) => {
   };
 };
 
-export const selectUserCover = createSelector(selectedUserCover, (memo) => memo);
-// export const selectUserCover = ({ user, activeUser }) => {
-//   const currUser = user.user._id === activeUser.user._id;
-//   return {
-//     profileImg: currUser ? activeUser.user.profileImg : user.user.profileImg,
-//     coverImg: currUser ? activeUser.user.coverImg : user.user.coverImg,
-//   };
-// };
+export const selectUserCover = createSelector(
+  selectedUserCover,
+  (memo) => memo
+);
+
+export const selectUserSearchResult = ({ user }) => user.searchResult;

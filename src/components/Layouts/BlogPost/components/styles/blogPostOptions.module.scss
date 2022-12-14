@@ -3,9 +3,5 @@
 .blogPostOptions {
   align-self: flex-end;
   position: relative;
-  z-index: $blog-post-options-z;
-
-  .blogPostOptBtn {
-    font-size: $blog-post-options-btn-fs;
-  }
+  @include blogPostOptions;
 }

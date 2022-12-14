@@ -1,17 +1,17 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import { selectPosts } from '../../store/selectors/postSelectors';
-import { useProfileReviewQuery } from '../../hooks';
+import { useProfileReviewQuery } from "../../hooks";
+import { selectPosts } from "../../store/selectors/postSelectors";
+import { selectActiveUserLoadingState } from "../../store/selectors/activeUserSelectors";
 
-import styles from './components/styles/review.module.scss';
-import ReviewPostBody from './components/ReviewPostBody';
-import { BlockSpinner } from '../Interface';
+import styles from "./components/styles/review.module.scss";
+import ReviewPostBody from "./components/ReviewPostBody";
+import { BlockSpinner } from "../Layouts";
 
 function ProfileReviewHiddenPosts() {
-  const {
-    loadingState: { loading },
-  } = useSelector(({ activeUser }) => activeUser);
   const { posts } = useSelector(selectPosts);
+  const { loading } = useSelector(selectActiveUserLoadingState);
+
   const { addToProfileHandler } = useProfileReviewQuery();
 
   return (
@@ -27,7 +27,9 @@ function ProfileReviewHiddenPosts() {
             key={post._id}
           />
         ))}
-      {!loading && !posts[0] && <p className={styles.message}>there are no hidden posts</p>}
+      {!loading && !posts[0] && (
+        <p className={styles.message}>there are no hidden posts</p>
+      )}
     </div>
   );
 }

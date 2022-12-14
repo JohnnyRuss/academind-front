@@ -3,19 +3,21 @@ import { takeLatest } from 'redux-saga/effects';
 import { createPost } from '../../reducers/createPostReducer';
 import { updatePost, sharePost } from '../../reducers/portalReducer';
 import {
+  // CRUD'S
   deletePost,
-  changePostAudience,
   reactOnPost,
+  hideFromProfile,
+  removeTag,
+  changePostAudience,
   savePost,
+  /******************/
+  showOnProfile,
+  addToProfile,
   getBlogPosts,
   getPost,
   getTopRatedBlogPosts,
   getTopRatedPublishers,
   getRelatedPosts,
-  showOnProfile,
-  addToProfile,
-  removeTag,
-  hideFromProfile,
 } from '../../reducers/postsDataReducer';
 
 import {

@@ -1,49 +1,52 @@
-@keyframes moveInLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-10rem);
-  }
+@mixin animateMoveInRight(
+  $duration: 0.2s,
+  $edge: 1rem,
+  $fn: ease-out,
+  $loop: forwards
+) {
+  animation: moveInRight $duration $fn $loop;
 
-  80% {
-    transform: translateX(2.5rem);
-  }
+  @keyframes moveInRight {
+    0% {
+      opacity: 0;
+      transform: translateX($edge);
+    }
 
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes moveInRight {
-  0% {
-    opacity: 0;
-    transform: translateX(10rem);
-  }
-
-  // 80% {
-  //   transform: translateX(-2.5rem);
-  // }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0);
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }
 
-@keyframes moveTop {
-  0% {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
+@mixin animateMoveTop(
+  $duration: 0.2s,
+  $fromTop: 1rem,
+  $fn: ease-out,
+  $loop: forwards
+) {
+  animation: moveTop $duration $fn $loop;
 
-  100% {
-    opacity: 1;
-    transform: translateY(0);
+  @keyframes moveTop {
+    0% {
+      opacity: 0;
+      transform: translateY($fromTop);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
-@mixin moveBottom($duration: 0.5s, $fromTop: -1rem) {
-  animation: moveBottom $duration ease forwards;
+@mixin animateMoveBottom(
+  $duration: 0.5s,
+  $fromTop: -1rem,
+  $fn: ease-out,
+  $loop: forwards
+) {
+  animation: moveBottom $duration $fn $loop;
 
   @keyframes moveBottom {
     0% {
@@ -58,35 +61,40 @@
   }
 }
 
-@keyframes moveBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(-10rem);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes spinner {
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-@keyframes spinnerFixed {
-  100% {
-    transform: rotate(360deg);
+@mixin animatePopUp($duration: 0.3s, $fn: ease, $loop: forwards) {
+  animation: popUp $duration $fn $loop;
+  
+  @keyframes popUp {
+    0% {
+      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.15);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
   }
 }
 
-@keyframes inProgress {
-  from {
-    opacity: 0;
+@mixin animateSpinner($duration: 1s, $fn: ease, $loop: infinite) {
+  animation: spinner $duration $fn $loop;
+
+  @keyframes spinner {
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
   }
-  to {
-    opacity: 1;
+}
+
+@mixin animateSpinnerFixed($duration: 1s, $fn: ease, $loop: infinite) {
+  animation: spinnerFixed $duration $fn $loop;
+
+  @keyframes spinnerFixed {
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }

@@ -1,19 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { updateLoadingState } from './helpers';
+import { createSlice } from "@reduxjs/toolkit";
+import { updateLoadingState } from "./helpers";
 
 const commentsDataSlice = createSlice({
-  name: 'CommentsData',
+  name: "CommentsData",
   initialState: {
-    getCommentsLoadingState: {
+    loadingState: {
       loading: false,
       error: false,
-      message: '',
+      message: "",
     },
     comments: [],
   },
   reducers: {
     getPostComments(state) {
-      updateLoadingState({ state, key: 'getCommentsLoadingState', loading: true });
+      updateLoadingState({
+        state,
+        key: "loadingState",
+        loading: true,
+      });
     },
 
     setPostComments(state, { payload }) {
@@ -23,18 +27,26 @@ const commentsDataSlice = createSlice({
         (block) => block.postId === postId
       );
 
-      if (existingCommentsBockIndex >= 0) state.comments[existingCommentsBockIndex].comments = data;
+      if (existingCommentsBockIndex >= 0)
+        state.comments[existingCommentsBockIndex].comments = data;
       else state.comments = [...state.comments, { postId, comments: data }];
 
-      updateLoadingState({ state, key: 'getCommentsLoadingState', loading: false });
+      updateLoadingState({
+        state,
+        key: "loadingState",
+        loading: false,
+      });
     },
 
     addComment() {},
 
     setNewComment(state, { payload }) {
       const { postId, data } = payload;
-      const i = state.comments.findIndex((commentBlock) => commentBlock.postId === postId);
-      if (i >= 0) state.comments[i].comments = [...state.comments[i].comments, data];
+      const i = state.comments.findIndex(
+        (commentBlock) => commentBlock.postId === postId
+      );
+      if (i >= 0)
+        state.comments[i].comments = [...state.comments[i].comments, data];
       else state.comments.push({ postId, comments: [data] });
     },
 
@@ -65,7 +77,9 @@ const commentsDataSlice = createSlice({
       );
 
       if (!commentsBlock.comments[0])
-        state.comments = state.comments.filter((block) => block.postId !== commentsBlock.postId);
+        state.comments = state.comments.filter(
+          (block) => block.postId !== commentsBlock.postId
+        );
     },
 
     deleteCommentReply() {},
@@ -77,7 +91,9 @@ const commentsDataSlice = createSlice({
         .find((commentBlock) => commentBlock.postId === params.postId)
         .comments?.find((comment) => comment._id === params.commentId);
 
-      parentComment.replies = parentComment.replies.filter((reply) => reply._id !== params.replyId);
+      parentComment.replies = parentComment.replies.filter(
+        (reply) => reply._id !== params.replyId
+      );
       parentComment.repliesAmount = parentComment.repliesAmount -= 1;
     },
 
@@ -101,7 +117,9 @@ const commentsDataSlice = createSlice({
         .find((commentsBlock) => commentsBlock.postId === params.postId)
         .comments.find((comment) => comment._id === params.commentId);
 
-      const i = comment.replies.findIndex((reply) => reply._id === params.replyId);
+      const i = comment.replies.findIndex(
+        (reply) => reply._id === params.replyId
+      );
       comment.replies[i].text = data.text;
       comment.replies[i].tags = data.tags;
     },

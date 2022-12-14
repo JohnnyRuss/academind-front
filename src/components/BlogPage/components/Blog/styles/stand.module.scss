@@ -1,27 +1,24 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/blog-page" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
 
 .stand {
   grid-row: 1;
   grid-column: 1/3;
-  color: color('whiteColor');
+  @include blogPageStand;
 
-  @include respond(tab-portrate) {
-    height: 40vw;
+  @include media-960 {
     align-self: stretch;
   }
 
-  .slider {
-    // z-index: -1;
-    height: 100%;
-  }
-
-  .test {
+  .standCarousel,
+  .slider,
+  .slide {
     height: 100%;
   }
 
   .slide {
     width: 100%;
-    height: 100%;
     display: grid;
     grid-template: repeat(6, 1fr) / repeat(9, 1fr);
   }
@@ -37,100 +34,20 @@
     }
   }
 
-  .standIntro {
+  .firstStand {
     grid-column: 5/-1;
     grid-row: 2/-1;
-    backdrop-filter: blur(15px);
-    padding-right: 1rem;
 
-    @include respond(tab-portrate) {
+    @include media-960 {
       grid-row: 1/-1;
-      padding: 2.5rem 0 0 4rem;
       grid-column: 3/-1;
-      backdrop-filter: blur(1px);
     }
   }
 
-  .introTitle {
-    text-align: center;
-    font-size: size('headingSecondarySize');
-    color: color('redColor');
-    font-weight: weight('mediumWeight');
-    text-transform: capitalize;
-    transform: translateX(-25%);
-
-    @include respond(tab-landscape) {
-      font-size: size('headingSecondarySmallSize');
-    }
-
-    @include respond(tab-portrate) {
-      font-size: size('largeSize');
-    }
-  }
-
-  .introSharp {
-    color: color('blueColor');
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    line-height: 1.5;
-
-    @include respond(tab-portrate) {
-      line-height: 1.2;
-      letter-spacing: 1.25px;
-    }
-
-    @include respond(phone) {
-      line-height: 1;
-      letter-spacing: 1px;
-    }
-  }
-
-  .introList {
-    margin-top: 3rem;
-    list-style: disc;
-    text-indent: -0.5rem;
-    padding-left: 2rem;
-    color: color('darkGreyColor');
-    font-size: size('smallSize');
-
-    & li::first-letter {
-      text-transform: capitalize;
-    }
-
-    & li::marker {
-      color: black;
-    }
-
-    @include respond(tab-landscape) {
-      margin-top: 1rem;
-    }
-
-    @include respond(tab-portrate) {
-      margin-top: 0rem;
-    }
-
-    @include respond(phone) {
-      display: none;
-    }
-  }
-
-  .standStatistic,
-  .standAvailability {
+  .secondStand,
+  .thirdStand {
     grid-row: 2/-1;
     grid-column: 2/-1;
-    text-transform: capitalize;
-    font-size: size('regullarSize');
-    letter-spacing: 1px;
-    line-height: 1.7;
     position: relative;
-  }
-
-  .standStatistic {
-    font-size: size('bigSize');
-  }
-
-  .ratingSharp {
-    color: orangered;
-    text-decoration: underline;
   }
 }

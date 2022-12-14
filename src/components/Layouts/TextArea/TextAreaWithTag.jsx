@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { searchUser, resetSearchResult } from '../../../store/reducers/userReducer';
+import { selectUserSearchResult } from '../../../store/selectors/userSelectors';
 
 import TextareaAutosize from 'react-textarea-autosize';
 import styles from './components/styles/textArea.module.scss';
@@ -43,7 +44,7 @@ function TextAreaWithTag({
   }, [defaultValue]);
 
   const [currTag, setCurrTag] = useState(false);
-  const result = useSelector(({ user }) => user.searchResult);
+  const result = useSelector(selectUserSearchResult);
 
   useEffect(() => {
     const timer = setTimeout(() => {

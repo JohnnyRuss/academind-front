@@ -1,4 +1,6 @@
-@use '../../../../../styles//helpers/helpers' as *;
+@use "../../../../../styles//helpers/abstract/components" as *;
+@use "../../../../../styles//helpers/abstract/functions" as *;
+@use "../../../../../styles//helpers/abstract/mixins" as *;
 
 .tagsWindow {
   position: absolute;
@@ -8,12 +10,12 @@
   height: auto;
   max-height: 20rem;
   overflow: auto;
-  @include scrollBar('&');
+  @include scrollBar("&");
   @include flexBox(column);
   gap: 1rem;
   padding: 0.5rem;
-  background: color('whiteColor');
-  @include boxShadowBlack(0, 1rem, 0.3);
+  background: color("whiteColor");
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 
   .tagCandidate {
     display: flex;

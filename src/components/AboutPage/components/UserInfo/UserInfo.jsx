@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import styles from './styles/userInfo.module.scss';
-import { BasicInfoBlock, EduBlock, AboutNav } from './';
-import { Spinner } from '../../../Interface';
+import styles from "./styles/userInfo.module.scss";
+import { BasicInfoBlock, EduBlock, AboutNav } from "./";
+import { Spinner } from "../../../Layouts";
 
 /**
  * this is the AboutPage left side root which one contains and ties together left side navigation and his blocks-: basic info block and education block
@@ -19,8 +19,8 @@ function UserInfo({ userInfo }) {
       {loading && <Spinner />}
       {!loading && (
         <>
-          {navTarget === 'basics' && <BasicInfoBlock userInfo={userInfo} />}
-          {navTarget === 'edu' && <EduBlock userInfo={userInfo} />}
+          {navTarget === "basics" && <BasicInfoBlock userInfo={userInfo} />}
+          {navTarget === "edu" && <EduBlock userInfo={userInfo} />}
         </>
       )}
     </div>

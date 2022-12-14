@@ -1,0 +1,11 @@
+@use "../../../../styles/helpers/components/messanger" as *;
+
+.conversationOptions {
+  position: absolute;
+  display: none;
+  @include conversationOptions;
+}
+
+[data-conversation-box]:hover .conversationOptions {
+  display: block;
+}

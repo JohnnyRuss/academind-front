@@ -1,5 +1,5 @@
-import styles from './styles/updateUserCoverBtn.module.scss';
-import { BTN } from '../../Interface';
+import styles from "./styles/updateUserCoverBtn.module.scss";
+import { BTN } from "../../Layouts";
 
 function UpdateUserCoverBTN({ cancelHandler, submitHandler }) {
   return (

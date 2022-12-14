@@ -1,11 +1,10 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/posts-page" as *;
 
 .infinite-scroll-component__outerdiv {
   grid-row: 4;
   grid-column: 1;
   justify-self: center;
   width: 100%;
-  max-width: 80rem;
-  margin-top: 1rem;
   overflow-x: hidden;
+  @include postsPageInfiniteScroll;
 }

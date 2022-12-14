@@ -1,18 +1,23 @@
-import { Suspense, lazy } from 'react';
-import { useSelector } from 'react-redux';
+import { Suspense, lazy } from "react";
+import { useSelector } from "react-redux";
 
-import styles from './styles/updateForm.module.scss';
-import { Image } from '../../../Interface';
+import {
+  selectAboutActive,
+  selectAboutTarget,
+} from "../../../../store/selectors/aboutPageSelectors";
 
-const UpdateBirthDate = lazy(() => import('./UpdateBirthDate'));
+import styles from "./styles/updateForm.module.scss";
+import { Image } from "../../../Layouts";
 
-const UpdateBirthPlace = lazy(() => import('./UpdateBirthPlace'));
+const UpdateBirthDate = lazy(() => import("./UpdateBirthDate"));
 
-const UpdateLivingPlace = lazy(() => import('./UpdateLivingPlace'));
+const UpdateBirthPlace = lazy(() => import("./UpdateBirthPlace"));
 
-const UpdateWorkPlace = lazy(() => import('./UpdateWorkPlace'));
+const UpdateLivingPlace = lazy(() => import("./UpdateLivingPlace"));
 
-const UpdateEducation = lazy(() => import('./UpdateEducation'));
+const UpdateWorkPlace = lazy(() => import("./UpdateWorkPlace"));
+
+const UpdateEducation = lazy(() => import("./UpdateEducation"));
 
 const dynamicForms = {
   birthdate: <UpdateBirthDate />,
@@ -27,12 +32,13 @@ const dynamicForms = {
  * @returns
  */
 function UpdateForm() {
-  const { active, target } = useSelector(({ aboutPage }) => aboutPage.dom);
+  const active = useSelector(selectAboutActive);
+  const target = useSelector(selectAboutTarget);
 
   return (
     <div className={styles.updateInfo}>
       <Image
-        src='/img/about.jpg'
+        src="/img/about.jpg"
         priority={true}
         className={`${styles.updateCover} ${
           active ? styles.animateCloseCover : styles.animateSetCover
@@ -41,7 +47,8 @@ function UpdateForm() {
       <div
         className={`${styles.update} ${
           active ? styles.animateActiveUpdate : styles.animateCloseUpdate
-        }`}>
+        }`}
+      >
         <Suspense fallback={`Loading...`}>{dynamicForms[target]}</Suspense>
       </div>
     </div>

@@ -5,6 +5,7 @@ $message-fade-color: rgba(164, 174, 186, 0.8);
 
 $post-w-def: 60rem;
 $post-shadow-def: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+$nav-height: 6rem;
 
 // Base Colors
 $txt-dark: color-U("txt-dark");
@@ -21,9 +22,13 @@ $txt-thumbnail: size("smallerSize");
 $txt-thumbnail-sm: size("smallestSize");
 
 // Border-radius
-$rounded-sm-on-lg: 0.5rem;
+$rounded-sm: 0.5rem;
 
 //Identifier fig
 $identifier-fig-lg: 4rem;
 $identifier-fig-md: 3.5rem;
+$identifier-fig-xsm: 3rem;
 $identifier-fig-sm: 2rem;
+
+//
+$options-list-min-h: 8rem;

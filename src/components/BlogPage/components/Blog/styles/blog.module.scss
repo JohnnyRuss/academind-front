@@ -1,32 +1,26 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/blog-page" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
 
 .blogPage {
   display: grid;
   grid-template: 30vw 6rem 24rem 1fr / 1fr 40rem;
-  color: color('darkGreyColor');
   position: relative;
-  margin-top: 6rem;
+  @include blogPageContainer;
 
-  @include respond(tab-portrate) {
+  @include media-960 {
     @include flexBox(column);
-    align-items: center;
+    @include flexProperty(flex-start, center);
   }
 
   .blogPageCreateBlogPostTouch {
     grid-column: 1;
     grid-row: 3;
     width: 100%;
-    max-width: 80rem;
     justify-self: center;
-    margin-top: 4rem;
-
-    @include respond(tab-landscape) {
-      padding: 0 2rem;
-    }
   }
 
   .blogPostsScrollBox {
     @include flexBox(column);
-    gap: 4rem;
   }
 }

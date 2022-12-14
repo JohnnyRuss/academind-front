@@ -1,23 +1,14 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/posts-page" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .postsPageContainer {
-  max-width: $container-width;
   margin: 0 auto;
   @include flexBox;
-  gap: 2rem;
-  justify-content: space-between;
+  @include flexProperty(space-between, flex-start);
+  @include postsPageContainer;
 
-  @include respond(tab-landscape) {
-    gap: 3rem;
-    padding: 0 3rem;
-  }
-
-  @include respond(phone) {
+  @include media-680 {
     flex-direction: column;
-  }
-
-  @include respond(phone-small) {
-    padding: 0 1rem;
-    gap: 1rem;
   }
 }

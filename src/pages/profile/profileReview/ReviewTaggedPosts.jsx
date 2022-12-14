@@ -7,7 +7,7 @@ import { useRestrictPrivateRoute } from '../../../hooks';
 import { getPendingPosts } from '../../../store/reducers/activeUserReducer';
 import { resetPosts } from '../../../store/reducers/postsDataReducer';
 import { resetComments } from '../../../store/reducers/commentsDataReducer';
-import { selectUserId } from '../../../store/selectors/userSelectors';
+import { selectActiveUserId } from '../../../store/selectors/activeUserSelectors';
 
 import ProfileReviewTaggedPosts from '../../../components/ProfileReview/ProfileReviewTaggedPosts';
 
@@ -15,10 +15,10 @@ function ReviewTaggedPosts() {
   useRestrictPrivateRoute();
 
   const dispatch = useDispatch();
-  const { id } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
 
   useEffect(() => {
-    dispatch(getPendingPosts(id));
+    dispatch(getPendingPosts(activeUserId));
 
     return () => {
       dispatch(resetPosts());

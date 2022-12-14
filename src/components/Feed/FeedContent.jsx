@@ -3,8 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import "./styles/feedInfiniteScroll.scss";
 import styles from "./styles/feedContent.module.scss";
-import { Post, CreatePost, ScrollEnd } from "../Layouts";
-import { BlockSpinner } from "../Interface";
+import { Post, CreatePost, ScrollEnd, BlockSpinner } from "../Layouts";
 
 function FeedContent({ hasMore, handleNext, posts }) {
   const { activatePostMediaHandler, activateSharePostModal } = usePost();

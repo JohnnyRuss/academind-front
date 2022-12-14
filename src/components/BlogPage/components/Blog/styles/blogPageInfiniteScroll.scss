@@ -1,14 +1,9 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/blog-page" as *;
 
 .infinite-scroll-component__outerdiv {
   grid-row: 4;
   grid-column: 1;
   justify-self: center;
   width: 100%;
-  max-width: 80rem;
-  margin-top: 4rem;
-
-  @include respond(tab-landscape) {
-    padding: 0 2rem;
-  }
+  @include blogPageInfiniteScroll;
 }

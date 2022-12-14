@@ -1,4 +1,6 @@
-@use '../../../styles/helpers/helpers' as *;
+@use "../../../styles/helpers/abstract/functions" as *;
+@use "../../../styles/helpers/abstract/mixins" as *;
+@use "../../../styles/helpers/abstract/media" as *;
 
 .deletedPost {
   position: relative;
@@ -8,20 +10,20 @@
   gap: 1rem;
   margin: 0 auto;
   padding: 4rem;
-  font-size: size(largeSize);
-  font-weight: weight(boldWeight);
+  font-size: size("largeSize");
+  font-weight: weight("boldWeight");
   text-transform: capitalize;
   text-align: center;
   border-radius: 0.5rem;
-  background: color(whiteColor);
-  @include boxShadowBlack(0, 1rem, 0.3);
+  background: color("whiteColor");
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 
   & > svg {
-    font-size: size(headingSecondarySmallSize);
-    color: color(redColor);
+    font-size: size("headingSecondarySmallSize");
+    color: color("redColor");
   }
 
-  @include respond(tab-portrate) {
+  @include media-960 {
     width: 100%;
   }
 }

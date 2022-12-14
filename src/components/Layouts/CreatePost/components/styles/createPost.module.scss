@@ -1,4 +1,6 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/abstract/functions" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
 
 .createPost {
   width: 60rem;
@@ -6,14 +8,14 @@
   @include flexBox(column);
   padding: 2rem;
   border-radius: 1rem;
-  background: color('whiteColor');
-  @include boxShadowBlack(0, 1rem, 0.2);
+  background: color("whiteColor");
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 
-  @include respond(tab-portrate) {
+  @include media-960 {
     width: 100%;
   }
 
-  @include respond(phone-small) {
+  @include media-480 {
     padding: 1rem;
   }
 }

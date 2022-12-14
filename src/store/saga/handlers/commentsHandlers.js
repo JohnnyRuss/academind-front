@@ -1,4 +1,5 @@
-import { all, call, put, select } from 'redux-saga/effects';
+import { all, call, put, select } from "redux-saga/effects";
+import { showError } from "./errorHandler";
 
 import {
   setPostComments,
@@ -12,7 +13,7 @@ import {
   setReactionOnCommentReply,
   setPinnedComment,
   setPinnedCommentReply,
-} from '../../reducers/commentsDataReducer';
+} from "../../reducers/commentsDataReducer";
 
 import {
   queryPostComments,
@@ -26,64 +27,73 @@ import {
   queryReactionOnCommentReply,
   queryPinComment,
   queryPinCommentReply,
-} from '../api/commentsQueries';
+} from "../api/commentsQueries";
 
 import {
   encreasePostCommentCount,
   decreasePostCommentCount,
-} from '../../reducers/postsDataReducer';
+} from "../../reducers/postsDataReducer";
 
-function* getPostsCommentsHandler({ payload: postId }) {
+export function* getPostsCommentsHandler({ payload: postId }) {
   try {
     const { data } = yield call(queryPostComments, postId);
     yield put(setPostComments({ postId, data }));
   } catch (error) {
-    showError(error, 'getPostsCommentsHandler');
+    showError(error, "getPostsCommentsHandler");
   }
 }
 
-function* addCommentHandler({ payload: { postId, body } }) {
+export function* addCommentHandler({ payload: { postId, body } }) {
   try {
     const { data } = yield call(queryAddComment, { postId, body });
-    yield all([put(setNewComment({ postId, data })), put(encreasePostCommentCount(postId))]);
+    yield all([
+      put(setNewComment({ postId, data })),
+      put(encreasePostCommentCount(postId)),
+    ]);
   } catch (error) {
-    showError(error, 'addCommentHandler');
+    showError(error, "addCommentHandler");
   }
 }
 
-function* addCommentReplyHandler({ payload: { params, body } }) {
+export function* addCommentReplyHandler({ payload: { params, body } }) {
   try {
-    const { data } = yield call(queryAddCommentReply, { commentId: params.commentId, body });
+    const { data } = yield call(queryAddCommentReply, {
+      commentId: params.commentId,
+      body,
+    });
     yield all([
       put(setNewCommentReply({ params, data })),
       put(encreasePostCommentCount(params.postId)),
     ]);
   } catch (error) {
-    showError(error, 'addCommentReplyHandler');
+    showError(error, "addCommentReplyHandler");
   }
 }
 
-function* deleteCommentHandler({ payload: params }) {
+export function* deleteCommentHandler({ payload: params }) {
   try {
     const deletedCommentCount = yield select(
       (state) =>
         state.commentsData.comments
           .find((commentsBlock) => commentsBlock.postId === params.postId)
-          .comments.find((comment) => comment._id === params.commentId).repliesAmount
+          .comments.find((comment) => comment._id === params.commentId)
+          .repliesAmount
     );
 
     yield call(queryDeleteComment, params.commentId);
 
     yield all([
       put(setDeletedComment({ params })),
-      put(decreasePostCommentCount({ postId: params.postId, deletedCommentCount })),
+      put(
+        decreasePostCommentCount({ postId: params.postId, deletedCommentCount })
+      ),
     ]);
   } catch (error) {
-    showError(error, 'deleteCommentHandler');
+    showError(error, "deleteCommentHandler");
   }
 }
 
-function* deleteCommentReplyHandler({ payload: params }) {
+export function* deleteCommentReplyHandler({ payload: params }) {
   try {
     yield call(queryDeleteCommentReply, {
       commentId: params.commentId,
@@ -95,20 +105,23 @@ function* deleteCommentReplyHandler({ payload: params }) {
       put(decreasePostCommentCount({ postId: params.postId })),
     ]);
   } catch (error) {
-    showError(error, 'deleteCommentReplyHandler');
+    showError(error, "deleteCommentReplyHandler");
   }
 }
 
-function* updateCommentHandler({ payload: { params, body } }) {
+export function* updateCommentHandler({ payload: { params, body } }) {
   try {
-    const { data } = yield call(queryUpdateComment, { commentId: params.commentId, body });
+    const { data } = yield call(queryUpdateComment, {
+      commentId: params.commentId,
+      body,
+    });
     yield put(setUpdatedComment({ params, data }));
   } catch (error) {
-    showError(error, 'updateCommentHandler');
+    showError(error, "updateCommentHandler");
   }
 }
 
-function* updateCommentReplyHandler({ payload: { params, body } }) {
+export function* updateCommentReplyHandler({ payload: { params, body } }) {
   try {
     const { data } = yield call(queryUpdateCommentReply, {
       commentId: params.commentId,
@@ -117,20 +130,20 @@ function* updateCommentReplyHandler({ payload: { params, body } }) {
     });
     yield put(setUpdatedCommentReply({ params, data }));
   } catch (error) {
-    showError(error, 'updateCommentReplyHandler');
+    showError(error, "updateCommentReplyHandler");
   }
 }
 
-function* reactOnCommentHandler({ payload: params }) {
+export function* reactOnCommentHandler({ payload: params }) {
   try {
     const { data } = yield call(queryReactionOnComment, params.commentId);
     yield put(setReactionOnComment({ params, data }));
   } catch (error) {
-    showError(error, 'reactOnCommentHandler');
+    showError(error, "reactOnCommentHandler");
   }
 }
 
-function* reactOnCommentReplyHandler({ payload: params }) {
+export function* reactOnCommentReplyHandler({ payload: params }) {
   try {
     const { data } = yield call(queryReactionOnCommentReply, {
       commentId: params.commentId,
@@ -138,20 +151,20 @@ function* reactOnCommentReplyHandler({ payload: params }) {
     });
     yield put(setReactionOnCommentReply({ params, data }));
   } catch (error) {
-    showError(error, 'reactOnCommentReplyHandler');
+    showError(error, "reactOnCommentReplyHandler");
   }
 }
 
-function* pinCommentHandler({ payload: params }) {
+export function* pinCommentHandler({ payload: params }) {
   try {
     const { data } = yield call(queryPinComment, params.commentId);
     yield put(setPinnedComment({ params, data }));
   } catch (error) {
-    showError(error, 'pinCommentHandler');
+    showError(error, "pinCommentHandler");
   }
 }
 
-function* pinCommentReplyHandler({ payload: params }) {
+export function* pinCommentReplyHandler({ payload: params }) {
   try {
     const { data } = yield call(queryPinCommentReply, {
       commentId: params.commentId,
@@ -159,30 +172,6 @@ function* pinCommentReplyHandler({ payload: params }) {
     });
     yield put(setPinnedCommentReply({ params, data }));
   } catch (error) {
-    showError(error, 'pinCommentReplyHandler');
+    showError(error, "pinCommentReplyHandler");
   }
 }
-
-function showError(error, location) {
-  console.log({
-    error: true,
-    location: `sagaHandler - ${location}`,
-    message: error?.response?.data?.message || error.message,
-    err: error,
-    stack: error.stack,
-  });
-}
-
-export {
-  getPostsCommentsHandler,
-  addCommentHandler,
-  addCommentReplyHandler,
-  deleteCommentHandler,
-  deleteCommentReplyHandler,
-  updateCommentHandler,
-  updateCommentReplyHandler,
-  reactOnCommentHandler,
-  reactOnCommentReplyHandler,
-  pinCommentHandler,
-  pinCommentReplyHandler,
-};

@@ -1,31 +1,28 @@
 @use "../../../../styles/helpers/components/navigation" as *;
 @use "../../../../styles/helpers/abstract/media" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .mainNavActions {
   flex: 3;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: $nav-actions-gap;
-  padding: $nav-actions-pad;
-
-  @include respond(phone) {
-    gap: $nav-actions-gap-m;
-  }
-
-  & svg {
-    font-size: $nav-actions-svg-fs;
-
-    @include respond(phone-small) {
-      font-size: $nav-actions-svg-fs-m;
-    }
-  }
+  @include flexBox;
+  @include flexProperty(flex-end, center);
+  @include actions;
 
   &BurgerBtn {
     display: none;
 
-    @include respond(tab-portrate) {
+    @include media-960 {
       display: flex;
     }
+  }
+
+  .actionBtn {
+    position: relative;
+  }
+
+  .actionBadge {
+    position: absolute;
+    @include flexBox;
+    @include flexProperty(center, center);
   }
 }

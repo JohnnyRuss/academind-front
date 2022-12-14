@@ -1,5 +1,5 @@
-import { axiosQuery } from '../../store/axiosConfig';
-import { useState } from 'react';
+import { axiosQuery } from "../../store/axiosConfig";
+import { useState } from "react";
 
 function useHelperQueries() {
   const [loading, setLoading] = useState(false);
@@ -13,7 +13,18 @@ function useHelperQueries() {
     setLoading(false);
   }
 
-  return { loading, getOptionsRules, optionsRules, setOptionsRules };
+  async function getFriendShip(profileId) {
+    const { data } = await axiosQuery(`/user/${profileId}/isFriend`);
+    return data;
+  }
+
+  return {
+    loading,
+    getOptionsRules,
+    optionsRules,
+    setOptionsRules,
+    getFriendShip,
+  };
 }
 
 export default useHelperQueries;

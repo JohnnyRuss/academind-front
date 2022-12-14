@@ -1,7 +1,9 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../../styles/helpers/abstract/functions" as *;
+@use "../../../../../styles/helpers/abstract/animation" as *;
 
 .updateFormMain {
-  animation: moveInRight 0.25s ease forwards;
+  @include animateMoveInRight(0.25s, 10rem);
   @include flexBox(column);
   gap: 1rem;
 
@@ -12,13 +14,13 @@
   }
 
   .secondaryBtnUpdate {
-    background: color('whiteShadeColor');
-    color: color('darkGreyColor');
+    background: color("whiteShadeColor");
+    color: color("darkGreyColor");
     margin-right: 1rem;
   }
 
   .primaryBtnUpdate {
-    @include boxShadowBlack(0, 0.5rem, 0.4);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.4);
   }
 
   %inpField {
@@ -26,8 +28,8 @@
       width: 25rem;
       border: 1.5px solid grey;
       border-radius: 0.5rem;
-      font-size: size('smallerSize');
-      color: color('darkGreyColor');
+      font-size: size("smallerSize");
+      color: color("darkGreyColor");
 
       &::placeholder {
         text-transform: capitalize;
@@ -42,7 +44,7 @@
     @extend %inpField;
   }
 
-  .descriptionText{
+  .descriptionText {
     min-height: 3rem;
   }
 
@@ -66,13 +68,6 @@
       @include flexProperty(flex-start, flex-start);
     }
 
-    // &:last-child {
-    //   transform: translateY(5%);
-    //   @include flexBox;
-    //   @include flexProperty(flex-start, center);
-    //   gap: 0.5rem;
-    // }
-
     .picker {
       & label:first-of-type {
         padding-left: 0;
@@ -80,7 +75,7 @@
     }
 
     & > label:first-of-type {
-      font-size: size('smallerSize');
+      font-size: size("smallerSize");
       text-transform: capitalize;
       margin-bottom: -0.4rem;
     }

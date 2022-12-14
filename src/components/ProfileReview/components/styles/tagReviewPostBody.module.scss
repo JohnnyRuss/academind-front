@@ -1,28 +1,13 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/profile-review" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .postWrapper {
   width: max-content;
   margin: 0 auto;
+  @include profileReviewTags;
 
   .reviewBtnBox {
-    margin-top: 1rem;
     @include flexBox;
     @include flexProperty(flex-end, center);
-    gap: 2rem;
-  }
-
-  .removeTagBtn {
-    // background: color(redColor);
-    background: none;
-    color: color(darkGreyColor);
-    box-shadow: none;
-  }
-
-  .hideBtn {
-    background: color(whiteShaderColor);
-    color: color(darkGreyColor);
-  }
-
-  .addBtn {
   }
 }

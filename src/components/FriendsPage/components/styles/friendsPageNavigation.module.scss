@@ -1,40 +1,21 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/friends-page" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .friendsNav {
   @include flexBox;
-  @include flexProperty(space-between, center);
-  text-transform: capitalize;
-  color: color('darkGreyColor');
-  font-size: size('smallSize');
-  font-weight: weight('boldWeight');
-  border-bottom: 1px solid color(darkGreyColor);
+  @include flexProperty(space-between,center);
+  @include friendsPageNavigation;
 
   .friendsSearch {
-    border: 1px solid color(darkGreyColor);
     width: max-content;
 
-    @include respond(phone-small) {
+    @include media-480 {
       display: none;
     }
   }
 
   & a {
-    padding: 1rem 2rem;
     display: inline-block;
-    transition: color 0.2s, background-color 0.2s;
-
-    @include respond(phone-small) {
-      padding: 0.25rem 0.5rem;
-    }
-
-    &:hover {
-      background-color: color('blueTintColor');
-      color: color('blueColor');
-    }
-  }
-
-  .active {
-    border-bottom: 2px solid color('blueColor');
-    color: color('blueColor');
   }
 }

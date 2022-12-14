@@ -4,7 +4,7 @@ import { useSavePostQuery, usePostQuery } from "../../../hooks";
 
 import styles from "./styles/optionsBody.module.scss";
 import ActiveUserRelated from "./ActiveUserRelated";
-import { Spinner } from "../../Interface";
+import { Spinner } from "../../Layouts";
 import {
   BookmarkFillIcon,
   BookmarkOutlineIcon,

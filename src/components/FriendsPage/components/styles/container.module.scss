@@ -1,12 +1,6 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/friends-page" as *;
 
 .container {
-  max-width: $container-width;
   margin: 0 auto;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  background: color('whiteColor');
-  @include boxShadowBlack(0, 1rem, 0.3);
-  padding: 2rem;
-  border-radius: 0.5rem;
+  @include friendsPageContainer;
 }

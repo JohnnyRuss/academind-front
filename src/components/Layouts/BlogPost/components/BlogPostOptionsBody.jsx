@@ -1,7 +1,7 @@
 import { useSavePostQuery } from "../../../../hooks";
 
 import styles from "./styles/blogPostOptionsBody.module.scss";
-import { Spinner } from "../../../Interface";
+import { Spinner } from "../../../Layouts";
 import {
   ErrorIcon,
   BookmarkOutlineIcon,

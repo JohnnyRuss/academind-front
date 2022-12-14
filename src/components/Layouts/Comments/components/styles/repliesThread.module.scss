@@ -1,4 +1,4 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use '../../../../../styles/helpers/abstract/media' as *;
 
 .nestedList {
   width: calc(100% - 4rem);
@@ -8,7 +8,7 @@
     width: calc(100% - 4rem);
   }
 
-  @include respond(phone-small) {
+  @include media-480 {
     [data-text-area-with-tag] {
       margin-right: 0.75rem;
       padding: 0.5rem 0;

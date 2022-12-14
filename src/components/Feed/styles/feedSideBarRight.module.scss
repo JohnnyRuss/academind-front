@@ -10,7 +10,7 @@
   text-align: center;
   padding-top: 2rem;
 
-  @include respond(tab-portrate) {
+  @include media-960 {
     display: none;
   }
 }

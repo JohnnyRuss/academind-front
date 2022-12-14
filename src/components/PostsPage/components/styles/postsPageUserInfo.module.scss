@@ -1,52 +1,19 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/posts-page" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
 
 .postsPageUserShortInfoList {
   @include flexBox(column);
-  gap: 1.5rem;
-  padding: 2rem 1rem;
-  border-radius: 0.8rem;
-  font-size: size('smallSize');
-  background: color('whiteColor');
-  @include boxShadowBlack(0, 1rem, 0.3);
-
-  @include respond(phone-small) {
-    font-size: size('smallerSize');
-  }
+  @include postsPageUserInfo;
 
   & li {
     display: grid;
     grid-template-columns: min-content 1fr;
     justify-items: start;
     align-items: center;
-    gap: 0.5rem;
-    line-height: 1.3;
 
     & svg {
       grid-column: 1;
       align-self: start;
-    }
-
-    & strong {
-      color: color('blackColor');
-      text-transform: capitalize;
-      font-weight: weight('boldWeight');
-    }
-  }
-
-  .icon {
-    font-size: size('regullarSize');
-    width: 2rem;
-
-    @include respond(phone-small) {
-      font-size: size('smallSize');
-    }
-  }
-
-  .smallIcon {
-    font-size: size('bigSize');
-
-    @include respond(phone-small) {
-      font-size: size('regullarSize');
     }
   }
 }

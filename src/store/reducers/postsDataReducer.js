@@ -1,23 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { updateLoadingState } from './helpers';
+import { createSlice } from "@reduxjs/toolkit";
+import { updateLoadingState } from "./helpers";
 
 const postsDataSlice = createSlice({
-  name: 'PostsData',
+  name: "PostsData",
   initialState: {
-    loadingState: { loading: false, error: false, message: '' },
-    publishersLoadingState: { loading: false, error: false, message: '' },
-    topRatedPostsLoadingState: { loading: false, error: false, message: '' },
+    loadingState: { loading: false, error: false, message: "" },
+    publishersLoadingState: { loading: false, error: false, message: "" },
+    topRatedPostsLoadingState: { loading: false, error: false, message: "" },
     posts: [],
     topRatedBlogPosts: [],
     topRatedPublishers: [],
     relatedPosts: [],
-    results: '',
+    results: "",
   },
   reducers: {
     setErrorOnLoadingState(state, { payload }) {
       updateLoadingState({
         state,
-        key: 'loadingState',
+        key: "loadingState",
         loading: false,
         error: true,
         message: payload,
@@ -25,7 +25,7 @@ const postsDataSlice = createSlice({
     },
 
     startLoading(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({ state, key: "loadingState", loading: true });
     },
 
     setPosts(state, { payload }) {
@@ -38,7 +38,7 @@ const postsDataSlice = createSlice({
       }
 
       if (state.loadingState.loading)
-        updateLoadingState({ state, key: 'loadingState', loading: false });
+        updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
     setBookmarkedPosts(state, { payload }) {
@@ -47,7 +47,8 @@ const postsDataSlice = createSlice({
       state.posts = [
         ...state.posts,
         ...data.map((bookmark) => {
-          if (bookmark.deleted) return { _id: bookmark.cachedId, deleted: bookmark.deleted };
+          if (bookmark.deleted)
+            return { _id: bookmark.cachedId, deleted: bookmark.deleted };
           else return bookmark.post;
         }),
       ];
@@ -57,32 +58,48 @@ const postsDataSlice = createSlice({
 
     setNewPost(state, { payload }) {
       state.posts = [payload, ...state.posts];
-      updateLoadingState({ state, key: 'loadingState', loading: false });
+      updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
     setSinglePost(state, { payload }) {
       state.posts = [payload];
-      updateLoadingState({ state, key: 'loadingState', loading: false });
+      updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
     getBlogPosts() {},
 
     getTopRatedPublishers(state) {
-      updateLoadingState({ state, key: 'publishersLoadingState', loading: true });
+      updateLoadingState({
+        state,
+        key: "publishersLoadingState",
+        loading: true,
+      });
     },
 
     setTopRatedPublishers(state, { payload }) {
       state.topRatedPublishers = payload;
-      updateLoadingState({ state, key: 'publishersLoadingState', loading: false });
+      updateLoadingState({
+        state,
+        key: "publishersLoadingState",
+        loading: false,
+      });
     },
 
     getTopRatedBlogPosts(state) {
-      updateLoadingState({ state, key: 'topRatedPostsLoadingState', loading: true });
+      updateLoadingState({
+        state,
+        key: "topRatedPostsLoadingState",
+        loading: true,
+      });
     },
 
     setTopRatedBlogPosts(state, { payload }) {
       state.topRatedBlogPosts = payload;
-      updateLoadingState({ state, key: 'topRatedPostsLoadingState', loading: false });
+      updateLoadingState({
+        state,
+        key: "topRatedPostsLoadingState",
+        loading: false,
+      });
     },
 
     getRelatedPosts() {},
@@ -92,7 +109,7 @@ const postsDataSlice = createSlice({
     },
 
     getPost(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({ state, key: "loadingState", loading: true });
     },
 
     // trigger is called in portal reducer
@@ -113,7 +130,7 @@ const postsDataSlice = createSlice({
     },
 
     deletePost(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({ state, key: "loadingState", loading: true });
       state.results = state.results - 1;
     },
 
@@ -122,7 +139,7 @@ const postsDataSlice = createSlice({
 
       if (state.results) state.results = state.results -= 1;
 
-      updateLoadingState({ state, key: 'loadingState', loading: false });
+      updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
     savePost() {},
@@ -192,7 +209,10 @@ const postsDataSlice = createSlice({
     setActiveUserUpdatedCover(state, { payload }) {
       state.posts.map((post) => {
         post.author.profileImg = payload;
-        if (post.authenticAuthor && post.authenticAuthor._id === post.author._id)
+        if (
+          post.authenticAuthor &&
+          post.authenticAuthor._id === post.author._id
+        )
           post.authenticAuthor.profileImg = payload;
 
         return post;
@@ -204,7 +224,7 @@ const postsDataSlice = createSlice({
       if (state.topRatedBlogPosts[0]) state.topRatedBlogPosts = [];
       if (state.topRatedPublishers[0]) state.topRatedPublishers = [];
       if (state.relatedPosts[0]) state.relatedPosts = [];
-      state.results = '';
+      state.results = "";
     },
   },
 });

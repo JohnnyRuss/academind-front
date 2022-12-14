@@ -1,4 +1,6 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use '../../../../../styles/helpers/abstract/functions' as *;
+@use '../../../../../styles/helpers/abstract/mixins' as *;
+@use '../../../../../styles/helpers/abstract/media' as *;
 
 .postMediaBox {
   position: relative;
@@ -34,8 +36,8 @@
     border-radius: 6rem;
     padding: 1rem 2rem;
     @extend %discardMediaBtn;
-    background: rgba(color(darkGreyColor), 0.6);
-    color: color(whiteColor);
+    background: rgba(color("darkGreyColor"), 0.6);
+    color: color("whiteColor");
   }
 
   .discardMediaBtn {
@@ -86,15 +88,15 @@
   &--2,
   &--3,
   &--4 {
-    @include respond(tab-landscape) {
+    @include media-1280 {
       grid-template: repeat(2, 25rem) / repeat(2, 1fr);
     }
 
-    @include respond(tab-portrate) {
+    @include media-960 {
       grid-template: repeat(2, 22rem) / repeat(2, 1fr);
     }
 
-    @include respond(phone) {
+    @include media-680 {
       grid-template: repeat(2, 18rem) / repeat(2, 1fr);
     }
   }
@@ -116,15 +118,15 @@
       grid-row: 2;
     }
 
-    @include respond(tab-landscape) {
+    @include media-1280 {
       grid-template: repeat(3, 17rem) / repeat(3, 1fr);
     }
 
-    @include respond(tab-portrate) {
+    @include media-960 {
       grid-template: repeat(3, 15rem) / repeat(3, 1fr);
     }
 
-    @include respond(phone) {
+    @include media-680 {
       grid-template: repeat(3, 12rem) / repeat(3, 1fr);
     }
   }
@@ -162,15 +164,15 @@
       grid-column: 1/-1;
     }
 
-    @include respond(tab-landscape) {
+    @include media-1280 {
       grid-template: repeat(3, 17rem) / repeat(3, 1fr);
     }
 
-    @include respond(tab-portrate) {
+    @include media-960 {
       grid-template: repeat(3, 15rem) / repeat(3, 1fr);
     }
 
-    @include respond(phone) {
+    @include media-680 {
       grid-template: repeat(3, 12rem) / repeat(3, 1fr);
     }
   }

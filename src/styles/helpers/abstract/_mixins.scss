@@ -1,4 +1,4 @@
-@use './functions' as *;
+@use "./functions" as *;
 
 // LAYOUTS
 @mixin flexBox($direction: row) {
@@ -16,11 +16,6 @@
   grid-template: repeat($row, 1fr) / repeat($column, 1fr);
 }
 
-@mixin gridProperty($justify: flex-start, $align: flex-start) {
-  justify-content: $justify;
-  align-items: $align;
-}
-
 @mixin gridBoxAutoFill($min: auto) {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax($min, 1fr));
@@ -33,33 +28,24 @@
 
 @mixin clearFix {
   &:after {
-    content: '';
+    content: "";
     display: table;
     clear: both;
   }
 }
 
-@mixin CenterAbsPos($pos:absolute,$x: -50%, $y: -50%) {
+@mixin CenterAbsPos($pos: absolute, $x: -50%, $y: -50%) {
   position: $pos;
   top: 50%;
   left: 50%;
   transform: translate($x, $y);
 }
 
-// TYPOGRAPHY
-@mixin fontFamily($family: 'Biter') {
-  font-family: $family, serif;
-}
-
-@mixin secondaryFontFamily($family: 'Biter') {
-  font-family: $family, serif;
-}
-
 // COMPONENTS
-@mixin fitImage($fit:cover) {
+@mixin fitImage($fit: cover, $pos: center) {
   width: 100%;
   height: 100%;
-  object-position: center;
+  object-position: $pos;
   object-fit: $fit;
 }
 
@@ -68,55 +54,4 @@
   height: 100%;
   background-position: center;
   background-size: cover;
-}
-
-// COLORS & EFFECTS
-@mixin boxShadowBlack($v: 1rem, $blur: 2rem, $opacity: 0.3, $radius: 0rem) {
-  box-shadow: 0 $v $blur $radius rgba(0, 0, 0, $opacity);
-}
-
-@mixin boxShadowWhite($v: 1rem, $blur: 2rem, $opacity: 0.3, $radius: 0) {
-  box-shadow: 0 $v $blur $radius rgba(255, 255, 255, $opacity);
-}
-
-@mixin textShadow($y: 0.2rem, $v: 0.3rem, $opacity: 0.3, $blur: 0.5rem) {
-  text-shadow: $y $v $blur rgba(0, 0, 0, $opacity);
-}
-
-@mixin lienearGradient(
-  $color-1,
-  $color-2,
-  $angle: 120deg,
-  $color-1-opacity: 1,
-  $color-2-opacity: 1,
-  $color-1-per: 0%,
-  $color-2-per: 100%
-) {
-  background: linear-gradient(
-    $angle,
-    rgba(color($color-1), $color-1-opacity) $color-1-per,
-    rgba(color($color-2), $color-2-opacity) $color-2-per
-  );
-}
-
-@mixin radialGradient($color-1, $color-2) {
-  background: radial-gradient(color($color-1), color($color-2));
-}
-
-@mixin bgGradientImage(
-  $color-1,
-  $color-2,
-  $image,
-  $color-1-opacity: 0.8,
-  $color-2-opacity: 0.8,
-  $angle: to right bottom,
-  $color-1-per: 0%,
-  $color-2-per: 100%
-) {
-  background: linear-gradient(
-      $angle,
-      rgba(color($color-1), $color-1-opacity) $color-1-per,
-      rgba(color($color-2), $color-2-opacity) $color-2-per
-    ),
-    url('../../../../public/assets/#{$image}');
 }

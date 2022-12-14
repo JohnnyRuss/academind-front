@@ -2,17 +2,17 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import {
-  getPostComments,
   addComment,
-  addCommentReply,
   deleteComment,
-  deleteCommentReply,
   updateComment,
-  updateCommentReply,
   reactOnComment,
-  reactOnCommentReply,
   pinComment,
+  addCommentReply,
+  deleteCommentReply,
+  updateCommentReply,
+  reactOnCommentReply,
   pinCommentReply,
+  getPostComments,
 } from '../../store/reducers/commentsDataReducer';
 
 function useCommentsQuery(thread, options, conditions) {

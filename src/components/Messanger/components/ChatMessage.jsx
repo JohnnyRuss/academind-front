@@ -1,5 +1,5 @@
-import styles from './styles/chatMessage.module.scss';
-import { Avatar } from '../../Interface';
+import styles from "./styles/chatMessage.module.scss";
+import { Avatar } from "../../Layouts";
 
 function ChatMessage({ msgGroup, activeUserId, adressatImage }) {
   return (
@@ -9,14 +9,19 @@ function ChatMessage({ msgGroup, activeUserId, adressatImage }) {
         {msgGroup?.map((message, i, arr) => (
           <span
             className={`${styles.messageText} ${
-              message.author === activeUserId ? styles.activeUserMsg : ''
-            } ${arr.length === 1 ? styles.singleInGroup : ''} ${
-              arr.length > 1 && i === 0 ? styles.firstInGroup : ''
-            } ${arr.length > 1 && i === arr.length - 1 ? styles.lastInGroup : ''} ${
-              arr.length > 1 && i !== arr.length - 1 && i !== 0 ? styles.middleInGroup : ''
+              message.author === activeUserId ? styles.activeUserMsg : ""
+            } ${arr.length === 1 ? styles.singleInGroup : ""} ${
+              arr.length > 1 && i === 0 ? styles.firstInGroup : ""
+            } ${
+              arr.length > 1 && i === arr.length - 1 ? styles.lastInGroup : ""
+            } ${
+              arr.length > 1 && i !== arr.length - 1 && i !== 0
+                ? styles.middleInGroup
+                : ""
             }
             `}
-            key={message._id}>
+            key={message._id}
+          >
             {message.message}
           </span>
         ))}

@@ -1,9 +1,11 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use '../../../../../styles/helpers/abstract/functions' as *;
+@use '../../../../../styles/helpers/abstract/mixins' as *;
+@use '../../../../../styles/helpers/abstract/components' as *;
 
 .createBlogPostModal {
   width: 70vw;
   height: 35vw;
-  background: color(whiteColor);
+  background: color("whiteColor");
 
   .fields {
     position: relative;
@@ -19,7 +21,7 @@
     z-index: 99;
     width: calc(100% - 1rem);
     padding: 1rem;
-    background: color(whiteColor);
+    background: color("whiteColor");
   }
 
   .blogPostAudience {
@@ -52,7 +54,7 @@
 
   .articleField {
     width: calc(100% - 2rem);
-    border-bottom: 1px solid color(darkGreyColor);
+    border-bottom: 1px solid color("darkGreyColor");
     padding-bottom: 1rem;
   }
 
@@ -66,7 +68,7 @@
   }
 
   .publishBtnBox {
-    background: color(whiteColor);
+    background: color("whiteColor");
     padding: 1rem;
     position: fixed;
     bottom: 0;

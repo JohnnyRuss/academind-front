@@ -1,11 +1,18 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
+import { selectActiveUserShortInfo } from "../../../store/selectors/activeUserSelectors";
 
-import styles from './components/styles/createPostModal.module.scss';
-import { Modal, UserIdentifier, PostAuthentic, TextAreaWithTag, SelectAudience } from '../';
-import { BTN, InlineStandSpinner } from '../../Interface';
-import { CreatePostMedia, CreatePostTouch } from './components';
+import styles from "./components/styles/createPostModal.module.scss";
+import {
+  Modal,
+  UserIdentifier,
+  PostAuthentic,
+  TextAreaWithTag,
+  SelectAudience,
+  BTN,
+  InlineStandSpinner,
+} from "../";
+import { CreatePostMedia, CreatePostTouch } from "./components";
 
 function CreatePostModal({
   isOpen,
@@ -23,7 +30,7 @@ function CreatePostModal({
   handlePost,
   loading,
 }) {
-  const { userName, image, id } = useSelector(selectActiveUserInfo);
+  const { userName, image, _id } = useSelector(selectActiveUserShortInfo);
 
   const {
     shared,
@@ -39,17 +46,25 @@ function CreatePostModal({
   } = updateCredentials;
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen} className={styles.createPostModal}>
+    <Modal
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      className={styles.createPostModal}
+    >
       <div className={styles.createPostModalContentBox}>
         {loading && <InlineStandSpinner />}
         <UserIdentifier
           img={image}
           userName={userName}
-          userId={id}
+          userId={_id}
           withTime={false}
-          className={styles.createPostHeader}>
+          className={styles.createPostHeader}
+        >
           <div className={styles.createPostAudience}>
-            <SelectAudience handleAudience={handleAudience} audience={audience} />
+            <SelectAudience
+              handleAudience={handleAudience}
+              audience={audience}
+            />
           </div>
         </UserIdentifier>
 
@@ -63,7 +78,12 @@ function CreatePostModal({
             setTag={handleTag}
             removeTag={handleRemoveTag}
           />
-          {!shared && <CreatePostMedia files={files} handleDiscardMedia={handleDiscardMedia} />}
+          {!shared && (
+            <CreatePostMedia
+              files={files}
+              handleDiscardMedia={handleDiscardMedia}
+            />
+          )}
           {shared && (
             <PostAuthentic
               shared={shared}
@@ -72,7 +92,7 @@ function CreatePostModal({
               referencedPost={true}
               data={{
                 author: {
-                  _id: '',
+                  _id: "",
                   userName: authenticAuthorName,
                   profileImg: authenticAuthorImg,
                 },
@@ -89,7 +109,11 @@ function CreatePostModal({
         </div>
         <div className={styles.createPostFooterBox}>
           <CreatePostTouch withTextField={false} />
-          <BTN onClick={handlePost} disabled={loading} className={styles.postBtn}>
+          <BTN
+            onClick={handlePost}
+            disabled={loading}
+            className={styles.postBtn}
+          >
             POST
           </BTN>
         </div>

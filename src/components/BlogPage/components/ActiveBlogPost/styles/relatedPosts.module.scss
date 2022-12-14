@@ -1,27 +1,20 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/components/active-blog-post" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
 
 .blogPostsRelated {
   grid-column: 2;
   grid-row: 3;
-  padding: 0 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 4rem;
+  @include relatedPostsContainer;
 
-  @include respond(tab-landscape) {
+  @include media-1280 {
     order: 3;
   }
 
   .relatedBlogPost {
     @include flexBox(column);
-
-    [data-blog-post-identifier] {
-      gap: 0.75rem;
-    }
-
-    [data-title] {
-      font-size: size(regullarSize);
-    }
 
     & > [data-img] {
       width: 100%;
@@ -33,15 +26,6 @@
 
     [data-categories-list] {
       justify-content: center;
-      font-size: size(smallestSize);
-    }
-
-    [data-user-interacion] {
-      font-size: size('smallerSize');
-
-      & svg {
-        font-size: size(regullarSize);
-      }
     }
   }
 }

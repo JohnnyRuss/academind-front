@@ -1,9 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
-import { setTarget } from '../../../../store/reducers/aboutReducer';
+import {
+  selectAboutTarget,
+  selectAboutProccessUpdate,
+} from "../../../../store/selectors/aboutPageSelectors";
+import { setTarget } from "../../../../store/reducers/aboutReducer";
 
-import styles from './styles/addInfoBtn.module.scss';
-import { RoundedPlusIcon, ArrowRightRectingle } from '../../../Layouts/Icons/icons';
+import styles from "./styles/addInfoBtn.module.scss";
+import {
+  RoundedPlusIcon,
+  ArrowRightRectingle,
+} from "../../../Layouts/Icons/icons";
 
 /**
  * button which is connected to redux-state. it sends the name(passed as a prop) of target to state. has a dynamic caption(passed as a prop)
@@ -15,7 +22,9 @@ import { RoundedPlusIcon, ArrowRightRectingle } from '../../../Layouts/Icons/ico
  */
 function AddInfoBTN({ name, caption }) {
   const dispatch = useDispatch();
-  const { target, proccessUpdate } = useSelector(({ aboutPage }) => aboutPage.dom);
+
+  const target = useSelector(selectAboutTarget);
+  const proccessUpdate = useSelector(selectAboutProccessUpdate);
 
   const handleAddInfo = (target) => dispatch(setTarget(target));
 
@@ -23,11 +32,14 @@ function AddInfoBTN({ name, caption }) {
     <button
       name={name}
       onClick={(e) => handleAddInfo(e.currentTarget.name)}
-      className={`${styles.addInfoBtn} ${target === name ? styles.activeAddBtn : ''}`}
-      disabled={target === name}>
+      className={`${styles.addInfoBtn} ${
+        target === name ? styles.activeAddBtn : ""
+      }`}
+      disabled={target === name}
+    >
       {target !== name && <RoundedPlusIcon />}
       <span>
-        {proccessUpdate && target === name ? 'update' : 'add'} {caption}
+        {proccessUpdate && target === name ? "update" : "add"} {caption}
       </span>
       {target === name && <ArrowRightRectingle />}
     </button>

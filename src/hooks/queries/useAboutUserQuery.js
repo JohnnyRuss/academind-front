@@ -1,9 +1,9 @@
-import { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
 
-import { deActivateTarget } from '../../store/reducers/aboutReducer';
+import { deActivateTarget } from "../../store/reducers/aboutReducer";
 
-import { destructureFormData } from '../../functions';
+import { destructureFormData } from "../../lib";
 
 const formTypes = {
   education: formatEducation,

@@ -1,43 +1,24 @@
-@use '../../../../styles/helpers/helpers' as *;
+@use "../../../../styles/helpers/components/user-cover" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .landscape {
-  margin-top: 6rem;
   position: relative;
   width: 100%;
-  height: 42vw;
-  background: color('whiteColor');
-  font-size: size('smallSize');
-  @include boxShadowBlack(0, 1rem, 0.3);
-  border-bottom: 1px solid rgba(color('darkGreyColor'), 0.3);
-
-  @include respond(tab-portrate) {
-    height: 55vw;
-  }
-
-  @include respond(phone) {
-    height: min-content;
-  }
-
-  @include respond(phone-small) {
-    margin-top: 4rem;
-  }
+  @include userCoverContainer;
 }
 
 .content {
   max-height: 100%;
   display: grid;
   grid-template: 60% repeat(5, 8%) / 1fr 16rem calc($container-width - 16rem) 1fr;
-  color: color('darkLightGreyColor');
+  @include userCoverContent;
 
-  @include respond(tab-landscape) {
-    grid-template: 60% repeat(5, 8%) / 16rem 1fr;
-  }
-
-  @include respond(tab-landscape) {
+  @include media-1280 {
+    // grid-template: 60% repeat(5, 8%) / 16rem 1fr;
     grid-template: 50% repeat(5, 10%) / 16rem 1fr;
   }
 
-  @include respond(phone) {
+  @include media-680 {
     grid-template: 40% repeat(6, 10%) 1fr / 1fr 15rem 1fr;
   }
 }

@@ -1,26 +1,55 @@
-import { useParams, Link } from 'react-router-dom';
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import styles from './styles/conversation.module.scss';
-import { Avatar, TimeAgo } from '../../Interface';
+import { selectActiveUserId } from "../../../store/selectors/activeUserSelectors";
 
-function Conversation({ author, lastMessage, conversationId }) {
+import styles from "./styles/conversation.module.scss";
+import { Avatar } from "../../Layouts";
+import ConversationInfoBox from "./ConversationInfoBox";
+import ConversationOptions from "./ConversationOptions";
+
+function Conversation({ conversationId, adressatId, author, lastMessage }) {
+  const navigate = useNavigate();
+
   const { id } = useParams();
+  const activeUserId = useSelector(selectActiveUserId);
+
+  const [openConversationOption, setOpenConversationOption] = useState(false);
+
+  function handleNavigateToConversation() {
+    navigate(conversationId);
+  }
 
   return (
-    <Link
-      to={conversationId}
+    <div
+      onClick={() => handleNavigateToConversation()}
+      onMouseLeave={() =>
+        openConversationOption && setOpenConversationOption(false)
+      }
       className={`${styles.conversationBox} ${
         conversationId === id && styles.activeConversationBox
-      }`}>
+      } ${
+        !lastMessage?.isRead &&
+        lastMessage?.author !== activeUserId &&
+        styles.unRead
+      }`}
+      data-conversation-box
+    >
       <Avatar img={author.profileImg} />
-      <div className={styles.infoBox}>
-        <p className={styles.conversationAuthor}>{author.userName}</p>
-        <div className={styles.miniBox}>
-          <p className={styles.conversationLastMessage}>{lastMessage?.message}</p>
-          <TimeAgo className={styles.conversationDate} date={lastMessage?.createdAt} />
-        </div>
-      </div>
-    </Link>
+      <ConversationInfoBox
+        userName={author.userName}
+        lastMessage={lastMessage}
+        lastMessagePrefix={lastMessage?.author === activeUserId}
+      />
+      <span className={styles.unReadDot}></span>
+      <ConversationOptions
+        openConversationOption={openConversationOption}
+        setOpenConversationOption={setOpenConversationOption}
+        conversationId={conversationId}
+        adressatId={adressatId}
+      />
+    </div>
   );
 }
 

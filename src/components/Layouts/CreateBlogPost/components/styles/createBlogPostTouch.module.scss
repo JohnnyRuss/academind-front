@@ -1,14 +1,16 @@
-@use '../../../../../styles/helpers/helpers' as *;
+@use "../../../../../styles/helpers/abstract/functions" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
 
 .createBlogPostTouch {
-  background: color('whiteColor');
+  background: color("whiteColor");
   @include flexBox(column);
   gap: 2rem;
   padding: 2rem;
   border-radius: 1rem;
-  @include boxShadowBlack(0, 1rem, 0.2);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 
-  @include respond(phone-small) {
+  @include media-480 {
     padding: 1rem;
   }
 
@@ -17,26 +19,26 @@
     outline: none;
     height: 3.5rem;
     border-radius: 10rem;
-    background: color('whiteShadeColor');
+    background: color("whiteShadeColor");
     padding-left: 2rem;
 
     &::placeholder {
       opacity: 0.5;
       font-style: italic;
-      font-size: size('smallSize');
+      font-size: size("smallSize");
     }
 
-    @include respond(phone-small) {
+    @include media-480 {
       height: 2.5rem;
 
       &::placeholder {
-        font-size: size('smallerSize');
+        font-size: size("smallerSize");
       }
     }
   }
 
   & label {
-    border-top: 1px solid color(darkGreyColor);
+    border-top: 1px solid color("darkGreyColor");
     padding-top: 1rem;
     @include flexBox;
     @include flexProperty(flex-start, center);

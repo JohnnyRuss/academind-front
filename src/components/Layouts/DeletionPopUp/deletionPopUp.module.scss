@@ -1,4 +1,4 @@
-@use '../../../styles/helpers/helpers' as *;
+@use "../../../styles/helpers/abstract/functions" as *;
 
 .confirmationPopUp {
   position: absolute;
@@ -11,8 +11,8 @@
   padding: 3rem;
   text-align: center;
   border-radius: 0.5rem;
-  background: color('whiteColor');
-  @include boxShadowBlack(0, 0.8rem, 0.3);
+  background: color("whiteColor");
+  box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.3);
 
   .message {
     margin-bottom: 1rem;
@@ -23,18 +23,18 @@
     }
   }
 
-  .btn{
+  .btn {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 
   .btnCancel {
-    background: color('whiteShadeColor');
-    color: color('darkGreyColor');
+    background: color("whiteShadeColor");
+    color: color("darkGreyColor");
     margin-right: 1rem;
   }
 
   .btnDelete {
-    background: color('redColor');
+    background: color("redColor");
   }
 }

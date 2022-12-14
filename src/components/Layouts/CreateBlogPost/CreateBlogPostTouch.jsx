@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { selectActiveUserInfo } from '../../../store/selectors/userSelectors';
 import {
   setCreateBlogPostIsOpen,
   setTitle,
@@ -13,18 +12,20 @@ import {
   setFile,
   removeFiles,
   setAudience,
-} from '../../../store/reducers/createPostReducer';
-import { usePostQuery, useRestrictBodyOverflow } from '../../../hooks';
+} from "../../../store/reducers/createPostReducer";
+import { selectCreateBlogPost } from "../../../store/selectors/createPostSelectors";
+import { selectActiveUserShortInfo } from "../../../store/selectors/activeUserSelectors";
+import { usePostQuery, useRestrictBodyOverflow } from "../../../hooks";
 
-import styles from './components/styles/createBlogPostTouch.module.scss';
-import { MultiMediaIcon } from '../Icons/icons';
-import { UserIdentifier } from '../';
-import CreateBlogPostModal from './CreateBlogPostModal';
+import styles from "./components/styles/createBlogPostTouch.module.scss";
+import { MultiMediaIcon } from "../Icons/icons";
+import { UserIdentifier } from "../";
+import CreateBlogPostModal from "./CreateBlogPostModal";
 
 function CreateBlogPostTouch({ className }) {
   const dispatch = useDispatch();
 
-  const { userName, image } = useSelector(selectActiveUserInfo);
+  const { userName, image } = useSelector(selectActiveUserShortInfo);
   const {
     createBlogPostIsOpen,
     title,
@@ -34,7 +35,7 @@ function CreateBlogPostTouch({ className }) {
     files,
     loadingState: { loading },
     audience,
-  } = useSelector(({ createPost }) => createPost);
+  } = useSelector(selectCreateBlogPost);
 
   function activateModal(order) {
     dispatch(setCreateBlogPostIsOpen(order));
@@ -46,13 +47,13 @@ function CreateBlogPostTouch({ className }) {
 
   const handleText = (value) => dispatch(setText(value));
 
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState("");
 
   function handleAddCategory(e) {
     e.preventDefault();
-    if (category.startsWith('#')) {
-      dispatch(addCategory(category.replace('#', '')));
-      setCategory('');
+    if (category.startsWith("#")) {
+      dispatch(addCategory(category.replace("#", "")));
+      setCategory("");
     }
   }
 
@@ -71,8 +72,8 @@ function CreateBlogPostTouch({ className }) {
   function publishPost() {
     handlePostPublish({
       params: {
-        type: 'blogPost',
-        operationType: 'publish',
+        type: "blogPost",
+        operationType: "publish",
       },
       credentials: {
         audience,
@@ -95,13 +96,15 @@ function CreateBlogPostTouch({ className }) {
     <>
       <div
         onClick={() => activateModal(true)}
-        className={`${styles.createBlogPostTouch} ${className || ''}`}>
+        className={`${styles.createBlogPostTouch} ${className || ""}`}
+      >
         <UserIdentifier userName={userName} img={image} withTime={false} />
-        <input type='text' placeholder='article...' />
+        <input type="text" placeholder="article..." />
         <label
-          htmlFor='blogPostMedia'
+          htmlFor="blogPostMedia"
           className={styles.mediaLabel}
-          onClick={() => activateModal(true)}>
+          onClick={() => activateModal(true)}
+        >
           <MultiMediaIcon />
           Media
         </label>

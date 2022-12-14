@@ -1,8 +1,5 @@
 @use "../../../../../styles/helpers/components/post" as *;
 
 .sharedPostHeaderIdentifier {
-  & figure[data-img] {
-    width: $post-identifier-fig-dimention;
-    height: $post-identifier-fig-dimention;
-  }
+  @include postBodyUserIdentifier;
 }

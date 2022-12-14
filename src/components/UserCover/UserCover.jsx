@@ -1,28 +1,27 @@
-import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import { axiosQuery } from '../../store/axiosConfig';
-import { useForeignUser } from '../../hooks';
-import { getUserProfile } from '../../store/reducers/userReducer';
+import { useForeignUser } from "../../hooks";
+import { getUserProfile } from "../../store/reducers/userReducer";
+import { selectUserLoadingState } from "../../store/selectors/userSelectors";
+import { useHelperQueries } from "../../hooks";
 
-import styles from './components/styles/userCover.module.scss';
+import styles from "./components/styles/userCover.module.scss";
 import {
   CoverImage,
   ProfileImage,
   UsernameAndEmail,
   FriendShip,
   ProfileNavigation,
-} from './components';
+} from "./components";
 
 function Profile() {
   const dispatch = useDispatch();
 
-  const {
-    loadingState: { loading },
-  } = useSelector(({ user }) => user);
+  const { loading } = useSelector(selectUserLoadingState);
 
-  const { isActiveUser, profileId } = useForeignUser('basedOnLocation');
+  const { isActiveUser, profileId } = useForeignUser("basedOnLocation");
 
   const [friendShip, setFriendShip] = useState(null);
 
@@ -30,13 +29,15 @@ function Profile() {
     dispatch(getUserProfile(profileId));
   }, [dispatch, profileId]);
 
+  const { getFriendShip } = useHelperQueries();
+
   useEffect(() => {
-    async function getFriendShip() {
-      const { data } = await axiosQuery(`/user/${profileId}/isFriend`);
+    async function getFriendshipInfo() {
+      const data = await getFriendShip(profileId);
       setFriendShip(data);
     }
 
-    if (!isActiveUser) getFriendShip();
+    if (!isActiveUser) getFriendshipInfo();
   }, [isActiveUser, profileId]);
 
   return (

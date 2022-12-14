@@ -1,8 +1,12 @@
-import { formatDate } from '../../../../functions';
+import { formatDate } from "../../../../lib";
 
-import styles from './styles/infoBlock.module.scss';
-import { CalendarIcon, LocationIcon, RotateIcon } from '../../../Layouts/Icons/icons';
-import { InfoFragment } from './';
+import styles from "./styles/infoBlock.module.scss";
+import {
+  CalendarIcon,
+  LocationIcon,
+  RotateIcon,
+} from "../../../Layouts/Icons/icons";
+import { InfoFragment } from "./";
 
 /**
  * user basic infos root component
@@ -13,9 +17,10 @@ function BasicInfoBlock({ userInfo }) {
   return (
     <div className={styles.infoBlock}>
       <InfoFragment
-        name='birthdate'
-        caption='birthdate'
-        userInfo={{ birthDate: userInfo?.birthDate }}>
+        name="birthdate"
+        caption="birthdate"
+        userInfo={{ birthDate: userInfo?.birthDate }}
+      >
         <CalendarIcon className={styles.icon} />
         {userInfo?.birthDate ? (
           <span>
@@ -27,9 +32,13 @@ function BasicInfoBlock({ userInfo }) {
         )}
       </InfoFragment>
       <InfoFragment
-        name='birthplace'
-        caption='birth place'
-        userInfo={{ country: userInfo?.from?.country, city: userInfo?.from?.city }}>
+        name="birthplace"
+        caption="birth place"
+        userInfo={{
+          country: userInfo?.from?.country,
+          city: userInfo?.from?.city,
+        }}
+      >
         <LocationIcon className={`${styles.icon} ${styles.smallIcon}`} />
         {userInfo?.from ? (
           <span>
@@ -42,12 +51,13 @@ function BasicInfoBlock({ userInfo }) {
         )}
       </InfoFragment>
       <InfoFragment
-        name='livingplace'
-        caption='living place'
+        name="livingplace"
+        caption="living place"
         userInfo={{
           city: userInfo?.currentLivingPlace?.city,
           country: userInfo?.currentLivingPlace?.country,
-        }}>
+        }}
+      >
         <LocationIcon className={`${styles.icon} ${styles.smallIcon}`} />
         {userInfo?.currentLivingPlace ? (
           <span>

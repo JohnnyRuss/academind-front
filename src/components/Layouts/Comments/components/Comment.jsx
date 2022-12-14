@@ -1,13 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
-import { useCommentsQuery } from '../../../../hooks';
+import { useCommentsQuery } from "../../../../hooks";
 
-import { selectUserId } from '../../../../store/selectors/userSelectors';
+import { selectActiveUserId } from "../../../../store/selectors/activeUserSelectors";
 
-import styles from './styles/comment.module.scss';
-import { UserIdentifier, Tags } from '../../';
-import { PinIcon } from '../../Icons/icons';
-import { CommentContent, CommentActions } from './';
+import styles from "./styles/comment.module.scss";
+import { UserIdentifier, Tags } from "../../";
+import { PinIcon } from "../../Icons/icons";
+import { CommentContent, CommentActions } from "./";
 
 /**
  * This component represents the comment body, like user identifier, comment text, timeAgo text and action buttons-: like and reply. After all this component is used by "CommentListItem" as well as "RepliesThread" so this is the crossroad to access actions like options, reactions and reply for parent comment as well as for comment from replies thread.
@@ -19,17 +19,18 @@ import { CommentContent, CommentActions } from './';
 function Comment({ type, data, handlers, className }) {
   const { comment, postId, postAuthorId, parentId } = data;
 
-  const { handleReactionOnComment, handlePinComment, handleDeleteComment } = useCommentsQuery();
+  const { handleReactionOnComment, handlePinComment, handleDeleteComment } =
+    useCommentsQuery();
 
-  const commentId = type === 'Parent' ? comment._id : parentId;
-  const replyId = type === 'Reply' ? comment._id : '';
+  const commentId = type === "Parent" ? comment._id : parentId;
+  const replyId = type === "Reply" ? comment._id : "";
 
-  const { id } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
   function handleReplyCredentials() {
     handlers.setCommentReply({
       commentId,
       tag:
-        comment.author._id !== id
+        comment.author._id !== activeUserId
           ? { _id: comment.author._id, userName: comment.author.userName }
           : null,
     });
@@ -46,15 +47,16 @@ function Comment({ type, data, handlers, className }) {
   }
 
   return (
-    <div className={`${styles.comment} ${className || ''}`} id={comment._id}>
+    <div className={`${styles.comment} ${className || ""}`} id={comment._id}>
       <div className={styles.commentHeader}>
         <UserIdentifier
           userId={comment.author?._id}
           userName={comment.author?.userName}
           img={comment.author?.profileImg}
           withTime={false}
-          className={styles.commentUserIdentifier}>
-          {comment.tags[0] && <Tags tags={comment.tags} keyWord='to' />}
+          className={styles.commentUserIdentifier}
+        >
+          {comment.tags[0] && <Tags tags={comment.tags} keyWord="to" />}
         </UserIdentifier>
         {comment.pin && <PinIcon className={styles.pinIcon} />}
       </div>
@@ -63,14 +65,20 @@ function Comment({ type, data, handlers, className }) {
         likesCount={comment.likesAmount}
         postAuthorId={postAuthorId}
         commentAuthorId={comment.author._id}
-        handlePinComment={() => handlePinComment({ type, postId, commentId, replyId })}
+        handlePinComment={() =>
+          handlePinComment({ type, postId, commentId, replyId })
+        }
         handleUpdateCredentials={handleUpdateCredentials}
-        handleDeleteComment={() => handleDeleteComment({ type, postId, commentId, replyId })}
+        handleDeleteComment={() =>
+          handleDeleteComment({ type, postId, commentId, replyId })
+        }
       />
       <CommentActions
         reactions={comment.reactions}
         createdAt={comment.createdAt}
-        handleReaction={() => handleReactionOnComment({ type, postId, commentId, replyId })}
+        handleReaction={() =>
+          handleReactionOnComment({ type, postId, commentId, replyId })
+        }
         handleReply={handleReplyCredentials}
       />
     </div>

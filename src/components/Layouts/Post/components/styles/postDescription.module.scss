@@ -1,7 +1,5 @@
 @use "../../../../../styles/helpers/components/post" as *;
 
 .postDescription {
-  margin: $post-desc-mar;
-  color: $post-desc-color;
-  font-size: $post-desc-fs;
+  @include postDescription;
 }

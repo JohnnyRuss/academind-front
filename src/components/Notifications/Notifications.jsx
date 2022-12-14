@@ -1,70 +1,93 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
-  getNotifications,
-  deleteNotification,
-  deleteAllNotification,
-  setActiveNotifications,
-  markNotificationAsRead,
-  markAllNotificationAsRead,
-} from '../../store/reducers/activeUserReducer';
+  selectActiveUserId,
+  selectNotifications,
+  selectNotificationsLoadingState,
+} from "../../store/selectors/activeUserSelectors";
+import { selectNotificationCount } from "../../store/selectors/badgeSelectors";
+import { setActiveNotifications } from "../../store/reducers/activeUserReducer";
+import { useNotificationQuery, useBadgeQuery } from "../../hooks";
 
-import { selectUserId } from '../../store/selectors/userSelectors';
-
-import styles from './styles/notifications.module.scss';
-import NotificationBody from './NotificationBody';
-import { BlockSpinner } from '../Interface';
+import styles from "./styles/notifications.module.scss";
+import NotificationBody from "./NotificationBody";
+import { BlockSpinner } from "../Layouts";
 
 function Notifications() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { id } = useSelector(selectUserId);
-  const {
-    notifications,
-    loadingState: { loading },
-  } = useSelector(({ activeUser }) => activeUser);
+  const activeUserId = useSelector(selectActiveUserId);
+  const notifications = useSelector(selectNotifications);
+  const { loading } = useSelector(selectNotificationsLoadingState);
+  const unseenNotificationCount = useSelector(selectNotificationCount);
 
-  const [activeNotification, setActiveNotification] = useState('');
+  const [activeNotification, setActiveNotification] = useState("");
+
+  const {
+    deleteAllNotificationQuery,
+    deleteNotificationQuery,
+    getNotificationsQuery,
+    markAllNotificationAsReadQuery,
+    markNotificationAsReadQuery,
+  } = useNotificationQuery();
+
+  const { resetUnseenNotificationsCountQuery } = useBadgeQuery();
 
   function handleNavigate(notify) {
-    // console.log(notify)
-    if (notify.target.targetType === 'blogPost')
+    if (notify.target.targetType === "blogPost")
       navigate(`/blog/${notify.location}`, { state: notify.target?.options });
-    else if (notify.target.targetType === 'post' && notify.target.options?.isNewTag)
-      navigate(`/profile/${id}/profile-review/tags`, { state: notify.target?.options });
-    else if (notify.target.targetType === 'post')
+    else if (
+      notify.target.targetType === "post" &&
+      notify.target.options?.isNewTag
+    )
+      navigate(`/profile/${activeUserId}/profile-review/tags`, {
+        state: notify.target?.options,
+      });
+    else if (notify.target.targetType === "post")
       navigate(`/post/${notify.location}`, { state: notify.target?.options });
-    else if (notify.target.targetType === 'user' && notify.target.options.isRequested)
-      navigate(`/profile/${id}/friends/pending-requests`);
-    else if (notify.target.targetType === 'user' && notify.target.options.isConfirmed)
+    else if (
+      notify.target.targetType === "user" &&
+      notify.target.options.isRequested
+    )
+      navigate(`/profile/${activeUserId}/friends/pending-requests`);
+    else if (
+      notify.target.targetType === "user" &&
+      notify.target.options.isConfirmed
+    )
       navigate(`/profile/${notify.location}/posts`);
 
     dispatch(setActiveNotifications(false));
 
-    if (!notify.read) dispatch(markNotificationAsRead(notify._id));
+    if (!notify.read) markNotificationAsReadQuery(notify._id);
   }
 
-  const handleMarkAsRead = (id) => dispatch(markNotificationAsRead(id));
+  const handleMarkAsRead = (notificationId) =>
+    markNotificationAsReadQuery(notificationId);
 
-  const handleMarkAllAsRead = () => dispatch(markAllNotificationAsRead());
+  const handleMarkAllAsRead = () => markAllNotificationAsReadQuery();
 
-  const handleDeleteNotify = (id) => dispatch(deleteNotification(id));
+  const handleDeleteNotify = (notificationId) =>
+    deleteNotificationQuery(notificationId);
 
-  const handleDeleteAllNotification = () => dispatch(deleteAllNotification());
+  const handleDeleteAllNotification = () => deleteAllNotificationQuery();
 
   useEffect(() => {
-    dispatch(getNotifications(id));
+    getNotificationsQuery(activeUserId);
+    unseenNotificationCount > 0 &&
+      resetUnseenNotificationsCountQuery(activeUserId);
   }, []);
 
   return (
     <div className={`${styles.notificationPopUp} notification--modal`}>
       <div className={styles.cleanerBtnsBox}>
         <button onClick={handleMarkAllAsRead}>mark all as read</button>
-        <button onClick={handleDeleteAllNotification}>clear all notifications</button>
+        <button onClick={handleDeleteAllNotification}>
+          clear all notifications
+        </button>
       </div>
       {loading && <BlockSpinner />}
       {!loading &&

@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
-import { selectUserId } from '../../store/selectors/userSelectors';
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 
 function useRestrictPrivateRoute() {
   const navigate = useNavigate();
 
-  const { id: activeUserId } = useSelector(selectUserId);
+  const activeUserId = useSelector(selectActiveUserId);
   const { id: profileId } = useParams();
 
   useEffect(() => {

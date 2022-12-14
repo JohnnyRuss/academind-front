@@ -5,9 +5,7 @@
   grid-template-columns: repeat(3, max-content);
   grid-template-rows: repeat(2, 1fr);
   column-gap: 1rem;
-  color: $identifier-color;
-  font-weight: $identifier-fw;
-  font-size: $identifier-fs;
+  @include userIdentifier;
 
   & [data-img] {
     grid-column: 1/2;
@@ -28,14 +26,5 @@
   .childBox {
     grid-column: 3;
     grid-row: 1;
-  }
-
-  .identifierDetails,
-  div[data-tags] {
-    padding-top: 0.25rem;
-  }
-
-  div[data-tags] {
-    margin-left: -0.5rem;
   }
 }

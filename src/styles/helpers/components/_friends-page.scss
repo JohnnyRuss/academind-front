@@ -1,0 +1,155 @@
+@use "../variables/variables" as *;
+@use "../abstract/functions" as *;
+@use "../abstract/media" as *;
+@use "../abstract/animation" as *;
+
+@mixin friendsPageContainer {
+  max-width: $container-width;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  background: color("whiteColor");
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+}
+
+@mixin friendsPageNavigation {
+  font-size: size("smallSize");
+  font-weight: weight("boldWeight");
+  border-bottom: 1px solid color(darkGreyColor);
+  text-transform: capitalize;
+  color: color("darkGreyColor");
+
+  .friendsSearch {
+    border: 1px solid color(darkGreyColor);
+  }
+
+  & a {
+    padding: 1rem 2rem;
+    transition: color 0.2s, background-color 0.2s;
+
+    @include media-480 {
+      padding: 0.25rem 0.5rem;
+    }
+
+    &:hover {
+      background-color: color("blueTintColor");
+      color: color("blueColor");
+    }
+  }
+
+  .active {
+    border-bottom: 2px solid color("blueColor");
+    color: color("blueColor");
+  }
+}
+
+@mixin allFriendsPage {
+  margin-top: 4rem;
+  gap: 2rem 3rem;
+  min-height: 25rem;
+
+  @include media-680 {
+    gap: 0rem 3rem;
+  }
+
+  @include media-480 {
+    padding: 0 3rem;
+  }
+
+  .friend {
+    column-gap: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.2);
+  }
+
+  .friendImg {
+    border-radius: 1rem;
+  }
+
+  .friendName {
+    margin-top: 0.8rem;
+    font-size: size("smallSize");
+    font-weight: weight(mediumWeight);
+    text-transform: capitalize;
+    color: color("darkGreyColor");
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .muntuals {
+    font-size: size("smallerSize");
+    margin-top: -2rem;
+  }
+}
+
+@mixin friendOptions {
+  margin-right: 0.5rem;
+  color: color("darkGreyColor");
+
+  .optBtn {
+    font-size: size("bigSize");
+    transition: all 0.25s;
+  }
+
+  .friendOptWindow {
+    width: 14rem;
+    top: 2rem;
+    right: 0;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid color(darkGreyColor);
+    background: color(whiteColor);
+    animation: moveTop 0.2s;
+    transition: all 0.1s;
+
+    &:hover {
+      border-color: color(redColor);
+    }
+  }
+}
+
+@mixin requestsList {
+  margin-top: 4rem;
+  gap: 2rem 2.7rem;
+  min-height: 25rem;
+
+  @include media-680 {
+    column-gap: 1.8rem;
+  }
+}
+
+@mixin requestItem {
+  .requestItem {
+    row-gap: 0.5rem;
+    min-width: 18rem;
+    max-width: 20rem;
+    padding-bottom: 0.75rem;
+    border-radius: 1rem;
+    background: color("whiteColor");
+    box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.2);
+  }
+
+  .friendName {
+    margin-top: 0.4rem;
+    font-size: size("smallSize");
+    font-weight: weight(mediumWeight);
+    text-transform: capitalize;
+    color: color("darkGreyColor");
+  }
+
+  .muntuals {
+    font-size: size("smallerSize");
+  }
+
+  .friendName,
+  .muntuals {
+    padding: 0 0.5rem;
+  }
+
+  button[data-req-btn] {
+    margin: 0 0.5rem;
+  }
+}

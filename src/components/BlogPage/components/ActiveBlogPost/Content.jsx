@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-import styles from './styles/content.module.scss';
-import { Media, Article, RelatedPosts } from './';
-import { PostActions, CommentsList } from '../../../Layouts';
+import styles from "./styles/content.module.scss";
+import { Media, Article, RelatedPosts } from "./";
+import { PostActions, CommentsList } from "../../../Layouts";
 
 function Content({ post }) {
   const [showComments, setShowComments] = useState(false);
@@ -19,7 +19,7 @@ function Content({ post }) {
       {post.media[0] && <Media media={post.media} />}
       <Article post={post} />
       <RelatedPosts />
-      <div className={styles.comments} id='commentBlock'>
+      <div className={styles.actionsBox} id="commentBlock">
         <PostActions setShowCommnents={setShowComments} data={post} />
         {showComments && (
           <CommentsList

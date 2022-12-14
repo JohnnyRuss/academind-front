@@ -1,7 +1,6 @@
+import { Link } from "react-router-dom";
 import styles from "./blogPostIdentifier.module.scss";
-import { Link, Avatar, TimeAgo } from "../../Interface";
-import { TimeAgoAndAudience, Tags } from "../../Layouts";
-import { ClockIcon } from "../../Layouts/Icons/icons";
+import { TimeAgoAndAudience, Tags, Avatar } from "../../Layouts";
 
 function BlogPostIdentifier({
   createdAt,
@@ -15,7 +14,7 @@ function BlogPostIdentifier({
   return (
     <div className={styles.reviewDetails} data-blog-post-identifier>
       <Link
-        path={{
+        to={{
           pathname: `/blog/${postId}`,
           query: { user: author?.userName },
         }}
@@ -27,7 +26,7 @@ function BlogPostIdentifier({
       <div className={styles.publisher}>
         <Avatar img={author?.profileImg} />
         <Link
-          path={`/profile/${author?._id}/posts`}
+          to={`/profile/${author?._id}/posts`}
           className={styles.blogPostUserName}
         >
           {author?.userName}
@@ -42,7 +41,6 @@ function BlogPostIdentifier({
           ))}
         </div>
       )}
-     
     </div>
   );
 }

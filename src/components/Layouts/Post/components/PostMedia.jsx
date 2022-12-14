@@ -1,4 +1,4 @@
-import { Image } from "../../../Interface";
+import { Image } from "../../../Layouts";
 import styles from "./styles/postMedia.module.scss";
 
 function PostMedia({ activateMedia, media, className }) {

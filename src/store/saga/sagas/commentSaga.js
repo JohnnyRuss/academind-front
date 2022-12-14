@@ -1,17 +1,17 @@
 import { takeLatest } from 'redux-saga/effects';
 
 import {
-  getPostComments,
   addComment,
-  addCommentReply,
   deleteComment,
-  deleteCommentReply,
   updateComment,
-  updateCommentReply,
   reactOnComment,
-  reactOnCommentReply,
   pinComment,
+  addCommentReply,
+  deleteCommentReply,
+  updateCommentReply,
+  reactOnCommentReply,
   pinCommentReply,
+  getPostComments,
 } from '../../reducers/commentsDataReducer';
 
 import {

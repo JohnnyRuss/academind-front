@@ -1,4 +1,6 @@
-@use '../../../styles/helpers/helpers' as *;
+@use '../../../styles/helpers/abstract/mixins' as *;
+@use '../../../styles/helpers/abstract/functions' as *;
+@use '../../../styles/helpers/abstract/animation' as *;
 
 .selectAudienceBox {
   position: relative;
@@ -30,11 +32,11 @@
     @include flexBox(column);
     @include flexProperty(center, flex-start);
     gap: 0.25rem;
-    @include moveBottom(0.2s);
     background: color(whiteColor);
     padding: 0.25rem;
     border: 1px solid color(darkGreyColor);
     border-top: none;
+    @include animateMoveBottom(0.2s);
 
     & button {
       @include flexBox;
