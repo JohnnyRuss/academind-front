@@ -37,6 +37,13 @@ export { default as StandSpinner } from "./Spinner/StandSpinner";
 export { default as InlineSpinner } from "./Spinner/InlineSpinner";
 export { default as InlineStandSpinner } from "./Spinner/InlineStandSpinner";
 
+export { default as EducationFragment } from "./AboutUser/EducationFragment";
+export { default as BirthdateFragment } from "./AboutUser/BirthdateFragment";
+export { default as FromFragment } from "./AboutUser/FromFragment";
+export { default as LivingplaceFragment } from "./AboutUser/LivingplaceFragment";
+export { default as RegisterFragment } from "./AboutUser/RegisterFragment";
+export { default as WorkplaceFragment } from "./AboutUser/WorkplaceFragment";
+
 export { default as Modal } from "./Modal/Modal";
 
 export { default as DeletionPopUp } from "./DeletionPopUp/DeletionPopUp";

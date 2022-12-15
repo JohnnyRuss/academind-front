@@ -1,0 +1,11 @@
+@use "../../../../styles/helpers/variables/variables" as *;
+
+.contentContainer {
+  flex: 5;
+  background: $bg-light;
+
+  .content {
+    height: 100%;
+    padding: 1rem;
+  }
+}

@@ -75,6 +75,7 @@ import { ImSpinner8 } from "react-icons/im";
 // import { HiSpeakerphone } from "react-icons/hi";
 // import { WiMoonAltFirstQuarter } from "react-icons/wi";
 import { TbRotateClockwise } from "react-icons/tb";
+import { FiEdit3 } from "react-icons/fi";
 
 const ArrowDownRectingle = IoIosArrowDown;
 const ArrowUpRectingle = IoIosArrowUp;
@@ -100,6 +101,7 @@ const DeleteFriendRequestIcon = BsFillPersonXFill;
 const DeleteFriendIcon = MdPersonOff;
 const LocationIcon = MdLocationPin;
 const ErrorIcon = BiError;
+const EditIcon = FiEdit3;
 const EmailIcon = MdEmail;
 const FeedIcon = MdRssFeed;
 const FriendIcon = BsFillPersonFill;
@@ -162,6 +164,7 @@ export {
   LocationIcon,
   GraduationIcon,
   ErrorIcon,
+  EditIcon,
   CommentIcon,
   MultiMediaIcon,
   TagIcon,

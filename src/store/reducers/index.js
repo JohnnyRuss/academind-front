@@ -12,6 +12,7 @@ import { portalReducer } from "./portalReducer";
 import { friendsReducer } from "./friendsReducer";
 import { conversationReducer } from "./conversationReducer";
 import { badgeReducer } from "./badgeReducer";
+import { settingsReducer } from "./settingsReducer";
 
 const persistedActvieUserConfig = {
   key: "ActiveUser",
@@ -30,10 +31,11 @@ export const rootReducer = combineReducers({
   user: userReducer,
   postsData: postsDataReducer,
   commentsData: commentsDataReducer,
-  aboutPage: aboutReducer,
+  aboutUser: aboutReducer,
   createPost: createPostReducer,
   portal: portalReducer,
   friends: friendsReducer,
   conversation: conversationReducer,
   badges: badgeReducer,
+  settings: settingsReducer,
 });

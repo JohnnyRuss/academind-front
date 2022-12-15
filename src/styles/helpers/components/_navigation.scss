@@ -107,13 +107,28 @@
 }
 
 @mixin avatarModal {
-  width: 15rem;
-  right: -2rem;
-  top: 5.3rem;
-  padding: 0.5rem;
+  width: 18rem;
+  top: 6rem;
+  right: -1rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  font-size: $txt-base;
+  font-weight: weight("regullarWeight");
   color: $txt-dark;
   background: $bg-light;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
-  border-bottom-left-radius: 0.35rem;
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.5);
   @include animateMoveTop;
+
+  & li {
+    padding: 0.5rem 0.75rem;
+    transition: all 0.2s;
+
+    &:hover {
+      background: color("blueTintColor");
+    }
+  }
+
+  & li:last-child {
+    font-weight: weight("boldWeight");
+  }
 }

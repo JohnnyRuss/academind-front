@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import { deActivateTarget, getUserAboutData, resetData } from '../../store/reducers/aboutReducer';
-import { selectAboutUserData } from '../../store/selectors/aboutPageSelectors';
+import { deActivateTarget, resetData } from "../../store/reducers/aboutReducer";
+import { selectAboutUserData } from "../../store/selectors/aboutPageSelectors";
+import { useAboutUserQuery } from "../../hooks";
 
-import styles from './components/about.module.scss';
-import { UserInfo } from './components/UserInfo';
-import { UpdateForm } from './components/UpdateForms';
+import styles from "./components/about.module.scss";
+import { UserInfo } from "./components/UserInfo";
+import { UpdateForm } from "./components/UpdateForms";
 
 /**
  * ties together AboutPage left and wright/info and update-form components
@@ -19,10 +20,10 @@ function About() {
   const { id } = useParams();
 
   const data = useSelector(selectAboutUserData);
+  const { getAboutUserQuery } = useAboutUserQuery();
 
   useEffect(() => {
-    dispatch(getUserAboutData(id));
-
+    getAboutUserQuery(id);
     return () => {
       dispatch(deActivateTarget());
       dispatch(resetData());

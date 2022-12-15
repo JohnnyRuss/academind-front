@@ -10,8 +10,8 @@ import { Spinner } from "../../../Layouts";
  * @returns
  */
 function UserInfo({ userInfo }) {
-  const navTarget = useSelector(({ aboutPage }) => aboutPage.dom.navTarget);
-  const { loading } = useSelector(({ aboutPage }) => aboutPage.loadingState);
+  const navTarget = useSelector(({ aboutUser }) => aboutUser.dom.navTarget);
+  const { loading } = useSelector(({ aboutUser }) => aboutUser.loadingState);
 
   return (
     <div className={styles.userInfo}>

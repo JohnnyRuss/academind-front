@@ -19,7 +19,7 @@ import { AddInfoBTN, InfoOptions } from "./";
 function EduBlock({ userInfo }) {
   const dispatch = useDispatch();
   const { activeOptTarget, activeOpt } = useSelector(
-    ({ aboutPage }) => aboutPage.dom
+    ({ aboutUser }) => aboutUser.dom
   );
 
   const activateOptions = (target) => dispatch(activateOption(target));

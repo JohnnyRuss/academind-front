@@ -34,6 +34,11 @@ function NavAvatar() {
               {userName}
             </Link>
           </li>
+          <li>
+            <Link to={`/settings`} onClick={() => setOpenAvatar(false)}>
+              Settings
+            </Link>
+          </li>
           <li onClick={handleLogOut}>Logout</li>
         </ul>
       )}
