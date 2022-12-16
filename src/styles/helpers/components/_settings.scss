@@ -1,0 +1,56 @@
+@use "../abstract/functions" as *;
+@use "../variables/variables" as *;
+
+$heading-space-bottom: 3rem;
+$heading-v-pad: 1.75rem;
+
+@mixin settingsHeading {
+  padding: 3rem $heading-v-pad;
+  margin-bottom: $heading-space-bottom;
+  border-bottom: 1px solid color("darkGreyColor");
+  text-transform: capitalize;
+  background: $bg-light;
+}
+
+@mixin settingsHeadingSecondary {
+  padding: 1.5rem $heading-v-pad;
+  margin: 1.5rem 0;
+  border-bottom: 1px solid color("darkGreyColor");
+  text-transform: capitalize;
+  font-weight: weight("boldWeight");
+}
+
+@mixin listedContent {
+  gap: 2rem;
+}
+
+@mixin allDetailsContainer {
+  margin-top: calc(-#{$heading-space-bottom} / 2);
+  gap: 2rem;
+}
+
+@mixin fragmentsContainer {
+  padding: 0 calc($heading-v-pad * 2);
+}
+
+@mixin updateBtnBox {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2.5rem;
+
+  .cancelBtn,
+  .updateBtn {
+    padding: .75rem 4rem;
+    border-radius: 0.5rem;
+    text-transform: capitalize;
+  }
+
+  .cancelBtn {
+    background: color("whiteShaderColor");
+  }
+
+  .updateBtn {
+    background: color("blueColor");
+    color: color("whiteColor");
+  }
+}

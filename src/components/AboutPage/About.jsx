@@ -31,59 +31,10 @@ function About() {
   }, []);
 
   return (
-    <>
-      <div className={styles.about}>
-        <UserInfo userInfo={data} />
-        <UpdateForm />
-      </div>
-      {/* <div className={styles.detailedInfo}>
-        <h1>workplaces</h1>
-        <span>
-          <span>Current workplace </span>
-          <strong>{userInfo.currentWorkPlace.company} </strong>
-          <span>as </span>
-          <strong>{userInfo.currentWorkPlace.position} </strong>
-          <span>from </span>
-          <strong>{userInfo.currentWorkPlace.from} </strong>
-          <span>to </span>
-          <strong>{userInfo.currentWorkPlace.to}</strong>
-          <p>{userInfo.currentWorkPlace.description}</p>
-        </span>
-        <span>
-          <span>Current workplace </span>
-          <strong>{userInfo.currentWorkPlace.company} </strong>
-          <span>as </span>
-          <strong>{userInfo.currentWorkPlace.position} </strong>
-          <span>from </span>
-          <strong>{userInfo.currentWorkPlace.from} </strong>
-          <span>to </span>
-          <strong>{userInfo.currentWorkPlace.to}</strong>
-          <p>{userInfo.currentWorkPlace.description}</p>
-        </span>
-        <span>
-          <span>Current workplace </span>
-          <strong>{userInfo.currentWorkPlace.company} </strong>
-          <span>as </span>
-          <strong>{userInfo.currentWorkPlace.position} </strong>
-          <span>from </span>
-          <strong>{userInfo.currentWorkPlace.from} </strong>
-          <span>to </span>
-          <strong>{userInfo.currentWorkPlace.to}</strong>
-          <p>{userInfo.currentWorkPlace.description}</p>
-        </span>
-        <span>
-          <span>Current workplace </span>
-          <strong>{userInfo.currentWorkPlace.company} </strong>
-          <span>as </span>
-          <strong>{userInfo.currentWorkPlace.position} </strong>
-          <span>from </span>
-          <strong>{userInfo.currentWorkPlace.from} </strong>
-          <span>to </span>
-          <strong>{userInfo.currentWorkPlace.to}</strong>
-          <p>{userInfo.currentWorkPlace.description}</p>
-        </span>
-      </div> */}
-    </>
+    <div className={styles.about}>
+      <UserInfo userInfo={data} />
+      <UpdateForm />
+    </div>
   );
 }
 

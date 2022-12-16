@@ -1,7 +1,8 @@
 import FragmentWrapper from "./FragmentWrapper";
-import { LocationIcon } from "../Icons/icons";
+import { EmailIcon } from "../Icons/icons";
+import styles from "./styles/fragmentWrapper.module.scss";
 
-function LivingplaceFragment({
+function EmailFragment({
   data,
   editable = false,
   onEdit = () => {},
@@ -11,18 +12,18 @@ function LivingplaceFragment({
   return (
     data && (
       <FragmentWrapper
-        icon={<LocationIcon />}
+        icon={<EmailIcon />}
         editable={editable}
         onEdit={onEdit}
         deleteAble={deleteAble}
         onDelete={onDelete}
       >
         <p>
-          Lives in <strong>{data.city}</strong> <strong>{data.country}</strong>
+          Email <strong className={styles.lower}>{data}</strong>
         </p>
       </FragmentWrapper>
     )
   );
 }
 
-export default LivingplaceFragment;
+export default EmailFragment;

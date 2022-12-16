@@ -1,10 +1,30 @@
 import { useSelector } from "react-redux";
-import { BirthdateFragment } from "../../../Layouts";
 
-function BirthdateDetails() {
+import { useSettings } from "../../../../hooks";
+import { editableKeys } from "../../config";
+
+import { BirthdateFragment } from "../../../Layouts";
+import styles from "../styles/detailed.module.scss";
+
+function BirthdateDetails({ editable }) {
   const birthDate = useSelector(({ aboutUser }) => aboutUser.data?.birthDate);
 
-  return <BirthdateFragment data={birthDate} editable={true} />;
+  const { handleEditingTarget, handleUpdateBirthdate } = useSettings();
+
+  return (
+    birthDate && (
+      <div className={styles.fragmentsContainer}>
+        <BirthdateFragment
+          data={birthDate}
+          editable={editable === false ? false : true}
+          onEdit={() => {
+            handleEditingTarget(editableKeys.changeBirthdate);
+            handleUpdateBirthdate(birthDate);
+          }}
+        />
+      </div>
+    )
+  );
 }
 
 export default BirthdateDetails;

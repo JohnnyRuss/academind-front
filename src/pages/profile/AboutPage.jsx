@@ -1,7 +1,8 @@
-import About from '../../components/AboutPage/About';
+import NewVersion from "../../components/AboutPage/NewVersion";
+// import About from "../../components/AboutPage/NewVersion";
 
 function AboutPage() {
-  return <About />;
+  return <NewVersion />;
 }
 
 export default AboutPage;

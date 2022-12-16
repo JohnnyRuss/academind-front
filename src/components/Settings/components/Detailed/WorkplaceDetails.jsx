@@ -1,19 +1,33 @@
 import { useSelector } from "react-redux";
-import { WorkplaceFragment } from "../../../Layouts";
 
-function WorkplaceDetails() {
+import { useSettings } from "../../../../hooks";
+import { editableKeys } from "../../config";
+
+import { WorkplaceFragment } from "../../../Layouts";
+import styles from "../styles/detailed.module.scss";
+
+function WorkplaceDetails({ editable }) {
   const workplaces = useSelector(({ aboutUser }) => aboutUser.data?.workplace);
 
+  const { handleEditingTarget, handleUpdateWorkplace } = useSettings();
+
   return (
-    <div>
-      {workplaces.map((workplace) => (
-        <WorkplaceFragment
-          data={workplace}
-          key={workplace._id}
-          editable={true}
-        />
-      ))}
-    </div>
+    workplaces && (
+      <div className={`${styles.listedContent} ${styles.fragmentsContainer}`}>
+        {workplaces.map((workplace) => (
+          <WorkplaceFragment
+            data={workplace}
+            key={workplace._id}
+            deleteAble={true}
+            editable={editable === false ? false : true}
+            onEdit={() => {
+              handleUpdateWorkplace(workplace);
+              handleEditingTarget(editableKeys.changeWorkplace);
+            }}
+          />
+        ))}
+      </div>
+    )
   );
 }
 

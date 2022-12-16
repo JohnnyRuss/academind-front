@@ -1,23 +1,29 @@
-import { useState } from 'react';
-import { uid } from 'uid';
+import { useState } from "react";
+import { uid } from "uid";
 
-import styles from './select.module.scss';
-import { ArrowDownRectingle, ArrowUpRectingle } from '../../Layouts/Icons/icons';
+import {
+  ArrowDownRectingle,
+  ArrowUpRectingle,
+} from "../../Layouts/Icons/icons";
+import styles from "./select.module.scss";
 
 function Select({
+  handler,
   data = {
-    default: 'Birds',
-    name: 'birds',
-    values: ['1 bird', '2 bird', '3 bird', '4 bird', '5 bird', '6 bird'],
+    default: "",
+    name: "",
+    values: [],
   },
 }) {
   const [active, setActive] = useState(false);
   const [defaultValue, setDefaultValue] = useState(data.default);
-  const [fieldValue, setfieldValue] = useState('');
+  const [fieldValue, setfieldValue] = useState("");
 
-  function generateSelectionOptions(data) {
+  function generateSelectionOptions() {
     const { name, values } = data;
+
     const temp = [];
+
     values?.forEach((val) =>
       temp.push({
         name,
@@ -37,21 +43,34 @@ function Select({
 
     setActive(false);
     setfieldValue(value);
+
+    handler(value);
   }
 
   return (
-    <div className={styles.selectionRe}>
+    <div className={`${styles.selection} ${active ? styles.active : ""}`}>
       <button
-        className={`${styles.selectDefault} ${active ? styles.active : ''}`}
-        onClick={() => setActive((prevState) => !prevState)}>
-        <span className={defaultValue ? styles.default : ''}>{fieldValue || defaultValue}</span>
+        className={styles.selectDefault}
+        onClick={(e) => {
+          e.preventDefault();
+          setActive((prevState) => !prevState);
+        }}
+      >
+        <span className={defaultValue ? styles.default : ""}>
+          {fieldValue || defaultValue}
+        </span>
         {!active && <ArrowDownRectingle />}
         {active && <ArrowUpRectingle />}
       </button>
       {active && (
         <ul className={styles.selectionList}>
-          {generateSelectionOptions(data)?.map((field) => (
-            <li onClick={handleSelection} data-value={field.value} name={field.name} key={uid(6)}>
+          {generateSelectionOptions()?.map((field) => (
+            <li
+              onClick={handleSelection}
+              data-value={field.value}
+              name={field.name}
+              key={uid(6)}
+            >
               {field.text}
             </li>
           ))}

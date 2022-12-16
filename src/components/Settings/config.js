@@ -55,13 +55,13 @@ export const detailedKeys = [
     id: nanoid(),
   },
   {
-    key: "showEducation",
-    label: "education",
+    key: "showBirthdate",
+    label: "birthdate",
     id: nanoid(),
   },
   {
-    key: "showBirthdate",
-    label: "birthdate",
+    key: "showBirthplace",
+    label: "birthplace",
     id: nanoid(),
   },
   {
@@ -70,23 +70,23 @@ export const detailedKeys = [
     id: nanoid(),
   },
   {
-    key: "showWorkplace",
-    label: "workplace",
+    key: "showEducation",
+    label: "education",
     id: nanoid(),
   },
   {
-    key: "showBirthplace",
-    label: "birthplace",
+    key: "showWorkplace",
+    label: "workplace",
     id: nanoid(),
   },
 ];
 
 export const editableKeys = {
-  changePassword: "changePassword",
-  changeEmail: "changeEmail",
-  changeEducation: "changeEducation",
-  changeBirthdate: "changeBirthdate",
-  changeLivingplace: "changeLivingplace",
-  changeWorkplace: "changeWorkplace",
-  changeBirthplace: "changeBirthplace",
+  changePassword: { key: "changePassword", label: "password" },
+  changeEmail: { key: "changeEmail", label: "email" },
+  changeEducation: { key: "changeEducation", label: "education" },
+  changeBirthdate: { key: "changeBirthdate", label: "birthdate" },
+  changeLivingplace: { key: "changeLivingplace", label: "livingplace" },
+  changeWorkplace: { key: "changeWorkplace", label: "workplace" },
+  changeBirthplace: { key: "changeBirthplace", label: "birthplace" },
 };

@@ -43,6 +43,8 @@ export { default as FromFragment } from "./AboutUser/FromFragment";
 export { default as LivingplaceFragment } from "./AboutUser/LivingplaceFragment";
 export { default as RegisterFragment } from "./AboutUser/RegisterFragment";
 export { default as WorkplaceFragment } from "./AboutUser/WorkplaceFragment";
+export { default as EmailFragment } from "./AboutUser/EmailFragment";
+export { default as GenderFragment } from "./AboutUser/GenderFragment";
 
 export { default as Modal } from "./Modal/Modal";
 

@@ -2,40 +2,51 @@
 @use "../../../../styles/helpers/abstract/mixins" as *;
 
 .fragmentWrapper {
+  position: relative;
   display: grid;
   grid-template-columns: 3rem 1fr;
   column-gap: 0.25rem;
-  position: relative;
 
   .fragmentIcon {
-    & svg {
-      display: block;
-      margin: 0 auto;
-      font-size: 2rem;
-    }
+    @include flexBox;
+    @include flexProperty(center, flex-start);
+    font-size: 2rem;
   }
 
   .fragmentChildren {
-    width: calc(100% - 4rem);
+    width: calc(100% - 10rem);
+
+    strong {
+      text-transform: capitalize;
+    }
+
+    .lower {
+      text-transform: none;
+    }
   }
 
-  .editableBtn {
+  .fragmentBtnsBox {
+    visibility: hidden;
     position: absolute;
     right: 0.5rem;
     top: 0.5rem;
+    @include flexBox;
+    @include flexProperty(center, center);
+    gap: 1rem;
+  }
+
+  &:hover .fragmentBtnsBox {
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .editableBtn {
     background: color("blueTintColor");
-    width: 3rem;
-    height: 3rem;
+    width: 3.5rem;
+    height: 3.5rem;
     aspect-ratio: 1/1;
     @include flexBox;
     @include flexProperty(center, center);
     border-radius: 100%;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  &:hover .editableBtn {
-    visibility: visible;
-    pointer-events: all;
   }
 }

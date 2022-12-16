@@ -1,44 +1,58 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-import {
-  setTarget,
-  setIsEditing,
-  resetIsEditing,
-} from "../../../store/reducers/settingsReducer";
+import { useSettings } from "../../../hooks";
 import { selectSettingsStatus } from "../../../store/selectors/settingsSelector";
 import { editableKeysShort, detailedKeys } from "../config";
 
 import styles from "./styles/editableList.module.scss";
 
 function EditableList() {
-  const dispatch = useDispatch();
+  const { target, headingTitle, isEditing } = useSelector(selectSettingsStatus);
+  const { handleMenuDetailedTarget, handleMenuEditableTarget } = useSettings();
 
-  const { target, isEditing } = useSelector(selectSettingsStatus);
+  const [isMounting, setIsMounting] = useState(true);
+
+  useEffect(() => {
+    if (isMounting) return;
+
+    localStorage.setItem(
+      "settings-target",
+      JSON.stringify({
+        key: target,
+        label: headingTitle,
+      })
+    );
+  }, [target]);
+
+  useEffect(() => {
+    const lastTarget = localStorage.getItem("settings-target")
+      ? JSON.parse(localStorage.getItem("settings-target"))
+      : null;
+
+    if (lastTarget) handleMenuDetailedTarget(false, lastTarget);
+
+    setIsMounting(false);
+  }, []);
 
   return (
     <div className={styles.editableNavList}>
-      {editableKeysShort.map((editableKey) => (
-        <button
-          onClick={() => {
-            dispatch(setTarget(editableKey.key));
-            dispatch(setIsEditing(editableKey.key));
-          }}
-          className={target === editableKey.key ? styles.active : ""}
-          key={editableKey.id}
-        >
-          {editableKey.label}
-        </button>
-      ))}
       {detailedKeys.map((detailedKey) => (
         <button
-          onClick={() => {
-            isEditing && dispatch(resetIsEditing());
-            dispatch(setTarget(detailedKey.key));
-          }}
+          onClick={() => handleMenuDetailedTarget(isEditing, detailedKey)}
           className={target === detailedKey.key ? styles.active : ""}
           key={detailedKey.id}
         >
           {detailedKey.label}
+        </button>
+      ))}
+      {editableKeysShort.map((editableKey) => (
+        <button
+          onClick={() => handleMenuEditableTarget(editableKey)}
+          className={target === editableKey.key ? styles.active : ""}
+          key={editableKey.id}
+        >
+          {editableKey.label}
         </button>
       ))}
     </div>

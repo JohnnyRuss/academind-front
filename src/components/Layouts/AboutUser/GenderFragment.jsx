@@ -1,7 +1,7 @@
 import FragmentWrapper from "./FragmentWrapper";
-import { LocationIcon } from "../Icons/icons";
+import { MaleIcon, FemaleIcon } from "../Icons/icons";
 
-function LivingplaceFragment({
+function GenderFragment({
   data,
   editable = false,
   onEdit = () => {},
@@ -11,18 +11,24 @@ function LivingplaceFragment({
   return (
     data && (
       <FragmentWrapper
-        icon={<LocationIcon />}
+        icon={
+          data === "male" ? (
+            <MaleIcon />
+          ) : data === "female" ? (
+            <FemaleIcon />
+          ) : null
+        }
         editable={editable}
         onEdit={onEdit}
         deleteAble={deleteAble}
         onDelete={onDelete}
       >
         <p>
-          Lives in <strong>{data.city}</strong> <strong>{data.country}</strong>
+          Gender <strong>{data}</strong>
         </p>
       </FragmentWrapper>
     )
   );
 }
 
-export default LivingplaceFragment;
+export default GenderFragment;

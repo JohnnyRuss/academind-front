@@ -6,6 +6,11 @@
 
   .content {
     height: 100%;
-    padding: 1rem;
+    overflow: auto;
+    padding-bottom: 3.5rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }

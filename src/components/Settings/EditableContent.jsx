@@ -1,0 +1,28 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { selectSettingsStatus } from "../../store/selectors/settingsSelector";
+
+import { toRender } from "./config";
+import ContentContainer from "./components/ContentContainer";
+import styles from "./components/styles/detailed.module.scss";
+
+function EditableContent() {
+  const navigate = useNavigate();
+
+  const { editableTarget, headingTitle } = useSelector(selectSettingsStatus);
+
+  useEffect(() => {
+    if (!editableTarget) navigate("/settings");
+  }, []);
+
+  return (
+    <ContentContainer>
+      <h3 className={styles.settingsHeading}>{headingTitle}</h3>
+      {toRender.forms[editableTarget]}
+    </ContentContainer>
+  );
+}
+
+export default EditableContent;

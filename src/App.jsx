@@ -34,6 +34,12 @@ const Messanger = lazy(() => import("./pages/Messanger/Messanger"));
 const MessangerFeed = lazy(() => import("./pages/Messanger/MessangerFeed"));
 const UnknownPage = lazy(() => import("./pages/UnknownPage/UnknownPage"));
 const SettingsPage = lazy(() => import("./pages/settings/Settings"));
+const ReadableSettingsContentPage = lazy(() =>
+  import("./pages/settings/ReadableContentPage")
+);
+const EditableSettingsContentPage = lazy(() =>
+  import("./pages/settings/EditableContentPage")
+);
 
 function App() {
   return (
@@ -69,7 +75,10 @@ function App() {
             <Route path="/messanger" element={<Messanger />}>
               <Route path=":id" element={<MessangerFeed />} />
             </Route>
-            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/settings" element={<SettingsPage />}>
+              <Route index element={<ReadableSettingsContentPage />} />
+              <Route path="edit" element={<EditableSettingsContentPage />} />
+            </Route>
           </Route>
           <Route path="*" element={<UnknownPage />} />
         </Routes>

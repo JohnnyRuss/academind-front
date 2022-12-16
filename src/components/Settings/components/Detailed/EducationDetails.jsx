@@ -1,19 +1,35 @@
 import { useSelector } from "react-redux";
 
-import styles from "./styles/education.module.scss";
-import { EducationFragment } from "../../../Layouts";
+import { useSettings } from "../../../../hooks";
+import { editableKeys } from "../../config";
 
-function EducationDetails() {
+import { EducationFragment } from "../../../Layouts";
+import styles from "../styles/detailed.module.scss";
+
+function EducationDetails({ editable }) {
   const userEducation = useSelector(
     ({ aboutUser }) => aboutUser.data?.education
   );
 
+  const { handleEditingTarget, handleUpdateEducation } = useSettings();
+
   return (
-    <div className={styles.eduList}>
-      {userEducation.map((edu) => (
-        <EducationFragment data={edu} key={edu._id} editable={true} />
-      ))}
-    </div>
+    userEducation && (
+      <div className={`${styles.listedContent} ${styles.fragmentsContainer}`}>
+        {userEducation.map((edu) => (
+          <EducationFragment
+            data={edu}
+            key={edu._id}
+            deleteAble={true}
+            editable={editable === false ? false : true}
+            onEdit={() => {
+              handleUpdateEducation(edu);
+              handleEditingTarget(editableKeys.changeEducation);
+            }}
+          />
+        ))}
+      </div>
+    )
   );
 }
 

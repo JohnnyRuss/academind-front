@@ -1,0 +1,80 @@
+@use "../../../../styles/helpers/components/settings" as *;
+@use "../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../styles/helpers/abstract/functions" as *;
+
+.settingsHeading {
+  @include settingsHeading;
+  position: sticky;
+  z-index: 2;
+  top: 0;
+}
+
+.settingsHeadingSecondary {
+  @include settingsHeadingSecondary;
+}
+
+.listedContent {
+  @include flexBox(column);
+  @include listedContent;
+}
+
+.fragmentsContainer {
+  @include fragmentsContainer;
+}
+
+.allDetailsContainer {
+  @include flexBox(column);
+  @include allDetailsContainer;
+}
+
+.updateBtnBox {
+  @include updateBtnBox;
+}
+
+.formsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  .form {
+    display: flex;
+    gap: 2rem;
+  }
+}
+
+.birthDateForm {
+}
+
+.birthPlaceForm {
+}
+
+.workplaceForm,
+.educationForm {
+  display: flex;
+  flex-direction: column;
+
+  .inpField {
+    width: 100%;
+  }
+
+  .dateFrom,
+  .dateTo {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .textFieldDesc {
+    min-height: 8rem;
+  }
+}
+
+.dateField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  & label {
+    text-transform: capitalize;
+  }
+}
