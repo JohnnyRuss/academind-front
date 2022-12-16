@@ -27,7 +27,8 @@ function CreatePostTouch({ setIsOpen, withTextField = true }) {
   /*
   <CreatePostTouch> is attached directly to the <CreatePost> and because of <CreatePost> uses <CreatePostModal> as well as <UpdatePostPortal> we need to prevent incorect or unnecessary data set. So we have the condition which says if there's going updating process then go and set media files for post update state(e.i for <UpdatePostPortal>), otherwise set files for create post state (e.i for <CreatePost>)
   */
-  const { updatePostModalIsOpen } = useSelector(selectUpdatePostModalIsOpen);
+  const updatePostModalIsOpen = useSelector(selectUpdatePostModalIsOpen);
+
   const selectFiles = (e) => {
     if (!updatePostModalIsOpen) dispatch(setFile(e.target.files));
     if (updatePostModalIsOpen) dispatch(setUpdateFile(e.target.files));

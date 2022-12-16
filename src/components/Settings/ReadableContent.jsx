@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useSelector } from "react-redux";
 
 import { selectSettingsStatus } from "../../store/selectors/settingsSelector";
@@ -7,6 +7,7 @@ import { useSettings } from "../../hooks";
 import { toRender } from "./config";
 import ContentContainer from "./components/ContentContainer";
 import styles from "./components/styles/detailed.module.scss";
+import { Spinner } from "../Layouts";
 
 function ReadableContent() {
   const { target, isEditing, headingTitle } = useSelector(selectSettingsStatus);
@@ -21,7 +22,7 @@ function ReadableContent() {
   return (
     <ContentContainer>
       <h3 className={styles.settingsHeading}>{headingTitle}</h3>
-      {toRender.detailed[target]}
+      <Suspense fallback={<Spinner />}>{toRender.detailed[target]}</Suspense>
     </ContentContainer>
   );
 }

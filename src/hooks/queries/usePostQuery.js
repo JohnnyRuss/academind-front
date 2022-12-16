@@ -14,16 +14,19 @@ function usePostQuery() {
   const dispatch = useDispatch();
 
   const [startDeletion, setStartDeletion] = useState(false);
-
   // includes post publish and update requests
   // const handlePostPublish = ({ operationType, type, description, media, tags, postId }) => {
   const handlePostPublish = ({ params, credentials }) => {
+    const type = params.type;
+    const isMediaAndTags =
+      JSON.parse(credentials.tags)[0] && credentials.media[0];
+
     if (
-      !credentials.media[0] &&
-      !JSON.parse(credentials.tags)[0] &&
-      !credentials.description
-    )
+      (type === "posts" && !isMediaAndTags && !credentials.description) ||
+      (type === "blogPost" && !isMediaAndTags && !credentials.article)
+    ) {
       return;
+    }
 
     /*
     when user tries to update post which one already has media files, we need to separate old and new media files in different properties. images variable will hold new media files which will be uploaded on db and media property will hold the existng media files, even if user deletes on the post all old media files, we need to send empty array on db and then db will compare each other old and new media properties and files which will not be matched will be deleted from db 

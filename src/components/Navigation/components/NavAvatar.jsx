@@ -18,7 +18,6 @@ function NavAvatar() {
   function handleLogOut() {
     dispatch(logOut());
     navigate("/authentication/login");
-    // window.reloa
   }
 
   return (

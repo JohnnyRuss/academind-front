@@ -1,15 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { searchUser, resetSearchResult } from '../../../store/reducers/userReducer';
-import { selectUserSearchResult } from '../../../store/selectors/userSelectors';
+import {
+  searchUser,
+  resetSearchResult,
+} from "../../../store/reducers/userReducer";
+import { selectUserSearchResult } from "../../../store/selectors/userSelectors";
 
-import TextareaAutosize from 'react-textarea-autosize';
-import styles from './components/styles/textArea.module.scss';
-import TagsList from './components/TagsList';
-import TagsWindow from './components/TagsWindow';
-import { SendIcon } from '../Icons/icons';
+import TextareaAutosize from "react-textarea-autosize";
+import styles from "./components/styles/textArea.module.scss";
+import TagsList from "./components/TagsList";
+import TagsWindow from "./components/TagsWindow";
+// import { SendIcon } from "../Icons/icons";
 
 function TextAreaWithTag({
   submitHandler = (text) => {},
@@ -26,18 +29,18 @@ function TextAreaWithTag({
   const dispatch = useDispatch();
 
   function textAreaSubmit(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       submitHandler();
-      setText('');
+      setText("");
     }
   }
 
-  function submitBtnHandler(e) {
-    e.preventDefault();
-    submitHandler();
-    setText('');
-  }
+  // function submitBtnHandler(e) {
+  //   e.preventDefault();
+  //   submitHandler();
+  //   setText("");
+  // }
 
   useEffect(() => {
     setText(defaultValue);
@@ -48,13 +51,13 @@ function TextAreaWithTag({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (text?.includes('@')) {
-        const candidate = text.split('@')[1];
+      if (text?.includes("@")) {
+        const candidate = text.split("@")[1];
         if (candidate) {
           setCurrTag(true);
           dispatch(searchUser(candidate));
         }
-      } else if (!text?.includes('@') && currTag) {
+      } else if (!text?.includes("@") && currTag) {
         setCurrTag(false);
         dispatch(resetSearchResult());
       }
@@ -65,7 +68,7 @@ function TextAreaWithTag({
 
   function handleCandidate(user) {
     setTag({ _id: user._id, userName: user.userName });
-    const tx = text.split('@');
+    const tx = text.split("@");
     setText(tx[0]);
     setCurrTag(false);
     dispatch(resetSearchResult());
@@ -75,12 +78,18 @@ function TextAreaWithTag({
     removeTag(id);
   }
 
-  return (    
-    <form className={styles.textAreaForm} onSubmit={submitHandler} data-text-area-with-tag>
-      {tags[0] && <TagsList tags={tags} deleteTagCandidate={deleteTagCandidate} />}
+  return (
+    <form
+      className={styles.textAreaForm}
+      onSubmit={submitHandler}
+      data-text-area-with-tag
+    >
+      {tags[0] && (
+        <TagsList tags={tags} deleteTagCandidate={deleteTagCandidate} />
+      )}
       <div className={styles.fields}>
         <TextareaAutosize
-          id='test'
+          id="test"
           minRows={1}
           maxRows={5}
           placeholder={placeholder}
@@ -88,13 +97,15 @@ function TextAreaWithTag({
           autoFocus={focus}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={textAreaSubmit}
-          className={`${styles.textArea} ${className}`}
+          className={`${styles.textArea} ${className || ""}`}
         />
         {/* <button className={styles.textAreaBtn} type='submit'>
           <SendIcon />
         </button> */}
       </div>
-      {currTag && <TagsWindow result={result} handleCandidate={handleCandidate} />}
+      {currTag && (
+        <TagsWindow result={result} handleCandidate={handleCandidate} />
+      )}
     </form>
   );
 }

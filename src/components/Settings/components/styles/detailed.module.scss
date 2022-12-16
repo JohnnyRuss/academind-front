@@ -35,18 +35,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  @include formsContainer;
 
   .form {
     display: flex;
-    gap: 2rem;
   }
-}
-
-.birthDateForm {
-}
-
-.birthPlaceForm {
 }
 
 .workplaceForm,
@@ -61,20 +54,10 @@
   .dateFrom,
   .dateTo {
     display: flex;
-    gap: 2rem;
-  }
-
-  .textFieldDesc {
-    min-height: 8rem;
   }
 }
 
 .dateField {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-
-  & label {
-    text-transform: capitalize;
-  }
 }

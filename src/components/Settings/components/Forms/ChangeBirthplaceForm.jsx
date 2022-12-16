@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -29,7 +30,7 @@ function ChangeBirthplaceForm() {
 
   return (
     <form className={styles.formsContainer}>
-      <div className={`${styles.form} ${styles.birthPlaceForm}`}>
+      <div className={styles.form}>
         <Input
           type="text"
           name="country"

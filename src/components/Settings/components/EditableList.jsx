@@ -31,6 +31,7 @@ function EditableList() {
       : null;
 
     if (lastTarget) handleMenuDetailedTarget(false, lastTarget);
+    else handleMenuDetailedTarget(false, { key: "showAll", label: "show all" });
 
     setIsMounting(false);
   }, []);

@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { updateLoadingState } from './helpers/index';
+import { createSlice } from "@reduxjs/toolkit";
+import { updateLoadingState } from "./helpers/index";
 
 /**
  Potal reducer is used for:
@@ -10,13 +10,13 @@ import { updateLoadingState } from './helpers/index';
   the goal of this reducer is to save and exchange data during share or update process, even for update existing data state
  */
 const portalSlice = createSlice({
-  name: 'portal',
+  name: "portal",
   initialState: {
     //////////////////////////////
     /// show post media modal ///
     ////////////////////////////
     mediaModalIsOpen: false,
-    activeMediaIndex: '',
+    activeMediaIndex: "",
     mediaFiles: null,
 
     ///////////////////////////////
@@ -25,25 +25,25 @@ const portalSlice = createSlice({
     updatePostLoadingState: {
       loading: false,
       error: false,
-      message: '',
+      message: "",
     },
     updatePostModalIsOpen: false,
     updateBlogPostModalIsOpen: false,
     updatePostMediaFiles: [],
     updatePostData: {
-      audience: '',
-      _id: '',
-      type: '',
-      shared: '',
-      authenticAuthorId: '',
-      authenticAuthorImg: '',
-      authenticAuthorName: '',
-      authenticDescription: '',
+      audience: "",
+      _id: "",
+      type: "",
+      shared: "",
+      authenticAuthorId: "",
+      authenticAuthorImg: "",
+      authenticAuthorName: "",
+      authenticDescription: "",
       authenticTags: [],
-      createdAt: '',
-      description: '',
-      title: '',
-      article: '',
+      createdAt: "",
+      description: "",
+      title: "",
+      article: "",
       categories: [],
       tags: [],
     },
@@ -54,28 +54,28 @@ const portalSlice = createSlice({
     sharePostLoadingState: {
       loading: false,
       error: false,
-      message: '',
+      message: "",
     },
     sharePostModalIsOpen: false,
     sharePostData: {
-      _id: '',
-      type: '',
-      authenticType: '',
+      _id: "",
+      type: "",
+      authenticType: "",
       author: {
-        userName: '',
-        profileImg: '',
+        userName: "",
+        profileImg: "",
       },
-      createdAt: '',
-      description: '',
+      createdAt: "",
+      description: "",
       media: null,
       tags: [],
       authenticTags: [],
-      article: '',
-      title: '',
+      article: "",
+      title: "",
       categories: [],
-      audience: '',
+      audience: "",
     },
-    shareAudience: 'friends',
+    shareAudience: "friends",
   },
   reducers: {
     ////////////////////////////
@@ -91,24 +91,28 @@ const portalSlice = createSlice({
     deactivateMediaModal(state) {
       state.mediaModalIsOpen = false;
       state.mediaFiles = null;
-      state.activeMediaIndex = '';
+      state.activeMediaIndex = "";
     },
 
     //////////////////////
     /// Update Portal ///
     ////////////////////
     updatePost(state) {
-      updateLoadingState({ state, key: 'updatePostLoadingState', loading: true });
+      updateLoadingState({
+        state,
+        key: "updatePostLoadingState",
+        loading: true,
+      });
     },
 
     setUpdatePostModalOpen(state, { payload }) {
-      updateState(state, 'updatePostData', payload);
+      updateState(state, "updatePostData", payload);
       state.updatePostMediaFiles = payload.media;
       state.updatePostModalIsOpen = true;
     },
 
     setUpdateBlogPostModalOpen(state, { payload }) {
-      updateState(state, 'updatePostData', payload);
+      updateState(state, "updatePostData", payload);
 
       state.updatePostMediaFiles = payload.media;
       state.updateBlogPostModalIsOpen = true;
@@ -123,11 +127,14 @@ const portalSlice = createSlice({
     },
 
     setText(state, { payload }) {
-      state.updatePostData.article = payload;
+      if (payload) state.updatePostData.article = payload;
     },
 
     addCategory(state, { payload }) {
-      state.updatePostData.categories = [...state.updatePostData.categories, payload];
+      state.updatePostData.categories = [
+        ...state.updatePostData.categories,
+        payload,
+      ];
     },
 
     removeCategory(state, { payload }) {
@@ -137,11 +144,11 @@ const portalSlice = createSlice({
     },
 
     addUpdateTag(state, { payload }) {
-      addTag(state, 'updatePostData', payload);
+      addTag(state, "updatePostData", payload);
     },
 
     removeUpdateTag(state, { payload }) {
-      removeTag(state, 'updatePostData', payload);
+      removeTag(state, "updatePostData", payload);
     },
 
     setUpdateFile(state, { payload }) {
@@ -159,15 +166,16 @@ const portalSlice = createSlice({
      * during post updating we may get into existing media files which are type of string and represents the img url, or may we add new files whicj are type of object. So we need to fillter out both of them types
      */
     removeUpdateFiles(state, { payload }) {
-      if (payload !== 'all') {
-        if (typeof payload === 'object') {
+      if (payload !== "all") {
+        if (typeof payload === "object") {
           state.updatePostMediaFiles = state.updatePostMediaFiles.filter(
             (file) =>
-              typeof file === 'string' || (typeof file === 'object' && file.name !== payload.name)
+              typeof file === "string" ||
+              (typeof file === "object" && file.name !== payload.name)
           );
-        } else if (typeof payload === 'string') {
+        } else if (typeof payload === "string") {
           state.updatePostMediaFiles = state.updatePostMediaFiles.filter(
-            (file) => typeof file === 'object' || file !== payload
+            (file) => typeof file === "object" || file !== payload
           );
         }
       } else state.updatePostMediaFiles = [];
@@ -181,11 +189,15 @@ const portalSlice = createSlice({
     /// Share Portal ///
     ////////////////////
     sharePost(state) {
-      updateLoadingState({ state, key: 'sharePostLoadingState', loading: true });
+      updateLoadingState({
+        state,
+        key: "sharePostLoadingState",
+        loading: true,
+      });
     },
 
     setSharePostModalOpen(state, { payload }) {
-      updateState(state, 'sharePostData', payload);
+      updateState(state, "sharePostData", payload);
       state.sharePostModalIsOpen = true;
     },
 
@@ -194,19 +206,25 @@ const portalSlice = createSlice({
     },
 
     addShareTag(state, { payload }) {
-      addTag(state, 'sharePostData', payload);
+      addTag(state, "sharePostData", payload);
     },
 
     removeShareTag(state, { payload }) {
-      removeTag(state, 'sharePostData', payload);
+      removeTag(state, "sharePostData", payload);
     },
 
     resetSharePostModal(state) {
       state.sharePostModalIsOpen = false;
-      Object.keys(state.sharePostData).map((key) => (state.sharePostData[key] = ''));
-      state.shareAudience = 'friends';
+      Object.keys(state.sharePostData).map(
+        (key) => (state.sharePostData[key] = "")
+      );
+      state.shareAudience = "friends";
 
-      updateLoadingState({ state, key: 'sharePostLoadingState', loading: false });
+      updateLoadingState({
+        state,
+        key: "sharePostLoadingState",
+        loading: false,
+      });
     },
   },
 });
@@ -249,14 +267,19 @@ function removeTag(state, key, payload) {
 }
 
 function updateState(state, field, payload) {
-  Object.keys(state[field]).forEach((key) => (state[field][key] = payload[key]));
+  Object.keys(state[field]).forEach(
+    (key) => (state[field][key] = payload[key])
+  );
 }
 
 function resetState(state) {
   if (state.updatePostModalIsOpen) state.updatePostModalIsOpen = false;
-  else if (state.updateBlogPostModalIsOpen) state.updateBlogPostModalIsOpen = false;
+  else if (state.updateBlogPostModalIsOpen)
+    state.updateBlogPostModalIsOpen = false;
 
-  updateLoadingState({ state, key: 'updatePostLoadingState', loading: false });
+  updateLoadingState({ state, key: "updatePostLoadingState", loading: false });
   state.updatePostMediaFiles = [];
-  Object.keys(state.updatePostData).map((key) => (state.updatePostData[key] = ''));
+  Object.keys(state.updatePostData).map(
+    (key) => (state.updatePostData[key] = "")
+  );
 }

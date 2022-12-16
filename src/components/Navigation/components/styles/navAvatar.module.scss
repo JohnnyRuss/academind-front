@@ -10,5 +10,10 @@
     @include flexBox(column);
     text-transform: capitalize;
     @include avatarModal;
+
+    a {
+      display: inline-block;
+      width: 100%;
+    }
   }
 }

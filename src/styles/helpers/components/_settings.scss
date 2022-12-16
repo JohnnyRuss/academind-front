@@ -3,6 +3,7 @@
 
 $heading-space-bottom: 3rem;
 $heading-v-pad: 1.75rem;
+$base-space-between: 2rem;
 
 @mixin settingsHeading {
   padding: 3rem $heading-v-pad;
@@ -21,26 +22,52 @@ $heading-v-pad: 1.75rem;
 }
 
 @mixin listedContent {
-  gap: 2rem;
+  gap: $base-space-between;
 }
 
 @mixin allDetailsContainer {
   margin-top: calc(-#{$heading-space-bottom} / 2);
-  gap: 2rem;
+  gap: $base-space-between;
 }
 
 @mixin fragmentsContainer {
+  //each fragment item
   padding: 0 calc($heading-v-pad * 2);
+}
+
+@mixin formsContainer {
+  gap: $base-space-between; // space between form and update btns
+
+  .form {
+    gap: $base-space-between; // space between form fields
+  }
+
+  .dateFrom,
+  .dateTo {
+    gap: $base-space-between; // space between date fields
+  }
+
+  .textFieldDesc {
+    min-height: 8rem;
+  }
+
+  .dateField {
+    gap: 0.5rem; // space between date field label and select
+
+    & label {
+      text-transform: capitalize;
+    }
+  }
 }
 
 @mixin updateBtnBox {
   display: flex;
   justify-content: flex-end;
-  gap: 2.5rem;
+  gap: $base-space-between;
 
   .cancelBtn,
   .updateBtn {
-    padding: .75rem 4rem;
+    padding: 0.75rem 4rem;
     border-radius: 0.5rem;
     text-transform: capitalize;
   }

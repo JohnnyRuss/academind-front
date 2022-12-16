@@ -1,19 +1,44 @@
 import { nanoid } from "@reduxjs/toolkit";
+import { lazy } from "react";
 
-import ChangePasswordForm from "./components/Forms/ChangePasswordForm";
-import ChangeEmailForm from "./components/Forms/ChangeEmailForm";
-import ChangeEducationForm from "./components/Forms/ChangeEducationForm";
-import ChangeBirthDateForm from "./components/Forms/ChangeBirthDateForm";
-import ChangeLivingPlaceForm from "./components/Forms/ChangeLivingPlaceForm";
-import ChangeWorkplaceForm from "./components/Forms/ChangeWorkplaceForm";
-import ChangeBirthplaceForm from "./components/Forms/ChangeBirthplaceForm";
+const ChangePasswordForm = lazy(() =>
+  import("./components/Forms/ChangePasswordForm")
+);
+const ChangeEmailForm = lazy(() =>
+  import("./components/Forms/ChangeEmailForm")
+);
+const ChangeEducationForm = lazy(() =>
+  import("./components/Forms/ChangeEducationForm")
+);
+const ChangeBirthDateForm = lazy(() =>
+  import("./components/Forms/ChangeBirthDateForm")
+);
+const ChangeLivingPlaceForm = lazy(() =>
+  import("./components/Forms/ChangeLivingPlaceForm")
+);
+const ChangeWorkplaceForm = lazy(() =>
+  import("./components/Forms/ChangeWorkplaceForm")
+);
+const ChangeBirthplaceForm = lazy(() =>
+  import("./components/Forms/ChangeBirthplaceForm")
+);
 
-import AllDetails from "./components/Detailed/AllDetails";
-import EducationDetails from "./components/Detailed/EducationDetails";
-import BirthdateDetails from "./components/Detailed/BirthdateDetails";
-import LivingplaceDetails from "./components/Detailed/LivingplaceDetails";
-import WorkplaceDetails from "./components/Detailed/WorkplaceDetails";
-import BirthplaceDetails from "./components/Detailed/BirthplaceDetails";
+const AllDetails = lazy(() => import("./components/Detailed/AllDetails"));
+const EducationDetails = lazy(() =>
+  import("./components/Detailed/EducationDetails")
+);
+const BirthdateDetails = lazy(() =>
+  import("./components/Detailed/BirthdateDetails")
+);
+const LivingplaceDetails = lazy(() =>
+  import("./components/Detailed/LivingplaceDetails")
+);
+const WorkplaceDetails = lazy(() =>
+  import("./components/Detailed/WorkplaceDetails")
+);
+const BirthplaceDetails = lazy(() =>
+  import("./components/Detailed/BirthplaceDetails")
+);
 
 export const toRender = {
   forms: {

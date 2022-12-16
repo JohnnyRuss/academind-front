@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -32,7 +33,7 @@ function ChangeBirthDateForm() {
 
   return (
     <form className={styles.formsContainer}>
-      <div className={`${styles.form} ${styles.birthDateForm}`}>
+      <div className={styles.form}>
         <DateForm handler={dateHandler} date={userBirthDate} />
       </div>
       <UpdateButtons
