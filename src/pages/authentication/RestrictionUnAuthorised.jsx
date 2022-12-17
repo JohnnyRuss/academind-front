@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Suspense, lazy, useEffect, useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";

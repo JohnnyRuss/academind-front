@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useContext, useState } from "react";
 import { useParams, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";

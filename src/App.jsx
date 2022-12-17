@@ -6,6 +6,7 @@ import { Navigation, UserCover } from "./components";
 
 import RestrictionAuthorised from "./pages/authentication/RestrictionAuthorised";
 import RestrictionUnAuthorised from "./pages/authentication/RestrictionUnAuthorised";
+
 const Login = lazy(() => import("./pages/authentication/Login"));
 const Register = lazy(() => import("./pages/authentication/Register"));
 const PostsPage = lazy(() => import("./pages/profile/PostsPage"));

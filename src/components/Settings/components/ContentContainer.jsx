@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useSelector } from "react-redux";
 
 import { selectSettingsStatus } from "../../../store/selectors/settingsSelector";

@@ -36,7 +36,7 @@ function Select({
   }
 
   function handleSelection(e) {
-    const key = e.target.name;
+    // const key = e.target.name;
     const value = e.target.dataset.value;
 
     if (defaultValue) setDefaultValue(null);

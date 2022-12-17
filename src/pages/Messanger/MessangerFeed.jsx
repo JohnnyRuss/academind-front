@@ -40,12 +40,18 @@ function MessangerFeed() {
       conversationId: conversation._id,
       adressatId: lastMsg.author,
     });
-  }, [conversation?.messages]);
+  }, [
+    activeUserId,
+    conversation,
+    conversation.messages,
+    conversationRoute,
+    markAsReadQuery,
+  ]);
 
   useEffect(() => {
     if (!state?.isNew || conversation?.messages[0]) return;
     if (!conversation?.messages[0]) isValidConversation = false;
-  }, [conversation?.messages]);
+  }, [conversation?.messages, state?.isNew]);
 
   /* 
   delete conversatioon if it does not contains any messages
@@ -57,13 +63,14 @@ function MessangerFeed() {
       state?.isNew &&
       !isValidConversation &&
       deleteConversationQuery(conversation?._id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!allConversations?.[0] && !conversation) {
       navigate("/messanger", { replace: true });
     }
-  }, [allConversations, conversation]);
+  }, [allConversations, conversation, navigate]);
 
   return <Feed />;
 }
