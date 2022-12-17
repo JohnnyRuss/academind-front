@@ -1,10 +1,13 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 
-import { activateOption, setUpdateCredentials } from '../../../../store/reducers/aboutReducer';
-import { useForeignUser } from '../../../../hooks';
+import {
+  activateOption,
+  setUpdateCredentials,
+} from "../../../../store/reducers/aboutReducer";
+import { useForeignUser } from "../../../../hooks";
 
-import styles from './styles/infoFragment.module.scss';
-import { AddInfoBTN, InfoOptions } from './';
+import styles from "./styles/infoFragment.module.scss";
+import { AddInfoBTN, InfoOptions } from "./";
 
 /**
  * use only when you want to render information block which one contains single information unlike workplace and education blocks which ones contains array of information
@@ -21,18 +24,22 @@ import { AddInfoBTN, InfoOptions } from './';
  */
 function InfoFragment({ children, name, caption, userInfo }) {
   const dispatch = useDispatch();
-  const { activeOptTarget, activeOpt } = useSelector(({ aboutPage }) => aboutPage.dom);
+  const { activeOptTarget, activeOpt } = useSelector(
+    ({ aboutUser }) => aboutUser.dom
+  );
 
   const activateOptions = (target) => dispatch(activateOption(target));
 
   const handleUpdate = () =>
     dispatch(setUpdateCredentials({ credentials: userInfo, target: name }));
 
-  const { isActiveUser } = useForeignUser('basedOnLocation');
+  const { isActiveUser } = useForeignUser("basedOnLocation");
 
   return (
     <div className={styles.infoFragment}>
-      {!Object.values(userInfo)[0] && isActiveUser && <AddInfoBTN caption={caption} name={name} />}
+      {!Object.values(userInfo)[0] && isActiveUser && (
+        <AddInfoBTN caption={caption} name={name} />
+      )}
       {children}
       {Object.values(userInfo)[0] && isActiveUser && (
         <InfoOptions

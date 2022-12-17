@@ -64,7 +64,13 @@ import {
   IoIosArrowUp,
 } from "react-icons/io";
 
-// import { FaFacebookMessenger, FaLaugh, FaMale, FaFemale, FaBirthdayCake } from 'react-icons/fa';
+import {
+  // FaFacebookMessenger,
+  // FaLaugh,
+  // FaBirthdayCake,
+  FaMale,
+  FaFemale,
+} from "react-icons/fa";
 import {
   GiHamburgerMenu,
   //  GiLovers
@@ -75,6 +81,7 @@ import { ImSpinner8 } from "react-icons/im";
 // import { HiSpeakerphone } from "react-icons/hi";
 // import { WiMoonAltFirstQuarter } from "react-icons/wi";
 import { TbRotateClockwise } from "react-icons/tb";
+import { FiEdit3 } from "react-icons/fi";
 
 const ArrowDownRectingle = IoIosArrowDown;
 const ArrowUpRectingle = IoIosArrowUp;
@@ -100,7 +107,9 @@ const DeleteFriendRequestIcon = BsFillPersonXFill;
 const DeleteFriendIcon = MdPersonOff;
 const LocationIcon = MdLocationPin;
 const ErrorIcon = BiError;
+const EditIcon = FiEdit3;
 const EmailIcon = MdEmail;
+const FemaleIcon = FaFemale;
 const FeedIcon = MdRssFeed;
 const FriendIcon = BsFillPersonFill;
 const PersonIcon = MdPerson;
@@ -111,6 +120,7 @@ const HomeIcon = AiFillHome;
 const LikeIcon = AiFillLike;
 const LockIcon = MdLock;
 const MultiMediaIcon = MdOutlinePermMedia;
+const MaleIcon = FaMale;
 const NotificationIcon = IoMdNotifications;
 const PinIcon = BiPin;
 const PublicIcon = MdPublic;
@@ -141,12 +151,12 @@ const UserFriendRequestsIcon = BsFillPersonLinesFill;
 // const LanguageIcon = MdLanguage;
 // const StandIcon = MdModeStandby;
 // const SpeakerIcon = HiSpeakerphone;
-// const MaleIcon = FaMale;
-// const FemaleIcon = FaFemale;
 // const InterestedInIcon = IoIosTransgender;
 // const BirthDayIcon = FaBirthdayCake;
 
 export {
+  MaleIcon,
+  FemaleIcon,
   LikeIcon,
   PinIcon,
   DislikeIcon,
@@ -162,6 +172,7 @@ export {
   LocationIcon,
   GraduationIcon,
   ErrorIcon,
+  EditIcon,
   CommentIcon,
   MultiMediaIcon,
   TagIcon,

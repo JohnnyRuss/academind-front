@@ -3,7 +3,7 @@
 @use "../../../../../styles/helpers/abstract/animation" as *;
 
 .updateFormMain {
-  @include animateMoveInRight(0.25s, 10rem);
+  // @include animateMoveInRight(0.25s, 10rem);
   @include flexBox(column);
   gap: 1rem;
 

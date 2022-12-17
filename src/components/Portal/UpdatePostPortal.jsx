@@ -25,6 +25,7 @@ function UpdatePostPortal() {
   } = useSelector(selectUpdatePostPortal);
 
   const { description, tags, audience } = updatePostData;
+  // console.log(updatePostData);
 
   const [text, setText] = useState(description);
 

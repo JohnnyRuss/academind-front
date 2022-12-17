@@ -1,5 +1,5 @@
-import styles from './styles/tagsList.module.scss';
-import { CloseIcon } from '../../Icons/icons';
+import styles from "./styles/tagsList.module.scss";
+import { CloseIcon } from "../../Icons/icons";
 
 function TagsList({ tags, deleteTagCandidate }) {
   return (

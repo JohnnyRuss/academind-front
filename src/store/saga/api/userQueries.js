@@ -23,7 +23,7 @@ export async function queryBookmarks(userId, page, limit, hasMore) {
 }
 
 export async function queryUserAboutData(userId) {
-  return await axiosQuery(`/user/about/${userId}`);
+  return await axiosQuery(`/about/${userId}`);
 }
 
 export async function queryUserSearch(key) {

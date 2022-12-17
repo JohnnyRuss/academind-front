@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import { deActivateTarget, getUserAboutData, resetData } from '../../store/reducers/aboutReducer';
-import { selectAboutUserData } from '../../store/selectors/aboutPageSelectors';
+import { deActivateTarget, resetData } from "../../store/reducers/aboutReducer";
+import { selectAboutUserData } from "../../store/selectors/aboutPageSelectors";
+import { useAboutUserQuery } from "../../hooks";
 
-import styles from './components/about.module.scss';
-import { UserInfo } from './components/UserInfo';
-import { UpdateForm } from './components/UpdateForms';
+import styles from "./components/about.module.scss";
+import { UserInfo } from "./components/UserInfo";
+import { UpdateForm } from "./components/UpdateForms";
 
 /**
  * ties together AboutPage left and wright/info and update-form components
@@ -19,10 +20,10 @@ function About() {
   const { id } = useParams();
 
   const data = useSelector(selectAboutUserData);
+  const { getAboutUserQuery } = useAboutUserQuery();
 
   useEffect(() => {
-    dispatch(getUserAboutData(id));
-
+    getAboutUserQuery(id);
     return () => {
       dispatch(deActivateTarget());
       dispatch(resetData());
@@ -30,59 +31,10 @@ function About() {
   }, []);
 
   return (
-    <>
-      <div className={styles.about}>
-        <UserInfo userInfo={data} />
-        <UpdateForm />
-      </div>
-      {/* <div className={styles.detailedInfo}>
-        <h1>workplaces</h1>
-        <span>
-          <span>Current workplace </span>
-          <strong>{userInfo.currentWorkPlace.company} </strong>
-          <span>as </span>
-          <strong>{userInfo.currentWorkPlace.position} </strong>
-          <span>from </span>
-          <strong>{userInfo.currentWorkPlace.from} </strong>
-          <span>to </span>
-          <strong>{userInfo.currentWorkPlace.to}</strong>
-          <p>{userInfo.currentWorkPlace.description}</p>
-        </span>
-        <span>
-          <span>Current workplace </span>
-          <strong>{userInfo.currentWorkPlace.company} </strong>
-          <span>as </span>
-          <strong>{userInfo.currentWorkPlace.position} </strong>
-          <span>from </span>
-          <strong>{userInfo.currentWorkPlace.from} </strong>
-          <span>to </span>
-          <strong>{userInfo.currentWorkPlace.to}</strong>
-          <p>{userInfo.currentWorkPlace.description}</p>
-        </span>
-        <span>
-          <span>Current workplace </span>
-          <strong>{userInfo.currentWorkPlace.company} </strong>
-          <span>as </span>
-          <strong>{userInfo.currentWorkPlace.position} </strong>
-          <span>from </span>
-          <strong>{userInfo.currentWorkPlace.from} </strong>
-          <span>to </span>
-          <strong>{userInfo.currentWorkPlace.to}</strong>
-          <p>{userInfo.currentWorkPlace.description}</p>
-        </span>
-        <span>
-          <span>Current workplace </span>
-          <strong>{userInfo.currentWorkPlace.company} </strong>
-          <span>as </span>
-          <strong>{userInfo.currentWorkPlace.position} </strong>
-          <span>from </span>
-          <strong>{userInfo.currentWorkPlace.from} </strong>
-          <span>to </span>
-          <strong>{userInfo.currentWorkPlace.to}</strong>
-          <p>{userInfo.currentWorkPlace.description}</p>
-        </span>
-      </div> */}
-    </>
+    <div className={styles.about}>
+      <UserInfo userInfo={data} />
+      <UpdateForm />
+    </div>
   );
 }
 

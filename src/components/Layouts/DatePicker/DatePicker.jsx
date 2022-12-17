@@ -7,7 +7,13 @@ import "react-calendar/dist/Calendar.css";
 
 import styles from "./datePicker.module.scss";
 
-function DatePicker({ className, date = new Date(), name, id, defaultDate }) {
+function DatePicker({
+  className,
+  date = new Date(),
+  name,
+  id,
+  defaultDate = new Date(),
+}) {
   const [value, onChange] = useState(date);
 
   function handleClickDay() {}

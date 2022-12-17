@@ -1,0 +1,16 @@
+@use "../../../../styles/helpers/variables/variables" as *;
+
+.contentContainer {
+  flex: 5;
+  background: $bg-light;
+
+  .content {
+    height: 100%;
+    overflow: auto;
+    padding-bottom: 3.5rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

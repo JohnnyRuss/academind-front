@@ -18,7 +18,6 @@ function NavAvatar() {
   function handleLogOut() {
     dispatch(logOut());
     navigate("/authentication/login");
-    // window.reloa
   }
 
   return (
@@ -32,6 +31,11 @@ function NavAvatar() {
               onClick={() => setOpenAvatar(false)}
             >
               {userName}
+            </Link>
+          </li>
+          <li>
+            <Link to={`/settings`} onClick={() => setOpenAvatar(false)}>
+              Settings
             </Link>
           </li>
           <li onClick={handleLogOut}>Logout</li>

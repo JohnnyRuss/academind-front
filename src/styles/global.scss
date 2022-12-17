@@ -30,6 +30,7 @@ html body {
 
 html body a {
   text-decoration: none;
+  display: inline-block;
 }
 
 html body a:hover {
@@ -60,6 +61,7 @@ html body button {
   font-size: inherit;
   color: inherit;
   text-transform: inherit;
+  font-weight: inherit;
 }
 
 html body ul {

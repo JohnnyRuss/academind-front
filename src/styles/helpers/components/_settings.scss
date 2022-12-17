@@ -1,0 +1,83 @@
+@use "../abstract/functions" as *;
+@use "../variables/variables" as *;
+
+$heading-space-bottom: 3rem;
+$heading-v-pad: 1.75rem;
+$base-space-between: 2rem;
+
+@mixin settingsHeading {
+  padding: 3rem $heading-v-pad;
+  margin-bottom: $heading-space-bottom;
+  border-bottom: 1px solid color("darkGreyColor");
+  text-transform: capitalize;
+  background: $bg-light;
+}
+
+@mixin settingsHeadingSecondary {
+  padding: 1.5rem $heading-v-pad;
+  margin: 1.5rem 0;
+  border-bottom: 1px solid color("darkGreyColor");
+  text-transform: capitalize;
+  font-weight: weight("boldWeight");
+}
+
+@mixin listedContent {
+  gap: $base-space-between;
+}
+
+@mixin allDetailsContainer {
+  margin-top: calc(-#{$heading-space-bottom} / 2);
+  gap: $base-space-between;
+}
+
+@mixin fragmentsContainer {
+  //each fragment item
+  padding: 0 calc($heading-v-pad * 2);
+}
+
+@mixin formsContainer {
+  gap: $base-space-between; // space between form and update btns
+
+  .form {
+    gap: $base-space-between; // space between form fields
+  }
+
+  .dateFrom,
+  .dateTo {
+    gap: $base-space-between; // space between date fields
+  }
+
+  .textFieldDesc {
+    min-height: 8rem;
+  }
+
+  .dateField {
+    gap: 0.5rem; // space between date field label and select
+
+    & label {
+      text-transform: capitalize;
+    }
+  }
+}
+
+@mixin updateBtnBox {
+  display: flex;
+  justify-content: flex-end;
+  gap: $base-space-between;
+
+  .cancelBtn,
+  .updateBtn {
+    padding: 0.75rem 4rem;
+    border-radius: 0.5rem;
+    text-transform: capitalize;
+  }
+
+  .cancelBtn {
+    background: color("whiteShaderColor");
+  }
+
+  .updateBtn {
+    background: color("blueColor");
+    color: color("whiteColor");
+  }
+}

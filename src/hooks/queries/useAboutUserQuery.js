@@ -1,7 +1,10 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 
-import { deActivateTarget } from "../../store/reducers/aboutReducer";
+import {
+  deActivateTarget,
+  getUserAboutData,
+} from "../../store/reducers/aboutReducer";
 
 import { destructureFormData } from "../../lib";
 
@@ -34,7 +37,11 @@ function useAboutUserQuery(type) {
     console.log(output);
   }
 
-  return { cancelHandler, handleConfirm, formRef };
+  function getAboutUserQuery(userId) {
+    dispatch(getUserAboutData(userId));
+  }
+
+  return { getAboutUserQuery, cancelHandler, handleConfirm, formRef };
 }
 
 export default useAboutUserQuery;

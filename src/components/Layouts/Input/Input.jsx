@@ -1,18 +1,18 @@
-import styles from './input.module.scss';
+import styles from "./input.module.scss";
 
 function Input({
   onChange = () => {},
   value,
   defaultValue,
-  type = 'text',
+  type = "text",
   id,
   label,
   className,
   name,
-  placeholder = 'text',
+  placeholder = "text",
 }) {
   return (
-    <div className={`${styles.inputFieldRe} ${className}`}>
+    <div className={`${styles.inputField} ${className || ""}`}>
       {label && (
         <label htmlFor={id} className={styles.inpLabel}>
           {label}
