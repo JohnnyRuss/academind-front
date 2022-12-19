@@ -4,13 +4,13 @@
 
 .friendsNav {
   @include flexBox;
-  @include flexProperty(space-between,center);
+  @include flexProperty(space-between, center);
   @include friendsPageNavigation;
 
   .friendsSearch {
     width: max-content;
 
-    @include media-480 {
+    @include media-680 {
       display: none;
     }
   }

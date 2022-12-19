@@ -8,6 +8,7 @@
   line-height: inherit;
   @include flexBox;
   @include flexProperty(flex-start, center);
+  flex-wrap: wrap;
 
   .tagKeyWord {
     font-weight: weight("regullarWeight");

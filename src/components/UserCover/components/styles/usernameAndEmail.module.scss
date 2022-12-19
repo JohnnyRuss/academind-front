@@ -2,16 +2,23 @@
 @use "../../../../styles/helpers/components/user-cover" as *;
 
 .userNameAndEmail {
-  padding: 0 3rem 3rem 1rem;
-  grid-area: 4 / 3 / 5 / 4;
+  padding: 0.5rem 0 0 1rem;
+  grid-row: 4/6;
+  grid-column: 3/4;
+  width: 40%;
   @include userNameAndEmail;
-
+  
   @include media-1280 {
-    grid-area: 4 / 2 / 5 / -1;
+    transform: translateX(3rem);
   }
-
+  
   @include media-680 {
-    grid-row: 5;
-    grid-column: 2;
+    grid-column: 1/1;
+    grid-row: 5/6;
+    justify-self: center;
+    width: max-content;
+    transform: translateX(0);
+    padding: 1rem;
+    padding-top: 1.5rem;
   }
 }

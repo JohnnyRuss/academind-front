@@ -4,6 +4,7 @@
 
 .postsPageContent {
   flex: 4;
+  @include flexBox(column);
   @include postsPageContent;
 
   .postsPageContentScroll {

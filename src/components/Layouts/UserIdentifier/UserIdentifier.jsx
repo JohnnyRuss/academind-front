@@ -23,23 +23,29 @@ function UserIdentifier({
   className,
 }) {
   return (
-    <div
-      className={`${styles.userIdentifierRe} ${className || ""}`}
-      data-user-identifier
-    >
-      <Avatar img={img} />
-      <Link
-        to={`/profile/${userId}/posts`}
-        className={styles.identifierUserName}
-        data-identifier-username
+    <>
+      <div
+        className={`${styles.userIdentifierRe} ${className || ""}`}
+        data-user-identifier
       >
-        {userName}
-      </Link>
-      {withTime && <TimeAgoAndAudience audience={audience} timeAgo={timeAgo} />}
-      <span className={styles.childBox} data-identifier-child>
-        {children}
-      </span>
-    </div>
+        <Avatar img={img} />
+        <div className={styles.identifierInlineContainer}>
+          <div className={styles.userAndTags}>
+            <Link
+              to={`/profile/${userId}/posts`}
+              className={styles.identifierUserName}
+              data-identifier-username
+            >
+              {userName}
+            </Link>
+            <span data-identifier-child>{children}</span>
+          </div>
+          {withTime && (
+            <TimeAgoAndAudience audience={audience} timeAgo={timeAgo} />
+          )}
+        </div>
+      </div>
+    </>
   );
 }
 

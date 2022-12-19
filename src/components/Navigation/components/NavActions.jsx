@@ -12,7 +12,7 @@ import { setActiveNotifications } from "../../../store/reducers/activeUserReduce
 import { useBlurOnBody, useBadgeQuery } from "../../../hooks";
 
 import styles from "./styles/navActions.module.scss";
-import { NavSearchBar, NavAvatar } from "./";
+import { NavAvatar, NavSearchBar } from "./";
 import {
   UserFriendRequestsIcon,
   EmailIcon,
@@ -20,7 +20,7 @@ import {
   BurgerIcon,
 } from "../../Layouts/Icons/icons";
 
-function NavActions() {
+function NavActions({ activateNav }) {
   const dispatch = useDispatch();
 
   const activeNotifications = useSelector(selectIsActiveNotifications);
@@ -79,7 +79,10 @@ function NavActions() {
           <span className={styles.actionBadge}>{notificationCount}</span>
         )}
       </button>
-      <button className={styles.mainNavActionsBurgerBtn}>
+      <button
+        onClick={() => activateNav()}
+        className={`${styles.mainNavActionsBurgerBtn} burger--btn`}
+      >
         <BurgerIcon />
       </button>
       <NavAvatar />

@@ -1,13 +1,5 @@
-@use "../../../styles/helpers/abstract/mixins" as *;
+@use "../../../styles/helpers/components/layouts/avatar" as *;
 
 .avatar {
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 50%;
-  overflow: hidden;
-
-  & img {
-    @include fitImage;
-    border-radius: inherit;
-  }
+  @include avatarFig;
 }

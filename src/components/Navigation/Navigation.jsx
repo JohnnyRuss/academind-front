@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { IoContext } from "../../store/Io";
 
 import { selectActiveUser } from "../../store/selectors/activeUserSelectors";
-import { useBadgeQuery } from "../../hooks";
+import { useBadgeQuery, useBlurOnBody } from "../../hooks";
 
 import styles from "./components/styles/navigation.module.scss";
-import { NavList, NavActions } from "./components";
+import { NavActions, NavList } from "./components";
 
 function Navigation() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function Navigation() {
   const {
     encreaseUnseenRequestsCountHandler,
     encreaseUnseenConversationsCountHandler,
-    encreaseUnseenNotificationsCountHandler
+    encreaseUnseenNotificationsCountHandler,
   } = useBadgeQuery();
 
   useEffect(() => {
@@ -52,13 +52,23 @@ function Navigation() {
     }
   }, [socket]);
 
+  const [activeNav, setActiveNav] = useState(false);
+
+  const onBlurHandler = () => setActiveNav(false);
+  const onActiveNavHandler = () => setActiveNav((prev) => !prev);
+
+  const { onFocus } = useBlurOnBody(onActiveNavHandler, onBlurHandler, [
+    "nav--list",
+    "burger--btn",
+  ]);
+
   return (
     <div className={styles.mainNav}>
       <div className={styles.mainNavLogo}>A</div>
       {isAuthenticated && (
         <>
-          <NavList />
-          <NavActions />
+          <NavList activeNav={activeNav}  />
+          <NavActions activateNav={onFocus} />
         </>
       )}
       {!isAuthenticated && (

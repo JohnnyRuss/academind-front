@@ -3,36 +3,19 @@
 
 @mixin feedContainer {
   gap: 2rem;
-  margin-top: 6rem;
+  margin-top: $nav-height;
 }
 
 @mixin feed {
+  padding: 1rem;
   padding-top: 4rem;
-  gap: 1rem;
+  gap: 4rem;
 
   .feedInfiniteScroll {
     gap: 4rem;
-    padding-top: 3rem;
   }
 
-  @include media-960 {
-    .feedPost,
-    .feedCreatePost {
-      width: $post-w-def;
-    }
-  }
-
-  @include media-680 {
-    padding: 3rem 2rem 0 2rem;
-    gap: 4rem;
-
-    .feedInfiniteScroll {
-      gap: 3rem;
-    }
-
-    .feedPost,
-    .feedCreatePost {
-      width: 100%;
-    }
+  @include media-480 {
+    padding-top: 2rem;
   }
 }

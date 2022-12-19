@@ -3,26 +3,14 @@
 @use "../abstract/functions" as *;
 @use "../abstract/mixins" as *;
 @use "../abstract/media" as *;
+@use "../variables/variables" as *;
 
 @mixin userCoverContainer {
-  margin-top: 6rem;
-  height: 42vw;
+  margin-top: $nav-height;
   font-size: size("smallSize");
   border-bottom: 1px solid rgba(color("darkGreyColor"), 0.3);
   background: color("whiteColor");
   box-shadow: 0 0 3rem rgba(0, 0, 0, 0.3);
-
-  @include media-960 {
-    height: 55vw;
-  }
-
-  @include media-680 {
-    height: min-content;
-  }
-
-  @include media-480 {
-    margin-top: 4rem;
-  }
 }
 
 @mixin userCoverContent {
@@ -39,20 +27,6 @@
   font-size: size("largeSize");
   border-radius: 50%;
   color: color("whiteColor");
-
-  @include media-680 {
-    width: 3rem;
-    height: 3rem;
-
-    & svg {
-      font-size: size("regullarSize");
-    }
-  }
-
-  @include media-480 {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
 }
 
 @mixin coverImage {
@@ -64,16 +38,7 @@
 }
 
 @mixin profileImage {
-  @include media-1280 {
-    margin-left: 3rem;
-  }
-
-  @include media-680 {
-    margin: 0;
-  }
-
   .profileImg {
-    width: 16rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
     border: 2px solid color("whiteColor");
@@ -82,47 +47,17 @@
     & img {
       @include fitImage;
     }
-
-    @include media-680 {
-      width: 13rem;
-    }
-
-    @include media-480 {
-      width: 11rem;
-    }
   }
 
   .changeMediaBtn {
     @extend %change-media--btn;
     bottom: 1.2rem;
     right: 0.6rem;
-
-    @include media-480 {
-      bottom: 1rem;
-      right: 0rem;
-    }
   }
 }
 
 @mixin updateCoverButtons {
   gap: 2rem;
-
-  @include media-1280 {
-    margin-right: 2rem;
-  }
-
-  @include media-680 {
-    margin: 0;
-  }
-
-  @include media-480 {
-    gap: 1rem;
-
-    button {
-      width: 6rem;
-      font-size: size("smallerSize");
-    }
-  }
 
   .cancelUpdateBtn {
     background: color("whiteShadeColor");
@@ -131,22 +66,6 @@
 }
 
 @mixin userNameAndEmail {
-  width: 40%;
-
-  @include media-1280 {
-    margin-left: 3rem;
-  }
-
-  @include media-960 {
-    width: 100%;
-  }
-
-  @include media-680 {
-    padding: 0;
-    margin: 0;
-    text-align: center;
-  }
-
   .userName {
     font-size: size("bigSize");
     font-weight: weight("boldWeight");
@@ -162,31 +81,7 @@
 }
 
 @mixin friendShip {
-  width: 60%;
-  gap: 1.2rem;
-  padding-top: 0.5rem;
-
-  @include media-1280 {
-    margin-right: 3rem;
-  }
-
-  @include media-960 {
-    width: 100%;
-    margin-left: 3rem;
-    margin-right: 0rem;
-
-    & button {
-      font-size: size("smallestSize");
-    }
-  }
-
-  @include media-680 {
-    margin: 0;
-
-    & button {
-      padding: 0.5rem 1rem;
-    }
-  }
+  gap: 2rem;
 }
 
 @mixin profileNavigation {
@@ -198,24 +93,33 @@
   color: color("darkGreyColor");
 
   @include media-680 {
-    padding: 0 2rem;
+    padding: 0 1rem;
   }
 
   @include media-480 {
     font-size: size("smallerSize");
-    padding: 0 1rem;
+    padding: 0 0.5rem;
   }
 
   .navList {
     gap: 2.5rem;
 
+    & li {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+    }
+
     @include media-680 {
       gap: 0.5rem;
     }
 
-    & li {
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
+    @include media-480 {
+      gap: 0.25rem;
+
+      & li {
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+      }
     }
   }
 

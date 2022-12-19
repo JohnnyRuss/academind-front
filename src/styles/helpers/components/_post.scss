@@ -1,8 +1,9 @@
 @use "../abstract/functions" as *;
+@use "../abstract/media" as *;
 @use "../variables/variables" as *;
 
 @mixin post {
-  width: $post-w-def;
+  width: min(100%, $post-w-def);
   padding: 1rem;
   border-radius: $rounded-sm;
   background: $bg-light;
@@ -43,6 +44,10 @@
   padding: 0.5rem 1rem 0.5rem 1rem;
   border-radius: 0.3rem;
   background: $bg-dark-light;
+
+  @include media-960 {
+    margin: 0.5rem;
+  }
 
   .media {
     order: -1;

@@ -1,8 +1,10 @@
 @use "../../../../styles/helpers/components/user-cover" as *;
 @use "../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .cover {
-  grid-area: 1 / 1 / 4 / -1;
+  grid-row: 1/4;
+  grid-column: 1/-1;
   position: relative;
   @include coverImage;
 
@@ -14,6 +16,14 @@
     & img {
       @include fitImage;
       border-radius: inherit;
+    }
+  }
+
+  @include media-680 {
+    grid-column: 1/1;
+
+    .coverImg {
+      aspect-ratio: 16/9;
     }
   }
 }

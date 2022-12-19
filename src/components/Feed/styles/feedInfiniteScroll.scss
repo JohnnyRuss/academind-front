@@ -1,7 +1,4 @@
-@use "../../../styles/helpers/abstract/media" as *;
-
 .infinite-scroll-component__outerdiv {
-  @include media-680{
-    width: 100%;
-  }
+  margin-top: 0;
+  padding: 0;
 }

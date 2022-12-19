@@ -1,4 +1,4 @@
-import moment from 'moment';
+// import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { selectUserInfo } from '../../../store/selectors/userSelectors';
 
@@ -22,7 +22,7 @@ function PostsPageUserInfo() {
           <CalendarIcon className={styles.icon} />
           <span>
             <span>Birthdate </span>
-            <strong>{moment(new Date(birthDate)).format('DD-MM-YYYY')}</strong>
+            {/* <strong>{moment(new Date(birthDate)).format('DD-MM-YYYY')}</strong> */}
           </span>
         </li>
       )}
@@ -68,7 +68,7 @@ function PostsPageUserInfo() {
         <RotateIcon className={`${styles.icon} ${styles.smallIcon}`} />
         <span>
           <span>Joined at </span>
-          <strong>{moment(new Date(createdAt)).format('DD-MM-YYYY')}</strong>
+          {/* <strong>{moment(new Date(createdAt)).format('DD-MM-YYYY')}</strong> */}
         </span>
       </li>
     </ul>

@@ -1,26 +1,37 @@
-import { useState } from 'react';
-import styles from './searchBar.module.scss';
-import { SearchIcon } from '../Icons/icons';
+import styles from "./searchBar.module.scss";
+import { SearchIcon } from "../Icons/icons";
 
-function SearchBar({ value, className, allowToggle, onFocus = () => {}, onChange = () => {} }) {
-  const [showBar, setShowBar] = useState(false);
-
+function SearchBar({
+  value,
+  className,
+  allowToggle,
+  onFocus = () => {},
+  onChange = () => {},
+  accumulator,
+  setAccumulator,
+}) {
   return (
-    <div className={`${styles.searchField} ${className}`}>
+    <div className={`${styles.searchField} ${className || ""}`}>
       <input
-        onFocus={onFocus}
+        onFocus={() => onFocus(true)}
         onChange={onChange}
         value={value}
-        type='text'
-        id='search'
-        className={`${styles.searchFieldInp} ${showBar ? styles.active : ''} navigation--searchBar`}
-        placeholder='search...'
+        type="text"
+        id="search"
+        placeholder="search..."
         data-search-bar-input
+        className={`${styles.searchFieldInp} ${
+          accumulator ? styles.active : ""
+        } navigation--searchBar`}
       />
       <label
-        htmlFor='search'
-        className={styles.searchFieldLabel}
-        onClick={() => allowToggle && setShowBar((prev) => !prev)}>
+        htmlFor="search"
+        className={`${styles.searchFieldLabel} nav-searchbar--btn`}
+        onClick={(e) => {
+          e.stopPropagation();
+          allowToggle && setAccumulator((prev) => !prev);
+        }}
+      >
         <SearchIcon />
       </label>
     </div>

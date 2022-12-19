@@ -4,12 +4,12 @@
 .navAvatarBox {
   position: relative;
   cursor: pointer;
+  @include avatar;
 
   .navAvatarModal {
     position: absolute;
     @include flexBox(column);
     text-transform: capitalize;
-    @include avatarModal;
 
     a {
       display: inline-block;

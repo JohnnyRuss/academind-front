@@ -26,4 +26,8 @@
   @include media-960 {
     width: 100%;
   }
+
+  @include media-480 {
+    font-size: size("regullarSize");
+  }
 }

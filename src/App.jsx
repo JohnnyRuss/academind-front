@@ -19,21 +19,19 @@ const PendingRequests = lazy(() =>
   import("./pages/profile/friends/PendingRequests")
 );
 const Feed = lazy(() => import("./pages/feed/Feed"));
-const BlogPage = lazy(() => import("./pages/blog/BlogPage"));
-const ActiveBlogPost = lazy(() => import("./pages/blog/ActiveBlogPost"));
-const Post = lazy(() => import("./pages/Post/Post"));
-const ProfileReview = lazy(() =>
-  import("./pages/profile/profileReview/ProfileReview")
-);
+
 const ReviewTaggedPosts = lazy(() =>
   import("./pages/profile/profileReview/ReviewTaggedPosts")
 );
 const ReviewHiddenPosts = lazy(() =>
   import("./pages/profile/profileReview/ReviewHiddenPosts")
 );
+const ProfileReview = lazy(() =>
+  import("./pages/profile/profileReview/ProfileReview")
+);
+const UnknownPage = lazy(() => import("./pages/UnknownPage/UnknownPage"));
 const Messanger = lazy(() => import("./pages/Messanger/Messanger"));
 const MessangerFeed = lazy(() => import("./pages/Messanger/MessangerFeed"));
-const UnknownPage = lazy(() => import("./pages/UnknownPage/UnknownPage"));
 const SettingsPage = lazy(() => import("./pages/settings/Settings"));
 const ReadableSettingsContentPage = lazy(() =>
   import("./pages/settings/ReadableContentPage")
@@ -41,6 +39,9 @@ const ReadableSettingsContentPage = lazy(() =>
 const EditableSettingsContentPage = lazy(() =>
   import("./pages/settings/EditableContentPage")
 );
+const BlogPage = lazy(() => import("./pages/blog/BlogPage"));
+const ActiveBlogPost = lazy(() => import("./pages/blog/ActiveBlogPost"));
+const Post = lazy(() => import("./pages/Post/Post"));
 
 function App() {
   return (

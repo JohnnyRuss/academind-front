@@ -12,8 +12,8 @@
     gap: 0.5rem;
 
     & figure[data-img] {
-      width: 3rem;
-      height: 3rem;
+      width: 3.5rem;
+      height: 3.5rem;
     }
 
     & span p:first-child {
@@ -60,7 +60,7 @@
   }
 
   @include media-480 {
-    height: 2.5rem;
+    height: 3rem;
 
     &::placeholder {
       font-size: size("smallerSize");

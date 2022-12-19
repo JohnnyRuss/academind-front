@@ -19,7 +19,7 @@ export { default as SendMessageBTN } from "./RequestBTN/SendMessageBTN";
 export { default as IsFriendBTN } from "./RequestBTN/IsFriendBTN";
 
 export { default as TimeAgo } from "./TimeAgo/TimeAgo";
-export { default as TimeAgoLong } from "./TimeAgo/TimeAgoLong";
+// export { default as TimeAgoLong } from "./TimeAgo/TimeAgoLong";
 export { default as TimeAgoAndAudience } from "./TimeAgoAndAudience/TimeAgoAndAudience";
 export { default as Audience } from "./Audience/Audience";
 export { default as SelectAudience } from "./SelectAudience/SelectAudience";
@@ -73,6 +73,6 @@ export { default as BTN } from "./BTN/BTN";
 export { default as ShowMoreInlineBTN } from "./ShowMoreInlineBTN/ShowMoreInlineBTN";
 export { default as Image } from "./Image/Image";
 export { default as Avatar } from "./Avatar/Avatar";
-export { default as DatePicker } from "./DatePicker/DatePicker";
+// export { default as DatePicker } from "./DatePicker/DatePicker";
 export { default as Input } from "./Input/Input";
 export { default as Select } from "./Select/Select";

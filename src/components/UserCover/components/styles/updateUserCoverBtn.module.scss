@@ -3,19 +3,24 @@
 @use "../../../../styles/helpers/abstract/media" as *;
 
 .updateUserCoverBtn {
-  grid-row: 4;
-  grid-column: 3;
+  grid-row: 4/6;
+  grid-column: 3/4;
   justify-self: end;
   align-self: end;
   @include flexBox;
+  @include flexProperty(flex-start, center);
+  gap: 2rem;
+  height: 100%;
+  @include updateCoverButtons;
 
   @include media-1280 {
-    grid-column: 2;
+    transform: translateX(-3rem);
   }
 
   @include media-680 {
-    grid-row: 6;
+    grid-column: 1/1;
+    grid-row: 6/7;
+    transform: translate(0);
     justify-self: center;
-    align-self: center;
   }
 }

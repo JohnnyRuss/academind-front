@@ -3,30 +3,32 @@
 @use "../abstract/media" as *;
 @use "../abstract/mixins" as *;
 
+$space-y: 4rem;
+
+$space-x: 4rem;
+$space-x-md: 2rem;
+
 @mixin postsPageContainer {
-  max-width: $container-width;
-  gap: 2rem;
+  width: min(100%, $container-width);
+  gap: $space-x;
+  padding-top: $space-top-under-user-cover;
 
   @include media-1280 {
-    gap: 3rem;
-    padding: 0 3rem;
+    padding: 0 1rem;
+    padding-top: $space-top-under-user-cover;
   }
 
-  @include media-480 {
+  @include media-960 {
     padding: 0 1rem;
-    gap: 1rem;
+    padding-top: $space-top-under-user-cover-sm;
+    gap: $space-x-md;
   }
 }
 
 @mixin postsPageSideBar {
   top: 7rem;
-  margin-top: 4rem;
-  max-width: 35%;
-  gap: 5rem;
-
-  @include media-960 {
-    min-width: 30rem;
-  }
+  width: max(30rem, 35%);
+  gap: $space-y;
 
   @include media-680 {
     top: 0;
@@ -35,7 +37,6 @@
 
   @include media-480 {
     min-width: 100%;
-    gap: 3rem;
   }
 }
 
@@ -138,31 +139,18 @@
 }
 
 @mixin postsPageContent {
-  margin: 4rem 0 1rem;
+  gap: $space-y;
 
   .postsPageContentScroll {
-    gap: 5rem;
-    padding-top: 3rem;
-
-    @include media-480 {
-      gap: 3rem;
-      margin-top: 3rem;
-    }
+    row-gap: $space-y;
   }
 
   @include media-680 {
     width: 100%;
     max-width: 80%;
-    gap: 3rem;
   }
 
   @include media-480 {
     max-width: 100%;
-    margin: 2rem 0;
   }
-}
-
-@mixin postsPageInfiniteScroll {
-  max-width: 80rem;
-  margin-top: 1rem;
 }

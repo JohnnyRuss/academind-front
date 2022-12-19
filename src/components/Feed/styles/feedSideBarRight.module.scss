@@ -1,7 +1,7 @@
-@use '../../../styles/helpers/abstract/media' as *;
+@use "../../../styles/helpers/abstract/media" as *;
 
 .feedSideBarRight {
-  flex-basis: 25rem;
+  width: min(25rem, 100%);
   position: sticky;
   top: 6rem;
   height: calc(100vh - 6rem);
@@ -9,6 +9,10 @@
   color: #fff;
   text-align: center;
   padding-top: 2rem;
+
+  @include media-1280 {
+    width: min(20rem, 100%);
+  }
 
   @include media-960 {
     display: none;

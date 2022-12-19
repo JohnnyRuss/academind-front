@@ -4,6 +4,7 @@
 
 .mainNavActions {
   flex: 3;
+  height: 100%;
   @include flexBox;
   @include flexProperty(flex-end, center);
   @include actions;
@@ -12,7 +13,7 @@
     display: none;
 
     @include media-960 {
-      display: flex;
+      display: block;
     }
   }
 

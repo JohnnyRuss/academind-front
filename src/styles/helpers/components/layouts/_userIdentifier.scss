@@ -5,13 +5,4 @@
   color: $txt-dark;
   font-weight: weight("boldWeight");
   font-size: $txt-base-sm;
-
-  .identifierDetails,
-  div[data-tags] {
-    padding-top: 0.25rem;
-  }
-
-  div[data-tags] {
-    margin-left: -0.5rem;
-  }
 }

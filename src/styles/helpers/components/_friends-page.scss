@@ -5,12 +5,18 @@
 
 @mixin friendsPageContainer {
   max-width: $container-width;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  padding: 2rem;
+  margin-top: $space-top-under-user-cover;
+  margin-bottom: $space-bottom-under-user-cover;
+  padding-bottom: 2rem;
   border-radius: 0.5rem;
   background: color("whiteColor");
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+
+  @include media-960 {
+    margin-top: $space-top-under-user-cover-sm;
+    margin-bottom: $space-bottom-under-user-cover-sm;
+  }
 }
 
 @mixin friendsPageNavigation {
@@ -20,16 +26,23 @@
   text-transform: capitalize;
   color: color("darkGreyColor");
 
+  @include media-480 {
+    font-size: size("smallerSize");
+  }
+
   .friendsSearch {
-    border: 1px solid color(darkGreyColor);
+    border: 1px solid color("darkGreyColor");
+    margin-right: 1rem;
   }
 
   & a {
+    display: block;
+    box-sizing: content-box;
     padding: 1rem 2rem;
     transition: color 0.2s, background-color 0.2s;
 
     @include media-480 {
-      padding: 0.25rem 0.5rem;
+      padding: 0.75rem;
     }
 
     &:hover {
@@ -45,16 +58,15 @@
 }
 
 @mixin allFriendsPage {
-  margin-top: 4rem;
-  gap: 2rem 3rem;
   min-height: 25rem;
+  margin-top: 4rem;
+  padding: 0 2rem;
+  gap: 2rem 3rem;
 
   @include media-680 {
+    margin-top: 3rem;
+    padding: 0 1rem;
     gap: 0rem 3rem;
-  }
-
-  @include media-480 {
-    padding: 0 3rem;
   }
 
   .friend {
@@ -112,12 +124,15 @@
 }
 
 @mixin requestsList {
+  min-height: 25rem;
   margin-top: 4rem;
   gap: 2rem 2.7rem;
-  min-height: 25rem;
+  padding: 0 2rem;
 
   @include media-680 {
-    column-gap: 1.8rem;
+    margin-top: 3rem;
+    gap: 0rem 2rem;
+    padding: 0 1rem;
   }
 }
 

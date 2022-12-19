@@ -3,20 +3,17 @@
 @use "../../../../styles/helpers/abstract/media" as *;
 
 .nav {
-  grid-area: 6 / 2 / -1 / 4;
+  grid-column: 2/4;
+  grid-row: 7/8;
   @include profileNavigation;
-
-  @include media-1280 {
-    grid-area: 6 / 1 / -1 / -1;
-  }
-
-  @include media-680 {
-    grid-area: 7 / 1 / -1 / -1;
-  }
 
   .navList {
     height: 100%;
     @include flexBox;
     @include flexProperty(flex-start, center);
+  }
+
+  @include media-680 {
+    grid-column: 1/1;
   }
 }

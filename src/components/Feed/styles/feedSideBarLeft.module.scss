@@ -1,13 +1,17 @@
-@use '../../../styles/helpers/abstract/media' as *;
+@use "../../../styles/helpers/abstract/media" as *;
 
 .feedSideBarLeft {
   background: grey;
-  flex-basis: 30rem;
+  width: min(30rem, 100%);
   position: sticky;
   top: 8rem;
   padding-top: 2rem;
   text-align: center;
   color: #fff;
+
+  @include media-1280 {
+    width: min(25rem, 100%);
+  }
 
   @include media-960 {
     display: none;

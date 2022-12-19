@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { selectActiveUserShortInfo } from "../../../store/selectors/activeUserSelectors";
 import { logOut } from "../../../store/reducers/activeUserReducer";
+import { useBlurOnBody } from "../../../hooks";
 
 import styles from "./styles/navAvatar.module.scss";
-import { Avatar } from "../../Layouts";
 
 function NavAvatar() {
   const dispatch = useDispatch();
@@ -20,11 +20,22 @@ function NavAvatar() {
     navigate("/authentication/login");
   }
 
+  const onBlurHandler = () => setOpenAvatar(false);
+  const onActiveAvatarHandler = () => setOpenAvatar((prev) => !prev);
+
+  const { onFocus } = useBlurOnBody(onActiveAvatarHandler, onBlurHandler, [
+    "user-avatar",
+    "avatar-modal--list",
+    "avatar--img",
+  ]);
+
   return (
     <div className={styles.navAvatarBox}>
-      <Avatar img={image} onClick={() => setOpenAvatar((prev) => !prev)} />
+      <figure className={`${styles.avatar} user--avatar`} onClick={onFocus}>
+        <img src={image} alt="user avatar" className="avatar--img" />
+      </figure>
       {openAvatar && (
-        <ul className={styles.navAvatarModal}>
+        <ul className={`${styles.navAvatarModal} avatar-modal--list`}>
           <li>
             <Link
               to={`/profile/${_id}/posts`}

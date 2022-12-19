@@ -11,8 +11,12 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 62.5%; // 1rem === 10px
   scroll-behavior: smooth;
+
+  @include media-680{
+    font-size: 56.25%; // 1rem === 9px
+  }
 }
 
 html body {

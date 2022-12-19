@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 /**
  * This custom hook attachs  the onClick event on the body to close modal windows on bodyClick. To do this, useBlurOnBody hook uses useState hook with the property blur, which one by default is true.  And this onClick event will be attached on the body only if 'blur' is false, and blur can be changed from the onFocus function which is returned from this hook.
@@ -24,13 +24,18 @@ function useBlurOnBody(handleOnFocus, handleOnBlur, excludeElCls) {
     setBlur(true);
     handleOnBlur();
   }
-
+  
   const removeListener = () => {
-    document.querySelector('body').removeEventListener('click', onBodyClick, true);
+    document
+      .querySelector("body")
+      .removeEventListener("click", onBodyClick, true);
   };
 
   useEffect(() => {
-    !blur && document.querySelector('body').addEventListener('click', onBodyClick, true);
+    !blur &&
+      document
+        .querySelector("body")
+        .addEventListener("click", onBodyClick, true);
   }, [blur]);
 
   return { blur, onFocus, removeListener };

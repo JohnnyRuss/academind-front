@@ -4,12 +4,15 @@
 
 @mixin bookmarkPage {
   max-width: $container-width;
-  margin-top: 4rem;
+  margin-top: $space-top-under-user-cover;
   gap: 4rem;
   padding: 0 4rem;
 
+  @include media-960 {
+    margin-top: $space-top-under-user-cover-sm;
+  }
+
   @include media-480 {
     padding: 0 1rem;
-    margin-top: 2rem;
   }
 }

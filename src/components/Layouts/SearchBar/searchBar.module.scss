@@ -8,9 +8,10 @@
   @include flexProperty(flex-start, center);
   gap: 0.5rem;
   height: 2.5rem;
-  padding: 0 0.5rem;
-  border-radius: 0.5rem;
+  padding: 0 0.75rem;
+  border-radius: 0.25rem;
   text-transform: none;
+  min-width: 18rem;
 
   .searchFieldLabel {
     color: color('darkGreyColor');
@@ -24,6 +25,7 @@
     background: inherit;
     color: color('darkGreyColor');
     font-size: size('smallSize');
+    width: 100%;
 
     &::placeholder {
       font-weight: weight('thinWeight');
