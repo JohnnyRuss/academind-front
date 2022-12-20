@@ -13,11 +13,15 @@
 
   .slider {
     height: 100%;
-    display: flex;
+  }
+
+  .listItemLink,
+  .listItem {
+    height: 100%;
+    display: block;
   }
 
   .listItem {
-    display: block;
     text-align: center;
     text-transform: uppercase;
   }

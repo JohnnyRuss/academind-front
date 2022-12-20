@@ -6,9 +6,9 @@
   width: 90vw;
   height: 80vh;
 
-  @include media-480 {
-    height: calc(100vh - 5rem);
-    width: 95vw;
+  @include media-960 {
+    height: calc(100vh - $nav-height + 1.5rem);
+    width: 100vw;
   }
 }
 

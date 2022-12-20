@@ -67,7 +67,7 @@ function Navigation() {
       <div className={styles.mainNavLogo}>A</div>
       {isAuthenticated && (
         <>
-          <NavList activeNav={activeNav}  />
+          <NavList activeNav={activeNav} onBlurHandler={onBlurHandler} />
           <NavActions activateNav={onFocus} />
         </>
       )}

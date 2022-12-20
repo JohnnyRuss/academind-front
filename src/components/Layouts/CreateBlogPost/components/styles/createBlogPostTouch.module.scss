@@ -29,7 +29,7 @@
     }
 
     @include media-480 {
-      height: 2.5rem;
+      height: 3rem;
 
       &::placeholder {
         font-size: size("smallerSize");

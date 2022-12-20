@@ -77,6 +77,7 @@ function CreatePostModal({
             tags={tags}
             setTag={handleTag}
             removeTag={handleRemoveTag}
+            maxRows={8}
           />
           {!shared && (
             <CreatePostMedia
@@ -107,6 +108,7 @@ function CreatePostModal({
             />
           )}
         </div>
+        
         <div className={styles.createPostFooterBox}>
           <CreatePostTouch withTextField={false} />
           <BTN

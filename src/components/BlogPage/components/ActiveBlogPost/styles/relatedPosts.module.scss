@@ -13,6 +13,11 @@
     order: 3;
   }
 
+  @include media-680 {
+    order: 3;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   .relatedBlogPost {
     @include flexBox(column);
 

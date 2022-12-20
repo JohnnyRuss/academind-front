@@ -44,9 +44,9 @@ $space-x-md: 2rem;
   gap: 1.5rem;
   padding: 2rem 1rem;
   font-size: size("smallSize");
-  border-radius: 0.8rem;
+  border-radius: $rounded-lg;
   background: color("whiteColor");
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+  box-shadow: $shadow-base;
 
   @include media-480 {
     font-size: size("smallerSize");
@@ -83,10 +83,10 @@ $space-x-md: 2rem;
 
 @mixin postsPageUserFriends {
   padding: 1rem;
-  border-radius: 0.8rem;
+  border-radius: $rounded-lg;
   font-size: size("smallerSize");
   background: color("whiteColor");
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+  box-shadow: $shadow-base;
 
   .userFriendsIntro {
     margin-bottom: 1rem;
@@ -110,7 +110,7 @@ $space-x-md: 2rem;
 
   .friendImg {
     height: 8.5rem;
-    border-radius: 0.8rem;
+    border-radius: $rounded-sm;
     overflow: hidden;
     aspect-ratio: 1/1;
 

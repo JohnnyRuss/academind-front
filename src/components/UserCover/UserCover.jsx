@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useForeignUser } from "../../hooks";
+import { useForeignUser, usePost } from "../../hooks";
 import { getUserProfile } from "../../store/reducers/userReducer";
 import { selectUserLoadingState } from "../../store/selectors/userSelectors";
 import { useHelperQueries } from "../../hooks";
@@ -26,6 +26,8 @@ function Profile() {
 
   const [friendShip, setFriendShip] = useState(null);
 
+  const { activatePostMediaHandler } = usePost();
+
   useEffect(() => {
     dispatch(getUserProfile(profileId));
   }, [dispatch, profileId]);
@@ -46,8 +48,8 @@ function Profile() {
       {!loading && (
         <div className={styles.landscape}>
           <div className={styles.content}>
-            <CoverImage />
-            <ProfileImage />
+            <CoverImage mediaHandler={activatePostMediaHandler} />
+            <ProfileImage mediaHandler={activatePostMediaHandler} />
             <UsernameAndEmail />
             {!isActiveUser && (
               <FriendShip

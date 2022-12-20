@@ -1,3 +1,5 @@
+import { usePost } from "../../../hooks";
+
 import styles from "./styles/tagReviewPostBody.module.scss";
 import { Post, BTN } from "../../Layouts";
 
@@ -7,9 +9,11 @@ function ReviewPostBody({
   removeTagHandler,
   showOnProfileHandler,
 }) {
+  const { activatePostMediaHandler } = usePost();
+
   return (
     <div className={styles.postWrapper}>
-      <Post data={post} />
+      <Post data={post} activatePostMediaHandler={activatePostMediaHandler} />
       <div className={styles.reviewBtnBox}>
         {!onHiddens && (
           <>

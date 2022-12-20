@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { selectActiveUserId } from "../../../store/selectors/activeUserSelectors";
 import styles from "./styles/navList.module.scss";
 
-function NavList({ activeNav }) {
+function NavList({ activeNav, onBlurHandler }) {
   const activeUserId = useSelector(selectActiveUserId);
 
   return (
@@ -12,9 +12,18 @@ function NavList({ activeNav }) {
         activeNav ? styles.activeNav : ""
       } nav--list`}
     >
-      <Link to="/feed">Feed</Link>
-      <Link to={`/profile/${activeUserId}/posts`}>Profile</Link>
-      <Link to="/blog">Blog</Link>
+      <Link to="/feed" onClick={() => onBlurHandler()}>
+        Feed
+      </Link>
+      <Link
+        to={`/profile/${activeUserId}/posts`}
+        onClick={() => onBlurHandler()}
+      >
+        Profile
+      </Link>
+      <Link to="/blog" onClick={() => onBlurHandler()}>
+        Blog
+      </Link>
     </ul>
   );
 }

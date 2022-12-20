@@ -24,7 +24,7 @@ function useBlurOnBody(handleOnFocus, handleOnBlur, excludeElCls) {
     setBlur(true);
     handleOnBlur();
   }
-  
+
   const removeListener = () => {
     document
       .querySelector("body")

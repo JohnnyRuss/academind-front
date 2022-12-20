@@ -154,7 +154,7 @@ export function* getPendingPostsHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryGetPendingPosts, userId);
     yield put(setPosts({ data }));
-    yield put(resetActiveUserLoadingState());
+    yield put(resetActiveUserLoadingState("pendingPostsLoadingState"));
   } catch (error) {
     showError(error, "getPendingPostsHandler");
   }
@@ -164,7 +164,7 @@ export function* getHiddenPostsHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryGetHiddenPosts, userId);
     yield put(setPosts({ data }));
-    yield put(resetActiveUserLoadingState());
+    yield put(resetActiveUserLoadingState("pendingPostsLoadingState"));
   } catch (error) {
     showError(error, "getHiddenPostsHandler");
   }

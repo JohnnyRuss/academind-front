@@ -17,6 +17,8 @@ import { useRestrictPrivateRoute } from "../../hooks";
 import { BOOKMARKS_POSTS_COUNT_PER_REQ } from "../../lib/config";
 
 import Bookmarks from "../../components/BookmarkPage/Bookmarks";
+import BookmarksContainer from "../../components/BookmarkPage/BookmarksContainer";
+import { Spinner } from "../../components/Layouts";
 
 function BookmarksPage() {
   useRestrictPrivateRoute();
@@ -59,12 +61,17 @@ function BookmarksPage() {
   }, []);
 
   return (
-    <Bookmarks
-      loading={loading}
-      hasMore={hasMore}
-      handleNext={handleNext}
-      posts={posts}
-    />
+    <BookmarksContainer>
+      {loading && <Spinner />}
+      {!loading && (
+        <Bookmarks
+          loading={loading}
+          hasMore={hasMore}
+          handleNext={handleNext}
+          posts={posts}
+        />
+      )}
+    </BookmarksContainer>
   );
 }
 

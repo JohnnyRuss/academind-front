@@ -4,9 +4,7 @@
 
 %spinner {
   display: block;
-  animation: spinner 1s ease infinite;
-  @include animateSpinner;
-  font-size: size("extraLargeSize");
+  font-size: 3.5rem;
   color: color("blueColor");
 }
 
@@ -31,6 +29,7 @@
   .spinner {
     @extend %spinner;
     @include CenterAbsPos;
+    @include animateSpinner;
   }
 }
 
@@ -46,6 +45,7 @@
   .spinner {
     @extend %spinner;
     @include CenterAbsPos;
+    @include animateSpinner;
   }
 }
 
@@ -63,6 +63,7 @@
   .spinner {
     @extend %spinner;
     @include CenterAbsPos;
+    @include animateSpinner;
   }
 }
 

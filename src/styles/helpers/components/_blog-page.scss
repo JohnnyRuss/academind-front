@@ -123,7 +123,7 @@
 
 @mixin blogPageCategoriesNav {
   background: color("whiteColor");
-  box-shadow: 0px 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  box-shadow: $shadow-base-v;
 
   @include media-960 {
     height: 5rem;
@@ -160,16 +160,16 @@
   gap: 3rem;
   margin-top: 4rem;
   padding: 0 1rem 1rem;
-  border-radius: 1rem;
+  border-radius: $rounded-lg;
   background: color("whiteShadeColor");
   max-height: calc(100vh - 10rem);
 
   .rightBarBox {
     height: 30rem;
     gap: 2rem;
-    border-radius: 1rem;
+    border-radius: $rounded-lg;
     background: color("whiteColor");
-    box-shadow: 0 0 1.2rem 0 rgba(0, 0, 0, 0.2);
+    box-shadow: $shadow-base;
   }
 
   .topRatedPostsBox {
@@ -205,10 +205,6 @@
     .rightBarBox {
       width: 100%;
     }
-
-    .topRatedPostsBox {
-      height: 40rem;
-    }
   }
 }
 
@@ -229,7 +225,7 @@
   .topRatedPublisher a {
     gap: 0.75rem;
     padding: 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: $rounded-sm;
     transition: all 0.2s;
 
     &.activeLink {

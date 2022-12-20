@@ -1,10 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-
 import { selectAboutUserData } from "../../store/selectors/aboutPageSelectors";
-import { useAboutUserQuery } from "../../hooks";
 
 import styles from "./newVersion.module.scss";
 import {
@@ -18,19 +13,12 @@ import {
   GenderFragment,
 } from "../Layouts";
 
-function NewVersion(props) {
-  const { id } = useParams();
-
+function NewVersion() {
   const data = useSelector(selectAboutUserData);
-  const { getAboutUserQuery } = useAboutUserQuery();
-
-  useEffect(() => {
-    getAboutUserQuery(id);
-  }, []);
 
   return (
     data && (
-      <div className={styles.newVersion}>
+      <div className={styles.newVersionInlineContainer}>
         <div className={styles.infoBlock}>
           <h4 className={styles.infoBlockHeading}>registered</h4>
           <RegisterFragment data={data.createdAt} />

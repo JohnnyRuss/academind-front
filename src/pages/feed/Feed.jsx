@@ -7,7 +7,7 @@ import { resetPosts } from "../../store/reducers/postsDataReducer";
 import { resetComments } from "../../store/reducers/commentsDataReducer";
 import { selectPosts } from "../../store/selectors/postSelectors";
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
-import { selectPostsLoadingState } from "../../store/selectors/postSelectors";
+import { selectUserLoadingState } from "../../store/selectors/userSelectors";
 
 import { FEED_POSTS_COUNT_PER_REQ } from "../../lib/config";
 
@@ -22,7 +22,7 @@ import { StandSpinner } from "../../components/Layouts";
 function Feed() {
   const dispatch = useDispatch();
 
-  const { loading } = useSelector(selectPostsLoadingState);
+  const { loading } = useSelector(selectUserLoadingState);
   const { posts, hasMore } = useSelector(selectPosts);
 
   const [page, setPage] = useState(1);

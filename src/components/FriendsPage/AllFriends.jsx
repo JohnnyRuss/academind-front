@@ -1,58 +1,49 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { useForeignUser, useFriendsQuery } from "../../hooks";
+import { useForeignUser, useFriendsQuery, useScroll } from "../../hooks";
 import { selectAllFriendsPageState } from "../../store/selectors/friendsSelector";
 
 import styles from "./components/styles/allFriends.module.scss";
 import FriendOptions from "./components/FriendOptions";
-import { Image, Spinner } from "../Layouts";
+import { Image } from "../Layouts";
 
 function AllFriends() {
-  const { isActiveUser, profileId } = useForeignUser("basedOnLocation");
+  const { isActiveUser } = useForeignUser("basedOnLocation");
 
-  const { deleteFriendQuery, getAllFriendsQuery } = useFriendsQuery();
+  const { deleteFriendQuery } = useFriendsQuery();
 
-  const {
-    loadingState: { loading },
-    allFriends,
-    searchKey,
-  } = useSelector(selectAllFriendsPageState);
+  const { allFriends, searchKey } = useSelector(selectAllFriendsPageState);
 
-  useEffect(() => {
-    getAllFriendsQuery(profileId);
-  }, []);
+  useScroll({ target: "elem", scrollTo: "nested-all--friends__page" });
 
   return (
-    <div className={styles.allFriends}>
-      {loading && <Spinner />}
-      {!loading &&
-        allFriends
-          .filter((friend) => {
-            if (!searchKey) return friend;
-            else return friend.userName.includes(searchKey);
-          })
-          .map((friend) => (
-            <div className={styles.friend} key={friend._id}>
-              <Image src={friend.profileImg} className={styles.friendImg} />
-              <Link
-                to={`/profile/${friend._id}/posts`}
-                className={styles.friendName}
-              >
-                {friend.userName}
-              </Link>
-              <span className={styles.muntuals}>
-                {friend.muntual} muntual friends
-              </span>
-              {isActiveUser && (
-                <FriendOptions
-                  deleteFriendHandler={() => deleteFriendQuery(friend._id)}
-                />
-              )}
-            </div>
-          ))}
+    <div className={styles.allFriends} id="nested-all--friends__page">
+      {allFriends
+        .filter((friend) => {
+          if (!searchKey) return friend;
+          else return friend.userName.includes(searchKey);
+        })
+        .map((friend) => (
+          <div className={styles.friend} key={friend._id}>
+            <Image src={friend.profileImg} className={styles.friendImg} />
+            <Link
+              to={`/profile/${friend._id}/posts`}
+              className={styles.friendName}
+            >
+              {friend.userName}
+            </Link>
+            <span className={styles.muntuals}>
+              {friend.muntual} muntual friends
+            </span>
+            {isActiveUser && (
+              <FriendOptions
+                deleteFriendHandler={() => deleteFriendQuery(friend._id)}
+              />
+            )}
+          </div>
+        ))}
     </div>
   );
 }

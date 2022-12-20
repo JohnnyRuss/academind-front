@@ -4,13 +4,13 @@
 @use "../../../../../styles/helpers/variables/variables" as *;
 
 .createPost {
-  width: min(100%, $post-w-def);
+  width: min(100%, $post-w);
   margin: 0 auto;
   @include flexBox(column);
   padding: 2rem;
   border-radius: 1rem;
   background: color("whiteColor");
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  box-shadow: $shadow-base;
 
   @include media-480 {
     padding: 1rem;

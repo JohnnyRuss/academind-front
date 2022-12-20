@@ -70,7 +70,7 @@ function CreateBlogPost({
             categories={categories}
           />
         </div>
-        <div data-blog-post-field className={styles.articleField}>
+        <div className={styles.articleField}>
           <label>Article</label>
           <TextAreaWithTag
             submitHandler={publishPost}
@@ -81,6 +81,7 @@ function CreateBlogPost({
             removeTag={handleRemoveTag}
             className={styles.blogPostTextField}
             placeholder="article"
+            maxRows={8}
           />
         </div>
         <CreateBlogPostMedia

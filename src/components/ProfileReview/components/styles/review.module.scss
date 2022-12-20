@@ -3,5 +3,5 @@
 
 .reviewContainer {
   @include flexBox(column);
-  @include profileReviewHiddenPosts;
+  @include profileReviewInnerContainer;
 }

@@ -2,9 +2,10 @@
 @use "../../../../styles/helpers/abstract/mixins" as *;
 
 .postWrapper {
-  width: max-content;
-  margin: 0 auto;
-  @include profileReviewTags;
+  @include flexBox(column);
+  @include flexProperty(center, center);
+  width: 100%;
+  @include reviewBtnBox;
 
   .reviewBtnBox {
     @include flexBox;

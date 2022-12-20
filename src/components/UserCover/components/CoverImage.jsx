@@ -8,7 +8,7 @@ import { Image, Spinner } from "../../Layouts";
 import { CameraIcon } from "../../Layouts/Icons/icons";
 import UpdateUserCoverBTN from "./UpdateUserCoverBTN";
 
-function CoverImage() {
+function CoverImage({ mediaHandler }) {
   const { coverImg } = useSelector(selectUserCover);
 
   const { isActiveUser } = useForeignUser("basedOnLocation");
@@ -24,7 +24,10 @@ function CoverImage() {
 
   return (
     <>
-      <div className={styles.cover}>
+      <div
+        className={styles.cover}
+        onClick={() => mediaHandler(0, [coverImg])}
+      >
         {loading && <Spinner />}
         <Image
           src={file ? URL.createObjectURL(file) : coverImg}

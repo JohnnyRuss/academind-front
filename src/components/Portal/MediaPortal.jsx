@@ -24,10 +24,6 @@ function MediaPortal() {
       isOpen={mediaModalIsOpen}
       setIsOpen={deactivateHandler}
       className={styles.postModal}
-      extraStyles={{
-        background: "rgba(0, 0, 0, 0.8)",
-        transform: "translate(-50%, -46%)",
-      }}
     >
       {activeMediaIndex >= 0 && (
         <SwiperSlider mediaFiles={mediaFiles} initialSlide={activeMediaIndex} />

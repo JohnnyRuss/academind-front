@@ -1,28 +1,12 @@
-import { useRestrictBodyOverflow } from '../../../hooks';
+import { useRestrictBodyOverflow } from "../../../hooks";
 
-import Modal from 'react-modal';
-import styles from './modal.module.scss';
-import { CloseIcon } from '../Icons/icons';
+import Modal from "react-modal";
+import styles from "./modal.module.scss";
+import { CloseIcon } from "../Icons/icons";
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    padding: '0',
-    zIndex: '999',
-    overflowX: 'hidden',
-  },
-};
+Modal.setAppElement("#root");
 
-Modal.setAppElement('#root');
-
-function Modall({ children, className, isOpen, setIsOpen, extraStyles = {} }) {
-  customStyles.content = { ...customStyles.content, ...extraStyles };
-
+function Modall({ children, className, isOpen, setIsOpen }) {
   const { restrictScroll } = useRestrictBodyOverflow(isOpen, true);
 
   function closeModal() {
@@ -31,10 +15,15 @@ function Modall({ children, className, isOpen, setIsOpen, extraStyles = {} }) {
   }
 
   return (
-    <Modal isOpen={isOpen} style={customStyles} onRequestClose={closeModal}>
-      <div className={`${styles.modalContent} ${className || ''}`}>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={closeModal}
+      className={styles.modal}
+      overlayClassName={styles.modalOverlay}
+    >
+      <div className={`${styles.modalContent} ${className || ""}`}>
         {children}
-        <button className={styles.modalCloseBtn} onClick={closeModal}>
+        <button className={styles.modalCloseBtn} onClick={closeModal} data-modal-close-btn>
           <CloseIcon />
         </button>
       </div>

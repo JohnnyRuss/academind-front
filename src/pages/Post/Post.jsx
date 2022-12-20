@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
 
+import styles from "./post.module.scss";
 import {
   selectPosts,
   selectPostsLoadingState,
@@ -29,7 +30,7 @@ function Post() {
   }, []);
 
   return (
-    <div style={{ marginTop: "6rem", paddingTop: "6rem" }}>
+    <div className={styles.singlePost}>
       {loading && <StandSpinner />}
       {!loading && !error && posts[0] && (
         <SinglePost

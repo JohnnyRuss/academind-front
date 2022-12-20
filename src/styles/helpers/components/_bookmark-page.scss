@@ -4,15 +4,21 @@
 
 @mixin bookmarkPage {
   max-width: $container-width;
+  min-height: $nested-page-min-h;
   margin-top: $space-top-under-user-cover;
+  margin-bottom: $space-bottom-under-user-cover;
   gap: 4rem;
-  padding: 0 4rem;
+  padding: 3rem 4rem 2rem 4rem;
+  background: $bg-light;
+  border-radius: $rounded-nested-page;
+  box-shadow: $shadow-base;
 
   @include media-960 {
     margin-top: $space-top-under-user-cover-sm;
+    margin-bottom: $space-bottom-under-user-cover-sm;
   }
 
   @include media-480 {
-    padding: 0 1rem;
+    padding: 2rem 1rem;
   }
 }

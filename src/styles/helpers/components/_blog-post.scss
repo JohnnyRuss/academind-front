@@ -5,7 +5,8 @@
   border: 1px solid color("darkLightGreyColor");
   border-radius: $rounded-sm;
   background: $bg-light;
-  box-shadow: $post-shadow-def;
+  box-shadow: $shadow-base-sm;
+  overflow: hidden;
 
   .blogPostMedia {
     width: 100%;
@@ -78,8 +79,8 @@
 
     span {
       background: color("blueTintColor");
-      padding: 0.15rem 0.5rem;
-      border-radius: 1rem;
+      padding: 0.15rem 1rem;
+      border-radius: $rounded-lg;
     }
   }
 }

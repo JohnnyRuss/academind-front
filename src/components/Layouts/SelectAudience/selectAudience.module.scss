@@ -1,18 +1,23 @@
-@use '../../../styles/helpers/abstract/mixins' as *;
-@use '../../../styles/helpers/abstract/functions' as *;
-@use '../../../styles/helpers/abstract/animation' as *;
+@use "../../../styles/helpers/abstract/mixins" as *;
+@use "../../../styles/helpers/abstract/functions" as *;
+@use "../../../styles/helpers/abstract/animation" as *;
 
 .selectAudienceBox {
   position: relative;
   text-transform: capitalize;
+  font-size: size("smallSize");
+  border-radius: 0.5rem;
+  overflow: hidden;
+  padding: 0.5rem 0.5rem;
 
   .selectAudienceMainBtn {
     @include flexBox;
     @include flexProperty(flex-start, center);
     gap: 0.25rem;
     border: 1px solid color(darkGreyColor);
-    padding: 0 0.25rem;
     width: 12rem;
+    padding: inherit;
+    border-radius: inherit;
   }
 
   .selectAudienceIndicator {
@@ -26,16 +31,22 @@
 
   &.activeSelection .selectAudienceMainBtn {
     border-bottom: none;
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
   }
 
   .audienceSelectionsList {
     @include flexBox(column);
     @include flexProperty(center, flex-start);
     gap: 0.25rem;
-    background: color(whiteColor);
-    padding: 0.25rem;
-    border: 1px solid color(darkGreyColor);
+    background: color("whiteColor");
+    padding: inherit;
+    padding-top: 0;
+    border: 1px solid color("darkGreyColor");
     border-top: none;
+    border-radius: inherit;
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
     @include animateMoveBottom(0.2s);
 
     & button {

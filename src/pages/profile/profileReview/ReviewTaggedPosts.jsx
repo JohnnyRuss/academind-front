@@ -1,21 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useRestrictPrivateRoute } from '../../../hooks';
+import { useRestrictPrivateRoute } from "../../../hooks";
+import { selectPendingPostsLoadingState } from "../../../store/selectors/activeUserSelectors";
 
-import { getPendingPosts } from '../../../store/reducers/activeUserReducer';
-import { resetPosts } from '../../../store/reducers/postsDataReducer';
-import { resetComments } from '../../../store/reducers/commentsDataReducer';
-import { selectActiveUserId } from '../../../store/selectors/activeUserSelectors';
+import { getPendingPosts } from "../../../store/reducers/activeUserReducer";
+import { resetPosts } from "../../../store/reducers/postsDataReducer";
+import { resetComments } from "../../../store/reducers/commentsDataReducer";
+import { selectActiveUserId } from "../../../store/selectors/activeUserSelectors";
 
-import ProfileReviewTaggedPosts from '../../../components/ProfileReview/ProfileReviewTaggedPosts';
+import { Spinner } from "../../../components/Layouts";
+import ProfileReviewTaggedPosts from "../../../components/ProfileReview/ProfileReviewTaggedPosts";
 
 function ReviewTaggedPosts() {
   useRestrictPrivateRoute();
 
   const dispatch = useDispatch();
   const activeUserId = useSelector(selectActiveUserId);
+  const { loading } = useSelector(selectPendingPostsLoadingState);
 
   useEffect(() => {
     dispatch(getPendingPosts(activeUserId));
@@ -26,7 +29,12 @@ function ReviewTaggedPosts() {
     };
   }, []);
 
-  return <ProfileReviewTaggedPosts />;
+  return (
+    <>
+      {loading && <Spinner />}
+      {!loading && <ProfileReviewTaggedPosts />}
+    </>
+  );
 }
 
 export default ReviewTaggedPosts;

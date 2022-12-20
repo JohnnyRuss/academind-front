@@ -5,11 +5,11 @@
 @use "./layouts/avatar" as *;
 
 @mixin onEveryNavModal {
-  border-radius: 0.5rem;
+  border-radius: $rounded-sm;
   font-size: $txt-base;
   color: $txt-dark;
   background: $bg-light;
-  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.5);
+  box-shadow: $shadow-base-v-lg;
   @include animateMoveTop;
 }
 
@@ -19,7 +19,7 @@
   gap: 1rem;
   background: color("blueColor");
   color: $txt-light;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
+  box-shadow: $shadow-base-v-lg;
 
   &Logo {
     padding: 1rem;
@@ -97,7 +97,7 @@ $search-window-top: 8rem;
   height: 30rem;
   background: $bg-light;
   color: $txt-dark;
-  box-shadow: 0 1rem 3rem 0 rgba(0, 0, 0, 0.3);
+  box-shadow: $shadow-base-v-lg;
 
   .resultsList {
     z-index: 2;

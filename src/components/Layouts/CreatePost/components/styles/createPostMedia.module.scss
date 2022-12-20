@@ -1,6 +1,6 @@
-@use '../../../../../styles/helpers/abstract/functions' as *;
-@use '../../../../../styles/helpers/abstract/mixins' as *;
-@use '../../../../../styles/helpers/abstract/media' as *;
+@use "../../../../../styles/helpers/abstract/functions" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
 
 .postMediaBox {
   position: relative;
@@ -17,13 +17,11 @@
 
   %discardMediaBtn {
     text-transform: capitalize;
-    background: rgba(color('whiteColor'), 0.7);
-    color: color('darkGreyColor');
     @include flexBox;
     @include flexProperty(center, center);
 
     & svg {
-      font-size: size('bigSize');
+      font-size: size("bigSize");
     }
   }
 
@@ -31,10 +29,9 @@
     position: absolute;
     top: 1rem;
     left: 1rem;
-    gap: 0.25rem;
-    padding: 0.5rem;
+    gap: 0.5rem;
     border-radius: 6rem;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.5rem;
     @extend %discardMediaBtn;
     background: rgba(color("darkGreyColor"), 0.6);
     color: color("whiteColor");
@@ -45,11 +42,13 @@
     top: 1rem;
     right: 1rem;
     border-radius: 100%;
-    padding: 0.1rem;
+    padding: 0.2rem;
+    background: rgba(color("darkGreyColor"), 0.7);
+    color: color("whiteColor");
     @extend %discardMediaBtn;
 
     & svg {
-      font-size: size('regullarSize');
+      font-size: size("bigSize");
     }
   }
 
@@ -181,10 +180,11 @@
     grid-row: 2;
     grid-column: 3;
     position: relative;
-    background: rgba(color('darkGreyColor'), 0.5);
+    background: rgba(color("darkGreyColor"), 0.5);
     border-radius: 0.5rem;
     @include flexBox;
     @include flexProperty(center, center);
-    font-size: size('largeSize');
+    font-size: size("largeSize");
+    color: color("whiteColor");
   }
 }

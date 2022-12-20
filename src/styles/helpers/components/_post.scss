@@ -3,11 +3,11 @@
 @use "../variables/variables" as *;
 
 @mixin post {
-  width: min(100%, $post-w-def);
+  width: min(100%, $post-w);
   padding: 1rem;
   border-radius: $rounded-sm;
   background: $bg-light;
-  box-shadow: $post-shadow-def;
+  box-shadow: $shadow-base-sm;
 }
 
 @mixin postBodyUserIdentifier {
@@ -42,7 +42,7 @@
   gap: 1rem;
   margin: 0.5rem 1.5rem 1rem 1.5rem;
   padding: 0.5rem 1rem 0.5rem 1rem;
-  border-radius: 0.3rem;
+  border-radius: $rounded-xsm;
   background: $bg-dark-light;
 
   @include media-960 {

@@ -1,7 +1,7 @@
-@use "../../../styles/helpers/abstract/mixins" as *;
 @use "../../../styles/helpers/components/bookmark-page" as *;
+@use "../../../styles/helpers/abstract/mixins" as *;
 
-.bookmarks {
+.bookmarksConainer {
   position: relative;
   margin: 0 auto;
   @include flexBox(column);

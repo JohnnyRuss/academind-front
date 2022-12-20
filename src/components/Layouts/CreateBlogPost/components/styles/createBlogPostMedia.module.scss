@@ -1,5 +1,6 @@
 @use "../../../../../styles/helpers/abstract/mixins" as *;
 @use "../../../../../styles/helpers/abstract/functions" as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
 
 .blogPostMediaBox {
   margin: 0 1rem;
@@ -23,6 +24,10 @@
     aspect-ratio: 1/1;
     position: relative;
 
+    @include media-1280 {
+      width: 15rem;
+    }
+
     & button {
       position: absolute;
       top: 1rem;
@@ -30,9 +35,9 @@
       @include flexBox;
       @include flexProperty(center, center);
       border-radius: 100%;
-      padding: 0.1rem;
-      background: rgba(color("whiteColor"), 0.7);
-      color: color("darkGreyColor");
+      padding: 0.2rem;
+      background: rgba(color("darkGreyColor"), 0.7);
+      color: color("whiteColor");
 
       & svg {
         font-size: size("regullarSize");

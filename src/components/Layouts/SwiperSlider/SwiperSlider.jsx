@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { uid } from "uid";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs } from "swiper";
@@ -30,7 +29,7 @@ function SwiperSlider({ mediaFiles = [], initialSlide }) {
         }`}
       >
         {mediaFiles?.map((media) => (
-          <SwiperSlide key={uid(6)}>
+          <SwiperSlide key={media}>
             <Image src={media} alt="post media" className="activeMedia" />
           </SwiperSlide>
         ))}
@@ -44,7 +43,7 @@ function SwiperSlider({ mediaFiles = [], initialSlide }) {
           className="swiperThumbsLocale"
         >
           {mediaFiles?.map((media) => (
-            <SwiperSlide key={uid(6)} className="thumbItem">
+            <SwiperSlide key={`thumb-${media}`} className="thumbItem">
               <Image src={media} alt="post media" className="thumbMedia" />
             </SwiperSlide>
           ))}

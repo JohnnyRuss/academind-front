@@ -3,13 +3,20 @@
 @use "../abstract/media" as *;
 
 @mixin profileReviewContainer {
-  max-width: $container-width;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  padding: 2rem;
+  width: min(100%, $container-width);
+  min-height: $nested-page-min-h;
+  margin-top: $space-top-under-user-cover;
+  margin-bottom: $space-bottom-under-user-cover;
+  padding-bottom: 1rem;
   border-radius: 0.5rem;
   background: color("whiteColor");
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+  box-shadow: $shadow-base;
+  overflow: hidden;
+
+  @include media-960 {
+    margin-top: $space-top-under-user-cover-sm;
+    margin-bottom: $space-bottom-under-user-cover-sm;
+  }
 }
 
 @mixin profileReviewNav {
@@ -35,10 +42,15 @@
   }
 }
 
-@mixin profileReviewHiddenPosts {
+@mixin profileReviewInnerContainer {
   margin-top: 4rem;
-  min-height: 20rem;
+  padding: 0 2rem;
   gap: 4rem;
+
+  @include media-680 {
+    margin-top: 3rem;
+    padding: 0 1rem;
+  }
 
   .message {
     font-weight: weight("boldWeight");
@@ -48,8 +60,9 @@
   }
 }
 
-@mixin profileReviewTags {
+@mixin reviewBtnBox {
   .reviewBtnBox {
+    width: min(100%, $post-w);
     margin-top: 1rem;
     gap: 2rem;
   }
@@ -64,7 +77,4 @@
     background: color("whiteShaderColor");
     color: color("darkGreyColor");
   }
-
-  //   .addBtn {
-  //   }
 }

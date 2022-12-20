@@ -1,14 +1,14 @@
-import { useLocation, NavLink } from 'react-router-dom';
-import { uid } from 'uid';
+import { useLocation, NavLink } from "react-router-dom";
+import { uid } from "uid";
 
-import styles from './styles/categoriesNav.module.scss';
-import { MultiCarousel } from '../../../Layouts';
+import styles from "./styles/categoriesNav.module.scss";
+import { MultiCarousel } from "../../../Layouts";
 
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1280 },
     items: 8,
-    slidesToSlide: 3,
+    slidesToSlide: 4,
   },
   tablet: {
     breakpoint: { max: 1280, min: 960 },
@@ -16,34 +16,34 @@ const responsive = {
     slidesToSlide: 3,
   },
   tablet_portrate: {
-    breakpoint: { max: 960, min: 464 },
+    breakpoint: { max: 960, min: 480 },
     items: 4,
-    slidesToSlide: 3,
+    slidesToSlide: 2,
   },
   mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    slidesToSlide: 1,
+    breakpoint: { max: 480, min: 0 },
+    items: 2,
+    slidesToSlide: 2,
   },
 };
 
 const routes = [
-  'fashion',
-  'mode',
-  'streets',
-  'colors',
-  'new',
-  'tendency',
-  'modern',
-  'people',
-  'music',
-  'web',
-  'deb',
-  'digital',
-  'test',
-  'design',
-  'new',
-  'old',
+  "fashion",
+  "mode",
+  "streets",
+  "colors",
+  "new",
+  "tendency",
+  "modern",
+  "people",
+  "music",
+  "web",
+  "deb",
+  "digital",
+  "test",
+  "design",
+  "new",
+  "old",
 ];
 
 function CategoriesNav() {
@@ -57,9 +57,11 @@ function CategoriesNav() {
         arrows={true}
         draggable={true}
         swipeable={true}
-        className={styles.slider}>
+        className={styles.slider}
+      >
         {routes.map((route) => (
           <NavLink
+            className={styles.listItemLink}
             state={{
               ...pathState,
               category: pathState?.category
@@ -68,12 +70,14 @@ function CategoriesNav() {
                   : [...pathState.category, route]
                 : [route],
             }}
-            to={''}
-            key={uid(16)}>
+            to={""}
+            key={uid(16)}
+          >
             <span
               className={`${styles.listItem}   ${
-                pathState?.category?.includes(route) ? styles.active : ''
-              }`}>
+                pathState?.category?.includes(route) ? styles.active : ""
+              }`}
+            >
               {route}
             </span>
           </NavLink>

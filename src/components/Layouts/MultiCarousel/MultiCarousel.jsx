@@ -1,8 +1,8 @@
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
-import styles from './multiCarousel.module.scss';
-import { ArrowLeftRectingle, ArrowRightRectingle } from '../Icons/icons';
+import styles from "./multiCarousel.module.scss";
+import { ArrowLeftRectingle, ArrowRightRectingle } from "../Icons/icons";
 
 const responsive = {
   desktop: {
@@ -10,18 +10,21 @@ const responsive = {
     items: 1,
   },
   tablet: {
-    breakpoint: { max: 1024, min: 464 },
+    breakpoint: { max: 1024, min: 480 },
     items: 1,
   },
   mobile: {
-    breakpoint: { max: 464, min: 0 },
+    breakpoint: { max: 480, min: 0 },
     items: 1,
   },
 };
 
 const CustomRightArrow = ({ onClick }) => {
   return (
-    <button onClick={() => onClick()} className={`${styles.btn} ${styles.right}`}>
+    <button
+      onClick={() => onClick()}
+      className={`${styles.btn} ${styles.right}`}
+    >
       <ArrowRightRectingle />
     </button>
   );
@@ -29,7 +32,10 @@ const CustomRightArrow = ({ onClick }) => {
 
 const CustomLeftArrow = ({ onClick }) => {
   return (
-    <button onClick={() => onClick()} className={`${styles.btn} ${styles.left}`}>
+    <button
+      onClick={() => onClick()}
+      className={`${styles.btn} ${styles.left}`}
+    >
       <ArrowLeftRectingle />
     </button>
   );
@@ -52,7 +58,7 @@ function MultiCarousel({
 }) {
   return (
     <Carousel
-      sliderClass={sliderClass ? sliderClass : ''}
+      sliderClass={sliderClass || ""}
       responsive={responsiveness || responsive}
       arrows={arrows}
       showDots={showDots}
@@ -65,8 +71,9 @@ function MultiCarousel({
       ssr={ssr}
       customLeftArrow={<CustomLeftArrow />}
       customRightArrow={<CustomRightArrow />}
-      containerClass={className}
-      customTransition='all .5s'>
+      containerClass={className || ""}
+      customTransition="all .5s"
+    >
       {children}
     </Carousel>
   );

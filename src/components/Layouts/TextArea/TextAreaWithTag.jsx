@@ -25,6 +25,7 @@ function TextAreaWithTag({
   placeholder,
   focus,
   defaultValue,
+  maxRows,
 }) {
   const dispatch = useDispatch();
 
@@ -91,7 +92,7 @@ function TextAreaWithTag({
         <TextareaAutosize
           id="test"
           minRows={1}
-          maxRows={5}
+          maxRows={maxRows || 5}
           placeholder={placeholder}
           value={text}
           autoFocus={focus}

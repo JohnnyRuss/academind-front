@@ -1,8 +1,14 @@
-@use './helpers/helpers' as *;
+@use "./helpers/abstract/mixins" as *;
+@use "./helpers/abstract/functions" as *;
+@use "./helpers/abstract/media" as *;
+
+$swiper-gap: 2rem;
+$thumb-item-w: 10rem;
+$active-media-h: calc(100% - $thumb-item-w - ($swiper-gap * 2));
 
 .swiperLocale {
   width: 100%;
-  height: 79%;
+  height: $active-media-h;
   position: relative;
   z-index: auto;
 
@@ -24,6 +30,7 @@
   .swiper-button-next,
   .swiper-button-prev {
     // font-size: 1rem;
+    transform: translateY(50%);
   }
 
   .activeMedia {
@@ -37,8 +44,8 @@
 }
 
 .swiperThumbsLocale {
-  margin-top: 1.25rem;
-  height: 18%;
+  margin-top: $swiper-gap;
+  height: $thumb-item-w;
   max-width: 80%;
 
   .swiper-wrapper {
@@ -49,23 +56,40 @@
   }
 
   .thumbItem {
-    height: 100%;
-    min-width: 12rem;
+    min-height: $thumb-item-w;
+    max-height: $thumb-item-w;
+    min-width: $thumb-item-w;
+    max-width: $thumb-item-w;
+    aspect-ratio: 1/1;
     border-radius: 1rem;
     overflow: hidden;
     cursor: grab;
+
+    @include media-480 {
+      border-radius: 0.5rem;
+    }
   }
 
   .thumbItem.swiper-slide-thumb-active {
-    border: 3px solid color('blueColor');
-    border-radius: 0rem;
+    border: 3px solid color("blueColor");
+
+    @include media-480 {
+      border-width: 2px;
+    }
+  }
+
+  .thumbItem img {
+    transition: transform 0.3s ease;
+    backface-visibility: none;
+  }
+
+  .thumbItem.swiper-slide-thumb-active img {
+    transform: scale(1.4);
   }
 
   .thumbMedia {
     width: 100%;
     height: 100%;
-    aspect-ratio: 1/1;
-    overflow: hidden;
 
     & img {
       @include fitImage;

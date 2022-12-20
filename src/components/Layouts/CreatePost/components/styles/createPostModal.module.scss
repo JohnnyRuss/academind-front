@@ -1,89 +1,125 @@
-@use '../../../../../styles/helpers/abstract/media' as *;
-@use '../../../../../styles/helpers/abstract/functions' as *;
-@use '../../../../../styles/helpers/abstract/mixins' as *;
+@use "../../../../../styles/helpers/abstract/media" as *;
+@use "../../../../../styles/helpers/abstract/functions" as *;
+@use "../../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../../styles/helpers/variables/variables" as *;
 
 .createPostModal {
-  height: auto;
-  max-height: 75vh;
-  overflow: auto;
+  $space-around: 1rem;
+  $header-h: 7rem;
+  $footer-h: 11rem;
+  $max-modal-h: 40vw;
+  $max-modal-h-md: 50vw;
+  $max-modal-h-tablet: calc(100vh - $nav-height);
 
-  &::-webkit-scrollbar {
-    display: none;
+  overflow: hidden;
+
+  [data-modal-close-btn] svg {
+    fill: color("darkGreyColor");
   }
 
   .createPostModalContentBox {
-    width: 42vw;
-    padding: 1rem;
-    background: color('whiteColor');
     position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 42vw;
+    max-height: $max-modal-h;
+    padding: $space-around;
+    background: color("whiteColor");
+    border-radius: 1rem;
+    overflow: hidden;
 
     @include media-1280 {
-      width: 50vw;
+      width: 52vw;
+      max-height: $max-modal-h-md;
     }
 
     @include media-960 {
-      width: 70vw;
+      max-height: none;
+      width: 100vw;
+      height: $max-modal-h-tablet;
     }
 
-    @include media-680 {
-      width: 90vw;
+    @include media-480 {
+      border-radius: 0rem;
     }
   }
 
   %wrapper {
     position: fixed;
+    left: 0;
+    right: 0;
     width: 100%;
-    background: color('whiteColor');
+    background: color("whiteColor");
+    border-radius: $rounded-sm;
   }
 
   .createPostHeader {
     @extend %wrapper;
-    align-items: flex-start;
     top: 0;
-    left: 0;
+    height: $header-h;
+    align-items: flex-start;
     z-index: 99;
-    padding: 1rem;
-  }
-
-  .createPostAudience {
-    position: absolute;
-    left: 6.5rem;
-    top: 3.2rem;
-  }
-
-  .content {
-    min-height: 10rem;
-    position: relative;
-    left: 0;
-    margin-top: 7rem;
-    margin-bottom: 10rem;
+    padding: $space-around;
   }
 
   .createPostFooterBox {
     @extend %wrapper;
-    left: 0;
+    height: $footer-h;
     bottom: 0;
     @include flexBox(column);
     gap: 2rem;
-    padding: 1rem;
+    padding: $space-around;
+
+    .postBtn {
+      width: 100%;
+      padding: 1rem;
+      margin-top: auto;
+    }
+
+    @include media-480 {
+      top: calc(100% - $footer-h - $footer-h / 2);
+    }
   }
 
-  .postBtn {
-    width: 100%;
-    padding: 1rem;
-    margin-top: auto;
+  .createPostAudience {
+    position: absolute;
+    left: 5.5rem;
+    top: 3.2rem;
+  }
+
+  .content {
+    max-height: calc($max-modal-h - $header-h - $footer-h - $space-around);
+    overflow: auto;
+    margin-top: $header-h;
+    margin-bottom: $footer-h;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include media-1280 {
+      max-height: calc($max-modal-h-md - $header-h - $footer-h - $space-around);
+    }
+
+    @include media-960 {
+      max-height: calc(
+        $max-modal-h-tablet - $header-h - $footer-h - ($space-around * 2)
+      );
+    }
   }
 
   .postTextField {
     display: inline-block;
     border: none;
-    font-size: size('smallSize');
+    font-size: size("smallSize");
     border-radius: 0rem;
 
     &::placeholder {
       opacity: 0.5;
       font-style: italic;
-      font-size: size('smallSize');
+      font-size: size("smallSize");
     }
   }
 }
