@@ -1,9 +1,18 @@
 @use "../../../../styles/helpers/components/messanger" as *;
 @use "../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .messangerFeedContainer {
   flex: 3;
   @include flexBox(column);
+
+  @include media-680 {
+    display: none;
+
+    &.isActiveConversation {
+      display: flex;
+    }
+  }
 
   position: relative;
   height: 100%;

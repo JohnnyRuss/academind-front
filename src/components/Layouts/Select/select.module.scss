@@ -1,22 +1,25 @@
 @use "../../../styles/helpers/abstract/mixins" as *;
+@use "../../../styles/helpers/abstract/media" as *;
 @use "../../../styles/helpers/abstract/functions" as *;
 @use "../../../styles/helpers/abstract/animation" as *;
 @use "../../../styles/helpers/abstract/components" as *;
 
 .selection {
   $border-w: 1px;
+  $border: $border-w solid color("darkGreyColor");
+  $selection-w: 15rem;
 
   position: relative;
   display: inline-block;
-  width: 15rem;
+  width: $selection-w;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: $border-w solid color("darkGreyColor");
+  border: $border;
   background: color("whiteColor");
   color: color("blackColor");
 
   &.active {
-    border-bottom: none;
+    // border-bottom: none;
   }
 
   &.active .selectDefault,
@@ -45,26 +48,32 @@
 
   .selectionList {
     position: absolute;
+    z-index: 1;
     top: 100;
     left: -$border-w;
     right: -$border-w;
-    z-index: 1;
+
     @include flexBox(column);
     gap: 0.5rem;
+
     padding: 0.5rem;
     padding-top: 1rem;
-    max-height: 15rem;
-    overflow: auto;
-    background: inherit;
-
+    
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
-    border: $border-w solid color("darkGreyColor");
+    border: $border;
     border-top: 0;
-    box-sizing: content-box;
+    
+    background: inherit;
     @include animateMoveBottom(0.2s, -2rem);
+    
+    max-height: 15rem;
+    @include scrollBar("&", 0.75rem, 1rem, 1rem, 1rem);
 
-    @include scrollBar("&", 1rem, 1rem, 1rem);
+    @include media-480 {
+      gap: 0.25rem;
+      padding-top: 0.5rem;
+    }
 
     & li {
       cursor: pointer;

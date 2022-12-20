@@ -1,20 +1,26 @@
-/* eslint-disable no-unused-vars */
 import { useSelector } from "react-redux";
-
 import { selectSettingsStatus } from "../../../store/selectors/settingsSelector";
 
+import { useSettings } from "../../../hooks";
+
 import styles from "./styles/content.module.scss";
-import { toRender } from "../config";
+import { GoBackBTN } from "../../Layouts";
 
 function ContentContainer({ children }) {
-  const { target, editableTarget, isEditing } =
-    useSelector(selectSettingsStatus);
+  const { target } = useSelector(selectSettingsStatus);
+
+  const { handleGoBack } = useSettings();
 
   return (
-    <div className={styles.contentContainer}>
+    <div
+      className={`${styles.contentContainer} ${target ? styles.active : ""}`}
+    >
       <div className={styles.content}>
+        <GoBackBTN
+          handler={handleGoBack}
+          className={styles.settingsGoBackBtn}
+        />
         {children}
-        {/* {isEditing ? toRender.forms[editableTarget] : toRender.detailed[target]} */}
       </div>
     </div>
   );

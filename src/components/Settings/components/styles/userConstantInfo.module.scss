@@ -1,5 +1,6 @@
 @use "../../../../styles/helpers/abstract/functions" as *;
 @use "../../../../styles/helpers/abstract/mixins" as *;
+@use "../../../../styles/helpers/abstract/media" as *;
 
 .userInfo {
   $top-space: 2.5rem;
@@ -18,6 +19,10 @@
     width: 100%;
     @include flexBox(column);
     gap: 0.5rem;
+
+    @include media-680 {
+      align-items: center;
+    }
   }
 
   .userInfoFragment {

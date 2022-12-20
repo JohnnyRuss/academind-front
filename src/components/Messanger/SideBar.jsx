@@ -1,4 +1,6 @@
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 import { selectAllConversations } from "../../store/selectors/conversationSelectors.js";
 
@@ -8,6 +10,8 @@ import styles from "./components/styles/sideBar.module.scss";
 import Conversation from "./components/Conversation";
 
 function SideBar() {
+  const { id } = useParams();
+
   const activeUserId = useSelector(selectActiveUserId);
   const { allConversations: conversations } = useSelector(
     selectAllConversations
@@ -18,7 +22,9 @@ function SideBar() {
   }
 
   return (
-    <aside className={styles.sideBar}>
+    <aside
+      className={`${styles.sideBar} ${id ? styles.isActiveConversation : ""}`}
+    >
       {conversations[0] && (
         <div className={styles.contentBox}>
           {[...conversations]

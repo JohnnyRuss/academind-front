@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const settingsSlice = createSlice({
   name: "settings",
   initialState: {
-    target: "showAll",
+    target: "",
     editableTarget: "",
     isEditing: false,
-    headingTitle: "all details",
+    headingTitle: "",
 
     // updateables
     updateables: {
@@ -50,6 +50,13 @@ const settingsSlice = createSlice({
     setTarget(state, { payload }) {
       state.target = payload.key;
       state.headingTitle = payload.label;
+      state.editableTarget = "";
+      state.isEditing = false;
+    },
+
+    resetTarget(state) {
+      state.target = "";
+      state.headingTitle = "";
     },
 
     setIsEditing(state, { payload }) {
@@ -140,6 +147,7 @@ export const {
   setTarget,
   setIsEditing,
   resetIsEditing,
+  resetTarget,
   // updateablse
   updateBirthdate,
   resetBirthdate,

@@ -5,6 +5,7 @@ import {
   resetIsEditing,
   setTarget,
   setIsEditing,
+  resetTarget,
 
   // updateables
   updateBirthdate,
@@ -44,6 +45,10 @@ export default function useSettings() {
 
   function handleResetEditingTarget() {
     dispatch(resetIsEditing());
+  }
+
+  function handleGoBack() {
+    dispatch(resetTarget());
   }
 
   //updateables
@@ -98,6 +103,7 @@ export default function useSettings() {
     handleMenuEditableTarget,
     handleEditingTarget,
     handleResetEditingTarget,
+    handleGoBack,
 
     // updateables
 

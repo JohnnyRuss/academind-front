@@ -1,5 +1,6 @@
 @use "../variables/variables" as *;
 @use "../abstract/functions" as *;
+@use "../abstract/media" as *;
 
 @mixin messanger {
   height: calc(100vh - 6rem);
@@ -11,9 +12,19 @@
 ============================*/
 
 @mixin sideBarContainer {
+  min-width: 30rem;
   max-width: 30rem;
   padding: 0rem;
   background: $bg-dark-light;
+
+  @include media-960 {
+    min-width: 25rem;
+    max-width: 25rem;
+  }
+
+  @include media-680 {
+    min-width: 100%;
+  }
 
   .contentBox {
     height: 85vh;

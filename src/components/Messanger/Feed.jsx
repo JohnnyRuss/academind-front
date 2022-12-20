@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { useConversationQuery } from "../../hooks";
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
@@ -16,6 +16,7 @@ import { TextArea, Spinner } from "../Layouts";
 
 function Feed() {
   const { pathname } = useLocation();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const {
@@ -52,7 +53,11 @@ function Feed() {
   }
 
   return (
-    <div className={styles.messangerFeedContainer}>
+    <div
+      className={`${styles.messangerFeedContainer} ${
+        id ? styles.isActiveConversation : ""
+      }`}
+    >
       {loading && <Spinner />}
       {!loading && conversation && (
         <>

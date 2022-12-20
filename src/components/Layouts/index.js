@@ -17,6 +17,7 @@ export { default as DeleteRequestBTN } from "./RequestBTN/DeleteRequestBTN";
 export { default as SendRequestBTN } from "./RequestBTN/SendRequestBTN";
 export { default as SendMessageBTN } from "./RequestBTN/SendMessageBTN";
 export { default as IsFriendBTN } from "./RequestBTN/IsFriendBTN";
+export { default as GoBackBTN } from "./GoBackBTN/GoBackBTN";
 
 export { default as TimeAgo } from "./TimeAgo/TimeAgo";
 // export { default as TimeAgoLong } from "./TimeAgo/TimeAgoLong";

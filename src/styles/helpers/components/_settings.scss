@@ -1,4 +1,5 @@
 @use "../abstract/functions" as *;
+@use "../abstract/media" as *;
 @use "../variables/variables" as *;
 
 $heading-space-bottom: 3rem;
@@ -11,6 +12,10 @@ $base-space-between: 2rem;
   border-bottom: 1px solid color("darkGreyColor");
   text-transform: capitalize;
   background: $bg-light;
+
+  @include media-680 {
+    padding: 1.5rem;
+  }
 }
 
 @mixin settingsHeadingSecondary {
@@ -33,6 +38,10 @@ $base-space-between: 2rem;
 @mixin fragmentsContainer {
   //each fragment item
   padding: 0 calc($heading-v-pad * 2);
+
+  @include media-960 {
+    padding: 0rem;
+  }
 }
 
 @mixin formsContainer {

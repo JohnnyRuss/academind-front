@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { useSettings } from "../../../hooks";
+import { useSettings, useWindowDimention } from "../../../hooks";
 import { selectSettingsStatus } from "../../../store/selectors/settingsSelector";
 import { editableKeysShort, detailedKeys } from "../config";
 
@@ -14,8 +14,10 @@ function EditableList() {
 
   const [isMounting, setIsMounting] = useState(true);
 
+  const { width } = useWindowDimention();
+
   useEffect(() => {
-    if (isMounting) return;
+    if (isMounting || width <= 680) return;
 
     localStorage.setItem(
       "settings-target",
@@ -27,12 +29,18 @@ function EditableList() {
   }, [target]);
 
   useEffect(() => {
+    if (width <= 680) return;
+
     const lastTarget = localStorage.getItem("settings-target")
       ? JSON.parse(localStorage.getItem("settings-target"))
       : null;
 
     if (lastTarget) handleMenuDetailedTarget(false, lastTarget);
-    else handleMenuDetailedTarget(false, { key: "showAll", label: "show all" });
+    else
+      handleMenuDetailedTarget(false, {
+        key: "showAll",
+        label: "all details",
+      });
 
     setIsMounting(false);
   }, []);
