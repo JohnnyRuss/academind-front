@@ -9,7 +9,7 @@ import ReviewPostBody from "./components/ReviewPostBody";
 function ProfileReviewHiddenPosts() {
   const { posts } = useSelector(selectPosts);
 
-  const { addToProfileHandler } = useProfileReviewQuery();
+  const { addToProfileQuery } = useProfileReviewQuery();
 
   return (
     <div className={styles.reviewContainer}>
@@ -17,7 +17,7 @@ function ProfileReviewHiddenPosts() {
         posts.map((post) => (
           <ReviewPostBody
             post={post}
-            showOnProfileHandler={addToProfileHandler}
+            showOnProfileHandler={addToProfileQuery}
             onHiddens={true}
             key={post._id}
           />

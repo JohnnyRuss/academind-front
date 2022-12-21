@@ -12,11 +12,11 @@ function Article({ post }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { deletePostHandler, savePostHandler } = usePostQuery();
+  const { deletePostQuery, savePostQuery } = usePostQuery();
 
   function deleteHandler() {
     navigate({ pathname: "/blog" }, { replace: true });
-    deletePostHandler(post._id);
+    deletePostQuery(post._id);
   }
 
   return (
@@ -35,7 +35,7 @@ function Article({ post }) {
           audience={post.audience}
           isBlogPostOptions={true}
           postId={post._id}
-          savePostHandler={() => savePostHandler(post._id)}
+          savePostHandler={() => savePostQuery(post._id)}
           deleteHandler={deleteHandler}
           updateHandler={() =>
             dispatch(

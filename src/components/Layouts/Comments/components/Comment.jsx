@@ -19,7 +19,7 @@ import { CommentContent, CommentActions } from "./";
 function Comment({ type, data, handlers, className }) {
   const { comment, postId, postAuthorId, parentId } = data;
 
-  const { handleReactionOnComment, handlePinComment, handleDeleteComment } =
+  const { reactOnCommentQuery, pinCommentQuery, deleteCommentQuery } =
     useCommentsQuery();
 
   const commentId = type === "Parent" ? comment._id : parentId;
@@ -66,18 +66,18 @@ function Comment({ type, data, handlers, className }) {
         postAuthorId={postAuthorId}
         commentAuthorId={comment.author._id}
         handlePinComment={() =>
-          handlePinComment({ type, postId, commentId, replyId })
+          pinCommentQuery({ type, postId, commentId, replyId })
         }
         handleUpdateCredentials={handleUpdateCredentials}
         handleDeleteComment={() =>
-          handleDeleteComment({ type, postId, commentId, replyId })
+          deleteCommentQuery({ type, postId, commentId, replyId })
         }
       />
       <CommentActions
         reactions={comment.reactions}
         createdAt={comment.createdAt}
         handleReaction={() =>
-          handleReactionOnComment({ type, postId, commentId, replyId })
+          reactOnCommentQuery({ type, postId, commentId, replyId })
         }
         handleReply={handleReplyCredentials}
       />

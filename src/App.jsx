@@ -40,7 +40,7 @@ const EditableSettingsContentPage = lazy(() =>
   import("./pages/settings/EditableContentPage")
 );
 const BlogPage = lazy(() => import("./pages/blog/BlogPage"));
-const ActiveBlogPost = lazy(() => import("./pages/blog/ActiveBlogPost"));
+const ActiveBlogPost = lazy(() => import("./pages/blog/ActiveBlogPostPage"));
 const Post = lazy(() => import("./pages/Post/Post"));
 
 function App() {

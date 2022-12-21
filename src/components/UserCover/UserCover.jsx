@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForeignUser, usePost } from "../../hooks";
 import { getUserProfile } from "../../store/reducers/userReducer";
 import { selectUserLoadingState } from "../../store/selectors/userSelectors";
-import { useHelperQueries } from "../../hooks";
+import { useHelperQuery } from "../../hooks";
 
 import styles from "./components/styles/userCover.module.scss";
 import {
@@ -32,11 +32,11 @@ function Profile() {
     dispatch(getUserProfile(profileId));
   }, [dispatch, profileId]);
 
-  const { getFriendShip } = useHelperQueries();
+  const { getFriendShipQuery } = useHelperQuery();
 
   useEffect(() => {
     async function getFriendshipInfo() {
-      const data = await getFriendShip(profileId);
+      const data = await getFriendShipQuery(profileId);
       setFriendShip(data);
     }
 

@@ -61,10 +61,10 @@ function UpdateBlogPostPortal() {
 
   const handleRemoveMediaFile = (media) => dispatch(removeUpdateFiles(media));
 
-  const { handlePostPublish } = usePostQuery();
+  const { publishPostQuery } = usePostQuery();
 
   function publishPost() {
-    handlePostPublish({
+    publishPostQuery({
       params: {
         operationType: "update",
       },

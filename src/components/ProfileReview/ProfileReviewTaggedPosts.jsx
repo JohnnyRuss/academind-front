@@ -8,7 +8,7 @@ import ReviewPostBody from "./components/ReviewPostBody";
 
 function ProfileReviewTaggedPosts() {
   const { posts } = useSelector(selectPosts);
-  const { showOnProfileHandler, removeTagHandler } = useProfileReviewQuery();
+  const { showOnProfileQuery, removeTagQuery } = useProfileReviewQuery();
 
   return (
     <div className={styles.reviewContainer}>
@@ -16,8 +16,8 @@ function ProfileReviewTaggedPosts() {
         posts.map((post) => (
           <ReviewPostBody
             post={post}
-            removeTagHandler={removeTagHandler}
-            showOnProfileHandler={showOnProfileHandler}
+            removeTagHandler={removeTagQuery}
+            showOnProfileHandler={showOnProfileQuery}
             onHiddens={false}
             key={post._id}
           />

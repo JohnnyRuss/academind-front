@@ -34,9 +34,9 @@ function Post({
     notifyOnComment ? true : false
   );
 
-  const { deletePostHandler, startDeletion } = usePostQuery();
-  
-  const { hideFromProfileHandler, removeTagHandler } = useProfileReviewQuery();
+  const { deletePostQuery, startDeletion } = usePostQuery();
+
+  const { hideFromProfileQuery, removeTagQuery } = useProfileReviewQuery();
 
   const { loading } = useSelector(selectPostsLoadingState);
 
@@ -46,12 +46,12 @@ function Post({
       <PostOptions
         postId={data._id}
         audience={data.audience}
-        deleteHandler={() => deletePostHandler(data._id)}
+        deleteHandler={() => deletePostQuery(data._id)}
         updateHandler={() =>
           activateUpdatePostModal(destructurePostUpdateData(data))
         }
-        removeTagHandler={() => removeTagHandler(data._id)}
-        hideFromProfileHandler={() => hideFromProfileHandler(data._id)}
+        removeTagHandler={() => removeTagQuery(data._id)}
+        hideFromProfileHandler={() => hideFromProfileQuery(data._id)}
       />
       {data.shared && (
         <SharedPostHeader data={destructureSharedPostHeaderData(data)} />

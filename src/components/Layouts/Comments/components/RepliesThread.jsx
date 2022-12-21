@@ -26,7 +26,7 @@ function RepliesThread({ state, data, handlers }) {
     resetCommentCredentials();
   }
 
-  const { handleSubmitComment } = useCommentsQuery(
+  const { submitCommentQuery } = useCommentsQuery(
     'REPLIES_THREAD',
     {
       postId: postId,
@@ -68,7 +68,7 @@ function RepliesThread({ state, data, handlers }) {
             removeTag={(adressatId) => removeTag(adressatId)}
             defaultValue={updateReply ? updateText : ''}
             focus={activeReply}
-            submitHandler={handleSubmitComment}
+            submitHandler={submitCommentQuery}
             placeholder='write your comment reply...'
             className={styles.commentRepliesTextArea}
           />

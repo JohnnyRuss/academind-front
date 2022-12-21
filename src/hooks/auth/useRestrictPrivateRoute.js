@@ -10,7 +10,7 @@ function useRestrictPrivateRoute() {
   const { id: profileId } = useParams();
 
   useEffect(() => {
-    if (activeUserId !== profileId) navigate(-1);
+    if (activeUserId !== profileId) navigate(-1, { replace: true });
   }, [activeUserId, profileId, navigate]);
 }
 

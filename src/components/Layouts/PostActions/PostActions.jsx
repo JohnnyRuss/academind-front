@@ -19,7 +19,7 @@ import { ReactionBTN, CommentBTN, ShareBTN } from "./components";
 function PostActions({ className, setShowCommnents, data, redirect }) {
   const activeUserId = useSelector(selectActiveUserId);
 
-  const { reactOnPostHandler } = usePostQuery();
+  const { reactOnPostQuery } = usePostQuery();
   const { activateSharePostModal } = usePost();
 
   function handleShowComment(e) {
@@ -29,7 +29,7 @@ function PostActions({ className, setShowCommnents, data, redirect }) {
 
   function reactionHandler(e) {
     e.preventDefault();
-    reactOnPostHandler({
+    reactOnPostQuery({
       postReaction: e.currentTarget.dataset.reaction,
       postId: data._id,
     });

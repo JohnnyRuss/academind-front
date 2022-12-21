@@ -67,10 +67,10 @@ function CreateBlogPostTouch({ className }) {
 
   const handleRemoveMediaFile = (media) => dispatch(removeFiles(media));
 
-  const { handlePostPublish } = usePostQuery();
+  const { publishPostQuery } = usePostQuery();
 
   function publishPost() {
-    handlePostPublish({
+    publishPostQuery({
       params: {
         type: "blogPost",
         operationType: "publish",

@@ -4,11 +4,13 @@ import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
-import { useAboutUserQuery } from "../../hooks";
+import { useAboutUserQuery, useRestrictPrivateRoute } from "../../hooks";
 
 import { SettingsContainer, SideBar } from "../../components/Settings";
 
 function Settings() {
+  useRestrictPrivateRoute();
+
   const activeUserId = useSelector(selectActiveUserId);
 
   const { getAboutUserQuery } = useAboutUserQuery();

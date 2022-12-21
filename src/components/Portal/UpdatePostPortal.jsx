@@ -39,10 +39,10 @@ function UpdatePostPortal() {
 
   const handleAudience = (audience) => dispatch(setUpdateAudience(audience));
 
-  const { handlePostPublish } = usePostQuery();
+  const { publishPostQuery } = usePostQuery();
 
   function publishPost() {
-    handlePostPublish({
+    publishPostQuery({
       params: {
         operationType: "update",
       },

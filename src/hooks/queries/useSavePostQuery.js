@@ -1,27 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import useHelperQueries from './useHelperQueries';
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import useHelperQuery from "./useHelperQuery";
 
-import { removeBookmark } from '../../store/reducers/postsDataReducer';
-import usePostQuery from './usePostQuery';
+import { removeBookmark } from "../../store/reducers/postsDataReducer";
+import usePostQuery from "./usePostQuery";
 
 function useSavePostQuery(postId) {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  const { savePostHandler } = usePostQuery();
+  const { savePostQuery } = usePostQuery();
 
-  const { loading, optionsRules, getOptionsRules, setOptionsRules } = useHelperQueries();
+  const { loading, optionsRules, getOptionsRulesQuery, setOptionsRules } =
+    useHelperQuery();
 
   function removeBookmarkHandler() {
-    if (pathname.endsWith('bookmarks')) dispatch(removeBookmark(postId));
+    if (pathname.endsWith("bookmarks")) dispatch(removeBookmark(postId));
   }
 
   function handleSavePost() {
-    savePostHandler(postId);
+    savePostQuery(postId);
 
     optionsRules?.isBookmarked && removeBookmarkHandler();
 
@@ -32,7 +33,7 @@ function useSavePostQuery(postId) {
   }
 
   useEffect(() => {
-    getOptionsRules(postId);
+    getOptionsRulesQuery(postId);
   }, [postId]);
 
   return { loading, optionsRules, handleSavePost };

@@ -39,14 +39,14 @@ function CommentsList({ postId, postAuthorId, notifyOnComment }) {
     resetCommentCredentials();
   }
 
-  const { handleGetPostComments, handleSubmitComment } = useCommentsQuery(
+  const { getPostCommentsQuery, submitCommentQuery } = useCommentsQuery(
     "MAIN_THREAD",
     { postId, commentId: state.commentId, text, tags: state.tags },
     { updateParent: state.updateParent, resetHandler: reseter }
   );
 
   useEffect(() => {
-    handleGetPostComments();
+    getPostCommentsQuery();
   }, []);
 
   useScrollOnNotifyAtComment({ notifyOnComment });
@@ -75,7 +75,7 @@ function CommentsList({ postId, postAuthorId, notifyOnComment }) {
         tags={state.tags}
         setTag={setTag}
         removeTag={removeTag}
-        submitHandler={handleSubmitComment}
+        submitHandler={submitCommentQuery}
         defaultValue={state.updateParent ? state.text : ""}
         placeholder="write your comment..."
         className={styles.commentTextArea}

@@ -23,13 +23,13 @@ function OptionsBody({
   hideFromProfileHandler,
 }) {
   const { loading, optionsRules, handleSavePost } = useSavePostQuery(postId);
-  const { handlePostAudience } = usePostQuery();
+  const { changePostAudienceQuery } = usePostQuery();
 
   const [activeAudience, setActiveAudience] = useState(false);
 
   function handleAudience(value) {
     if (value === audience) return setActiveAudience(false);
-    handlePostAudience(postId, value);
+    changePostAudienceQuery(postId, value);
     setActiveAudience(false);
   }
 

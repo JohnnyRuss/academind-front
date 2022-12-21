@@ -16,7 +16,7 @@ function usePostQuery() {
   const [startDeletion, setStartDeletion] = useState(false);
   // includes post publish and update requests
   // const handlePostPublish = ({ operationType, type, description, media, tags, postId }) => {
-  const handlePostPublish = ({ params, credentials }) => {
+  const publishPostQuery = ({ params, credentials }) => {
     const type = params.type;
     const isMediaAndTags =
       JSON.parse(credentials.tags)[0] && credentials.media[0];
@@ -54,17 +54,17 @@ function usePostQuery() {
     }
   };
 
-  function deletePostHandler(postId) {
+  function deletePostQuery(postId) {
     setStartDeletion(true);
     dispatch(deletePost(postId));
   }
 
-  function reactOnPostHandler({ postReaction, postId }) {
+  function reactOnPostQuery({ postReaction, postId }) {
     const reaction = JSON.parse(postReaction);
     dispatch(reactOnPost({ postId, body: { reaction } }));
   }
 
-  function sharePostHandler(postId, credentials) {
+  function sharePostQuery(postId, credentials) {
     const body = {
       description: credentials.description,
       audience: credentials.audience,
@@ -74,22 +74,22 @@ function usePostQuery() {
     dispatch(sharePost({ postId, body }));
   }
 
-  function savePostHandler(postId) {
+  function savePostQuery(postId) {
     dispatch(savePost(postId));
   }
 
-  function handlePostAudience(postId, audience) {
+  function changePostAudienceQuery(postId, audience) {
     dispatch(changePostAudience({ params: { postId }, body: { audience } }));
   }
 
   return {
-    handlePostPublish,
-    deletePostHandler,
+    publishPostQuery,
+    deletePostQuery,
+    reactOnPostQuery,
+    sharePostQuery,
+    savePostQuery,
+    changePostAudienceQuery,
     startDeletion,
-    reactOnPostHandler,
-    sharePostHandler,
-    savePostHandler,
-    handlePostAudience,
   };
 }
 

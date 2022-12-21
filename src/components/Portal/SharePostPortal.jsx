@@ -44,7 +44,7 @@ function SharePostPortal() {
 
   const handleAudience = (audience) => dispatch(setShareAudience(audience));
 
-  const { sharePostHandler } = usePostQuery();
+  const { sharePostQuery } = usePostQuery();
 
   const { restrictScroll } = useRestrictBodyOverflow();
 
@@ -93,7 +93,7 @@ function SharePostPortal() {
           <BTN
             className={styles.confirmShareBtn}
             onClick={() =>
-              sharePostHandler(sharePostData._id, {
+              sharePostQuery(sharePostData._id, {
                 audience: shareAudience,
                 tags: sharePostData?.tags,
                 description: text,

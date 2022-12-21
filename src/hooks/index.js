@@ -17,11 +17,12 @@ export { default as usePostQuery } from "./queries/usePostQuery";
 export { default as useFriendsQuery } from "./queries/useFriendsQuery";
 export { default as useAboutUserQuery } from "./queries/useAboutUserQuery";
 export { default as useSavePostQuery } from "./queries/useSavePostQuery";
-export { default as useHelperQueries } from "./queries/useHelperQueries";
+export { default as useHelperQuery } from "./queries/useHelperQuery";
 export { default as useProfileReviewQuery } from "./queries/useProfileReviewQuery";
 export { default as useConversationQuery } from "./queries/useConversationQuery";
 export { default as useBadgeQuery } from "./queries/useBadgeQuery";
 export { default as useNotificationQuery } from "./queries/useNotificationQuery";
+export { default as useBlogQuery } from "./queries/useBlogQuery";
 
 export { default as useAuthValidation } from "./auth/useAuthValidation";
 export { default as useRestrictAuthenticated } from "./auth/useRestrictAuthenticated";

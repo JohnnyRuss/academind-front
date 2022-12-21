@@ -63,10 +63,10 @@ function CreatePost({ className }) {
     if (!createPostIsOpen) restrictScroll(false);
   }, [createPostIsOpen, restrictScroll]);
 
-  const { handlePostPublish } = usePostQuery();
+  const { publishPostQuery } = usePostQuery();
 
   function publishPost() {
-    handlePostPublish({
+    publishPostQuery({
       params: {
         operationType: "publish",
         type: "post",
