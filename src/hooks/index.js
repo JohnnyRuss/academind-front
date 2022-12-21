@@ -23,6 +23,10 @@ export { default as useConversationQuery } from "./queries/useConversationQuery"
 export { default as useBadgeQuery } from "./queries/useBadgeQuery";
 export { default as useNotificationQuery } from "./queries/useNotificationQuery";
 export { default as useBlogQuery } from "./queries/useBlogQuery";
+export { default as useFeedQuery } from "./queries/useFeedQuery";
+export { default as useRedirectedPostQuery } from "./queries/useRedirectedPostQuery";
+export { default as useProfilePostsQuery } from "./queries/useProfilePostsQuery";
+export { default as useBookmarksQuery } from "./queries/useBookmarksQuery";
 
 export { default as useAuthValidation } from "./auth/useAuthValidation";
 export { default as useRestrictAuthenticated } from "./auth/useRestrictAuthenticated";

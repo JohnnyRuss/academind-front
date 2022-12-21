@@ -1,13 +1,31 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   showOnProfile,
   removeTag,
   addToProfile,
   hideFromProfile,
+  resetPosts,
 } from "../../store/reducers/postsDataReducer";
+import {
+  getHiddenPosts,
+  getPendingPosts,
+} from "../../store/reducers/activeUserReducer";
+import { resetComments } from "../../store/reducers/commentsDataReducer";
+
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 
 function useProfileReviewQuery() {
   const dispatch = useDispatch();
+
+  const activeUserId = useSelector(selectActiveUserId);
+
+  function getHiddenPostsQuery() {
+    dispatch(getHiddenPosts(activeUserId));
+  }
+
+  function getPendingPostsQuery() {
+    dispatch(getPendingPosts(activeUserId));
+  }
 
   function showOnProfileQuery(postId, value) {
     dispatch(showOnProfile({ postId, body: { show: value } }));
@@ -25,11 +43,21 @@ function useProfileReviewQuery() {
     dispatch(hideFromProfile(postId));
   }
 
+  // NaN API handlers
+  function resetState() {
+    dispatch(resetPosts());
+    dispatch(resetComments());
+  }
+
   return {
+    getHiddenPostsQuery,
+    getPendingPostsQuery,
     showOnProfileQuery,
     removeTagQuery,
     addToProfileQuery,
     hideFromProfileQuery,
+    // NaN API handlers
+    resetState,
   };
 }
 

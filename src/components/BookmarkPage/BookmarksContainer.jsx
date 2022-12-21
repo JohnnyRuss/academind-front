@@ -1,5 +1,5 @@
 import { useScroll } from "../../hooks";
-import styles from "./components/bookmarksContainer.module.scss";
+import styles from "./styles/bookmarksContainer.module.scss";
 
 function BookmarksContainer({ children }) {
   useScroll({

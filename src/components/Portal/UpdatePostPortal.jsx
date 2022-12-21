@@ -12,6 +12,8 @@ import {
 import { usePostQuery, useRestrictBodyOverflow } from "../../hooks";
 import { selectUpdatePostPortal } from "../../store/selectors/portalSelectors";
 
+import { fixLineBreaks } from "../../lib";
+
 import { CreatePostModal } from "../Layouts";
 
 function UpdatePostPortal() {
@@ -25,7 +27,6 @@ function UpdatePostPortal() {
   } = useSelector(selectUpdatePostPortal);
 
   const { description, tags, audience } = updatePostData;
-  // console.log(updatePostData);
 
   const [text, setText] = useState(description);
 
@@ -48,7 +49,7 @@ function UpdatePostPortal() {
       },
       credentials: {
         audience,
-        description: text,
+        description: fixLineBreaks(text),
         media: updatePostMediaFiles,
         tags: JSON.stringify(tags.map((tag) => tag._id)),
         postId: updatePostData._id,

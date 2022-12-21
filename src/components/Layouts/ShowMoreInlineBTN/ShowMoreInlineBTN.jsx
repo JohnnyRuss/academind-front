@@ -9,6 +9,7 @@ function ShowMoreInlineBTN({ path, query, asLink = false, handler }) {
         query: query,
       }}
       target="_blank"
+      className={styles.inlineBtnLink}
     >
       <button className={styles.showMoreBtn}>show more</button>
     </Link>

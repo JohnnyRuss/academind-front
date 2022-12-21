@@ -22,7 +22,6 @@ function SentRequests() {
 
   useEffect(() => {
     getSentRequestsQuery(activeUserId);
-
     return () => dispatch(resetFriends());
   }, []);
 

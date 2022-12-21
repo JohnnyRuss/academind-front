@@ -1,8 +1,13 @@
 import { useMemo } from "react";
 
 import styles from "./components/styles/blogPost.module.scss";
-import { BlogPostIdentifier, ShowMoreInlineBTN, Image } from "../../Layouts";
 import { ReviewUserInteraction } from "./components";
+import {
+  BlogPostIdentifier,
+  ShowMoreInlineBTN,
+  Image,
+  ParagraphsGenerator,
+} from "../../Layouts";
 
 function BlogPost({ post, limitation = 1500, className, referenced, id }) {
   const article = useMemo(
@@ -38,8 +43,8 @@ function BlogPost({ post, limitation = 1500, className, referenced, id }) {
             />
           )}
         </div>
-        <p className={styles.blogPostShortDesc} data-article-text>
-          {article}
+        <div className={styles.blogPostShortDesc} data-article-text>
+          <ParagraphsGenerator text={article} />
           {post?.article?.length > limitation && (
             <ShowMoreInlineBTN
               path={`/blog/${post._id}`}
@@ -47,7 +52,7 @@ function BlogPost({ post, limitation = 1500, className, referenced, id }) {
               asLink={true}
             />
           )}
-        </p>
+        </div>
       </div>
     </div>
   );

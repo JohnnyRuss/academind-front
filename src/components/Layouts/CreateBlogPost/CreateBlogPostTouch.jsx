@@ -17,6 +17,8 @@ import { selectCreateBlogPost } from "../../../store/selectors/createPostSelecto
 import { selectActiveUserShortInfo } from "../../../store/selectors/activeUserSelectors";
 import { usePostQuery, useRestrictBodyOverflow } from "../../../hooks";
 
+import { fixLineBreaks } from "../../../lib";
+
 import styles from "./components/styles/createBlogPostTouch.module.scss";
 import { MultiMediaIcon } from "../Icons/icons";
 import { UserIdentifier } from "../";
@@ -78,7 +80,7 @@ function CreateBlogPostTouch({ className }) {
       credentials: {
         audience,
         title,
-        article: text,
+        article: fixLineBreaks(text),
         media: files,
         tags: JSON.stringify(tags.map((tag) => tag._id)),
         categories: JSON.stringify(categories),

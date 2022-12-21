@@ -1,12 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { usePostQuery } from "../../../../hooks";
 
+import { usePostQuery } from "../../../../hooks";
 import { setUpdateBlogPostModalOpen } from "../../../../store/reducers/portalReducer";
 import { destructurePostUpdateData } from "../../../../lib/destructurers";
 
+import createParagraphs from "../../../../lib/createTextBox";
+
 import styles from "./styles/article.module.scss";
-import { BlogPostIdentifier, PostOptions } from "../../../Layouts";
+import {
+  BlogPostIdentifier,
+  PostOptions,
+  ParagraphsGenerator,
+} from "../../../Layouts";
 
 function Article({ post }) {
   const navigate = useNavigate();
@@ -44,7 +50,9 @@ function Article({ post }) {
           }
         />
       </div>
-      <div className={styles.article}>{post.article}</div>
+      <div className={styles.article}>
+        <ParagraphsGenerator text={post.article} />
+      </div>
     </div>
   );
 }

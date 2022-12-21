@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { useForeignUser } from '../../../../hooks';
+import { useForeignUser } from "../../../../hooks";
 
-import styles from './styles/commentContent.module.scss';
-import CommentOptions from './CommentOptions';
-import { LikeIcon } from '../../../Layouts/Icons/icons';
+import styles from "./styles/commentContent.module.scss";
+import CommentOptions from "./CommentOptions";
+import { LikeIcon } from "../../../Layouts/Icons/icons";
+import { ParagraphsGenerator } from "../../../Layouts";
 
 /**
  * renders comment text and options
@@ -23,21 +24,30 @@ function CommentContent({
   const commentText =
     text?.length > 350 && !showMore ? (
       <>
-        {text?.slice(0, 350).concat('...')}{' '}
-        <button onClick={() => setShowMore(true)} className={styles.showMoreBtn}>
+        <ParagraphsGenerator text={text?.slice(0, 350).concat("...")} />
+        <button
+          onClick={() => setShowMore(true)}
+          className={styles.showMoreBtn}
+        >
           show more
         </button>
       </>
     ) : (
-      text
+      <ParagraphsGenerator text={text} />
     );
 
-  const { isActiveUser: postBelongsToActiveUser } = useForeignUser('basedOnId', postAuthorId);
-  const { isActiveUser: commentBelongsToActiveUser } = useForeignUser('basedOnId', commentAuthorId);
+  const { isActiveUser: postBelongsToActiveUser } = useForeignUser(
+    "basedOnId",
+    postAuthorId
+  );
+  const { isActiveUser: commentBelongsToActiveUser } = useForeignUser(
+    "basedOnId",
+    commentAuthorId
+  );
 
   return (
     <div className={styles.commentContent}>
-      <p className={styles.commentText}>{commentText}</p>
+      <div className={styles.commentText}>{commentText}</div>
       {likesCount > 0 && (
         <p className={styles.commentReactions}>
           <LikeIcon />

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+
 import { useWindowDimention } from "../../../../hooks";
 
 import styles from "./styles/postDescription.module.scss";
-import { ShowMoreInlineBTN } from "../../";
+import { ShowMoreInlineBTN, ParagraphsGenerator } from "../../";
 
 function PostDescription({ description, className }) {
   const [showMore, setShowMore] = useState(false);
@@ -18,14 +19,18 @@ function PostDescription({ description, className }) {
   const text =
     description?.length > limit && !showMore ? (
       <>
-        {description?.slice(0, limit).concat("...")}{" "}
+        <ParagraphsGenerator
+          text={description?.slice(0, limit).concat("...")}
+        />
         <ShowMoreInlineBTN handler={() => setShowMore(true)} />
       </>
     ) : (
-      description
+      <ParagraphsGenerator text={description} />
     );
 
-  return <p className={`${styles.postDescription} ${className}`}>{text}</p>;
+  return (
+    <div className={`${styles.postDescription} ${className || ""}`}>{text}</div>
+  );
 }
 
 export default PostDescription;

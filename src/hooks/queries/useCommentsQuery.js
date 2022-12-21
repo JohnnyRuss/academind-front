@@ -17,6 +17,8 @@ import {
   resetComments,
 } from "../../store/reducers/commentsDataReducer";
 
+import { fixLineBreaks } from "../../lib";
+
 function useCommentsQuery(thread, options, conditions) {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -32,7 +34,7 @@ function useCommentsQuery(thread, options, conditions) {
       if (thread === "MAIN_THREAD") {
         dispatch(
           updateComment({
-            body: { tags, text: options.text },
+            body: { tags, text: fixLineBreaks(options.text) },
             params: {
               postId: options.postId,
               commentId: options.commentId,
@@ -42,7 +44,7 @@ function useCommentsQuery(thread, options, conditions) {
       } else if (thread === "REPLIES_THREAD") {
         dispatch(
           updateCommentReply({
-            body: { tags, text: options.text },
+            body: { tags, text: fixLineBreaks(options.text) },
             params: {
               postId: options.postId,
               commentId: options.commentId,
@@ -56,14 +58,14 @@ function useCommentsQuery(thread, options, conditions) {
         dispatch(
           addComment({
             postId: options.postId,
-            body: { tags, text: options.text },
+            body: { tags, text: fixLineBreaks(options.text) },
           })
         );
       } else if (thread === "REPLIES_THREAD") {
         dispatch(
           addCommentReply({
             params: { commentId: options.commentId, postId: options.postId },
-            body: { tags, text: options.text },
+            body: { tags, text: fixLineBreaks(options.text) },
           })
         );
       }

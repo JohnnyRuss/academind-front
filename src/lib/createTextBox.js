@@ -1,15 +1,16 @@
 import { fixLineBreaks } from "./";
+import { nanoid } from "@reduxjs/toolkit";
 
-export default function createParagraphs({ str, id, parentClass, childClass }) {
+export default function createTextBox({ str, id, parentClass, childClass }) {
   if (!str || typeof str !== "string") return;
 
   const val = fixLineBreaks(str);
 
   return (
-    <div key={`generated-p-box${id}`} className={parentClass}>
+    <div key={`generated-p-box${nanoid()}`} className={parentClass || ""}>
       {val.split("</br>").map((node, i) => {
         return (
-          <p key={`generated-p-${id}-${i}`} className={childClass}>
+          <p key={`generated-p-${nanoid()}-${i}`} className={childClass || ""}>
             {node}
           </p>
         );

@@ -2,7 +2,7 @@ import { usePost, useScroll } from "../../hooks";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import "./components/bookmarksInfiniteScroll.scss";
+import "./styles/bookmarksInfiniteScroll.scss";
 import { Post, DeletedPost, ScrollEnd, BlockSpinner } from "../Layouts";
 
 function Bookmarks({ hasMore, handleNext, posts }) {

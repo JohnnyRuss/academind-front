@@ -21,7 +21,6 @@ function AllFriends() {
 
   useEffect(() => {
     getAllFriendsQuery(userId);
-
     return () => dispatch(resetFriends());
   }, []);
 

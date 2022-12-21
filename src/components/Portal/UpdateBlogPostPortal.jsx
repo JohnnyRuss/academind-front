@@ -17,6 +17,8 @@ import {
 import { usePostQuery, useRestrictBodyOverflow } from "../../hooks";
 import { selectUpdateBlogPostPortal } from "../../store/selectors/portalSelectors";
 
+import { fixLineBreaks, inverseLineBreaks } from "../../lib";
+
 import { CreateBlogPostModal } from "../Layouts";
 
 function UpdateBlogPostPortal() {
@@ -70,7 +72,7 @@ function UpdateBlogPostPortal() {
       },
       credentials: {
         title,
-        article,
+        article: fixLineBreaks(article),
         audience: updatePostData.audience,
         media: updatePostMediaFiles,
         tags: JSON.stringify(tags.map((tag) => tag._id)),
@@ -96,7 +98,7 @@ function UpdateBlogPostPortal() {
         setIsOpen={activateModal}
         title={title}
         handleTitle={handleTitle}
-        text={article}
+        text={inverseLineBreaks(article)}
         handleText={handleText}
         category={category}
         setCategory={setCategory}

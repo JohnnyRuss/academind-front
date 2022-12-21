@@ -11,6 +11,7 @@ import {
 import { useRestrictBodyOverflow, usePostQuery } from "../../hooks";
 import { selectSharePostPortal } from "../../store/selectors/portalSelectors";
 import { selectActiveUserShortInfo } from "../../store/selectors/activeUserSelectors";
+import { fixLineBreaks } from "../../lib";
 
 import {
   Modal,
@@ -96,7 +97,7 @@ function SharePostPortal() {
               sharePostQuery(sharePostData._id, {
                 audience: shareAudience,
                 tags: sharePostData?.tags,
-                description: text,
+                description: fixLineBreaks(text),
               })
             }
           >

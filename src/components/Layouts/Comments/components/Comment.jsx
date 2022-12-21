@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 
 import { useCommentsQuery } from "../../../../hooks";
-
 import { selectActiveUserId } from "../../../../store/selectors/activeUserSelectors";
+import { inverseLineBreaks } from "../../../../lib";
 
 import styles from "./styles/comment.module.scss";
 import { UserIdentifier, Tags } from "../../";
@@ -40,7 +40,7 @@ function Comment({ type, data, handlers, className }) {
     handlers.setUpdateComment({
       commentId,
       replyId,
-      text: comment.text,
+      text: inverseLineBreaks(comment.text),
       type: `update${type}`,
       tags: comment.tags,
     });

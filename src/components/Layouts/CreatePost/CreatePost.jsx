@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+
 import {
   setCreatePostIsOpen,
   addTag,
@@ -13,6 +14,7 @@ import {
 } from "../../../store/reducers/createPostReducer";
 import { selectCreatePost } from "../../../store/selectors/createPostSelectors";
 import { usePostQuery, useRestrictBodyOverflow } from "../../../hooks";
+import { fixLineBreaks } from "../../../lib";
 
 import styles from "./components/styles/createPost.module.scss";
 import { CreatePostTouch } from "./components";
@@ -73,7 +75,7 @@ function CreatePost({ className }) {
       },
       credentials: {
         audience,
-        description: text,
+        description: fixLineBreaks(text),
         media: files,
         tags: JSON.stringify(tags.map((tag) => tag._id)),
       },

@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 
 import { selectActiveUserShortInfo } from "../../../store/selectors/activeUserSelectors";
+import { inverseLineBreaks } from "../../../lib";
 
 import styles from "./components/styles/createPostModal.module.scss";
 import {
@@ -70,7 +71,7 @@ function CreatePostModal({
 
         <div className={styles.content}>
           <TextAreaWithTag
-            text={text}
+            text={inverseLineBreaks(text)}
             setText={setText}
             placeholder="what's on your mind ?"
             className={styles.postTextField}
@@ -108,7 +109,7 @@ function CreatePostModal({
             />
           )}
         </div>
-        
+
         <div className={styles.createPostFooterBox}>
           <CreatePostTouch withTextField={false} />
           <BTN

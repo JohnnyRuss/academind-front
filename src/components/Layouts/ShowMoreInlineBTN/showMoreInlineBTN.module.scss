@@ -1,11 +1,16 @@
 @use "../../../styles/helpers/components/layouts/showMoreInlineBTN" as *;
 
-.showMoreBtn {
+.inlineBtnLink {
   display: inline;
-  font-size: inherit;
-  @include showMoreBtn;
 
-  &.showMoreBtnTransparent {
-    background: none;
+  .showMoreBtn {
+    display: inline;
+    font-size: inherit;
+    @include showMoreBtn;
   }
+}
+
+.showMoreBtn.showMoreBtnTransparent {
+  background: none;
+  display: inline;
 }

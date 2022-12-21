@@ -23,7 +23,6 @@ function PendingRequest() {
 
   useEffect(() => {
     getPendingRequestsQuery(activeUserId);
-
     return () => dispatch(resetFriends());
   }, []);
 

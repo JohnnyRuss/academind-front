@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-import styles from './unknowPage.module.scss';
-import { ArrowLeftRectingle } from '../../components/Layouts/Icons/icons';
+import styles from "./unknowPage.module.scss";
+import { ArrowLeftRectingle } from "../../components/Layouts/Icons/icons";
 
 function UnknownPage() {
   const navigate = useNavigate();
@@ -11,7 +11,10 @@ function UnknownPage() {
       <p className={styles.message}>
         <span className={styles.status}>404</span> | Unknown Page
       </p>
-      <button className={styles.goBackBtn} onClick={() => navigate(-1)}>
+      <button
+        className={styles.goBackBtn}
+        onClick={() => navigate(-1, { replace: true })}
+      >
         <ArrowLeftRectingle />
         <span>go back</span>
       </button>

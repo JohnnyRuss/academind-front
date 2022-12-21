@@ -1,14 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { useRestrictPrivateRoute } from "../../../hooks";
+import { useRestrictPrivateRoute, useProfileReviewQuery } from "../../../hooks";
 import { selectPendingPostsLoadingState } from "../../../store/selectors/activeUserSelectors";
-
-import { getPendingPosts } from "../../../store/reducers/activeUserReducer";
-import { resetPosts } from "../../../store/reducers/postsDataReducer";
-import { resetComments } from "../../../store/reducers/commentsDataReducer";
-import { selectActiveUserId } from "../../../store/selectors/activeUserSelectors";
 
 import { Spinner } from "../../../components/Layouts";
 import ProfileReviewTaggedPosts from "../../../components/ProfileReview/ProfileReviewTaggedPosts";
@@ -16,17 +11,13 @@ import ProfileReviewTaggedPosts from "../../../components/ProfileReview/ProfileR
 function ReviewTaggedPosts() {
   useRestrictPrivateRoute();
 
-  const dispatch = useDispatch();
-  const activeUserId = useSelector(selectActiveUserId);
   const { loading } = useSelector(selectPendingPostsLoadingState);
 
-  useEffect(() => {
-    dispatch(getPendingPosts(activeUserId));
+  const { getPendingPostsQuery, resetState } = useProfileReviewQuery();
 
-    return () => {
-      dispatch(resetPosts());
-      dispatch(resetComments());
-    };
+  useEffect(() => {
+    getPendingPostsQuery();
+    return () => resetState();
   }, []);
 
   return (

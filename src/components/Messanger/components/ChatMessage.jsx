@@ -1,11 +1,11 @@
 import styles from "./styles/chatMessage.module.scss";
-import { Avatar } from "../../Layouts";
+import { Avatar,ParagraphsGenerator } from "../../Layouts";
 
 function ChatMessage({ msgGroup, activeUserId, adressatImage }) {
   return (
     <>
       {msgGroup[0]?.author !== activeUserId && <Avatar img={adressatImage} />}
-      <p className={styles.chatMessageGroupBox}>
+      <div className={styles.chatMessageGroupBox}>
         {msgGroup?.map((message, i, arr) => (
           <span
             className={`${styles.messageText} ${
@@ -22,10 +22,10 @@ function ChatMessage({ msgGroup, activeUserId, adressatImage }) {
             `}
             key={message._id}
           >
-            {message.message}
+            <ParagraphsGenerator text={message.message}/>
           </span>
         ))}
-      </p>
+      </div>
     </>
   );
 }

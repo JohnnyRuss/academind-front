@@ -25,6 +25,8 @@ export { default as TimeAgoAndAudience } from "./TimeAgoAndAudience/TimeAgoAndAu
 export { default as Audience } from "./Audience/Audience";
 export { default as SelectAudience } from "./SelectAudience/SelectAudience";
 
+
+export { default as ParagraphsGenerator } from "./ParagraphsGenerator/ParagraphsGenerator";
 export { default as TextArea } from "./TextArea/TextArea";
 export { default as TextAreaWithTag } from "./TextArea/TextAreaWithTag";
 export { default as TextField } from "./TextField/TextField";
