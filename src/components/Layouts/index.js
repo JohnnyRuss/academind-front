@@ -25,7 +25,6 @@ export { default as TimeAgoAndAudience } from "./TimeAgoAndAudience/TimeAgoAndAu
 export { default as Audience } from "./Audience/Audience";
 export { default as SelectAudience } from "./SelectAudience/SelectAudience";
 
-
 export { default as ParagraphsGenerator } from "./ParagraphsGenerator/ParagraphsGenerator";
 export { default as TextArea } from "./TextArea/TextArea";
 export { default as TextAreaWithTag } from "./TextArea/TextAreaWithTag";
@@ -48,6 +47,8 @@ export { default as RegisterFragment } from "./AboutUser/RegisterFragment";
 export { default as WorkplaceFragment } from "./AboutUser/WorkplaceFragment";
 export { default as EmailFragment } from "./AboutUser/EmailFragment";
 export { default as GenderFragment } from "./AboutUser/GenderFragment";
+
+export { default as Error } from "./Error/Error";
 
 export { default as Modal } from "./Modal/Modal";
 

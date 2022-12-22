@@ -10,7 +10,7 @@ export function* loginHandler({ payload }) {
     const { data } = yield call(loginQuery, payload);
     yield put(setActiveUser(data));
   } catch (error) {
-    showError(error, "loginHandler");
+    yield showError({ error, location: "loginHandler" });
   }
 }
 
@@ -18,6 +18,6 @@ export function* logOutHandler({ payload }) {
   try {
     yield call(logOutQuery);
   } catch (error) {
-    showError(error, "logOutHandler");
+    yield showError({ error, location: "logOutHandler" });
   }
 }

@@ -1,5 +1,9 @@
-import { useComments, useScrollOnNotifyAtCommentReply } from '../../../../hooks';
-import { Comment, RepliesThread } from './';
+import {
+  useComments,
+  useScrollOnNotifyAtCommentReply,
+} from "../../../../hooks";
+
+import { Comment, RepliesThread } from "./";
 
 /**
  * This component is individual for each comment which belongs to comments main thread. It renders his own replies thread if comment from main thread has replies.
@@ -24,12 +28,16 @@ function CommentListItem({
     resetCommentCredentials,
   } = useComments();
 
-  useScrollOnNotifyAtCommentReply({ handleShowReplies, notifyOnComment, comment });
+  useScrollOnNotifyAtCommentReply({
+    handleShowReplies,
+    notifyOnComment,
+    comment,
+  });
 
   return (
     <>
       <Comment
-        type='Parent'
+        type="Parent"
         handlers={{ setCommentReply, setUpdateComment: setUpdateParentComment }}
         data={{ comment, postId, postAuthorId }}
       />

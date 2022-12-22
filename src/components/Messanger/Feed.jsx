@@ -3,16 +3,19 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { useConversationQuery } from "../../hooks";
+import {
+  selectActiveConversation,
+  selectConversationChatLoadingState,
+} from "../../store/selectors/conversationSelectors";
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
-import { selectActiveConversation } from "../../store/selectors/conversationSelectors";
+import { useConversationQuery } from "../../hooks";
 
 import { groupMessages, fixLineBreaks } from "../../lib";
 
 import styles from "./components/styles/feed.module.scss";
 import FeedHeader from "./components/FeedHeader";
 import FeedMessagesList from "./components/FeedMessagesList";
-import { TextArea, Spinner } from "../Layouts";
+import { TextArea, Spinner, Error } from "../Layouts";
 
 function Feed() {
   const { pathname } = useLocation();
@@ -21,8 +24,13 @@ function Feed() {
 
   const {
     conversation,
-    conversationState: { loading },
+    conversationState: { loading, error, message },
   } = useSelector(selectActiveConversation);
+  const {
+    error: chatError,
+    task: chatTask,
+    message: chatErrorMessage,
+  } = useSelector(selectConversationChatLoadingState);
   const activeUserId = useSelector(selectActiveUserId);
 
   const groupedMessages = useMemo(
@@ -59,7 +67,7 @@ function Feed() {
       }`}
     >
       {loading && <Spinner />}
-      {!loading && conversation && (
+      {!loading && !error && conversation && (
         <>
           <FeedHeader adressat={adressat} />
           <FeedMessagesList
@@ -70,6 +78,8 @@ function Feed() {
           />
         </>
       )}
+      {error && <Error msg={message} />}
+      {chatError && chatTask === "send" && <Error msg={chatErrorMessage} />}
       <TextArea
         withBtn={false}
         placeholder="Aa"

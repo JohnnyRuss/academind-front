@@ -41,7 +41,7 @@ export function* searchUserHandler({ payload: key }) {
     const { data } = yield call(queryUserSearch, key);
     yield put(setSearchResult(data));
   } catch (error) {
-    showError(error, "searchUserHandler");
+    yield showError({ error, location: "searchUserHandler" });
   }
 }
 
@@ -51,7 +51,7 @@ export function* getUserProfileHandler({ payload: userId }) {
     yield put(setUserProfile(data));
     yield put(resetLoadingState());
   } catch (error) {
-    showError(error, "getUserProfileHandler");
+    yield showError({ error, location: "getUserProfileHandler" });
   }
 }
 
@@ -68,7 +68,7 @@ export function* getProfilePostsHandler({
     );
     yield put(setPosts({ data: data.data, results: data.results }));
   } catch (error) {
-    showError(error, "getProfilePostsHandler");
+    yield showError({ error, location: "getProfilePostsHandler" });
   }
 }
 
@@ -80,7 +80,7 @@ export function* getUserFeedHandler({
     yield put(setPosts({ data: data.data, results: data.results }));
     yield put(resetLoadingState());
   } catch (error) {
-    showError(error, "getUserFeedHandler");
+    yield showError({ error, location: "getUserFeedHandler" });
   }
 }
 
@@ -92,7 +92,7 @@ export function* getBookmarksHandler({
     yield put(setBookmarkedPosts({ data: data.data, results: data.results }));
     yield put(resetNestedLoadingState());
   } catch (error) {
-    showError(error, "getBookmarksHandler");
+    yield showError({ error, location: "getBookmarksHandler" });
   }
 }
 
@@ -101,7 +101,7 @@ export function* getUserAboutDataHandler({ payload: userId }) {
     const { data } = yield call(queryUserAboutData, userId);
     yield put(setUserAboutData(data));
   } catch (error) {
-    showError(error, "getUserAboutDataHandler");
+    yield showError({ error, location: "getUserAboutDataHandler" });
   }
 }
 
@@ -110,7 +110,7 @@ export function* getUserNotificationsHandler({ payload: userId }) {
     const { data } = yield call(queryUserNotifications, userId);
     yield put(setNotifications(data));
   } catch (error) {
-    showError(error, "getUserAboutDataHandler");
+    yield showError({ error, location: "getUserAboutDataHandler" });
   }
 }
 
@@ -119,7 +119,7 @@ export function* deleteUserNotificationHandler({ payload: notifyId }) {
     yield call(queryDeleteUserNotification, notifyId);
     yield put(setDeletedNotification(notifyId));
   } catch (error) {
-    showError(error, "getUserAboutDataHandler");
+    yield showError({ error, location: "getUserAboutDataHandler" });
   }
 }
 
@@ -128,7 +128,7 @@ export function* deleteAllUserNotificationHandler() {
     yield call(queryDeleteAllUserNotification);
     yield put(setDeleteAllNotifaction());
   } catch (error) {
-    showError(error, "deleteAllUserNotificationHandler");
+    yield showError({ error, location: "deleteAllUserNotificationHandler" });
   }
 }
 
@@ -137,7 +137,7 @@ export function* markNotificationAsReadHandler({ payload: notifyId }) {
     const { data } = yield call(queryMarkNotificationAsRead, notifyId);
     yield put(setMarkedNotification(data));
   } catch (error) {
-    showError(error, "getUserAboutDataHandler");
+    yield showError({ error, location: "getUserAboutDataHandler" });
   }
 }
 
@@ -146,7 +146,7 @@ export function* markAllNotificationAsReadHandler(payload) {
     yield call(queryMarkAllNotificationAsRead);
     yield put(setAllNotificationAsRead());
   } catch (error) {
-    showError(error, "getUserAboutDataHandler");
+    yield showError({ error, location: "getUserAboutDataHandler" });
   }
 }
 
@@ -156,7 +156,7 @@ export function* getPendingPostsHandler({ payload: userId }) {
     yield put(setPosts({ data }));
     yield put(resetActiveUserLoadingState("pendingPostsLoadingState"));
   } catch (error) {
-    showError(error, "getPendingPostsHandler");
+    yield showError({ error, location: "getPendingPostsHandler" });
   }
 }
 
@@ -166,6 +166,6 @@ export function* getHiddenPostsHandler({ payload: userId }) {
     yield put(setPosts({ data }));
     yield put(resetActiveUserLoadingState("pendingPostsLoadingState"));
   } catch (error) {
-    showError(error, "getHiddenPostsHandler");
+    yield showError({ error, location: "getHiddenPostsHandler" });
   }
 }

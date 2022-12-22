@@ -1,13 +1,17 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import {
+  selectAllConversations,
+  selectAllConversationLoadingState,
+} from "../../store/selectors/conversationSelectors.js";
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
-import { selectAllConversations } from "../../store/selectors/conversationSelectors.js";
 
 import { getConversationLastMsg } from "../../lib";
 
 import styles from "./components/styles/sideBar.module.scss";
 import Conversation from "./components/Conversation";
+import { Error } from "../Layouts";
 
 function SideBar() {
   const { id } = useParams();
@@ -17,6 +21,8 @@ function SideBar() {
     selectAllConversations
   );
 
+  const { error, message } = useSelector(selectAllConversationLoadingState);
+
   function getLatsMsgDateCreation(conversation) {
     return new Date(getConversationLastMsg(conversation)?.createdAt).getTime();
   }
@@ -25,7 +31,7 @@ function SideBar() {
     <aside
       className={`${styles.sideBar} ${id ? styles.isActiveConversation : ""}`}
     >
-      {conversations[0] && (
+      {!error && conversations[0] && (
         <div className={styles.contentBox}>
           {[...conversations]
             ?.sort(
@@ -47,6 +53,7 @@ function SideBar() {
             ))}
         </div>
       )}
+      {error && <Error msg={message} />}
     </aside>
   );
 }

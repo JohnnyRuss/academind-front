@@ -14,11 +14,14 @@ import {
 } from "../../../store/selectors/commentsSelector";
 
 import styles from "./components/styles/commentsList.module.scss";
-import { TextAreaWithTag, BlockSpinner } from "../";
+import { TextAreaWithTag, BlockSpinner, Error } from "../";
 import { CommentListItem } from "./components";
 
 function CommentsList({ postId, postAuthorId, notifyOnComment }) {
-  const { loading } = useSelector(selectCommentsLoadingState);
+  const { loading, error, message, target, task } = useSelector(
+    selectCommentsLoadingState
+  );
+
   const data = useSelector((state) => selectPostCommentsById(state, postId));
 
   // Sorts comments data by "Pin" property
@@ -55,6 +58,7 @@ function CommentsList({ postId, postAuthorId, notifyOnComment }) {
     <div className={styles.commentsList}>
       {loading && <BlockSpinner />}
       {!loading &&
+        (!error || (error && target !== "global")) &&
         comments?.map((comment) => (
           <CommentListItem
             comment={comment}
@@ -65,10 +69,15 @@ function CommentsList({ postId, postAuthorId, notifyOnComment }) {
             key={comment._id}
           />
         ))}
-      {!loading && !comments[0] && (
+      {!loading && !error && !comments[0] && (
         <p className={styles.commentsMessage}>there are no comments yet</p>
       )}
-      {/* main textfield which is fixed on the bottom */}
+      {error && target === "global" && task === "get" && (
+        <Error msg={message} />
+      )}
+      {error && target === "parent" && (task === "add" || task === "update") && (
+        <Error msg={message} />
+      )}
       <TextAreaWithTag
         text={text}
         setText={setText}

@@ -51,7 +51,7 @@ export function* createPostHandler({ payload: body }) {
     yield put(setNewPost(data));
     yield put(resetCreatePost());
   } catch (error) {
-    showError(error, "createPostHandler");
+    yield showError({ error, location: "createPostHandler" });
   }
 }
 
@@ -60,7 +60,7 @@ export function* deletePostHandler({ payload: postId }) {
     yield call(queryDeletePost, postId);
     yield put(setDeletedPost(postId));
   } catch (error) {
-    showError(error, "deletePostHandler");
+    yield showError({ error, location: "deletePostHandler" });
   }
 }
 
@@ -73,7 +73,7 @@ export function* updatePostHandler({ payload: { params, body } }) {
     yield put(setUpdatedPost({ params, data }));
     yield put(resetUpdateState());
   } catch (error) {
-    showError(error, "updatePostHandler");
+    yield showError({ error, location: "updatePostHandler" });
   }
 }
 
@@ -85,7 +85,7 @@ export function* changePostAudienceHandler({ payload: { params, body } }) {
     });
     yield put(setUpdatedPostAudience({ params, data }));
   } catch (error) {
-    showError(error, "changePostAudienceHandler");
+    yield showError({ error, location: "changePostAudienceHandler" });
   }
 }
 
@@ -94,7 +94,7 @@ export function* reactOnPostHandler({ payload: { postId, body } }) {
     const { data } = yield call(queryPostReaction, { postId, body });
     yield put(setPostReaction({ postId, data }));
   } catch (error) {
-    showError(error, "reactOnPostHandler");
+    yield showError({ error, location: "reactOnPostHandler" });
   }
 }
 
@@ -107,7 +107,7 @@ export function* sharePostHandler({ payload: { postId, body } }) {
 
     yield put(resetSharePostModal());
   } catch (error) {
-    showError(error, "sharePostHandler");
+    yield showError({ error, location: "sharePostHandler" });
   }
 }
 
@@ -115,7 +115,7 @@ export function* savePostHandler({ payload: postId }) {
   try {
     yield call(querySavePost, postId);
   } catch (error) {
-    showError(error, "savePostHandler");
+    yield showError({ error, location: "savePostHandler" });
   }
 }
 
@@ -126,7 +126,7 @@ export function* getBlogPostsHandler({
     const { data } = yield call(queryBlogPosts, page, limit, hasMore, query);
     yield put(setPosts({ data: data.data, results: data.results }));
   } catch (error) {
-    showError(error, "getBlogPostsHandler");
+    yield showError({ error, location: "getBlogPostsHandler" });
   }
 }
 
@@ -135,7 +135,7 @@ export function* getTopRatedPublishersHandler({ payload: limit }) {
     const { data } = yield call(queryTopRatedPublishers, limit);
     yield put(setTopRatedPublishers(data));
   } catch (error) {
-    showError(error, "getTopRatedPublishersHandler");
+    yield showError({ error, location: "getTopRatedPublishersHandler" });
   }
 }
 
@@ -144,7 +144,7 @@ export function* getTopRatedBlogPostsHandler({ payload: limit }) {
     const { data } = yield call(queryTopRatedBlogPosts, limit);
     yield put(setTopRatedBlogPosts(data));
   } catch (error) {
-    showError(error, "getTopRatedBlogPostsHandler");
+    yield showError({ error, location: "getTopRatedBlogPostsHandler" });
   }
 }
 
@@ -156,7 +156,7 @@ export function* getPostHandler({ payload: postId }) {
     yield put(
       setErrorOnLoadingState(error?.response?.data?.message || error.message)
     );
-    // showError(error, 'getPostHandler');
+    // yield showError(error, 'getPostHandler');
   }
 }
 
@@ -165,7 +165,7 @@ export function* getRelatedPostsHandler({ payload: { postId, limit } }) {
     const { data } = yield call(queryRelatedPosts, postId, limit);
     yield put(setRelatedPosts(data));
   } catch (error) {
-    showError(error, "getPostHandler");
+    yield showError({ error, location: "getPostHandler" });
   }
 }
 
@@ -174,7 +174,7 @@ export function* showPostOnProfileHandler({ payload: { postId, body } }) {
     yield call(queryShowPostOnProfile, postId, body);
     yield put(setShowOnProfile(postId));
   } catch (error) {
-    showError(error, "showPostOnProfileHandler");
+    yield showError({ error, location: "showPostOnProfileHandler" });
   }
 }
 
@@ -183,7 +183,7 @@ export function* addPostToProfileHandler({ payload: postId }) {
     yield call(queryAddPostToProfile, postId);
     yield put(setShowOnProfile(postId));
   } catch (error) {
-    showError(error, "addPostToProfileHandler");
+    yield showError({ error, location: "addPostToProfileHandler" });
   }
 }
 
@@ -193,7 +193,7 @@ export function* hidePostFromProfileHandler({ payload: postId }) {
     yield call(queryHidePostFromProfile, postId);
     if (excludeIf) yield put(setHiddenPost(postId));
   } catch (error) {
-    showError(error, "hidePostFromProfileHandler");
+    yield showError({ error, location: "hidePostFromProfileHandler" });
   }
 }
 
@@ -203,6 +203,6 @@ export function* removeTagOnPostHandler({ payload: postId }) {
     const { data } = yield call(queryRemoveTagOnPost, postId);
     yield put(setRemovedTag({ data, remove: excludeIf ? true : false }));
   } catch (error) {
-    showError(error, "removeTagOnPostHandler");
+    yield showError({ error, location: "removeTagOnPostHandler" });
   }
 }

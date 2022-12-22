@@ -1,7 +1,8 @@
 import { call, put } from "redux-saga/effects";
-import { showError } from "./errorHandler";
+import { showError, triggerError } from "./errorHandler";
 
 import {
+  setConversationError,
   setAllConversations,
   setActiveConversation,
   setNewConversation,
@@ -24,7 +25,14 @@ export function* getAllConversationsHandler({ payload: userId }) {
     const { data } = yield call(queryGetAllConversations, userId);
     yield put(setAllConversations(data));
   } catch (error) {
-    showError(error, "getAllConversationsHandler");
+    yield showError({
+      error,
+      location: "getAllConversationsHandler",
+      setter: setConversationError,
+      setterParams: {
+        key: "getAllLoadingState",
+      },
+    });
   }
 }
 
@@ -33,7 +41,14 @@ export function* getLastConversationHandler({ payload: userId }) {
     const { data } = yield call(queryGetLastConversation, userId);
     yield put(setActiveConversation(data));
   } catch (error) {
-    showError(error, "getLastConversationHandler");
+    yield showError({
+      error,
+      location: "getLastConversationHandler",
+      setter: setConversationError,
+      setterParams: {
+        key: "loadingState",
+      },
+    });
   }
 }
 
@@ -42,7 +57,14 @@ export function* getConversationHandler({ payload: conversationId }) {
     const { data } = yield call(queryGetConversation, conversationId);
     yield put(setActiveConversation(data));
   } catch (error) {
-    showError(error, "getConversationHandler");
+    yield showError({
+      error,
+      location: "getConversationHandler",
+      setter: setConversationError,
+      setterParams: {
+        key: "loadingState",
+      },
+    });
   }
 }
 
@@ -51,7 +73,7 @@ export function* getNewConversationHandler({ payload: conversationId }) {
     const { data } = yield call(queryGetConversation, conversationId);
     yield put(setNewConversation(data));
   } catch (error) {
-    showError(error, "getNewConversationHandler");
+    yield showError({ error, location: "getNewConversationHandler" });
   }
 }
 
@@ -66,24 +88,50 @@ export function* sendMessageHandler({
     });
     yield put(setNewMessage(data));
   } catch (error) {
-    showError(error, "sendMessageHandler");
+    yield showError({
+      error,
+      location: "sendMessageHandler",
+      setter: setConversationError,
+      setterParams: {
+        key: "chatLoadingState",
+        task: "send",
+      },
+    });
   }
 }
 
 export function* markAsReadHandler({ payload }) {
   try {
+    triggerError();
     const { data } = yield call(markAsReadQuery, payload);
     yield put(setMarkAsRead(data));
   } catch (error) {
-    showError(error, "markAsReadHandler");
+    yield showError({
+      error,
+      location: "markAsReadHandler",
+      setter: setConversationError,
+      setterParams: {
+        key: "chatLoadingState",
+        task: "mark",
+      },
+    });
   }
 }
 
 export function* deleteConversationHandler({ payload: conversationId }) {
   try {
+    triggerError();
     yield call(queryDeleteConversation, conversationId);
     yield put(setDeletedConversation(conversationId));
   } catch (error) {
-    showError(error, "deleteConversationHandler");
+    yield showError({
+      error,
+      location: "deleteConversationHandler",
+      setter: setConversationError,
+      setterParams: {
+        key: "chatLoadingState",
+        task: "deletion",
+      },
+    });
   }
 }

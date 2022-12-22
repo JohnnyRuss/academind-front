@@ -61,6 +61,7 @@ function Messanger() {
 
   useEffect(() => {
     if (
+      !allConversationState.error &&
       !allConversationState.loading &&
       !isMounting &&
       unseenConversationsCount > 0
@@ -76,6 +77,7 @@ function Messanger() {
   useEffect(() => {
     !id &&
       !allConversationState.loading &&
+      !allConversationState.error &&
       allConversations[0] &&
       getLastConversationQuery();
 

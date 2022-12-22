@@ -1,5 +1,18 @@
 import { createSelector } from "@reduxjs/toolkit";
 
+// Loading States
+
+export const selectConversationLoadingState = ({ conversation }) =>
+  conversation.loadingState;
+
+export const selectAllConversationLoadingState = ({ conversation }) =>
+  conversation.getAllLoadingState;
+
+export const selectConversationChatLoadingState = ({ conversation }) =>
+  conversation.chatLoadingState;
+
+///////////////////////////////////////////////////////
+
 const selectedConversations = ({ conversation }) => ({
   allConversations: conversation.allConversations,
   allConversationState: conversation.getAllLoadingState,
@@ -22,12 +35,6 @@ export const selectActiveConversation = createSelector(
 
 export const selectConversationById = ({ conversation }, id) =>
   conversation.allConversations.find((conversation) => conversation._id === id);
-
-export const selectConversationLoadingState = ({ conversation }) =>
-  conversation.loadingState;
-
-export const selectAllConversationLoadingState = ({ conversation }) =>
-  conversation.getAllLoadingState;
 
 export const selectNewConversationAlert = ({ conversation }) =>
   conversation.newConversationAlert;

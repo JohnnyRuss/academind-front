@@ -24,7 +24,7 @@ export function* getUnseenRequestCountHandler({ payload: userId }) {
     const { data } = yield call(getUnseenRequestsCountQuery, userId);
     yield put(setUnseenRequestsCount(data));
   } catch (error) {
-    showError(error, "getUnseenRequestCountHandler");
+    showError({ error, location: "getUnseenRequestCountHandler" });
   }
 }
 
@@ -33,7 +33,7 @@ export function* markRequestsAsSeenHandler({ payload: userId }) {
     yield call(markRequestsAsSeenQuery, userId);
     yield put(setResetedRequestsCount());
   } catch (error) {
-    showError(error, "markRequestsAsSeenHandler");
+    showError({ error, location: "markRequestsAsSeenHandler" });
   }
 }
 
@@ -42,7 +42,7 @@ export function* getUnseenConversationsCountHandler({ payload: userId }) {
     const { data } = yield call(getUnseenConversationsCountQuery, userId);
     yield put(setUnseenConversationsCount(data));
   } catch (error) {
-    showError(error, "getUnseenConversationsCountHandler");
+    showError({ error, location: "getUnseenConversationsCountHandler" });
   }
 }
 
@@ -51,7 +51,7 @@ export function* markConversationsAsSeenHandler({ payload: userId }) {
     yield call(markConversationsAsSeenQuery, userId);
     yield put(setResetedConversationsCount());
   } catch (error) {
-    showError(error, "markConversationsAsSeenHandler");
+    yield showError({ error, location: "markConversationsAsSeenHandler" });
   }
 }
 
@@ -60,7 +60,7 @@ export function* getUnseenNotificationsCountHandler({ payload: userId }) {
     const { data } = yield call(getNotificationCountQuery, userId);
     yield put(setUnseenNotificationsCount(data));
   } catch (error) {
-    showError(error, "getUnseenNotificationsCountHandler");
+    yield showError({ error, location: "getUnseenNotificationsCountHandler" });
   }
 }
 
@@ -69,6 +69,6 @@ export function* markNotificationsAsSeenHandler({ payload: userId }) {
     yield call(markNotificationsAsSeenQuery, userId);
     yield put(setResetedNotificationsCount());
   } catch (error) {
-    showError(error, "markNotificationsAsSeenHandler");
+    yield showError({ error, location: "markNotificationsAsSeenHandler" });
   }
 }

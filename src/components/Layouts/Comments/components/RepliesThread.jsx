@@ -1,9 +1,12 @@
-import { useState } from 'react';
-import { useCommentPin, useCommentsQuery } from '../../../../hooks';
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
-import styles from './styles/repliesThread.module.scss';
-import { TextAreaWithTag } from '../..';
-import { Comment, ShowRepliesBTN } from '.';
+import { selectCommentsLoadingState } from "../../../../store/selectors/commentsSelector";
+import { useCommentPin, useCommentsQuery } from "../../../../hooks";
+
+import styles from "./styles/repliesThread.module.scss";
+import { TextAreaWithTag, Error } from "../..";
+import { Comment, ShowRepliesBTN } from ".";
 
 function RepliesThread({ state, data, handlers }) {
   const {
@@ -15,19 +18,34 @@ function RepliesThread({ state, data, handlers }) {
     setUpdateComment,
   } = handlers;
 
-  const { postId, parentId, authorId, postAuthorId, authorName, replies, repliesAmount } = data;
+  const {
+    postId,
+    parentId,
+    authorId,
+    postAuthorId,
+    authorName,
+    replies,
+    repliesAmount,
+  } = data;
 
-  const { activeReply, updateReply, showReplies, tags, text: updateText, parentAuthor } = state;
+  const {
+    activeReply,
+    updateReply,
+    showReplies,
+    tags,
+    text: updateText,
+    parentAuthor,
+  } = state;
 
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   function reseter() {
-    setText('');
+    setText("");
     resetCommentCredentials();
   }
 
   const { submitCommentQuery } = useCommentsQuery(
-    'REPLIES_THREAD',
+    "REPLIES_THREAD",
     {
       postId: postId,
       commentId: parentId,
@@ -42,34 +60,46 @@ function RepliesThread({ state, data, handlers }) {
 
   const commentReplies = useCommentPin(replies);
 
+  const { error, message, target, task } = useSelector(
+    selectCommentsLoadingState
+  );
+
   return (
     <>
       <ShowRepliesBTN
         conditions={{ showReplies, activeReply, updateReply }}
-        data={{ adressatId: authorId, adressatName: authorName, replies, repliesAmount }}
+        data={{
+          adressatId: authorId,
+          adressatName: authorName,
+          replies,
+          repliesAmount,
+        }}
         handleShowReplies={handleShowReplies}
       />
       {(showReplies || activeReply || updateReply) && (
         <div className={styles.nestedList}>
           {commentReplies?.map((reply) => (
             <Comment
-              type='Reply'
+              type="Reply"
               data={{ postId, comment: reply, parentId, postAuthorId }}
               handlers={{ setCommentReply, setUpdateComment }}
               className={styles.nestedComment}
               key={reply._id}
             />
           ))}
+          {error &&
+            target === "reply" &&
+            (task === "add" || task === "update") && <Error msg={message} />}
           <TextAreaWithTag
             text={text}
             setText={setText}
             tags={tags}
             setTag={setTag}
             removeTag={(adressatId) => removeTag(adressatId)}
-            defaultValue={updateReply ? updateText : ''}
+            defaultValue={updateReply ? updateText : ""}
             focus={activeReply}
             submitHandler={submitCommentQuery}
-            placeholder='write your comment reply...'
+            placeholder="write your comment reply..."
             className={styles.commentRepliesTextArea}
           />
         </div>

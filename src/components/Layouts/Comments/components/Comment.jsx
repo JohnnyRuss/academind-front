@@ -2,10 +2,11 @@ import { useSelector } from "react-redux";
 
 import { useCommentsQuery } from "../../../../hooks";
 import { selectActiveUserId } from "../../../../store/selectors/activeUserSelectors";
+import { selectCommentsLoadingState } from "../../../../store/selectors/commentsSelector";
 import { inverseLineBreaks } from "../../../../lib";
 
 import styles from "./styles/comment.module.scss";
-import { UserIdentifier, Tags } from "../../";
+import { UserIdentifier, Tags, Error } from "../../";
 import { PinIcon } from "../../Icons/icons";
 import { CommentContent, CommentActions } from "./";
 
@@ -46,42 +47,51 @@ function Comment({ type, data, handlers, className }) {
     });
   }
 
+  const { error, message, target, task } = useSelector(
+    selectCommentsLoadingState
+  );
+
   return (
-    <div className={`${styles.comment} ${className || ""}`} id={comment._id}>
-      <div className={styles.commentHeader}>
-        <UserIdentifier
-          userId={comment.author?._id}
-          userName={comment.author?.userName}
-          img={comment.author?.profileImg}
-          withTime={false}
-          className={styles.commentUserIdentifier}
-        >
-          {comment.tags[0] && <Tags tags={comment.tags} keyWord="to" />}
-        </UserIdentifier>
-        {comment.pin && <PinIcon className={styles.pinIcon} />}
+    <>
+      <div className={`${styles.comment} ${className || ""}`} id={comment._id}>
+        <div className={styles.commentHeader}>
+          <UserIdentifier
+            userId={comment.author?._id}
+            userName={comment.author?.userName}
+            img={comment.author?.profileImg}
+            withTime={false}
+            className={styles.commentUserIdentifier}
+          >
+            {comment.tags[0] && <Tags tags={comment.tags} keyWord="to" />}
+          </UserIdentifier>
+          {comment.pin && <PinIcon className={styles.pinIcon} />}
+        </div>
+        <CommentContent
+          text={comment.text}
+          likesCount={comment.likesAmount}
+          postAuthorId={postAuthorId}
+          commentAuthorId={comment.author._id}
+          handlePinComment={() =>
+            pinCommentQuery({ type, postId, commentId, replyId })
+          }
+          handleUpdateCredentials={handleUpdateCredentials}
+          handleDeleteComment={() =>
+            deleteCommentQuery({ type, postId, commentId, replyId })
+          }
+        />
+        <CommentActions
+          reactions={comment.reactions}
+          createdAt={comment.createdAt}
+          handleReaction={() =>
+            reactOnCommentQuery({ type, postId, commentId, replyId })
+          }
+          handleReply={handleReplyCredentials}
+        />
       </div>
-      <CommentContent
-        text={comment.text}
-        likesCount={comment.likesAmount}
-        postAuthorId={postAuthorId}
-        commentAuthorId={comment.author._id}
-        handlePinComment={() =>
-          pinCommentQuery({ type, postId, commentId, replyId })
-        }
-        handleUpdateCredentials={handleUpdateCredentials}
-        handleDeleteComment={() =>
-          deleteCommentQuery({ type, postId, commentId, replyId })
-        }
-      />
-      <CommentActions
-        reactions={comment.reactions}
-        createdAt={comment.createdAt}
-        handleReaction={() =>
-          reactOnCommentQuery({ type, postId, commentId, replyId })
-        }
-        handleReply={handleReplyCredentials}
-      />
-    </div>
+      {error &&
+        (task === "deletion" || task === "pin") &&
+        target === type.toLowerCase() && <Error msg={message} />}
+    </>
   );
 }
 

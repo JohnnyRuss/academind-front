@@ -1,5 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateLoadingState } from "./helpers";
+
+function updateLoadingState({
+  state,
+  loading,
+  message = "Occured error. Please try again later.",
+  error = false,
+  target,
+  task,
+}) {
+  state.loadingState.loading = loading;
+  state.loadingState.error = error ? true : false;
+  state.loadingState.target = error ? target : "";
+  state.loadingState.message = error ? message : "";
+  state.loadingState.task = error ? task : "";
+}
+
+function resetLoadingState({ state, loading = false }) {
+  state.loadingState.loading = loading;
+  state.loadingState.error = false;
+  state.loadingState.target = "";
+  state.loadingState.message = "";
+  state.loadingState.task = "";
+}
 
 const commentsDataSlice = createSlice({
   name: "CommentsData",
@@ -8,16 +30,25 @@ const commentsDataSlice = createSlice({
       loading: false,
       error: false,
       message: "",
+      target: "", // could be "global" | "parent" | "reply"
+      task: "", // could be "get" | "add" | "update" | "deletion" |  "pin"
     },
     comments: [],
   },
   reducers: {
-    getPostComments(state) {
+    setCommentsError(state, { payload }) {
       updateLoadingState({
         state,
-        key: "loadingState",
-        loading: true,
+        loading: false,
+        error: true,
+        message: payload.msg,
+        target: payload.target,
+        task: payload.task,
       });
+    },
+
+    getPostComments(state) {
+      resetLoadingState({ state, loading: true });
     },
 
     setPostComments(state, { payload }) {
@@ -31,14 +62,12 @@ const commentsDataSlice = createSlice({
         state.comments[existingCommentsBockIndex].comments = data;
       else state.comments = [...state.comments, { postId, comments: data }];
 
-      updateLoadingState({
-        state,
-        key: "loadingState",
-        loading: false,
-      });
+      updateLoadingState({ state, loading: false });
     },
 
-    addComment() {},
+    addComment(state) {
+      if (state.loadingState.error) resetLoadingState({ state });
+    },
 
     setNewComment(state, { payload }) {
       const { postId, data } = payload;
@@ -50,7 +79,9 @@ const commentsDataSlice = createSlice({
       else state.comments.push({ postId, comments: [data] });
     },
 
-    addCommentReply() {},
+    addCommentReply(state) {
+      if (state.loadingState.error) resetLoadingState({ state });
+    },
 
     setNewCommentReply(state, { payload }) {
       const { params, data } = payload;
@@ -63,7 +94,9 @@ const commentsDataSlice = createSlice({
       parentComment.repliesAmount = parentComment.repliesAmount += 1;
     },
 
-    deleteComment() {},
+    deleteComment(state) {
+      if (state.loadingState.error) resetLoadingState({ state });
+    },
 
     setDeletedComment(state, { payload }) {
       const { params } = payload;
@@ -82,7 +115,9 @@ const commentsDataSlice = createSlice({
         );
     },
 
-    deleteCommentReply() {},
+    deleteCommentReply(state) {
+      if (state.loadingState.error) resetLoadingState({ state });
+    },
 
     setDeletedCommentReply(state, { payload }) {
       const { params } = payload;
@@ -97,7 +132,9 @@ const commentsDataSlice = createSlice({
       parentComment.repliesAmount = parentComment.repliesAmount -= 1;
     },
 
-    updateComment() {},
+    updateComment(state) {
+      if (state.loadingState.error) resetLoadingState({ state });
+    },
 
     setUpdatedComment(state, { payload }) {
       const { params, data } = payload;
@@ -109,7 +146,9 @@ const commentsDataSlice = createSlice({
       comment.tags = data.tags;
     },
 
-    updateCommentReply() {},
+    updateCommentReply(state) {
+      if (state.loadingState.error) resetLoadingState({ state });
+    },
 
     setUpdatedCommentReply(state, { payload }) {
       const { params, data } = payload;
@@ -151,7 +190,9 @@ const commentsDataSlice = createSlice({
       commentReply.reactions = data.reactions;
     },
 
-    pinComment() {},
+    pinComment(state) {
+      if (state.loadingState.error) resetLoadingState({ state });
+    },
 
     setPinnedComment(state, { payload }) {
       const { params, data } = payload;
@@ -163,7 +204,9 @@ const commentsDataSlice = createSlice({
       comment.pin = data.pin;
     },
 
-    pinCommentReply() {},
+    pinCommentReply(state) {
+      if (state.loadingState.error) resetLoadingState({ state });
+    },
 
     setPinnedCommentReply(state, { payload }) {
       const { params, data } = payload;
@@ -178,12 +221,14 @@ const commentsDataSlice = createSlice({
 
     resetComments(state) {
       state.comments = [];
+      resetLoadingState({ state });
     },
   },
 });
 
 export const commentsDataReducer = commentsDataSlice.reducer;
 export const {
+  setCommentsError,
   getPostComments,
   setPostComments,
   addComment,

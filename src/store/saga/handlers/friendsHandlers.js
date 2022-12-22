@@ -30,7 +30,7 @@ export function* sendRequestHandler({ payload: userId }) {
   try {
     yield call(querySendRequest, userId);
   } catch (error) {
-    showError(error, "sendRequestHandler");
+    yield showError({ error, location: "sendRequestHandler" });
   }
 }
 
@@ -39,7 +39,7 @@ export function* cancelRequestHandler({ payload: userId }) {
     yield call(queryCancelRequest, userId);
     if (isRoute("sent-requests")) yield put(setCanceledRequest(userId));
   } catch (error) {
-    showError(error, "cancelRequestHandler");
+    yield showError({ error, location: "cancelRequestHandler" });
   }
 }
 
@@ -48,20 +48,20 @@ export function* deleteRequestHandler({ payload: userId }) {
     yield call(queryDeleteRequest, userId);
     if (isRoute("pending-requests")) yield put(setDeletedRequest(userId));
   } catch (error) {
-    showError(error, "deleteRequestHandler");
+    yield showError({ error, location: "deleteRequestHandler" });
   }
 }
 
 export function* confirmRequestHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryConfirmRequest, userId);
-    
+
     if (isRoute("pending-requests")) {
       yield put(setNewFriend(data));
       yield put(setConfirmedRequest(userId));
     }
   } catch (error) {
-    showError(error, "confirmRequestHandler");
+    yield showError({ error, location: "confirmRequestHandler" });
   }
 }
 
@@ -70,7 +70,7 @@ export function* deleteFriendtHandler({ payload: userId }) {
     yield call(queryDeleteFriend, userId);
     if (isRoute("all-friends")) yield put(setDeletedFriend(userId));
   } catch (error) {
-    showError(error, "deleteFriendtHandler");
+    yield showError({ error, location: "deleteFriendtHandler" });
   }
 }
 
@@ -79,7 +79,7 @@ export function* getAllFriendsHandler({ payload: userId }) {
     const { data } = yield call(queryGetAllFriends, userId);
     yield put(setFriends(data));
   } catch (error) {
-    showError(error, "getAllFriendsHandler");
+    yield showError({ error, location: "getAllFriendsHandler" });
   }
 }
 
@@ -88,7 +88,7 @@ export function* getPendingRequestsHandler({ payload: userId }) {
     const { data } = yield call(queryGetPendingRequests, userId);
     yield put(setPendingRequests(data));
   } catch (error) {
-    showError(error, "getPendingRequestsHandler");
+    yield showError({ error, location: "getPendingRequestsHandler" });
   }
 }
 
@@ -97,6 +97,6 @@ export function* getSentRequestsHandler({ payload: userId }) {
     const { data } = yield call(queryGetSentRequests, userId);
     yield put(setSentRequests(data));
   } catch (error) {
-    showError(error, "getSentRequestsHandler");
+    yield showError({ error, location: "getSentRequestsHandler" });
   }
 }

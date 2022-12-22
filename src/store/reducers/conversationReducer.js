@@ -1,5 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateLoadingState } from "./helpers";
+
+function updateLoadingState({
+  state,
+  key,
+  loading,
+  message = "Occured error. Please try again later.",
+  error = false,
+  task,
+}) {
+  if (task) state[key].task = error ? task : "";
+  state[key].loading = loading;
+  state[key].error = error ? true : false;
+  state[key].message = error ? message : "";
+}
+
+function resetLoadingState({ state, key, loading = false, task }) {
+  if (task) state[key].task = "";
+  state[key].loading = loading;
+  state[key].error = false;
+  state[key].message = "";
+}
 
 const conversationSlice = createSlice({
   name: "conversation",
@@ -14,6 +34,12 @@ const conversationSlice = createSlice({
       error: false,
       message: "",
     },
+    chatLoadingState: {
+      loading: false,
+      error: false,
+      message: "",
+      task: "", // "send" | "deletion" | "mark"
+    },
     newConversationAlert: {
       isNew: false,
       id: "",
@@ -22,8 +48,20 @@ const conversationSlice = createSlice({
     activeConversation: null,
   },
   reducers: {
+    setConversationError(state, { payload }) {
+      console.log(payload);
+      updateLoadingState({
+        state,
+        key: payload.key,
+        loading: false,
+        message: payload.message,
+        error: true,
+        task: payload.task,
+      });
+    },
+
     getAllConversations(state) {
-      updateLoadingState({ state, key: "getAllLoadingState", loading: true });
+      resetLoadingState({ state, key: "getAllLoadingState", loading: true });
     },
 
     setAllConversations(state, { payload }) {
@@ -32,11 +70,11 @@ const conversationSlice = createSlice({
     },
 
     getLastConversation(state) {
-      updateLoadingState({ state, key: "loadingState", loading: true });
+      resetLoadingState({ state, key: "loadingState", loading: true });
     },
 
     getConversation(state) {
-      updateLoadingState({ state, key: "loadingState", loading: true });
+      resetLoadingState({ state, key: "loadingState", loading: true });
     },
 
     setActiveConversation(state, { payload }) {
@@ -55,7 +93,14 @@ const conversationSlice = createSlice({
       };
     },
 
-    sendMessage() {},
+    sendMessage(state) {
+      if (state.chatLoadingState.error)
+        resetLoadingState({
+          state,
+          key: "chatLoadingState",
+          task: true,
+        });
+    },
 
     setNewMessage(state, { payload }) {
       const { message, lastMessage } = payload;
@@ -123,6 +168,7 @@ const conversationSlice = createSlice({
 
 export const conversationReducer = conversationSlice.reducer;
 export const {
+  setConversationError,
   getAllConversations,
   setAllConversations,
   getLastConversation,

@@ -2,6 +2,7 @@ import { all, call, put, select } from "redux-saga/effects";
 import { showError } from "./errorHandler";
 
 import {
+  setCommentsError,
   setPostComments,
   setNewComment,
   setNewCommentReply,
@@ -39,7 +40,15 @@ export function* getPostsCommentsHandler({ payload: postId }) {
     const { data } = yield call(queryPostComments, postId);
     yield put(setPostComments({ postId, data }));
   } catch (error) {
-    showError(error, "getPostsCommentsHandler");
+    yield showError({
+      error,
+      location: "getPostsCommentsHandler",
+      setter: setCommentsError,
+      setterParams: {
+        target: "global",
+        task: "get",
+      },
+    });
   }
 }
 
@@ -51,7 +60,15 @@ export function* addCommentHandler({ payload: { postId, body } }) {
       put(encreasePostCommentCount(postId)),
     ]);
   } catch (error) {
-    showError(error, "addCommentHandler");
+    yield showError({
+      error,
+      location: "addCommentHandler",
+      setter: setCommentsError,
+      setterParams: {
+        target: "parent",
+        task: "add",
+      },
+    });
   }
 }
 
@@ -66,7 +83,15 @@ export function* addCommentReplyHandler({ payload: { params, body } }) {
       put(encreasePostCommentCount(params.postId)),
     ]);
   } catch (error) {
-    showError(error, "addCommentReplyHandler");
+    yield showError({
+      error,
+      location: "addCommentReplyHandler",
+      setter: setCommentsError,
+      setterParams: {
+        target: "reply",
+        task: "add",
+      },
+    });
   }
 }
 
@@ -89,7 +114,15 @@ export function* deleteCommentHandler({ payload: params }) {
       ),
     ]);
   } catch (error) {
-    showError(error, "deleteCommentHandler");
+    yield showError({
+      error,
+      location: "deleteCommentHandler",
+      setter: setCommentsError,
+      setterParams: {
+        target: "parent",
+        task: "deletion",
+      },
+    });
   }
 }
 
@@ -105,7 +138,15 @@ export function* deleteCommentReplyHandler({ payload: params }) {
       put(decreasePostCommentCount({ postId: params.postId })),
     ]);
   } catch (error) {
-    showError(error, "deleteCommentReplyHandler");
+    yield showError({
+      error,
+      location: "deleteCommentReplyHandler",
+      setter: setCommentsError,
+      setterParams: {
+        target: "reply",
+        task: "deletion",
+      },
+    });
   }
 }
 
@@ -117,7 +158,15 @@ export function* updateCommentHandler({ payload: { params, body } }) {
     });
     yield put(setUpdatedComment({ params, data }));
   } catch (error) {
-    showError(error, "updateCommentHandler");
+    yield showError({
+      error,
+      location: "updateCommentHandler",
+      setter: setCommentsError,
+      setterParams: {
+        target: "parent",
+        task: "update",
+      },
+    });
   }
 }
 
@@ -130,7 +179,15 @@ export function* updateCommentReplyHandler({ payload: { params, body } }) {
     });
     yield put(setUpdatedCommentReply({ params, data }));
   } catch (error) {
-    showError(error, "updateCommentReplyHandler");
+    yield showError({
+      error,
+      location: "updateCommentReplyHandler",
+      setter: setCommentsError,
+      setterParams: {
+        target: "reply",
+        task: "update",
+      },
+    });
   }
 }
 
@@ -139,7 +196,7 @@ export function* reactOnCommentHandler({ payload: params }) {
     const { data } = yield call(queryReactionOnComment, params.commentId);
     yield put(setReactionOnComment({ params, data }));
   } catch (error) {
-    showError(error, "reactOnCommentHandler");
+    yield showError({ error, location: "reactOnCommentHandler" });
   }
 }
 
@@ -151,7 +208,7 @@ export function* reactOnCommentReplyHandler({ payload: params }) {
     });
     yield put(setReactionOnCommentReply({ params, data }));
   } catch (error) {
-    showError(error, "reactOnCommentReplyHandler");
+    yield showError({ error, location: "reactOnCommentReplyHandler" });
   }
 }
 
@@ -160,7 +217,15 @@ export function* pinCommentHandler({ payload: params }) {
     const { data } = yield call(queryPinComment, params.commentId);
     yield put(setPinnedComment({ params, data }));
   } catch (error) {
-    showError(error, "pinCommentHandler");
+    yield showError({
+      error,
+      location: "pinCommentHandler",
+      setter: setCommentsError,
+      setterParams: {
+        target: "parent",
+        task: "pin",
+      },
+    });
   }
 }
 
@@ -172,6 +237,14 @@ export function* pinCommentReplyHandler({ payload: params }) {
     });
     yield put(setPinnedCommentReply({ params, data }));
   } catch (error) {
-    showError(error, "pinCommentReplyHandler");
+    yield showError({
+      error,
+      location: "pinCommentReplyHandler",
+      setter: setCommentsError,
+      setterParams: {
+        target: "reply",
+        task: "pin",
+      },
+    });
   }
 }
