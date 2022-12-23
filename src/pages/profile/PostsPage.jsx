@@ -17,7 +17,7 @@ import { StandSpinner } from "../../components/Layouts";
 
 function PostPage() {
   const { posts, hasMore } = useSelector(selectPosts);
-  const { loading } = useSelector(selectUserLoadingState);
+  // const { loading } = useSelector(selectUserLoadingState);
 
   const { getProfilePostsQuery, resetState } = useProfilePostsQuery();
 
@@ -35,7 +35,7 @@ function PostPage() {
     return () => resetState();
   }, [id]);
 
-  if (loading) return <StandSpinner />;
+  // if (loading) return <StandSpinner />;
 
   return (
     <PostsPageContainer>

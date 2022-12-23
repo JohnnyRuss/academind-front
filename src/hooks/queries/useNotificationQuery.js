@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 
 import {
+  resetNotificationError,
   markAllNotificationAsRead,
   markNotificationAsRead,
   deleteNotification,
@@ -31,7 +32,12 @@ function useNotificationQuery() {
     dispatch(getNotifications(userId));
   }
 
+  function handleResetNotificationError() {
+    dispatch(resetNotificationError());
+  }
+
   return {
+    handleResetNotificationError,
     markAllNotificationAsReadQuery,
     markNotificationAsReadQuery,
     deleteAllNotificationQuery,

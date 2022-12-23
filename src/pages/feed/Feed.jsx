@@ -12,12 +12,13 @@ import {
   FeedSideBarRight,
   FeedSideBarLeft,
 } from "../../components/Feed";
-import { StandSpinner } from "../../components/Layouts";
+import { StandSpinner, Error } from "../../components/Layouts";
 
 function Feed() {
-  const { loading } = useSelector(selectUserLoadingState);
+  const { loading, error, message } = useSelector(selectUserLoadingState);
   const { posts, hasMore } = useSelector(selectPosts);
-  const { getFeedPostsQuery, resetState } = useFeedQuery();
+  const { getFeedPostsQuery, resetState, handleResetFeedError } =
+    useFeedQuery();
 
   const [page, setPage] = useState(1);
   async function handleNext() {
@@ -31,14 +32,23 @@ function Feed() {
     return () => resetState();
   }, []);
 
-  if (loading) return <StandSpinner />;
-
   return (
     <FeedContainer>
-      {/* <SideBarLeft /> */}
-      <FeedSideBarLeft />
-      <FeedContent hasMore={hasMore} handleNext={handleNext} posts={posts} />
-      <FeedSideBarRight />
+      {loading && <StandSpinner />}
+      {!loading && !error && (
+        <>
+          <FeedSideBarLeft />
+          <FeedContent
+            hasMore={hasMore}
+            handleNext={handleNext}
+            posts={posts}
+          />
+          <FeedSideBarRight />
+        </>
+      )}
+      {error && (
+        <Error asModal={true} msg={message} onClose={handleResetFeedError} />
+      )}
     </FeedContainer>
   );
 }

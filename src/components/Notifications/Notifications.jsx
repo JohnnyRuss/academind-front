@@ -14,7 +14,7 @@ import { useNotificationQuery, useBadgeQuery } from "../../hooks";
 
 import styles from "./styles/notifications.module.scss";
 import NotificationBody from "./NotificationBody";
-import { BlockSpinner } from "../Layouts";
+import { BlockSpinner, Error } from "../Layouts";
 
 function Notifications() {
   const dispatch = useDispatch();
@@ -22,12 +22,15 @@ function Notifications() {
 
   const activeUserId = useSelector(selectActiveUserId);
   const notifications = useSelector(selectNotifications);
-  const { loading } = useSelector(selectNotificationsLoadingState);
+  const { loading, error, message, task } = useSelector(
+    selectNotificationsLoadingState
+  );
   const unseenNotificationCount = useSelector(selectNotificationCount);
 
   const [activeNotification, setActiveNotification] = useState("");
 
   const {
+    handleResetNotificationError,
     deleteAllNotificationQuery,
     deleteNotificationQuery,
     getNotificationsQuery,
@@ -82,35 +85,47 @@ function Notifications() {
   }, []);
 
   return (
-    <div
-      className={`${styles.notificationPopUp} ${
-        !loading ? styles.expanded : ""
-      } notification--modal`}
-    >
-      <div className={styles.cleanerBtnsBox}>
-        <button onClick={handleMarkAllAsRead}>mark all as read</button>
-        <button onClick={handleDeleteAllNotification}>
-          clear all notifications
-        </button>
+    <>
+      <div
+        className={`${styles.notificationPopUp} ${
+          !loading ? styles.expanded : ""
+        } notification--modal`}
+      >
+        <div className={styles.cleanerBtnsBox}>
+          <button onClick={handleMarkAllAsRead}>mark all as read</button>
+          <button onClick={handleDeleteAllNotification}>
+            clear all notifications
+          </button>
+        </div>
+        {loading && <BlockSpinner />}
+        {!loading &&
+          (!error || (error && task !== "get")) &&
+          notifications[0] &&
+          notifications.map((notify) => (
+            <NotificationBody
+              key={notify._id}
+              notify={notify}
+              handleNavigate={handleNavigate}
+              activeNotification={activeNotification}
+              setActiveNotification={setActiveNotification}
+              handleMarkAsRead={handleMarkAsRead}
+              handleDeleteNotify={handleDeleteNotify}
+            />
+          ))}
+        {!loading && !error && !notifications[0] && (
+          <p className={styles.message}>there are no notifications</p>
+        )}
+        {error && task === "get" && <Error msg={message} />}
       </div>
-      {loading && <BlockSpinner />}
-      {!loading &&
-        notifications[0] &&
-        notifications.map((notify) => (
-          <NotificationBody
-            key={notify._id}
-            notify={notify}
-            handleNavigate={handleNavigate}
-            activeNotification={activeNotification}
-            setActiveNotification={setActiveNotification}
-            handleMarkAsRead={handleMarkAsRead}
-            handleDeleteNotify={handleDeleteNotify}
-          />
-        ))}
-      {!loading && !notifications[0] && (
-        <p className={styles.message}>there are no notifications</p>
+      {error && task !== "get" && (
+        <Error
+          asModal={true}
+          msg={message}
+          onClose={handleResetNotificationError}
+          className={styles.notificationModalError}
+        />
       )}
-    </div>
+    </>
   );
 }
 

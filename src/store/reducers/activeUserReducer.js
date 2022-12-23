@@ -1,5 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateLoadingState } from "./helpers";
+
+function updateNotificationState({
+  state,
+  loading = true,
+  error = false,
+  message,
+  task,
+}) {
+  state.notificationLoadingState.loading = loading;
+  state.notificationLoadingState.error = error ? true : false;
+  state.notificationLoadingState.message = error ? message : "";
+  state.notificationLoadingState.task = error ? task : "";
+}
 
 const activeUserSlice = createSlice({
   name: "activeUser",
@@ -13,6 +25,7 @@ const activeUserSlice = createSlice({
       loading: null,
       error: false,
       message: "",
+      task: "", // could be "get" | "delete" | "deleteAll" | "mark" | "markAll"
     },
     pendingPostsLoadingState: {
       loading: null,
@@ -35,13 +48,43 @@ const activeUserSlice = createSlice({
     activeNotifications: false,
   },
   reducers: {
-    login(state) {
-      updateLoadingState({ state, key: "loadingState", loading: true });
+    resetLoadingState(state, { payload }) {
+      state[payload].loading = null;
+      state[payload].error = false;
+      state[payload].message = "";
     },
 
-    resetLoadingState(state, { payload }) {
-      updateLoadingState({ state, key: payload, loading: null });
+    // ===================================== //
+    // ========== Authentication ========== //
+    // =================================== //
+
+    login(state) {
+      state.loadingState.loading = true;
+      state.loadingState.error = false;
+      state.loadingState.message = "";
     },
+
+    logOut(state) {
+      const temp = {
+        _id: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        userName: "",
+        profileImg: "",
+        coverImg: "",
+        createdAt: null,
+        role: "",
+        isAuthenticated: false,
+      };
+
+      Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
+      localStorage.removeItem("academind_passport");
+    },
+
+    // =========================== //
+    // ========== User ========== //
+    // ========================= //
 
     setActiveUser(state, { payload }) {
       const temp = {
@@ -63,7 +106,9 @@ const activeUserSlice = createSlice({
         JSON.stringify(payload.accessToken)
       );
 
-      updateLoadingState({ state, key: "loadingState", loading: false });
+      state.loadingState.loading = false;
+      state.loadingState.error = false;
+      state.loadingState.message = "";
     },
 
     setUpdatedUserCover(state, { payload }) {
@@ -73,28 +118,42 @@ const activeUserSlice = createSlice({
 
     getActiveUser() {},
 
+    // ==================================== //
+    // ========== Notifications ========== //
+    // ================================== //
+
+    setNotificationError(state, { payload }) {
+      updateNotificationState({
+        state,
+        loading: false,
+        error: true,
+        message: payload.message,
+        task: payload.task,
+      });
+    },
+
+    resetNotificationError(state) {
+      updateNotificationState({ state, loading: false });
+    },
+
     setActiveNotifications(state, { payload }) {
       state.activeNotifications = payload;
     },
 
     getNotifications(state) {
-      updateLoadingState({
-        state,
-        key: "notificationLoadingState",
-        loading: true,
-      });
+      updateNotificationState({ state });
     },
 
     setNotifications(state, { payload }) {
       state.notifications = payload;
-      updateLoadingState({
-        state,
-        key: "notificationLoadingState",
-        loading: false,
-      });
+
+      updateNotificationState({ state, loading: false });
     },
 
-    deleteNotification() {},
+    deleteNotification(state) {
+      if (state.notificationLoadingState.error)
+        updateNotificationState({ state, loading: false });
+    },
 
     setDeletedNotification(state, { payload }) {
       state.notifications = state.notifications.filter(
@@ -102,13 +161,19 @@ const activeUserSlice = createSlice({
       );
     },
 
-    deleteAllNotification() {},
+    deleteAllNotification(state) {
+      if (state.notificationLoadingState.error)
+        updateNotificationState({ state, loading: false });
+    },
 
     setDeleteAllNotifaction(state) {
       state.notifications = [];
     },
 
-    markNotificationAsRead() {},
+    markNotificationAsRead(state) {
+      if (state.notificationLoadingState.error)
+        updateNotificationState({ state, loading: false });
+    },
 
     setMarkedNotification(state, { payload }) {
       const i = state.notifications.findIndex(
@@ -117,7 +182,10 @@ const activeUserSlice = createSlice({
       state.notifications[i] = { ...state.notifications[i], ...payload };
     },
 
-    markAllNotificationAsRead() {},
+    markAllNotificationAsRead(state) {
+      if (state.notificationLoadingState.error)
+        updateNotificationState({ state, loading: false });
+    },
 
     setAllNotificationAsRead(state) {
       state.notifications = state.notifications.map((notify) => ({
@@ -126,49 +194,50 @@ const activeUserSlice = createSlice({
       }));
     },
 
+    // ===================================== //
+    // ========== Profile-Review ========== //
+    // =================================== //
+
+    setPendingPostsError(state, { payload }) {
+      state.pendingPostsLoadingState.loading = false;
+      state.pendingPostsLoadingState.error = true;
+      state.pendingPostsLoadingState.message = payload.message;
+    },
+
+    resetPendingPostsError(state, { payload }) {
+      state.pendingPostsLoadingState.loading = false;
+      state.pendingPostsLoadingState.error = false;
+      state.pendingPostsLoadingState.message = "";
+    },
+
     getPendingPosts(state) {
-      updateLoadingState({
-        state,
-        key: "pendingPostsLoadingState",
-        loading: true,
-      });
+      state.pendingPostsLoadingState.loading = true;
+      state.pendingPostsLoadingState.error = false;
+      state.pendingPostsLoadingState.message = "";
     },
 
     getHiddenPosts(state) {
-      updateLoadingState({
-        state,
-        key: "pendingPostsLoadingState",
-        loading: true,
-      });
-    },
-
-    logOut(state) {
-      const temp = {
-        _id: "",
-        email: "",
-        firstName: "",
-        lastName: "",
-        userName: "",
-        profileImg: "",
-        coverImg: "",
-        createdAt: null,
-        role: "",
-        isAuthenticated: false,
-      };
-
-      Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
-      localStorage.removeItem("academind_passport");
+      state.pendingPostsLoadingState.loading = true;
+      state.pendingPostsLoadingState.error = false;
+      state.pendingPostsLoadingState.message = "";
     },
   },
 });
 
 export const activeUserReducer = activeUserSlice.reducer;
 export const {
-  login,
   resetLoadingState,
+  resetPendingPostsError,
+  // authenntication
+  login,
+  logOut,
+  // user
   setActiveUser,
   setUpdatedUserCover,
   getActiveUser,
+  // notifications
+  setNotificationError,
+  resetNotificationError,
   setActiveNotifications,
   getNotifications,
   setNotifications,
@@ -180,7 +249,8 @@ export const {
   setMarkedNotification,
   markAllNotificationAsRead,
   setAllNotificationAsRead,
+  // profile-review
+  setPendingPostsError,
   getPendingPosts,
   getHiddenPosts,
-  logOut,
 } = activeUserSlice.actions;

@@ -5,13 +5,15 @@ import { useSelector } from "react-redux";
 import { useRestrictPrivateRoute, useProfileReviewQuery } from "../../../hooks";
 import { selectPendingPostsLoadingState } from "../../../store/selectors/activeUserSelectors";
 
-import { Spinner } from "../../../components/Layouts";
+import { Spinner, Error } from "../../../components/Layouts";
 import ProfileReviewHiddenPosts from "../../../components/ProfileReview/ProfileReviewHiddenPosts";
 
 function ReviewHiddenPosts() {
   useRestrictPrivateRoute();
 
-  const { loading } = useSelector(selectPendingPostsLoadingState);
+  const { loading, error, message } = useSelector(
+    selectPendingPostsLoadingState
+  );
 
   const { getHiddenPostsQuery, resetState } = useProfileReviewQuery();
 
@@ -23,7 +25,8 @@ function ReviewHiddenPosts() {
   return (
     <>
       {loading && <Spinner />}
-      {!loading && <ProfileReviewHiddenPosts />}
+      {!loading && !error && <ProfileReviewHiddenPosts />}
+      {error && <Error msg={message} />}
     </>
   );
 }

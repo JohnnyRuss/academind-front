@@ -1,7 +1,17 @@
+import { useEffect } from "react";
+import { useRestrictBodyOverflow } from "../../../hooks";
+
 import styles from "./error.module.scss";
 import { ErrorIcon } from "../Icons/icons";
 
 function Error({ msg, asModal = false, onClose = () => {}, className }) {
+  const { restrictScroll } = useRestrictBodyOverflow();
+
+  useEffect(() => {
+    restrictScroll(true);
+    return () => restrictScroll(false);
+  }, [restrictScroll]);
+
   return (
     <div
       className={`${styles.error} ${asModal ? styles.asModal : ""} ${

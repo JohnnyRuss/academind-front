@@ -2,13 +2,14 @@ import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { StandSpinner } from "./components/Layouts";
-import { Navigation, UserCover } from "./components";
+import { Navigation } from "./components";
 
 import RestrictionAuthorised from "./pages/authentication/RestrictionAuthorised";
 import RestrictionUnAuthorised from "./pages/authentication/RestrictionUnAuthorised";
 
 const Login = lazy(() => import("./pages/authentication/Login"));
 const Register = lazy(() => import("./pages/authentication/Register"));
+const UserPage = lazy(() => import("./pages/profile/UserPage"));
 const PostsPage = lazy(() => import("./pages/profile/PostsPage"));
 const About = lazy(() => import("./pages/profile/AboutPage"));
 const BookmarksPage = lazy(() => import("./pages/profile/BookmarksPage"));
@@ -57,7 +58,7 @@ function App() {
           <Route element={<RestrictionUnAuthorised />}>
             <Route path="/" element={<Navigate to="/feed" />} />
             <Route path="feed" element={<Feed />} />
-            <Route path="profile/:id" element={<UserCover />}>
+            <Route path="profile/:id" element={<UserPage />}>
               <Route path="posts" element={<PostsPage />} />
               <Route path="about" element={<About />} />
               <Route path="friends" element={<Friends />}>

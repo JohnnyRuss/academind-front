@@ -1,9 +1,9 @@
-import styles from './spinner.module.scss';
-import { SpinnerIcon } from '../../Layouts/Icons/icons';
+import styles from "./spinner.module.scss";
+import { SpinnerIcon } from "../../Layouts/Icons/icons";
 
-function Spinner() {
+function Spinner({ className }) {
   return (
-    <div className={styles.spinnerBox}>
+    <div className={`${styles.spinnerBox} ${className || ""}`}>
       <SpinnerIcon className={styles.spinner} />
     </div>
   );

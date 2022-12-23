@@ -2,7 +2,10 @@ import { createSelector } from "@reduxjs/toolkit";
 
 export const selectUserLoadingState = ({ user }) => user.loadingState;
 
-export const selectUserNestedLoadingState = ({ user }) => user.nestedLoadingState;
+export const selectUserNestedLoadingState = ({ user }) =>
+  user.nestedLoadingState;
+
+export const selectSearchLoadingState = ({ user }) => user.searchLoadingState;
 
 export const selectUserNameAndEmail = ({ user }) => ({
   userName: user.user.userName,

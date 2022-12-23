@@ -25,7 +25,18 @@ export function triggerError() {
 }
 
 export const errorMessages = {
-  user: {},
+  user: {
+    load: "Occured error during loading data. Please try again later.",
+  },
+  notifications: {
+    load: "Occured error during loading data. Please try again later.",
+    delete:
+      "Occured error during deleting notification. Please try again later.",
+    deleteAll:
+      "Occured error during deleting notifications. Please try again later.",
+    mark: "Occured error during operation. Please try again later.",
+    markAll: "Occured error during operation. Please try again later.",
+  },
   conversation: {
     load: "Occured error during loading data. Please try again later.",
     singleConversation:

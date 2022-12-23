@@ -1,7 +1,10 @@
 import { call, put } from "redux-saga/effects";
-import { showError, errorMessages, triggerError } from "./errorHandler";
+import { showError, errorMessages } from "./errorHandler";
 
 import {
+  setSearchError,
+  setUserError,
+  setUserNestedError,
   setUserProfile,
   setSearchResult,
   resetLoadingState,
@@ -9,9 +12,11 @@ import {
 } from "../../reducers/userReducer";
 import { setPosts, setBookmarkedPosts } from "../../reducers/postsDataReducer";
 
-import { setUserAboutData } from "../../reducers/aboutReducer";
+import { setUserAboutData, setAboutError } from "../../reducers/aboutReducer";
 
 import {
+  setPendingPostsError,
+  setNotificationError,
   setNotifications,
   setDeletedNotification,
   setDeleteAllNotifaction,
@@ -41,18 +46,29 @@ export function* searchUserHandler({ payload: key }) {
     const { data } = yield call(queryUserSearch, key);
     yield put(setSearchResult(data));
   } catch (error) {
-    yield showError({ error, location: "searchUserHandler" });
+    yield showError({
+      error,
+      location: "searchUserHandler",
+      setter: setSearchError,
+      setterParams: { message: errorMessages.user.load },
+    });
   }
 }
 
-//X
 export function* getUserProfileHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryUserProfile, userId);
     yield put(setUserProfile(data));
     yield put(resetLoadingState());
   } catch (error) {
-    yield showError({ error, location: "getUserProfileHandler" });
+    yield showError({
+      error,
+      location: "getUserProfileHandler",
+      setter: setUserError,
+      setterParams: {
+        message: errorMessages.user.load,
+      },
+    });
   }
 }
 
@@ -73,7 +89,6 @@ export function* getProfilePostsHandler({
   }
 }
 
-//X
 export function* getUserFeedHandler({
   payload: { id: userID, page, limit, hasMore },
 }) {
@@ -82,11 +97,17 @@ export function* getUserFeedHandler({
     yield put(setPosts({ data: data.data, results: data.results }));
     yield put(resetLoadingState());
   } catch (error) {
-    yield showError({ error, location: "getUserFeedHandler" });
+    yield showError({
+      error,
+      location: "getUserFeedHandler",
+      setter: setUserError,
+      setterParams: {
+        message: errorMessages.user.load,
+      },
+    });
   }
 }
 
-//X
 export function* getBookmarksHandler({
   payload: { id: userID, page, limit, hasMore },
 }) {
@@ -95,7 +116,14 @@ export function* getBookmarksHandler({
     yield put(setBookmarkedPosts({ data: data.data, results: data.results }));
     yield put(resetNestedLoadingState());
   } catch (error) {
-    yield showError({ error, location: "getBookmarksHandler" });
+    yield showError({
+      error,
+      location: "getBookmarksHandler",
+      setter: setUserNestedError,
+      setterParams: {
+        message: errorMessages.user.load,
+      },
+    });
   }
 }
 
@@ -104,7 +132,14 @@ export function* getUserAboutDataHandler({ payload: userId }) {
     const { data } = yield call(queryUserAboutData, userId);
     yield put(setUserAboutData(data));
   } catch (error) {
-    yield showError({ error, location: "getUserAboutDataHandler" });
+    yield showError({
+      error,
+      location: "getUserAboutDataHandler",
+      setter: setAboutError,
+      setterParams: {
+        message: errorMessages.user.load,
+      },
+    });
   }
 }
 
@@ -113,7 +148,15 @@ export function* getUserNotificationsHandler({ payload: userId }) {
     const { data } = yield call(queryUserNotifications, userId);
     yield put(setNotifications(data));
   } catch (error) {
-    yield showError({ error, location: "getUserAboutDataHandler" });
+    yield showError({
+      error,
+      location: "getUserNotificationsHandler",
+      setter: setNotificationError,
+      setterParams: {
+        message: errorMessages.notifications.load,
+        task: "get",
+      },
+    });
   }
 }
 
@@ -122,7 +165,15 @@ export function* deleteUserNotificationHandler({ payload: notifyId }) {
     yield call(queryDeleteUserNotification, notifyId);
     yield put(setDeletedNotification(notifyId));
   } catch (error) {
-    yield showError({ error, location: "getUserAboutDataHandler" });
+    yield showError({
+      error,
+      location: "deleteUserNotificationHandler",
+      setter: setNotificationError,
+      setterParams: {
+        message: errorMessages.notifications.delete,
+        task: "delete",
+      },
+    });
   }
 }
 
@@ -131,7 +182,15 @@ export function* deleteAllUserNotificationHandler() {
     yield call(queryDeleteAllUserNotification);
     yield put(setDeleteAllNotifaction());
   } catch (error) {
-    yield showError({ error, location: "deleteAllUserNotificationHandler" });
+    yield showError({
+      error,
+      location: "deleteAllUserNotificationHandler",
+      setter: setNotificationError,
+      setterParams: {
+        message: errorMessages.notifications.deleteAll,
+        task: "deleteAll",
+      },
+    });
   }
 }
 
@@ -140,7 +199,15 @@ export function* markNotificationAsReadHandler({ payload: notifyId }) {
     const { data } = yield call(queryMarkNotificationAsRead, notifyId);
     yield put(setMarkedNotification(data));
   } catch (error) {
-    yield showError({ error, location: "getUserAboutDataHandler" });
+    yield showError({
+      error,
+      location: "markNotificationAsReadHandler",
+      setter: setNotificationError,
+      setterParams: {
+        message: errorMessages.notifications.mark,
+        task: "mark",
+      },
+    });
   }
 }
 
@@ -149,7 +216,15 @@ export function* markAllNotificationAsReadHandler(payload) {
     yield call(queryMarkAllNotificationAsRead);
     yield put(setAllNotificationAsRead());
   } catch (error) {
-    yield showError({ error, location: "getUserAboutDataHandler" });
+    yield showError({
+      error,
+      location: "markAllNotificationAsReadHandler",
+      setter: setNotificationError,
+      setterParams: {
+        message: errorMessages.notifications.markAll,
+        task: "markAll",
+      },
+    });
   }
 }
 
@@ -159,7 +234,14 @@ export function* getPendingPostsHandler({ payload: userId }) {
     yield put(setPosts({ data }));
     yield put(resetActiveUserLoadingState("pendingPostsLoadingState"));
   } catch (error) {
-    yield showError({ error, location: "getPendingPostsHandler" });
+    yield showError({
+      error,
+      location: "getPendingPostsHandler",
+      setter: setPendingPostsError,
+      setterParams: {
+        message: errorMessages.user.load,
+      },
+    });
   }
 }
 
@@ -169,6 +251,13 @@ export function* getHiddenPostsHandler({ payload: userId }) {
     yield put(setPosts({ data }));
     yield put(resetActiveUserLoadingState("pendingPostsLoadingState"));
   } catch (error) {
-    yield showError({ error, location: "getHiddenPostsHandler" });
+    yield showError({
+      error,
+      location: "getHiddenPostsHandler",
+      setter: setPendingPostsError,
+      setterParams: {
+        message: errorMessages.user.load,
+      },
+    });
   }
 }

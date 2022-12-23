@@ -9,14 +9,14 @@ import { useRestrictPrivateRoute, useBookmarksQuery } from "../../hooks";
 
 import Bookmarks from "../../components/BookmarkPage/Bookmarks";
 import BookmarksContainer from "../../components/BookmarkPage/BookmarksContainer";
-import { Spinner } from "../../components/Layouts";
+import { Spinner, Error } from "../../components/Layouts";
 
 function BookmarksPage() {
   useRestrictPrivateRoute();
 
   const { posts, hasMore } = useSelector(selectPosts);
 
-  const { loading } = useSelector(selectUserNestedLoadingState);
+  const { loading, error, message } = useSelector(selectUserNestedLoadingState);
   const { getBookmarksQuery, resetState } = useBookmarksQuery();
 
   const [page, setPage] = useState(1);
@@ -33,9 +33,10 @@ function BookmarksPage() {
   return (
     <BookmarksContainer>
       {loading && <Spinner />}
-      {!loading && (
+      {!loading && !error && (
         <Bookmarks hasMore={hasMore} handleNext={handleNext} posts={posts} />
       )}
+      {error && <Error msg={message} />}
     </BookmarksContainer>
   );
 }

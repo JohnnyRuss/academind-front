@@ -8,14 +8,13 @@ import { selectAboutPageState } from "../../store/selectors/aboutPageSelectors";
 
 import NewVersion from "../../components/AboutPage/NewVersion";
 import NewVersionContainer from "../../components/AboutPage/NewVersionContainer";
-import { Spinner } from "../../components/Layouts";
-// import About from "../../components/AboutPage/NewVersion";
+import { Spinner, Error } from "../../components/Layouts";
 
 function AboutPage() {
   const { id } = useParams();
 
   const { getAboutUserQuery } = useAboutUserQuery();
-  const { loading } = useSelector(selectAboutPageState);
+  const { loading, error, message } = useSelector(selectAboutPageState);
 
   useEffect(() => {
     getAboutUserQuery(id);
@@ -24,7 +23,8 @@ function AboutPage() {
   return (
     <NewVersionContainer>
       {loading && <Spinner />}
-      {!loading && <NewVersion />}
+      {!loading && !error && <NewVersion />}
+      {error && <Error msg={message} />}
     </NewVersionContainer>
   );
 }

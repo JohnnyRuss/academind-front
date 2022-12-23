@@ -27,6 +27,11 @@ const userSlice = createSlice({
       error: false,
       message: "",
     },
+    searchLoadingState: {
+      loading: false,
+      error: false,
+      message: "",
+    },
     user: {},
     searchResult: [],
   },
@@ -36,17 +41,32 @@ const userSlice = createSlice({
     // ========== Manual Triggers ========== //
     // ==================================== //
     // manual triggers are used because getBookmarks,getFeedPosts and etc. are trigered in this reducer but are seted in to the postsDataReducer. so in the case to controll loadingState we are useing manual trigers.
-    resetLoadingState(state) {
-      updateLoadingState({ state, key: "loadingState", loading: false });
-    },
-
-    resetNestedLoadingState(state) {
-      updateLoadingState({ state, key: "nestedLoadingState", loading: false });
-    },
 
     // used by: getFeedPostsQuery;
     startLoading(state) {
       updateLoadingState({ state, key: "loadingState" });
+    },
+
+    resetLoadingState(state) {
+      updateLoadingState({ state, key: "loadingState", loading: false });
+    },
+
+    setUserError(state, { payload }) {
+      updateLoadingState({
+        state,
+        key: "loadingState",
+        loading: false,
+        error: true,
+        message: payload.message,
+      });
+    },
+
+    resetUserError(state) {
+      updateLoadingState({
+        state,
+        key: "loadingState",
+        loading: false,
+      });
     },
 
     // used by: getBookmarksQuery;
@@ -54,18 +74,62 @@ const userSlice = createSlice({
       updateLoadingState({ state, key: "nestedLoadingState" });
     },
 
+    resetNestedLoadingState(state) {
+      updateLoadingState({ state, key: "nestedLoadingState", loading: false });
+    },
+
+    setUserNestedError(state, { payload }) {
+      updateLoadingState({
+        state,
+        key: "nestedLoadingState",
+        loading: false,
+        error: true,
+        message: payload.message,
+      });
+    },
+
+    resetUserNestedError(state) {
+      updateLoadingState({
+        state,
+        key: "nestedLoadingState",
+        loading: false,
+      });
+    },
+
     // ================================ //
     // ========== Searching ========== //
     // ============================== //
+    setSearchError(state, { payload }) {
+      updateLoadingState({
+        state,
+        key: "searchLoadingState",
+        loading: false,
+        error: true,
+        message: payload.message,
+      });
+    },
 
-    searchUser() {},
+    resetSearchError(state) {
+      updateLoadingState({
+        state,
+        key: "searchLoadingState",
+        loading: false,
+        error: false,
+      });
+    },
+
+    searchUser(state) {
+      updateLoadingState({ state, key: "searchLoadingState" });
+    },
 
     setSearchResult(state, { payload }) {
       state.searchResult = payload;
+      updateLoadingState({ state, key: "searchLoadingState", loading: false });
     },
 
     resetSearchResult(state) {
       state.searchResult = [];
+      updateLoadingState({ state, key: "searchLoadingState" });
     },
 
     // ============================== //
@@ -100,10 +164,16 @@ const userSlice = createSlice({
 
 export const userReducer = userSlice.reducer;
 export const {
-  resetLoadingState,
-  resetNestedLoadingState,
   startLoading,
+  resetLoadingState,
+  setUserError,
+  resetUserError,
   startNestedLoading,
+  resetNestedLoadingState,
+  setUserNestedError,
+  resetUserNestedError,
+  setSearchError,
+  resetSearchError,
   searchUser,
   setSearchResult,
   resetSearchResult,

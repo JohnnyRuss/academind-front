@@ -1,11 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 
 import { useForeignUser, usePost } from "../../hooks";
-import { getUserProfile } from "../../store/reducers/userReducer";
-import { selectUserLoadingState } from "../../store/selectors/userSelectors";
 import { useHelperQuery } from "../../hooks";
 
 import styles from "./components/styles/userCover.module.scss";
@@ -18,19 +14,11 @@ import {
 } from "./components";
 
 function Profile() {
-  const dispatch = useDispatch();
-
-  const { loading } = useSelector(selectUserLoadingState);
-
   const { isActiveUser, profileId } = useForeignUser("basedOnLocation");
 
   const [friendShip, setFriendShip] = useState(null);
 
   const { activatePostMediaHandler } = usePost();
-
-  useEffect(() => {
-    dispatch(getUserProfile(profileId));
-  }, [dispatch, profileId]);
 
   const { getFriendShipQuery } = useHelperQuery();
 
@@ -44,26 +32,21 @@ function Profile() {
   }, [isActiveUser, profileId]);
 
   return (
-    <>
-      {!loading && (
-        <div className={styles.landscape}>
-          <div className={styles.content}>
-            <CoverImage mediaHandler={activatePostMediaHandler} />
-            <ProfileImage mediaHandler={activatePostMediaHandler} />
-            <UsernameAndEmail />
-            {!isActiveUser && (
-              <FriendShip
-                friendShip={friendShip}
-                profileId={profileId}
-                setFriendShip={setFriendShip}
-              />
-            )}
-            <ProfileNavigation />
-          </div>
-        </div>
-      )}
-      <Outlet />
-    </>
+    <div className={styles.landscape}>
+      <div className={styles.content}>
+        <CoverImage mediaHandler={activatePostMediaHandler} />
+        <ProfileImage mediaHandler={activatePostMediaHandler} />
+        <UsernameAndEmail />
+        {!isActiveUser && (
+          <FriendShip
+            friendShip={friendShip}
+            profileId={profileId}
+            setFriendShip={setFriendShip}
+          />
+        )}
+        <ProfileNavigation />
+      </div>
+    </div>
   );
 }
 
