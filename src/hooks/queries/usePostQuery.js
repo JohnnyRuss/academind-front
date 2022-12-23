@@ -8,6 +8,8 @@ import {
   reactOnPost,
   savePost,
   changePostAudience,
+  // NaN API Tasks
+  resetErrorOnPost,
 } from "../../store/reducers/postsDataReducer";
 
 function usePostQuery() {
@@ -82,6 +84,11 @@ function usePostQuery() {
     dispatch(changePostAudience({ params: { postId }, body: { audience } }));
   }
 
+  // NaN API Tasks
+  function handleResetPostError() {
+    dispatch(resetErrorOnPost());
+  }
+
   return {
     publishPostQuery,
     deletePostQuery,
@@ -90,6 +97,8 @@ function usePostQuery() {
     savePostQuery,
     changePostAudienceQuery,
     startDeletion,
+    // NaN API Tasks
+    handleResetPostError,
   };
 }
 

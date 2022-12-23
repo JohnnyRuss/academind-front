@@ -7,7 +7,7 @@ import { selectActiveUserId } from "../../../store/selectors/activeUserSelectors
 import { resetFriends } from "../../../store/reducers/friendsReducer";
 import { useRestrictPrivateRoute, useFriendsQuery } from "../../../hooks";
 import { PendingRequests } from "../../../components/FriendsPage";
-import { Spinner } from "../../../components/Layouts";
+import { Spinner, Error } from "../../../components/Layouts";
 
 function PendingRequest() {
   useRestrictPrivateRoute();
@@ -16,7 +16,7 @@ function PendingRequest() {
 
   const activeUserId = useSelector(selectActiveUserId);
   const {
-    loadingState: { loading },
+    loadingState: { loading, error, message },
   } = useSelector(selectPendingRequestsPageState);
 
   const { getPendingRequestsQuery } = useFriendsQuery();
@@ -29,7 +29,8 @@ function PendingRequest() {
   return (
     <>
       {loading && <Spinner />}
-      {!loading && <PendingRequests />}
+      {!loading && !error && <PendingRequests />}
+      {error && <Error msg={message} />}
     </>
   );
 }

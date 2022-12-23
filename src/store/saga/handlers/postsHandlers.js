@@ -1,7 +1,8 @@
 import { call, put, select } from "redux-saga/effects";
-import { showError } from "./errorHandler";
+import { showError, errorMessages, triggerError } from "./errorHandler";
 
 import {
+  setErrorOnPosts,
   setPosts,
   setNewPost,
   setSinglePost,
@@ -9,19 +10,28 @@ import {
   setUpdatedPost,
   setUpdatedPostAudience,
   setPostReaction,
+  setHiddenPost,
+  setRemovedTag,
+  // BlogPosts
+  setErrorOnTopRatedBlogPosts,
+  setErrorOnTopRatedPublishers,
+  setErrorOnRelatedBlogPosts,
   setTopRatedBlogPosts,
   setTopRatedPublishers,
   setRelatedPosts,
   setShowOnProfile,
-  setHiddenPost,
-  setRemovedTag,
-  setErrorOnLoadingState,
 } from "../../reducers/postsDataReducer";
 
-import { resetCreatePost } from "../../reducers/createPostReducer";
+import {
+  resetCreatePost,
+  setCreatePostError,
+} from "../../reducers/createPostReducer";
+
 import {
   resetUpdateState,
   resetSharePostModal,
+  setUpdatePostError,
+  setSharePostError,
 } from "../../reducers/portalReducer";
 
 import {
@@ -45,13 +55,22 @@ import {
 
 import { allowNewPostSet, isRoute } from "../../../lib/window-location";
 
+// share,update,topRatedPublishers,topRatedBlogPosts,relatedPosts
+
 export function* createPostHandler({ payload: body }) {
   try {
     const { data } = yield call(queryCreatePost, body);
     yield put(setNewPost(data));
     yield put(resetCreatePost());
   } catch (error) {
-    yield showError({ error, location: "createPostHandler" });
+    yield showError({
+      error,
+      location: "createPostHandler",
+      setter: setCreatePostError,
+      setterParams: {
+        message: errorMessages.post.create,
+      },
+    });
   }
 }
 
@@ -60,7 +79,15 @@ export function* deletePostHandler({ payload: postId }) {
     yield call(queryDeletePost, postId);
     yield put(setDeletedPost(postId));
   } catch (error) {
-    yield showError({ error, location: "deletePostHandler" });
+    yield showError({
+      error,
+      location: "deletePostHandler",
+      setter: setErrorOnPosts,
+      setterParams: {
+        message: errorMessages.post.deletion,
+        task: "deletion",
+      },
+    });
   }
 }
 
@@ -73,7 +100,14 @@ export function* updatePostHandler({ payload: { params, body } }) {
     yield put(setUpdatedPost({ params, data }));
     yield put(resetUpdateState());
   } catch (error) {
-    yield showError({ error, location: "updatePostHandler" });
+    yield showError({
+      error,
+      location: "updatePostHandler",
+      setter: setUpdatePostError,
+      setterParams: {
+        message: errorMessages.post.updatePost,
+      },
+    });
   }
 }
 
@@ -85,7 +119,15 @@ export function* changePostAudienceHandler({ payload: { params, body } }) {
     });
     yield put(setUpdatedPostAudience({ params, data }));
   } catch (error) {
-    yield showError({ error, location: "changePostAudienceHandler" });
+    yield showError({
+      error,
+      location: "changePostAudienceHandler",
+      setter: setErrorOnPosts,
+      setterParams: {
+        message: errorMessages.post.audience,
+        task: "audience",
+      },
+    });
   }
 }
 
@@ -107,7 +149,14 @@ export function* sharePostHandler({ payload: { postId, body } }) {
 
     yield put(resetSharePostModal());
   } catch (error) {
-    yield showError({ error, location: "sharePostHandler" });
+    yield showError({
+      error,
+      location: "sharePostHandler",
+      setter: setSharePostError,
+      setterParams: {
+        message: errorMessages.post.sharePost,
+      },
+    });
   }
 }
 
@@ -115,7 +164,15 @@ export function* savePostHandler({ payload: postId }) {
   try {
     yield call(querySavePost, postId);
   } catch (error) {
-    yield showError({ error, location: "savePostHandler" });
+    yield showError({
+      error,
+      location: "savePostHandler",
+      setter: setErrorOnPosts,
+      setterParams: {
+        message: errorMessages.post.save,
+        task: "save",
+      },
+    });
   }
 }
 
@@ -126,7 +183,15 @@ export function* getBlogPostsHandler({
     const { data } = yield call(queryBlogPosts, page, limit, hasMore, query);
     yield put(setPosts({ data: data.data, results: data.results }));
   } catch (error) {
-    yield showError({ error, location: "getBlogPostsHandler" });
+    yield showError({
+      error,
+      location: "getBlogPostsHandler",
+      setter: setErrorOnPosts,
+      setterParams: {
+        message: errorMessages.post.load,
+        task: "get",
+      },
+    });
   }
 }
 
@@ -135,7 +200,14 @@ export function* getTopRatedPublishersHandler({ payload: limit }) {
     const { data } = yield call(queryTopRatedPublishers, limit);
     yield put(setTopRatedPublishers(data));
   } catch (error) {
-    yield showError({ error, location: "getTopRatedPublishersHandler" });
+    yield showError({
+      error,
+      location: "getTopRatedPublishersHandler",
+      setter: setErrorOnTopRatedPublishers,
+      setterParams: {
+        message: errorMessages.post.load,
+      },
+    });
   }
 }
 
@@ -144,7 +216,12 @@ export function* getTopRatedBlogPostsHandler({ payload: limit }) {
     const { data } = yield call(queryTopRatedBlogPosts, limit);
     yield put(setTopRatedBlogPosts(data));
   } catch (error) {
-    yield showError({ error, location: "getTopRatedBlogPostsHandler" });
+    yield showError({
+      error,
+      location: "getTopRatedBlogPostsHandler",
+      setter: setErrorOnTopRatedBlogPosts,
+      setterParams: { message: errorMessages.post.load },
+    });
   }
 }
 
@@ -153,10 +230,16 @@ export function* getPostHandler({ payload: postId }) {
     const { data } = yield call(queryGetPost, postId);
     yield put(setSinglePost(data));
   } catch (error) {
-    yield put(
-      setErrorOnLoadingState(error?.response?.data?.message || error.message)
-    );
-    // yield showError(error, 'getPostHandler');
+    yield put(setErrorOnPosts(error?.response?.data?.message || error.message));
+    yield showError({
+      error,
+      location: "getPostHandler",
+      setter: setErrorOnPosts,
+      setterParams: {
+        message: errorMessages.post.load,
+        task: "get",
+      },
+    });
   }
 }
 
@@ -165,7 +248,14 @@ export function* getRelatedPostsHandler({ payload: { postId, limit } }) {
     const { data } = yield call(queryRelatedPosts, postId, limit);
     yield put(setRelatedPosts(data));
   } catch (error) {
-    yield showError({ error, location: "getPostHandler" });
+    yield showError({
+      error,
+      location: "getPostHandler",
+      setter: setErrorOnRelatedBlogPosts,
+      setterParams: {
+        message: errorMessages.post.load,
+      },
+    });
   }
 }
 
@@ -174,7 +264,15 @@ export function* showPostOnProfileHandler({ payload: { postId, body } }) {
     yield call(queryShowPostOnProfile, postId, body);
     yield put(setShowOnProfile(postId));
   } catch (error) {
-    yield showError({ error, location: "showPostOnProfileHandler" });
+    yield showError({
+      error,
+      location: "showPostOnProfileHandler",
+      setter: setErrorOnPosts,
+      setterParams: {
+        message: errorMessages.post.operation,
+        task: "showOnProfile",
+      },
+    });
   }
 }
 
@@ -183,7 +281,15 @@ export function* addPostToProfileHandler({ payload: postId }) {
     yield call(queryAddPostToProfile, postId);
     yield put(setShowOnProfile(postId));
   } catch (error) {
-    yield showError({ error, location: "addPostToProfileHandler" });
+    yield showError({
+      error,
+      location: "addPostToProfileHandler",
+      setter: setErrorOnPosts,
+      setterParams: {
+        message: errorMessages.post.addToProfile,
+        task: "addToProfile",
+      },
+    });
   }
 }
 
@@ -193,7 +299,15 @@ export function* hidePostFromProfileHandler({ payload: postId }) {
     yield call(queryHidePostFromProfile, postId);
     if (excludeIf) yield put(setHiddenPost(postId));
   } catch (error) {
-    yield showError({ error, location: "hidePostFromProfileHandler" });
+    yield showError({
+      error,
+      location: "hidePostFromProfileHandler",
+      setter: setErrorOnPosts,
+      setterParams: {
+        message: errorMessages.post.hide,
+        task: "hide",
+      },
+    });
   }
 }
 
@@ -203,6 +317,14 @@ export function* removeTagOnPostHandler({ payload: postId }) {
     const { data } = yield call(queryRemoveTagOnPost, postId);
     yield put(setRemovedTag({ data, remove: excludeIf ? true : false }));
   } catch (error) {
-    yield showError({ error, location: "removeTagOnPostHandler" });
+    yield showError({
+      error,
+      location: "removeTagOnPostHandler",
+      setter: setErrorOnPosts,
+      setterParams: {
+        message: errorMessages.post.operation,
+        task: "removeTag",
+      },
+    });
   }
 }

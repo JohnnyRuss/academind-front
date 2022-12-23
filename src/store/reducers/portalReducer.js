@@ -1,5 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateLoadingState } from "./helpers/index";
+
+function updateLoadingState({
+  state,
+  key,
+  loading = true,
+  error = false,
+  message,
+}) {
+  state[key].loading = loading;
+  state[key].error = error ? true : false;
+  state[key].message = error ? message : "";
+}
 
 /**
  Potal reducer is used for:
@@ -97,11 +108,20 @@ const portalSlice = createSlice({
     //////////////////////
     /// Update Portal ///
     ////////////////////
+    setUpdatePostError(state, { payload }) {
+      updateLoadingState({
+        state,
+        key: "updatePostLoadingState",
+        loading: false,
+        error: true,
+        message: payload.message,
+      });
+    },
+
     updatePost(state) {
       updateLoadingState({
         state,
         key: "updatePostLoadingState",
-        loading: true,
       });
     },
 
@@ -188,11 +208,20 @@ const portalSlice = createSlice({
     ////////////////////
     /// Share Portal ///
     ////////////////////
+    setSharePostError(state, { payload }) {
+      updateLoadingState({
+        state,
+        key: "sharePostLoadingState",
+        loading: false,
+        error: true,
+        message: payload.message,
+      });
+    },
+
     sharePost(state) {
       updateLoadingState({
         state,
         key: "sharePostLoadingState",
-        loading: true,
       });
     },
 
@@ -236,6 +265,7 @@ export const {
   setMediaModalOpen,
   deactivateMediaModal,
   // Update Portal
+  setUpdatePostError,
   updatePost,
   setUpdatePostModalOpen,
   setUpdateBlogPostModalOpen,
@@ -250,6 +280,7 @@ export const {
   removeUpdateFiles,
   resetUpdateState,
   // Share Portal
+  setSharePostError,
   sharePost,
   setSharePostModalOpen,
   setShareAudience,

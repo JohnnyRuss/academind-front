@@ -14,6 +14,7 @@ import {
   PostOptions,
   InlineSpinner,
   InlineStandSpinner,
+  Error,
 } from "../";
 import styles from "./components/styles/post.module.scss";
 import { SharedPostHeader } from "./components";
@@ -34,48 +35,56 @@ function Post({
     notifyOnComment ? true : false
   );
 
-  const { deletePostQuery, startDeletion } = usePostQuery();
+  const { deletePostQuery, startDeletion, handleResetPostError } =
+    usePostQuery();
 
   const { hideFromProfileQuery, removeTagQuery } = useProfileReviewQuery();
 
-  const { loading } = useSelector(selectPostsLoadingState);
+  const { loading, error, task, message } = useSelector(
+    selectPostsLoadingState
+  );
 
   return (
-    <article className={`${styles.post} ${className || ""}`}>
-      {startDeletion && loading === true && <InlineStandSpinner />}
-      <PostOptions
-        postId={data._id}
-        audience={data.audience}
-        deleteHandler={() => deletePostQuery(data._id)}
-        updateHandler={() =>
-          activateUpdatePostModal(destructurePostUpdateData(data))
-        }
-        removeTagHandler={() => removeTagQuery(data._id)}
-        hideFromProfileHandler={() => hideFromProfileQuery(data._id)}
-      />
-      {data.shared && (
-        <SharedPostHeader data={destructureSharedPostHeaderData(data)} />
+    <>
+      <article className={`${styles.post} ${className || ""}`}>
+        {startDeletion && loading === true && <InlineStandSpinner />}
+        <PostOptions
+          postId={data._id}
+          audience={data.audience}
+          deleteHandler={() => deletePostQuery(data._id)}
+          updateHandler={() =>
+            activateUpdatePostModal(destructurePostUpdateData(data))
+          }
+          removeTagHandler={() => removeTagQuery(data._id)}
+          hideFromProfileHandler={() => hideFromProfileQuery(data._id)}
+        />
+        {data.shared && (
+          <SharedPostHeader data={destructureSharedPostHeaderData(data)} />
+        )}
+        <PostAuthentic
+          type={data.type}
+          authenticType={data.authentic?.type}
+          shared={data.shared}
+          activatePostMediaHandler={activatePostMediaHandler}
+          data={destructurePostAuthenticData(data)}
+        />
+        {data.type !== "blogPost" && (
+          <PostActions setShowCommnents={setShowComments} data={data} />
+        )}
+        {showComments && (
+          <Suspense fallback={<InlineSpinner />}>
+            <CommentsList
+              postId={data._id}
+              postAuthorId={data.author._id}
+              notifyOnComment={notifyOnComment}
+            />
+          </Suspense>
+        )}
+      </article>
+      {error && task !== "get" && (
+        <Error asModal={true} msg={message} onClose={handleResetPostError} />
       )}
-      <PostAuthentic
-        type={data.type}
-        authenticType={data.authentic?.type}
-        shared={data.shared}
-        activatePostMediaHandler={activatePostMediaHandler}
-        data={destructurePostAuthenticData(data)}
-      />
-      {data.type !== "blogPost" && (
-        <PostActions setShowCommnents={setShowComments} data={data} />
-      )}
-      {showComments && (
-        <Suspense fallback={<InlineSpinner />}>
-          <CommentsList
-            postId={data._id}
-            postAuthorId={data.author._id}
-            notifyOnComment={notifyOnComment}
-          />
-        </Suspense>
-      )}
-    </article>
+    </>
   );
 }
 

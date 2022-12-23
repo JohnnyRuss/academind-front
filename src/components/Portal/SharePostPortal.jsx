@@ -21,6 +21,7 @@ import {
   SelectAudience,
   BTN,
   InlineStandSpinner,
+  Error,
 } from "../Layouts";
 import styles from "./styles/sharePostPortal.module.scss";
 
@@ -31,7 +32,7 @@ function SharePostPortal() {
     sharePostModalIsOpen,
     sharePostData,
     shareAudience,
-    sharePostLoadingState: { loading },
+    sharePostLoadingState: { loading, error, message },
   } = useSelector(selectSharePostPortal);
   const { userName, image } = useSelector(selectActiveUserShortInfo);
 
@@ -74,6 +75,7 @@ function SharePostPortal() {
             />
           </div>
         </UserIdentifier>
+        {error && <Error msg={message} />}
         <TextAreaWithTag
           text={text}
           setText={setText}

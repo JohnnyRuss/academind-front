@@ -12,6 +12,7 @@ import {
   SelectAudience,
   BTN,
   InlineStandSpinner,
+  Error,
 } from "../";
 import { CreatePostMedia, CreatePostTouch } from "./components";
 
@@ -30,6 +31,8 @@ function CreatePostModal({
   updateCredentials = {},
   handlePost,
   loading,
+  error,
+  message,
 }) {
   const { userName, image, _id } = useSelector(selectActiveUserShortInfo);
 
@@ -54,6 +57,7 @@ function CreatePostModal({
     >
       <div className={styles.createPostModalContentBox}>
         {loading && <InlineStandSpinner />}
+
         <UserIdentifier
           img={image}
           userName={userName}
@@ -68,6 +72,8 @@ function CreatePostModal({
             />
           </div>
         </UserIdentifier>
+
+        {error && <Error msg={message} className={styles.creationError} />}
 
         <div className={styles.content}>
           <TextAreaWithTag

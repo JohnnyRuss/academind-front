@@ -10,12 +10,11 @@ import {
   BlogPost,
   CreateBlogPostTouch,
   ScrollEnd,
-  StandSpinner,
   BlockSpinner,
 } from "../Layouts";
 import { Stand, RightBar, CategoriesNav } from "./components/Blog";
 
-function Blog({ posts, loading, hasMore, handleNext }) {
+function Blog({ posts, hasMore, handleNext }) {
   useScroll({ target: "window" });
 
   const [limit, setLimit] = useState(1500);
@@ -29,29 +28,24 @@ function Blog({ posts, loading, hasMore, handleNext }) {
 
   return (
     <div className={styles.blogPage}>
-      {loading && <StandSpinner />}
-      {!loading && (
-        <>
-          <Stand />
-          <CategoriesNav />
-          <div className={styles.blogPageCreateBlogPostTouch}>
-            <CreateBlogPostTouch />
-          </div>
-          <RightBar />
-          <InfiniteScroll
-            dataLength={posts?.length}
-            next={handleNext}
-            hasMore={hasMore}
-            loader={<BlockSpinner />}
-            endMessage={<ScrollEnd />}
-            className={styles.blogPostsScrollBox}
-          >
-            {posts.map((post) => (
-              <BlogPost post={post} key={post._id} limitation={limit} />
-            ))}
-          </InfiniteScroll>
-        </>
-      )}
+      <Stand />
+      <CategoriesNav />
+      <div className={styles.blogPageCreateBlogPostTouch}>
+        <CreateBlogPostTouch />
+      </div>
+      <RightBar />
+      <InfiniteScroll
+        dataLength={posts?.length}
+        next={handleNext}
+        hasMore={hasMore}
+        loader={<BlockSpinner />}
+        endMessage={<ScrollEnd />}
+        className={styles.blogPostsScrollBox}
+      >
+        {posts.map((post) => (
+          <BlogPost post={post} key={post._id} limitation={limit} />
+        ))}
+      </InfiniteScroll>
     </div>
   );
 }

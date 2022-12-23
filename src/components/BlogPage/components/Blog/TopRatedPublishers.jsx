@@ -7,18 +7,21 @@ import {
 } from "../../../../store/selectors/postSelectors";
 
 import styles from "./styles/topRatedPublishers.module.scss";
-import { Image, Spinner } from "../../../Layouts";
+import { Image, Spinner, Error } from "../../../Layouts";
 
 function TopRatedPublishers() {
   const { state: pathState } = useLocation();
 
   const publishers = useSelector(selectTopRatedPublishers);
-  const { loading } = useSelector(selectTopRatedPublishersLoadingState);
+  const { loading, error, message } = useSelector(
+    selectTopRatedPublishersLoadingState
+  );
 
   return (
     <ul className={styles.topRatedPublishers}>
       {loading && <Spinner />}
       {!loading &&
+        !error &&
         publishers?.map((publisher) => (
           <li className={styles.topRatedPublisher} key={publisher._id}>
             <Link
@@ -48,6 +51,7 @@ function TopRatedPublishers() {
             </Link>
           </li>
         ))}
+      {error && <Error msg={message} />}
     </ul>
   );
 }

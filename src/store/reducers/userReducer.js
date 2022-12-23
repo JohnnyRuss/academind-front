@@ -1,5 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateLoadingState } from "./helpers";
+
+function updateLoadingState({
+  state,
+  key,
+  loading = true,
+  error = false,
+  message,
+}) {
+  state[key].loading = loading;
+  state[key].error = error ? true : false;
+  state[key].message = error ? message : "";
+}
 
 const userSlice = createSlice({
   name: "user",
@@ -21,6 +32,10 @@ const userSlice = createSlice({
   },
 
   reducers: {
+    // ====================================== //
+    // ========== Manual Triggers ========== //
+    // ==================================== //
+    // manual triggers are used because getBookmarks,getFeedPosts and etc. are trigered in this reducer but are seted in to the postsDataReducer. so in the case to controll loadingState we are useing manual trigers.
     resetLoadingState(state) {
       updateLoadingState({ state, key: "loadingState", loading: false });
     },
@@ -29,13 +44,19 @@ const userSlice = createSlice({
       updateLoadingState({ state, key: "nestedLoadingState", loading: false });
     },
 
+    // used by: getFeedPostsQuery;
     startLoading(state) {
-      updateLoadingState({ state, key: "loadingState", loading: true });
+      updateLoadingState({ state, key: "loadingState" });
     },
 
+    // used by: getBookmarksQuery;
     startNestedLoading(state) {
-      updateLoadingState({ state, key: "nestedLoadingState", loading: true });
+      updateLoadingState({ state, key: "nestedLoadingState" });
     },
+
+    // ================================ //
+    // ========== Searching ========== //
+    // ============================== //
 
     searchUser() {},
 
@@ -47,8 +68,12 @@ const userSlice = createSlice({
       state.searchResult = [];
     },
 
+    // ============================== //
+    // ========== Profile ========== //
+    // ============================ //
+
     getUserProfile(state) {
-      updateLoadingState({ state, key: "loadingState", loading: true });
+      updateLoadingState({ state, key: "loadingState" });
     },
 
     setUserProfile(state, { payload }) {
@@ -56,16 +81,20 @@ const userSlice = createSlice({
       Object.keys(payload).map((key) => (state.user[key] = payload[key]));
     },
 
-    setNewFriend(state, { payload }) {
-      state.user.friends.unshift(payload);
-      state.user.friendsAmount = state.user.friendsAmount += 1;
-    },
+    // ========================================= //
+    // ========== User Related Posts ========== //
+    // ======================================= //
 
     getProfilePosts() {},
 
     getFeedPosts() {},
 
     getBookmarks() {},
+
+    setNewFriend(state, { payload }) {
+      state.user.friends.unshift(payload);
+      state.user.friendsAmount = state.user.friendsAmount += 1;
+    },
   },
 });
 

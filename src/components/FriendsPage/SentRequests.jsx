@@ -5,13 +5,18 @@ import { useFriendsQuery, useScroll } from "../../hooks";
 import { selectSentRequestsPageState } from "../../store/selectors/friendsSelector";
 
 import styles from "./components/styles/request.module.scss";
-import { CancelRequestBTN } from "../Layouts";
+import { CancelRequestBTN, Error } from "../Layouts";
 import RequestItemBody from "./components/RequestItemBody";
 
 function SentRequests() {
-  const { sentRequests, searchKey } = useSelector(selectSentRequestsPageState);
+  const {
+    sentRequests,
+    searchKey,
+    requestError: { error, task, message },
+  } = useSelector(selectSentRequestsPageState);
 
-  const { cancelFriendRequestQuery } = useFriendsQuery();
+  const { cancelFriendRequestQuery, handleResetRequestError } =
+    useFriendsQuery();
 
   useScroll({ target: "elem", scrollTo: "nested-sent--requests__page" });
 
@@ -35,6 +40,9 @@ function SentRequests() {
             />
           </RequestItemBody>
         ))}
+      {error && ["cancel"].includes(task) && (
+        <Error msg={message} asModal={true} onClose={handleResetRequestError} />
+      )}
     </div>
   );
 }

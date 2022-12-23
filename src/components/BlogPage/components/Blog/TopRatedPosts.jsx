@@ -5,16 +5,19 @@ import {
 } from "../../../../store/selectors/postSelectors";
 
 import styles from "./styles/topRatedPosts.module.scss";
-import { BlogPost, Spinner } from "../../../Layouts";
+import { BlogPost, Spinner, Error } from "../../../Layouts";
 
 function TopRatedPosts() {
   const posts = useSelector(selectTopRatedBlogPosts);
-  const { loading } = useSelector(selectTopRatedBlogPostsLoadingState);
+  const { loading, error, message } = useSelector(
+    selectTopRatedBlogPostsLoadingState
+  );
 
   return (
     <div className={styles.topRatedPosts}>
       {loading && <Spinner />}
       {!loading &&
+        !error &&
         posts?.map((post) => (
           <BlogPost
             post={post}
@@ -23,6 +26,7 @@ function TopRatedPosts() {
             key={post._id}
           />
         ))}
+      {error && <Error msg={message} />}
     </div>
   );
 }

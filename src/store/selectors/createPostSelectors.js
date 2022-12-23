@@ -1,5 +1,8 @@
 import { createSelector } from "@reduxjs/toolkit";
 
+export const selectCreatePostLoadingState = ({ createPost }) =>
+  createPost.loadingState;
+
 const selectedCreateBlogPost = ({ createPost }) => ({
   createBlogPostIsOpen: createPost.createBlogPostIsOpen,
   title: createPost.title,

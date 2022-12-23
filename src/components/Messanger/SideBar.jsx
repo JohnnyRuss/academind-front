@@ -4,9 +4,10 @@ import { useParams } from "react-router-dom";
 import {
   selectAllConversations,
   selectAllConversationLoadingState,
+  selectConversationChatLoadingState,
 } from "../../store/selectors/conversationSelectors.js";
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
-
+import { useConversationQuery } from "../../hooks/index.js";
 import { getConversationLastMsg } from "../../lib";
 
 import styles from "./components/styles/sideBar.module.scss";
@@ -22,10 +23,17 @@ function SideBar() {
   );
 
   const { error, message } = useSelector(selectAllConversationLoadingState);
+  const {
+    error: conversationError,
+    task: conversationTask,
+    message: conversationErrorMessage,
+  } = useSelector(selectConversationChatLoadingState);
 
   function getLatsMsgDateCreation(conversation) {
     return new Date(getConversationLastMsg(conversation)?.createdAt).getTime();
   }
+
+  const { handleResetChatError } = useConversationQuery();
 
   return (
     <aside
@@ -54,6 +62,14 @@ function SideBar() {
         </div>
       )}
       {error && <Error msg={message} />}
+      {conversationError &&
+        (conversationTask === "mark" || conversationTask === "deletion") && (
+          <Error
+            msg={conversationErrorMessage}
+            asModal={true}
+            onClose={handleResetChatError}
+          />
+        )}
     </aside>
   );
 }

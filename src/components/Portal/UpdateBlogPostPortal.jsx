@@ -28,7 +28,7 @@ function UpdateBlogPostPortal() {
     updateBlogPostModalIsOpen,
     updatePostData,
     updatePostMediaFiles,
-    updatePostLoadingState: { loading },
+    updatePostLoadingState: { loading, error, message },
   } = useSelector(selectUpdateBlogPostPortal);
 
   const { _id, title, article, categories, tags } = updatePostData;
@@ -92,6 +92,8 @@ function UpdateBlogPostPortal() {
     updateBlogPostModalIsOpen && (
       <CreateBlogPostModal
         loading={loading}
+        error={error}
+        message={message}
         audience={updatePostData.audience}
         handleAudience={handleAudience}
         isOpen={updateBlogPostModalIsOpen}

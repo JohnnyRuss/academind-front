@@ -1,4 +1,5 @@
 @use "../abstract/functions" as *;
+@use "../abstract/animation" as *;
 @use "../variables/variables" as *;
 
 @mixin blogPostContainer {
@@ -6,12 +7,13 @@
   border-radius: $rounded-sm;
   background: $bg-light;
   box-shadow: $shadow-base-sm;
-  overflow: hidden;
+  // overflow: hidden;
 
   .blogPostMedia {
     width: 100%;
     aspect-ratio: 3/1;
     margin: 0 1rem 0 0;
+    border-radius: inherit;
   }
 
   .blogPostInfo {
@@ -38,6 +40,7 @@
   top: 2rem;
   width: 15rem;
   min-height: $options-list-min-h;
+  @include animateMoveTop;
 }
 
 @mixin blogPostReviewDetails {

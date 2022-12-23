@@ -7,16 +7,22 @@ import { useBlogQuery, useCommentsQuery } from "../../hooks";
 import { selectPostsLoadingState } from "../../store/selectors/postSelectors";
 
 import { ActiveBlogPost } from "../../components/BlogPage";
-import { StandSpinner } from "../../components/Layouts";
+import { StandSpinner, Error } from "../../components/Layouts";
 
 function ActiveBlogPostPage() {
   const { id } = useParams();
 
-  const { loading } = useSelector(selectPostsLoadingState);
+  const { loading, error, message, task } = useSelector(
+    selectPostsLoadingState
+  );
 
   const { handleResetComments } = useCommentsQuery();
-  const { getRelatedPostsQuery, getPostQuery, handleResetPosts } =
-    useBlogQuery();
+  const {
+    getRelatedPostsQuery,
+    getPostQuery,
+    handleResetPosts,
+    handleResetPostError,
+  } = useBlogQuery();
 
   useEffect(() => {
     getPostQuery({ postId: id });
@@ -31,7 +37,10 @@ function ActiveBlogPostPage() {
   return (
     <>
       {loading && <StandSpinner />}
-      <ActiveBlogPost />;
+      {!loading && (!error || (error && task !== "get")) && <ActiveBlogPost />}
+      {error && task === "get" && (
+        <Error asModal={true} msg={message} onClose={handleResetPostError} />
+      )}
     </>
   );
 }

@@ -9,6 +9,7 @@ import {
   Modal,
   BTN,
   InlineStandSpinner,
+  Error,
 } from "../";
 import styles from "./components/styles/createBlogPostModal.module.scss";
 import { TitleField, Categories, CreateBlogPostMedia } from "./components";
@@ -35,6 +36,8 @@ function CreateBlogPost({
   publishPost,
   files,
   loading,
+  error,
+  message,
 }) {
   const { userName, image } = useSelector(selectActiveUserShortInfo);
 
@@ -46,6 +49,7 @@ function CreateBlogPost({
     >
       <div className={styles.fields}>
         {loading && <InlineStandSpinner />}
+
         <UserIdentifier
           userName={userName}
           img={image}
@@ -60,6 +64,9 @@ function CreateBlogPost({
             />
           </div>
         </UserIdentifier>
+
+        {error && <Error msg={message} />}
+
         <div className={styles.titleAndCategoryBox}>
           <TitleField value={title} setTitle={handleTitle} />
           <Categories
@@ -70,6 +77,7 @@ function CreateBlogPost({
             categories={categories}
           />
         </div>
+
         <div className={styles.articleField}>
           <label>Article</label>
           <TextAreaWithTag
@@ -84,11 +92,13 @@ function CreateBlogPost({
             maxRows={8}
           />
         </div>
+
         <CreateBlogPostMedia
           handleMediaFiles={handleMediaFiles}
           files={files}
           handleRemoveMediaFile={handleRemoveMediaFile}
         />
+
         <div className={styles.publishBtnBox}>
           <BTN className={styles.publishBlogPostBtn} onClick={publishPost}>
             POST

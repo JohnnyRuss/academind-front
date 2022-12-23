@@ -12,8 +12,8 @@ import {
 
 import {
   Post as SinglePost,
-  DeletedPost,
   StandSpinner,
+  Error,
 } from "../../components/Layouts";
 
 function Post() {
@@ -21,9 +21,10 @@ function Post() {
   const { state: pathState } = useLocation();
 
   const { posts } = useSelector(selectPosts);
-  const { loading, error } = useSelector(selectPostsLoadingState);
+  const { loading, error, message } = useSelector(selectPostsLoadingState);
 
-  const { getPostQuery, resetState } = useRedirectedPostQuery();
+  const { getPostQuery, resetState, handleResetPostError } =
+    useRedirectedPostQuery();
 
   useEffect(() => {
     getPostQuery(id);
@@ -39,7 +40,9 @@ function Post() {
           notifyOnComment={pathState?.commentId ? pathState : null}
         />
       )}
-      {error && <DeletedPost showOptions={false} />}
+      {error && (
+        <Error asModal={true} msg={message} onClose={handleResetPostError} />
+      )}
     </div>
   );
 }

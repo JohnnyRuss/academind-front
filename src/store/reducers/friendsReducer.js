@@ -1,5 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateLoadingState } from "./helpers";
+
+function updateRequestError({ state, error = false, task, message }) {
+  state.requestError.error = error;
+  state.requestError.message = error ? message : "";
+  state.requestError.task = error ? task : "";
+}
+
+function updateLoadingState({ state, loading = true, error = false, message }) {
+  state.loadingState.loading = loading;
+  state.loadingState.error = error;
+  state.loadingState.message = error ? message : "";
+}
 
 const friendsSlice = createSlice({
   name: "friends",
@@ -9,12 +20,39 @@ const friendsSlice = createSlice({
       error: false,
       message: "",
     },
+    requestError: {
+      error: false,
+      message: "",
+      task: "", // coluld be "send" | "cancel" | "confirm" | "deletion" | "remove" (delete friend)
+    },
     allFriends: [],
     pendingRequests: [],
     sentRequests: [],
     searchKey: "",
   },
   reducers: {
+    setRequestError(state, { payload }) {
+      updateRequestError({
+        state,
+        error: true,
+        message: payload.message,
+        task: payload.task,
+      });
+    },
+
+    setLoadingError(state, { payload }) {
+      updateLoadingState({
+        state,
+        loading: false,
+        error: true,
+        message: payload.message,
+      });
+    },
+
+    resetRequestError(state) {
+      updateRequestError({ state });
+    },
+
     setSearchKey(state, { payload }) {
       state.searchKey = payload;
     },
@@ -30,7 +68,7 @@ const friendsSlice = createSlice({
     deleteFriend() {},
 
     getAllFriends(state) {
-      updateLoadingState({ state, key: "loadingState", loading: true });
+      updateLoadingState({ state });
     },
 
     setFriends(state, { payload }) {
@@ -38,7 +76,7 @@ const friendsSlice = createSlice({
         ...friend.friend,
         muntual: friend.muntual,
       }));
-      updateLoadingState({ state, key: "loadingState", loading: false });
+      updateLoadingState({ state, loading: false });
     },
 
     setDeletedFriend(state, { payload }) {
@@ -48,7 +86,7 @@ const friendsSlice = createSlice({
     },
 
     getPendingRequests(state) {
-      updateLoadingState({ state, key: "loadingState", loading: true });
+      updateLoadingState({ state });
     },
 
     setPendingRequests(state, { payload }) {
@@ -56,8 +94,8 @@ const friendsSlice = createSlice({
         ...req.pendingRequest,
         muntuals: req.muntuals,
       }));
-      
-      updateLoadingState({ state, key: "loadingState", loading: false });
+
+      updateLoadingState({ state, loading: false });
     },
 
     setDeletedRequest(state, { payload }) {
@@ -73,7 +111,7 @@ const friendsSlice = createSlice({
     },
 
     getSentRequests(state) {
-      updateLoadingState({ state, key: "loadingState", loading: true });
+      updateLoadingState({ state });
     },
 
     setSentRequests(state, { payload }) {
@@ -82,7 +120,7 @@ const friendsSlice = createSlice({
         muntuals: req.muntuals,
       }));
 
-      updateLoadingState({ state, key: "loadingState", loading: false });
+      updateLoadingState({ state, loading: false });
     },
 
     setCanceledRequest(state, { payload }) {
@@ -101,6 +139,9 @@ const friendsSlice = createSlice({
 
 export const friendsReducer = friendsSlice.reducer;
 export const {
+  setRequestError,
+  resetRequestError,
+  setLoadingError,
   setSearchKey,
   sendFriendRequest,
   cancelFriendRequest,

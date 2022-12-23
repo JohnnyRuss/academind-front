@@ -13,6 +13,9 @@ export const selectTopRatedBlogPostsLoadingState = ({ postsData }) =>
 export const selectTopRatedPublishersLoadingState = ({ postsData }) =>
   postsData.publishersLoadingState;
 
+export const selectRelatedPostsLoadingState = ({ postsData }) =>
+  postsData.relatedPostsLoadingState;
+
 /* ============================================= */
 /* =================== Common ================= */
 /* =========================================== */

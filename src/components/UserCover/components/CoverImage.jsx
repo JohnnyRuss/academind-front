@@ -26,7 +26,10 @@ function CoverImage({ mediaHandler }) {
     <>
       <div
         className={styles.cover}
-        onClick={() => mediaHandler(0, [coverImg])}
+        onClick={(e) => {
+          e.stopPropagation();
+          mediaHandler(0, [coverImg]);
+        }}
       >
         {loading && <Spinner />}
         <Image
@@ -34,7 +37,11 @@ function CoverImage({ mediaHandler }) {
           className={styles.coverImg}
         />
         {isActiveUser && !loading && (
-          <label htmlFor="cover--img" className={styles.changeMediaBtn}>
+          <label
+            htmlFor="cover--img"
+            className={styles.changeMediaBtn}
+            onClick={(e) => e.stopPropagation()}
+          >
             <input
               type="file"
               id="cover--img"

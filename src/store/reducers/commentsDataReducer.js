@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 function updateLoadingState({
   state,
   loading,
-  message = "Occured error. Please try again later.",
+  message,
   error = false,
   target,
   task,
@@ -41,7 +41,7 @@ const commentsDataSlice = createSlice({
         state,
         loading: false,
         error: true,
-        message: payload.msg,
+        message: payload.message,
         target: payload.target,
         task: payload.task,
       });

@@ -1,5 +1,9 @@
 import { useDispatch } from "react-redux";
-import { getPost, resetPosts } from "../../store/reducers/postsDataReducer";
+import {
+  getPost,
+  resetPosts,
+  resetErrorOnPost,
+} from "../../store/reducers/postsDataReducer";
 
 export default function useRedirectedPostQuery() {
   const dispatch = useDispatch();
@@ -12,5 +16,9 @@ export default function useRedirectedPostQuery() {
     dispatch(resetPosts());
   }
 
-  return { getPostQuery, resetState };
+  function handleResetPostError() {
+    dispatch(resetErrorOnPost());
+  }
+
+  return { getPostQuery, resetState, handleResetPostError };
 }

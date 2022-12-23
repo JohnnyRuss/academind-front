@@ -8,7 +8,7 @@ import { selectSentRequestsPageState } from "../../../store/selectors/friendsSel
 import { useRestrictPrivateRoute, useFriendsQuery } from "../../../hooks";
 
 import { SentRequests as Requests } from "../../../components/FriendsPage";
-import { Spinner } from "../../../components/Layouts";
+import { Spinner, Error } from "../../../components/Layouts";
 
 function SentRequests() {
   useRestrictPrivateRoute();
@@ -16,7 +16,7 @@ function SentRequests() {
   const dispatch = useDispatch();
   const activeUserId = useSelector(selectActiveUserId);
   const {
-    loadingState: { loading },
+    loadingState: { loading, error, message },
   } = useSelector(selectSentRequestsPageState);
   const { getSentRequestsQuery } = useFriendsQuery();
 
@@ -28,7 +28,8 @@ function SentRequests() {
   return (
     <>
       {loading && <Spinner />}
-      {!loading && <Requests />}
+      {!loading && !error && <Requests />}
+      {error && <Error msg={message} />}
     </>
   );
 }

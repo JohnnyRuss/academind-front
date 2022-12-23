@@ -8,6 +8,7 @@ import {
   getRelatedPosts,
   // NaN API Handlers
   resetPosts,
+  resetErrorOnPost,
 } from "../../store/reducers/postsDataReducer";
 import {
   BLOG_POSTS_TOP_RATED_PUBLISHERS_COUNT,
@@ -50,6 +51,10 @@ export default function useBlogQuery() {
     dispatch(resetPosts());
   }
 
+  function handleResetPostError() {
+    dispatch(resetErrorOnPost());
+  }
+
   return {
     getBlogPostsQuery,
     getTopRatedPublishersAndPostsQuery,
@@ -57,6 +62,7 @@ export default function useBlogQuery() {
     getPostQuery,
     // NaN API Handlers
     handleResetPosts,
+    handleResetPostError,
   };
 }
 

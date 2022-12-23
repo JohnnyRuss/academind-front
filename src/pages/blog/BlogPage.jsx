@@ -9,6 +9,7 @@ import {
 } from "../../store/selectors/postSelectors";
 
 import { Blog } from "../../components/BlogPage";
+import { StandSpinner, Error } from "../../components/Layouts";
 
 import { useBlogQuery } from "../../hooks";
 
@@ -16,12 +17,15 @@ function BlogPage() {
   const { state } = useLocation();
 
   const { posts, hasMore } = useSelector(selectPosts);
-  const { loading } = useSelector(selectPostsLoadingState);
+  const { loading, error, task, message } = useSelector(
+    selectPostsLoadingState
+  );
 
   const {
     getBlogPostsQuery,
     getTopRatedPublishersAndPostsQuery,
     handleResetPosts,
+    handleResetPostError,
   } = useBlogQuery();
 
   const [page, setPage] = useState(1);
@@ -60,12 +64,15 @@ function BlogPage() {
   }, [state]);
 
   return (
-    <Blog
-      posts={posts}
-      loading={loading}
-      hasMore={hasMore}
-      handleNext={handleNext}
-    />
+    <>
+      {loading && <StandSpinner />}
+      {!loading && (!error || (error && task !== "get")) && (
+        <Blog posts={posts} hasMore={hasMore} handleNext={handleNext} />
+      )}
+      {error && task === "get" && (
+        <Error asModal={true} msg={message} onClose={handleResetPostError} />
+      )}
+    </>
   );
 }
 

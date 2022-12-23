@@ -34,12 +34,7 @@ function BookmarksPage() {
     <BookmarksContainer>
       {loading && <Spinner />}
       {!loading && (
-        <Bookmarks
-          loading={loading}
-          hasMore={hasMore}
-          handleNext={handleNext}
-          posts={posts}
-        />
+        <Bookmarks hasMore={hasMore} handleNext={handleNext} posts={posts} />
       )}
     </BookmarksContainer>
   );

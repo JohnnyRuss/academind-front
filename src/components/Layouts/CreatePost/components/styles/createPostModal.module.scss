@@ -122,4 +122,9 @@
       font-size: size("smallSize");
     }
   }
+
+  .creationError {
+    position: relative;
+    top: $header-h;
+  }
 }

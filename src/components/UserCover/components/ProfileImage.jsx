@@ -26,7 +26,10 @@ function ProfileImage({ mediaHandler }) {
     <>
       <div
         className={styles.profile}
-        onClick={() => mediaHandler(0, [profileImg])}
+        onClick={(e) => {
+          e.stopPropagation();
+          mediaHandler(0, [profileImg]);
+        }}
       >
         {loading && <Spinner />}
         <Image
@@ -34,7 +37,11 @@ function ProfileImage({ mediaHandler }) {
           className={styles.profileImg}
         />
         {isActiveUser && !loading && (
-          <label htmlFor="profile--img" className={styles.changeMediaBtn}>
+          <label
+            htmlFor="profile--img"
+            className={styles.changeMediaBtn}
+            onClick={(e) => e.stopPropagation()}
+          >
             <input
               type="file"
               id="profile--img"

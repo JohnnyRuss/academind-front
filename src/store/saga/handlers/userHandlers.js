@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import { showError } from "./errorHandler";
+import { showError, errorMessages, triggerError } from "./errorHandler";
 
 import {
   setUserProfile,
@@ -45,6 +45,7 @@ export function* searchUserHandler({ payload: key }) {
   }
 }
 
+//X
 export function* getUserProfileHandler({ payload: userId }) {
   try {
     const { data } = yield call(queryUserProfile, userId);
@@ -72,6 +73,7 @@ export function* getProfilePostsHandler({
   }
 }
 
+//X
 export function* getUserFeedHandler({
   payload: { id: userID, page, limit, hasMore },
 }) {
@@ -84,6 +86,7 @@ export function* getUserFeedHandler({
   }
 }
 
+//X
 export function* getBookmarksHandler({
   payload: { id: userID, page, limit, hasMore },
 }) {

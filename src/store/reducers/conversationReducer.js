@@ -4,7 +4,7 @@ function updateLoadingState({
   state,
   key,
   loading,
-  message = "Occured error. Please try again later.",
+  message,
   error = false,
   task,
 }) {
@@ -49,7 +49,6 @@ const conversationSlice = createSlice({
   },
   reducers: {
     setConversationError(state, { payload }) {
-      console.log(payload);
       updateLoadingState({
         state,
         key: payload.key,
@@ -57,6 +56,14 @@ const conversationSlice = createSlice({
         message: payload.message,
         error: true,
         task: payload.task,
+      });
+    },
+
+    resetConversationChatError(state) {
+      resetLoadingState({
+        key: "chatLoadingState",
+        state,
+        task: true,
       });
     },
 
@@ -130,7 +137,14 @@ const conversationSlice = createSlice({
       }
     },
 
-    deleteConversation() {},
+    deleteConversation(state) {
+      if (state.chatLoadingState.error)
+        resetLoadingState({
+          state,
+          key: "chatLoadingState",
+          task: true,
+        });
+    },
 
     setDeletedConversation(state, { payload }) {
       state.allConversations = state.allConversations.filter(
@@ -145,7 +159,14 @@ const conversationSlice = createSlice({
       else if (!state.allConversations[0]) state.activeConversation = null;
     },
 
-    markAsRead() {},
+    markAsRead(state) {
+      if (state.chatLoadingState.error)
+        resetLoadingState({
+          state,
+          key: "chatLoadingState",
+          task: true,
+        });
+    },
 
     setMarkAsRead(state, { payload }) {
       const { conversationId, body } = payload;
@@ -169,6 +190,7 @@ const conversationSlice = createSlice({
 export const conversationReducer = conversationSlice.reducer;
 export const {
   setConversationError,
+  resetConversationChatError,
   getAllConversations,
   setAllConversations,
   getLastConversation,

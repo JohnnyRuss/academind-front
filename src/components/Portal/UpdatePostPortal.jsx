@@ -23,7 +23,7 @@ function UpdatePostPortal() {
     updatePostModalIsOpen,
     updatePostData,
     updatePostMediaFiles,
-    updatePostLoadingState: { loading },
+    updatePostLoadingState: { loading, error, message },
   } = useSelector(selectUpdatePostPortal);
 
   const { description, tags, audience } = updatePostData;
@@ -70,6 +70,8 @@ function UpdatePostPortal() {
     updatePostModalIsOpen && (
       <CreatePostModal
         loading={loading}
+        error={error}
+        message={message}
         isOpen={updatePostModalIsOpen}
         setIsOpen={deactivateHandler}
         text={text}

@@ -27,6 +27,7 @@
   font-size: size("largeSize");
   border-radius: 50%;
   color: color("whiteColor");
+  cursor: pointer;
 }
 
 @mixin coverImage {

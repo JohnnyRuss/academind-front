@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import styles from './styles/friendOptions.module.scss';
-import { DotsHorizontalIcon, DeleteFriendIcon } from '../../Layouts/Icons/icons';
+import styles from "./styles/friendOptions.module.scss";
+import {
+  DotsHorizontalIcon,
+  DeleteFriendIcon,
+} from "../../Layouts/Icons/icons";
 
 function FriendOptions({ deleteFriendHandler }) {
   const [open, setOpen] = useState(false);
@@ -11,12 +14,18 @@ function FriendOptions({ deleteFriendHandler }) {
       <button
         className={styles.optBtn}
         data-friend-opt-btn
-        onClick={() => setOpen((prev) => !prev)}>
+        onClick={() => setOpen((prev) => !prev)}
+      >
         <DotsHorizontalIcon />
       </button>
       {open && (
         <div className={styles.friendOptWindow}>
-          <button onClick={deleteFriendHandler}>
+          <button
+            onClick={() => {
+              deleteFriendHandler();
+              setOpen(false);
+            }}
+          >
             <DeleteFriendIcon /> delete friend
           </button>
         </div>

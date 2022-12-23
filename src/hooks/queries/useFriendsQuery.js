@@ -9,6 +9,8 @@ import {
   getPendingRequests,
   getSentRequests,
   getAllFriends,
+  // NaN API Tasks
+  resetRequestError,
 } from "../../store/reducers/friendsReducer";
 
 function useFriendsQuery() {
@@ -46,6 +48,12 @@ function useFriendsQuery() {
     dispatch(getAllFriends(profileId));
   }
 
+  // NaN API Tasks
+
+  function handleResetRequestError() {
+    dispatch(resetRequestError());
+  }
+
   return {
     sendFriendRequestQuery,
     cancelFriendRequestQuery,
@@ -55,6 +63,8 @@ function useFriendsQuery() {
     getPendingRequestsQuery,
     getSentRequestsQuery,
     getAllFriendsQuery,
+    // NaN API Tasks
+    handleResetRequestError,
   };
 }
 

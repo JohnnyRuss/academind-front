@@ -13,6 +13,7 @@ import {
   resetConversation,
   setNewMessage,
   setMarkAsRead,
+  resetConversationChatError,
 } from "../../store/reducers/conversationReducer";
 
 function useConversationQuery(props) {
@@ -61,6 +62,10 @@ function useConversationQuery(props) {
     dispatch(setMarkAsRead(data));
   }
 
+  function handleResetChatError() {
+    dispatch(resetConversationChatError());
+  }
+
   return {
     // API Tasks
     markAsReadQuery,
@@ -74,6 +79,7 @@ function useConversationQuery(props) {
     handleResetConversations,
     handleSetNewMessage,
     handleMarkAsRead,
+    handleResetChatError,
   };
 }
 

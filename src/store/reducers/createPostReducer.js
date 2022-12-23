@@ -1,17 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { updateLoadingState } from './helpers/index';
+import { createSlice } from "@reduxjs/toolkit";
+
+function updateLoadingState({ state, loading = true, error = false, message }) {
+  state.loadingState.loading = loading;
+  state.loadingState.error = error ? true : false;
+  state.loadingState.message = error ? message : "";
+}
 
 const createPostSlice = createSlice({
-  name: 'createPost',
+  name: "createPost",
   initialState: {
     loadingState: {
       loading: false,
       error: false,
-      message: '',
+      message: "",
     },
-    audience: 'public',
-    title: '',
-    text: '',
+    audience: "public",
+    title: "",
+    text: "",
     files: [],
     categories: [],
     tags: [],
@@ -20,6 +25,16 @@ const createPostSlice = createSlice({
     createBlogPostIsOpen: false,
   },
   reducers: {
+    setCreatePostError(state, { payload }) {
+      console.log(payload);
+      updateLoadingState({
+        state,
+        loading: false,
+        error: true,
+        message: payload.message,
+      });
+    },
+
     setCreatePostIsOpen(state, { payload }) {
       state.createPostIsOpen = payload;
       if (payload === false) state.files = [];
@@ -28,8 +43,8 @@ const createPostSlice = createSlice({
     setCreateBlogPostIsOpen(state, { payload }) {
       state.createBlogPostIsOpen = payload;
       if (payload === false) {
-        state.text = '';
-        state.title = '';
+        state.text = "";
+        state.title = "";
         state.files = [];
         state.categories = [];
         state.tags = [];
@@ -52,7 +67,9 @@ const createPostSlice = createSlice({
       Object.values(payload)
         .filter(
           (file) =>
-            !Object.values(state.files).some((existingFile) => existingFile.name === file.name)
+            !Object.values(state.files).some(
+              (existingFile) => existingFile.name === file.name
+            )
         )
         .map((file) => state.files.push(file));
       state.activeSelectedMedia = true;
@@ -60,10 +77,13 @@ const createPostSlice = createSlice({
 
     removeFiles(state, action) {
       const url = action.payload;
-      if (url !== 'all')
-        state.files = Object.values(state.files).filter((file) => file.name !== url.name);
+      if (url !== "all")
+        state.files = Object.values(state.files).filter(
+          (file) => file.name !== url.name
+        );
       else state.files = [];
-      if (Object.values(state.files).length === 0) state.activeSelectedMedia = false;
+      if (Object.values(state.files).length === 0)
+        state.activeSelectedMedia = false;
     },
 
     addCategory(state, { payload }) {
@@ -71,7 +91,9 @@ const createPostSlice = createSlice({
     },
 
     removeCategory(state, { payload }) {
-      state.categories = state.categories.filter((category) => category !== payload);
+      state.categories = state.categories.filter(
+        (category) => category !== payload
+      );
     },
 
     addTag(state, { payload }) {
@@ -83,14 +105,14 @@ const createPostSlice = createSlice({
     },
 
     createPost(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: true });
+      updateLoadingState({ state });
     },
 
     resetCreatePost(state) {
-      updateLoadingState({ state, key: 'loadingState', loading: false });
-      state.audience = 'friends';
-      state.title = '';
-      state.text = '';
+      updateLoadingState({ state, loading: false });
+      state.audience = "friends";
+      state.title = "";
+      state.text = "";
       state.categories = [];
       state.tags = [];
       state.files = [];
@@ -103,6 +125,7 @@ const createPostSlice = createSlice({
 
 export const createPostReducer = createPostSlice.reducer;
 export const {
+  setCreatePostError,
   setCreatePostIsOpen,
   setCreateBlogPostIsOpen,
   setAudience,

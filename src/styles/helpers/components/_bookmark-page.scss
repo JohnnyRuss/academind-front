@@ -12,6 +12,7 @@
   background: $bg-light;
   border-radius: $rounded-nested-page;
   box-shadow: $shadow-base;
+  transition: all 5.3s ease-out;
 
   @include media-960 {
     margin-top: $space-top-under-user-cover-sm;

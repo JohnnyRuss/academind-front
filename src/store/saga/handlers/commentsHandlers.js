@@ -1,5 +1,5 @@
 import { all, call, put, select } from "redux-saga/effects";
-import { showError } from "./errorHandler";
+import { showError, errorMessages } from "./errorHandler";
 
 import {
   setCommentsError,
@@ -47,6 +47,7 @@ export function* getPostsCommentsHandler({ payload: postId }) {
       setterParams: {
         target: "global",
         task: "get",
+        message: errorMessages.comments.load,
       },
     });
   }
@@ -67,6 +68,7 @@ export function* addCommentHandler({ payload: { postId, body } }) {
       setterParams: {
         target: "parent",
         task: "add",
+        message: errorMessages.comments.add,
       },
     });
   }
@@ -90,6 +92,7 @@ export function* addCommentReplyHandler({ payload: { params, body } }) {
       setterParams: {
         target: "reply",
         task: "add",
+        message: errorMessages.comments.addReply,
       },
     });
   }
@@ -121,6 +124,7 @@ export function* deleteCommentHandler({ payload: params }) {
       setterParams: {
         target: "parent",
         task: "deletion",
+        message: errorMessages.comments.deletion,
       },
     });
   }
@@ -145,6 +149,7 @@ export function* deleteCommentReplyHandler({ payload: params }) {
       setterParams: {
         target: "reply",
         task: "deletion",
+        message: errorMessages.comments.deletionReply,
       },
     });
   }
@@ -165,6 +170,7 @@ export function* updateCommentHandler({ payload: { params, body } }) {
       setterParams: {
         target: "parent",
         task: "update",
+        message: errorMessages.comments.update,
       },
     });
   }
@@ -186,6 +192,7 @@ export function* updateCommentReplyHandler({ payload: { params, body } }) {
       setterParams: {
         target: "reply",
         task: "update",
+        message: errorMessages.comments.updateReply,
       },
     });
   }
@@ -224,6 +231,7 @@ export function* pinCommentHandler({ payload: params }) {
       setterParams: {
         target: "parent",
         task: "pin",
+        message: errorMessages.comments.pin,
       },
     });
   }
@@ -244,6 +252,7 @@ export function* pinCommentReplyHandler({ payload: params }) {
       setterParams: {
         target: "reply",
         task: "pin",
+        message: errorMessages.comments.pinReply,
       },
     });
   }

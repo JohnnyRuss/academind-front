@@ -8,19 +8,24 @@ import { selectPendingRequestsPageState } from "../../store/selectors/friendsSel
 import { selectRequestCount } from "../../store/selectors/badgeSelectors";
 
 import styles from "./components/styles/request.module.scss";
-import { DeleteRequestBTN, ConfirmRequestBtn } from "../Layouts";
+import { DeleteRequestBTN, ConfirmRequestBtn, Error } from "../Layouts";
 import RequestItemBody from "./components/RequestItemBody";
 
 function PendingRequests() {
   const { id: userId } = useParams();
 
-  const { pendingRequests, searchKey } = useSelector(
-    selectPendingRequestsPageState
-  );
+  const {
+    pendingRequests,
+    searchKey,
+    requestError: { error, task, message },
+  } = useSelector(selectPendingRequestsPageState);
   const unSeenRequestsCount = useSelector(selectRequestCount);
 
-  const { confirmFriendRequestQuery, deleteFriendRequestQuery } =
-    useFriendsQuery();
+  const {
+    confirmFriendRequestQuery,
+    deleteFriendRequestQuery,
+    handleResetRequestError,
+  } = useFriendsQuery();
 
   const { resetUnseenRequestsCountQuery } = useBadgeQuery();
 
@@ -53,6 +58,9 @@ function PendingRequests() {
             />
           </RequestItemBody>
         ))}
+      {error && ["deletion", "confirm"].includes(task) && (
+        <Error msg={message} asModal={true} onClose={handleResetRequestError} />
+      )}
     </div>
   );
 }

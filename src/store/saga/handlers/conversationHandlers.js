@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import { showError, triggerError } from "./errorHandler";
+import { showError, errorMessages } from "./errorHandler";
 
 import {
   setConversationError,
@@ -31,6 +31,7 @@ export function* getAllConversationsHandler({ payload: userId }) {
       setter: setConversationError,
       setterParams: {
         key: "getAllLoadingState",
+        message: errorMessages.conversation.load,
       },
     });
   }
@@ -47,6 +48,7 @@ export function* getLastConversationHandler({ payload: userId }) {
       setter: setConversationError,
       setterParams: {
         key: "loadingState",
+        message: errorMessages.conversation.singleConversation,
       },
     });
   }
@@ -63,6 +65,7 @@ export function* getConversationHandler({ payload: conversationId }) {
       setter: setConversationError,
       setterParams: {
         key: "loadingState",
+        message: errorMessages.conversation.singleConversation,
       },
     });
   }
@@ -95,6 +98,7 @@ export function* sendMessageHandler({
       setterParams: {
         key: "chatLoadingState",
         task: "send",
+        message: errorMessages.conversation.send,
       },
     });
   }
@@ -102,7 +106,6 @@ export function* sendMessageHandler({
 
 export function* markAsReadHandler({ payload }) {
   try {
-    triggerError();
     const { data } = yield call(markAsReadQuery, payload);
     yield put(setMarkAsRead(data));
   } catch (error) {
@@ -113,6 +116,7 @@ export function* markAsReadHandler({ payload }) {
       setterParams: {
         key: "chatLoadingState",
         task: "mark",
+        message: errorMessages.conversation.operation,
       },
     });
   }
@@ -120,7 +124,6 @@ export function* markAsReadHandler({ payload }) {
 
 export function* deleteConversationHandler({ payload: conversationId }) {
   try {
-    triggerError();
     yield call(queryDeleteConversation, conversationId);
     yield put(setDeletedConversation(conversationId));
   } catch (error) {
@@ -131,6 +134,7 @@ export function* deleteConversationHandler({ payload: conversationId }) {
       setterParams: {
         key: "chatLoadingState",
         task: "deletion",
+        message: errorMessages.conversation.deletion,
       },
     });
   }

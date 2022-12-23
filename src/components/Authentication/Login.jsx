@@ -1,16 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { selectActiveUserLoadingState } from '../../store/selectors/activeUserSelectors';
-import { login, resetLoadingState } from '../../store/reducers/activeUserReducer';
+import { selectActiveUserLoadingState } from "../../store/selectors/activeUserSelectors";
+import {
+  login,
+  resetLoadingState,
+} from "../../store/reducers/activeUserReducer";
 
-import styles from './auth.module.scss';
+import styles from "./auth.module.scss";
 
 function Login() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   const { loading } = useSelector(selectActiveUserLoadingState);
 
@@ -26,25 +29,25 @@ function Login() {
       }
 
       dispatch(login(loginInput));
+
+      setIsAuthenticating(true);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   }
 
   useEffect(() => {
-    if (loading === false) {
-      // createAxiosQuery();
-      navigate('/feed');
-    }
-
-    return () => dispatch(resetLoadingState());
-  }, [loading]);
+    return () => {
+      setIsAuthenticating(false);
+      dispatch(resetLoadingState("loadingState"));
+    };
+  }, [loading, isAuthenticating]);
 
   return (
     <form onSubmit={submitHandler} className={styles.authForm}>
-      <input type='text' name='email' defaultValue='russ@io.com' />
-      <input type='text' name='password' defaultValue='pass1234' />
-      <button type='submit'>login</button>
+      <input type="text" name="email" defaultValue="russ@io.com" />
+      <input type="text" name="password" defaultValue="pass1234" />
+      <button type="submit">login</button>
     </form>
   );
 }

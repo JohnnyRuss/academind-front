@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { usePostQuery } from "../../../../hooks";
+import { usePostQuery, useProfileReviewQuery } from "../../../../hooks";
 import { setUpdateBlogPostModalOpen } from "../../../../store/reducers/portalReducer";
 import { destructurePostUpdateData } from "../../../../lib/destructurers";
-
-import createParagraphs from "../../../../lib/createTextBox";
 
 import styles from "./styles/article.module.scss";
 import {
@@ -19,6 +17,7 @@ function Article({ post }) {
   const dispatch = useDispatch();
 
   const { deletePostQuery, savePostQuery } = usePostQuery();
+  const { removeTagQuery } = useProfileReviewQuery();
 
   function deleteHandler() {
     navigate({ pathname: "/blog" }, { replace: true });
@@ -43,6 +42,7 @@ function Article({ post }) {
           postId={post._id}
           savePostHandler={() => savePostQuery(post._id)}
           deleteHandler={deleteHandler}
+          removeTagHandler={() => removeTagQuery(post._id)}
           updateHandler={() =>
             dispatch(
               setUpdateBlogPostModalOpen(destructurePostUpdateData(post))

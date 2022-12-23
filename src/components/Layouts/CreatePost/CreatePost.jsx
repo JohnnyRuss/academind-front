@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-
 import {
   setCreatePostIsOpen,
   addTag,
@@ -30,7 +29,7 @@ function CreatePost({ className }) {
     tags,
     files,
     audience,
-    loadingState: { loading },
+    loadingState: { loading, error, message },
   } = useSelector(selectCreatePost);
 
   const handleText = (txt) => dispatch(setText(txt));
@@ -88,6 +87,8 @@ function CreatePost({ className }) {
       {createPostIsOpen && (
         <CreatePostModal
           loading={loading}
+          error={error}
+          message={message}
           isOpen={createPostIsOpen}
           setIsOpen={activateModal}
           text={text}

@@ -8,7 +8,7 @@ import { useFriendsQuery } from "../../../hooks";
 import { selectAllFriendsPageState } from "../../../store/selectors/friendsSelector";
 
 import { AllFriends as Friends } from "../../../components/FriendsPage";
-import { Spinner } from "../../../components/Layouts";
+import { Spinner, Error } from "../../../components/Layouts";
 
 function AllFriends() {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function AllFriends() {
 
   const { getAllFriendsQuery } = useFriendsQuery();
   const {
-    loadingState: { loading },
+    loadingState: { loading, error, message },
   } = useSelector(selectAllFriendsPageState);
 
   useEffect(() => {
@@ -27,7 +27,8 @@ function AllFriends() {
   return (
     <>
       {loading && <Spinner />}
-      {!loading && <Friends />}
+      {!loading && !error && <Friends />}
+      {error && <Error msg={message} />}
     </>
   );
 }

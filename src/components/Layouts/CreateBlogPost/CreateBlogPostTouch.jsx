@@ -35,7 +35,7 @@ function CreateBlogPostTouch({ className }) {
     tags,
     categories,
     files,
-    loadingState: { loading },
+    loadingState: { loading, error, message },
     audience,
   } = useSelector(selectCreateBlogPost);
 
@@ -114,6 +114,8 @@ function CreateBlogPostTouch({ className }) {
       {createBlogPostIsOpen && (
         <CreateBlogPostModal
           loading={loading}
+          error={error}
+          message={message}
           isOpen={createBlogPostIsOpen}
           setIsOpen={activateModal}
           audience={audience}
