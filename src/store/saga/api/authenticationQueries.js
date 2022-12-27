@@ -7,3 +7,24 @@ export async function loginQuery(body) {
 export async function logOutQuery(body) {
   return await axioss.post("/authentication/logout", body);
 }
+
+export async function checkRegistrationExistanceQuery({
+  requestId,
+  tokenId,
+  body,
+}) {
+  return await axioss(
+    `/authentication/confirm-register/${requestId}/confirm/${tokenId}`
+  );
+}
+
+export async function sendRegistrationPasswordConfirmQuery({
+  requestId,
+  tokenId,
+  body,
+}) {
+  return await axioss.post(
+    `/authentication/confirm-register/${requestId}/confirm/${tokenId}`,
+    body
+  );
+}

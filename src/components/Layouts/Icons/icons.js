@@ -53,6 +53,8 @@ import {
   AiOutlineClose,
   AiFillDislike,
   AiOutlineFileDone,
+  AiFillEye,
+  AiFillEyeInvisible,
 } from "react-icons/ai";
 
 import {
@@ -105,6 +107,8 @@ const DotsHorizontalIcon = BsThreeDots;
 const DeleteIcon = MdOutlineDelete;
 const DeleteFriendRequestIcon = BsFillPersonXFill;
 const DeleteFriendIcon = MdPersonOff;
+const EyeShowIcon = AiFillEye;
+const EyeHideIcon = AiFillEyeInvisible;
 const LocationIcon = MdLocationPin;
 const ErrorIcon = BiError;
 const EditIcon = FiEdit3;
@@ -155,6 +159,8 @@ const UserFriendRequestsIcon = BsFillPersonLinesFill;
 // const BirthDayIcon = FaBirthdayCake;
 
 export {
+  EyeShowIcon,
+  EyeHideIcon,
   MaleIcon,
   FemaleIcon,
   LikeIcon,

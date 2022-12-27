@@ -13,21 +13,52 @@
     cursor: pointer;
   }
 
+  .inpBox {
+    @include flexBox;
+    border: 1px solid color("darkGreyColor");
+    border-radius: 0.3rem;
+    overflow: hidden;
+    background: color("whiteColor");
+    // background: green;
+
+    &.error {
+      border: 1px solid color("redColor");
+    }
+  }
+
+  .iconBox {
+    width: 2rem;
+    @include flexBox;
+    @include flexProperty(center, center);
+    cursor: pointer;
+    border: none;
+    background: inherit;
+  }
+
   .inp {
     display: inline-block;
     width: 100%;
     outline: none;
-    border: 1px solid color("darkGreyColor");
-    border-radius: 0.3rem;
     height: 3rem;
     color: color("blackColor");
     padding: 0 1rem;
     font-size: size("smallSize");
-    
+    border: none;
+
     &::placeholder {
       text-transform: capitalize;
       font-size: size("smallerSize");
       opacity: 0.5;
+    }
+  }
+
+  .errorMessage {
+    color: color("redColor");
+    font-size: size("smallSize");
+    text-align: center;
+
+    &::first-letter {
+      text-transform: capitalize;
     }
   }
 }

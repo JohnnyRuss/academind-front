@@ -7,7 +7,7 @@ import { Navigation } from "./components";
 import RestrictionAuthorised from "./pages/authentication/RestrictionAuthorised";
 import RestrictionUnAuthorised from "./pages/authentication/RestrictionUnAuthorised";
 
-const Login = lazy(() => import("./pages/authentication/Login"));
+const LoginPage = lazy(() => import("./pages/authentication/LoginPage"));
 const Register = lazy(() => import("./pages/authentication/Register"));
 const UserPage = lazy(() => import("./pages/profile/UserPage"));
 const PostsPage = lazy(() => import("./pages/profile/PostsPage"));
@@ -43,6 +43,10 @@ const EditableSettingsContentPage = lazy(() =>
 const BlogPage = lazy(() => import("./pages/blog/BlogPage"));
 const ActiveBlogPost = lazy(() => import("./pages/blog/ActiveBlogPostPage"));
 const Post = lazy(() => import("./pages/Post/Post"));
+const RegistrationConfirmPasswordPage = lazy(() =>
+  import("./pages/authentication/RegistrationConfirmPasswordPage")
+);
+const WellcomePage = lazy(() => import("./pages/WellcomePage"));
 
 function App() {
   return (
@@ -51,14 +55,14 @@ function App() {
       <Suspense fallback={<StandSpinner />}>
         <Routes>
           <Route element={<RestrictionAuthorised />}>
-            <Route path="/" element={<Navigate to="/feed" />} />
-            <Route path="authentication/login" element={<Login />} />
-            <Route path="authentication/register" element={<Register />} />
+            <Route path="/" element={<WellcomePage />} />
+            <Route path="/authentication/login" element={<LoginPage />} />
+            <Route path="/authentication/register" element={<Register />} />
           </Route>
           <Route element={<RestrictionUnAuthorised />}>
-            <Route path="/" element={<Navigate to="/feed" />} />
-            <Route path="feed" element={<Feed />} />
-            <Route path="profile/:id" element={<UserPage />}>
+            {/* <Route path="/" element={<Navigate to="/feed" />} /> */}
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/profile/:id" element={<UserPage />}>
               <Route path="posts" element={<PostsPage />} />
               <Route path="about" element={<About />} />
               <Route path="friends" element={<Friends />}>
@@ -72,9 +76,9 @@ function App() {
                 <Route path="hidden" element={<ReviewHiddenPosts />} />
               </Route>
             </Route>
-            <Route path="post/:id" element={<Post />} />
-            <Route path="blog" element={<BlogPage />} />
-            <Route path="blog/:id" element={<ActiveBlogPost />} />
+            <Route path="/post/:id" element={<Post />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:id" element={<ActiveBlogPost />} />
             <Route path="/messanger" element={<Messanger />}>
               <Route path=":id" element={<MessangerFeed />} />
             </Route>
@@ -83,6 +87,10 @@ function App() {
               <Route path="edit" element={<EditableSettingsContentPage />} />
             </Route>
           </Route>
+          <Route
+            path="/confirmRegistration/:registrationId/confirm/:tokenId"
+            element={<RegistrationConfirmPasswordPage />}
+          />
           <Route path="*" element={<UnknownPage />} />
         </Routes>
       </Suspense>

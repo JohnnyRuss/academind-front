@@ -21,6 +21,11 @@ const activeUserSlice = createSlice({
       error: false,
       message: "",
     },
+    registerLoadingState: {
+      loading: false,
+      error: false,
+      message: "",
+    },
     notificationLoadingState: {
       loading: null,
       error: false,
@@ -46,6 +51,8 @@ const activeUserSlice = createSlice({
     },
     notifications: [],
     activeNotifications: false,
+    isExistingRegister: false,
+    successfullRegistration: false,
   },
   reducers: {
     resetLoadingState(state, { payload }) {
@@ -54,9 +61,69 @@ const activeUserSlice = createSlice({
       state[payload].message = "";
     },
 
+    setLoadingStateError(state, { payload }) {
+      console.log(payload.message);
+      state.loadingState.loading = false;
+      state.loadingState.error = true;
+      state.loadingState.message = payload.message;
+    },
+
+    resetLoadingStateError(state, { payload }) {
+      state.loadingState.loading = false;
+      state.loadingState.error = false;
+      state.loadingState.message = "";
+    },
+
     // ===================================== //
     // ========== Authentication ========== //
     // =================================== //
+
+    setRegistrationError(state, { payload }) {
+      state.registerLoadingState.loading = false;
+      state.registerLoadingState.error = true;
+      state.registerLoadingState.message = payload.message;
+    },
+
+    resetRegistrationError(state) {
+      state.registerLoadingState.loading = false;
+      state.registerLoadingState.error = false;
+      state.registerLoadingState.message = "";
+      state.isExistingRegister = false;
+      state.successfullRegistration = false;
+    },
+
+    resetRegistrationpProccess(state) {
+      state.isExistingRegister = false;
+      state.successfullRegistration = false;
+    },
+
+    checkExistingRegister(state) {
+      state.loadingState.loading = true;
+      state.loadingState.error = false;
+      state.loadingState.message = "";
+    },
+
+    setIsExistingRegister(state, { payload }) {
+      state.isExistingRegister = payload.isExistingRequest;
+
+      state.loadingState.loading = false;
+      state.loadingState.error = false;
+      state.loadingState.message = "";
+    },
+
+    sendRegisterPasswordConfirm(state) {
+      state.registerLoadingState.loading = true;
+      state.registerLoadingState.error = false;
+      state.registerLoadingState.message = "";
+    },
+
+    setRegisterSuccess(state, { payload }) {
+      state.successfullRegistration = payload.success;
+
+      state.registerLoadingState.loading = false;
+      state.registerLoadingState.error = false;
+      state.registerLoadingState.message = "";
+    },
 
     login(state) {
       state.loadingState.loading = true;
@@ -80,6 +147,23 @@ const activeUserSlice = createSlice({
 
       Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
       localStorage.removeItem("academind_passport");
+    },
+
+    resetActiveUser(state) {
+      const temp = {
+        _id: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        userName: "",
+        profileImg: "",
+        coverImg: "",
+        createdAt: null,
+        role: "",
+        isAuthenticated: false,
+      };
+
+      Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
     },
 
     // =========================== //
@@ -227,11 +311,20 @@ const activeUserSlice = createSlice({
 export const activeUserReducer = activeUserSlice.reducer;
 export const {
   resetLoadingState,
-  resetPendingPostsError,
+  setLoadingStateError,
+  resetLoadingStateError,
   // authenntication
+  setRegistrationError,
+  resetRegistrationError,
+  resetRegistrationpProccess,
+  checkExistingRegister,
+  setIsExistingRegister,
+  sendRegisterPasswordConfirm,
+  setRegisterSuccess,
   login,
   logOut,
   // user
+  resetActiveUser,
   setActiveUser,
   setUpdatedUserCover,
   getActiveUser,
@@ -251,6 +344,7 @@ export const {
   setAllNotificationAsRead,
   // profile-review
   setPendingPostsError,
+  resetPendingPostsError,
   getPendingPosts,
   getHiddenPosts,
 } = activeUserSlice.actions;

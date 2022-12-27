@@ -22,7 +22,7 @@ export const IoProvider = ({ children }) => {
       const s = await establishIoConnection();
       s.emit("userConnection", activeUser);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 

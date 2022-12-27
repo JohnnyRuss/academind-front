@@ -41,7 +41,7 @@ function RestrictionUnAuthorised() {
   const activeNotifications = useSelector(selectIsActiveNotifications);
 
   useEffect(() => {
-    connection(activeUser);
+    activeUser && connection(activeUser);
   }, []);
 
   return (

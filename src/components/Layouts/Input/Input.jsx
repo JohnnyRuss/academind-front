@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styles from "./input.module.scss";
+import { EyeHideIcon, EyeShowIcon } from "../Icons/icons";
 
 function Input({
   onChange = () => {},
@@ -10,7 +12,12 @@ function Input({
   className,
   name,
   placeholder = "text",
+  error = false,
+  message = "",
 }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [inpType, setInpType] = useState(type);
+
   return (
     <div className={`${styles.inputField} ${className || ""}`}>
       {label && (
@@ -18,15 +25,34 @@ function Input({
           {label}
         </label>
       )}
-      <input
-        type={type}
-        id={id}
-        placeholder={placeholder}
-        onChange={onChange}
-        name={name}
-        className={styles.inp}
-        value={defaultValue ? defaultValue : value}
-      />
+      <div
+        className={`${styles.inpBox} ${error ? styles.error : ""}`}
+        data-inp-box
+      >
+        <input
+          type={inpType}
+          id={id}
+          placeholder={placeholder}
+          onChange={onChange}
+          name={name}
+          className={styles.inp}
+          value={defaultValue ? defaultValue : value}
+        />
+        {type === "password" && (
+          <span
+            onClick={(e) => {
+              e.preventDefault();
+              setShowPassword((prev) => !prev);
+              setInpType((prev) => (prev === "password" ? "text" : "password"));
+            }}
+            className={styles.iconBox}
+          >
+            {!showPassword && <EyeShowIcon />}
+            {showPassword && <EyeHideIcon />}
+          </span>
+        )}
+      </div>
+      {error && <p className={styles.errorMessage}>{message}</p>}
     </div>
   );
 }

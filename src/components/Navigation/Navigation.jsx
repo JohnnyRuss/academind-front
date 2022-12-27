@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useContext, useState } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { IoContext } from "../../store/Io";
@@ -12,7 +12,6 @@ import styles from "./components/styles/navigation.module.scss";
 import { NavActions, NavList } from "./components";
 
 function Navigation() {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const { socket } = useContext(IoContext);
@@ -24,15 +23,6 @@ function Navigation() {
     encreaseUnseenConversationsCountHandler,
     encreaseUnseenNotificationsCountHandler,
   } = useBadgeQuery();
-
-  useEffect(() => {
-    if (
-      isAuthenticated &&
-      (pathname === "/authentication/login" ||
-        pathname === "/authentication/register")
-    )
-      navigate("/feed");
-  }, [pathname, isAuthenticated, navigate]);
 
   useEffect(() => {
     if (!socket) return;

@@ -7,11 +7,24 @@ import { createSelector } from "@reduxjs/toolkit";
 export const selectActiveUserLoadingState = ({ activeUser }) =>
   activeUser.loadingState;
 
+export const selectActiveUserRegistrationLoadingState = ({ activeUser }) =>
+  activeUser.registerLoadingState;
+
 export const selectPendingPostsLoadingState = ({ activeUser }) =>
   activeUser.pendingPostsLoadingState;
 
 export const selectNotificationsLoadingState = ({ activeUser }) =>
   activeUser.notificationLoadingState;
+
+/* ============================================= */
+/* ============== Authentication ============== */
+/* =========================================== */
+
+// existing registration request
+export const selectIsExistingRequestAndSuccessMessage = ({ activeUser }) => ({
+  isExistingRegister: activeUser.isExistingRegister,
+  successfullRegistration: activeUser.successfullRegistration,
+});
 
 /* ============================================= */
 /* =================== User =================== */

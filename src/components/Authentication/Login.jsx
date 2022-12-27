@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-import { selectActiveUserLoadingState } from "../../store/selectors/activeUserSelectors";
 import {
   login,
   resetLoadingState,
@@ -12,10 +11,6 @@ import styles from "./auth.module.scss";
 
 function Login() {
   const dispatch = useDispatch();
-
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
-
-  const { loading } = useSelector(selectActiveUserLoadingState);
 
   async function submitHandler(e) {
     e.preventDefault();
@@ -29,8 +24,6 @@ function Login() {
       }
 
       dispatch(login(loginInput));
-
-      setIsAuthenticating(true);
     } catch (error) {
       // console.error(error);
     }
@@ -38,10 +31,9 @@ function Login() {
 
   useEffect(() => {
     return () => {
-      setIsAuthenticating(false);
       dispatch(resetLoadingState("loadingState"));
     };
-  }, [loading, isAuthenticating]);
+  }, []);
 
   return (
     <form onSubmit={submitHandler} className={styles.authForm}>
