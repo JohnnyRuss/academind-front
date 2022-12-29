@@ -1,0 +1,121 @@
+@use "../../styles/helpers/variables/variables" as *;
+@use "../../styles/helpers/abstract/functions" as *;
+
+.regContainer {
+  margin-top: $nav-height;
+  min-height: calc(100vh - $nav-height);
+  padding: 3rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .regForm {
+    width: min(100%, $container-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem 3rem;
+  }
+
+  [data-select-box] {
+    height: 3rem;
+    border-radius: 0.3rem;
+  }
+
+  .degreeBox,
+  .genderBox {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    label {
+      font-weight: weight("mediumWeight");
+      font-size: size("smallSize");
+      text-transform: capitalize;
+    }
+
+    [data-select-box] {
+      width: 100%;
+      margin-top: -0.5rem;
+    }
+  }
+
+  .formHeading {
+    grid-column: 1/-1;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .inpField {
+    width: 100%;
+  }
+
+  .livingPlaceFieldsContainer {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .livingPlaceFields {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+
+  .workplaceFieldsContainer {
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 4rem;
+
+    .dateFormsWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .dateFrom,
+      .dateTo {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  .description {
+    grid-column: 1/-1;
+
+    .textFieldDesc {
+      min-height: 8rem;
+    }
+  }
+
+  .educationFieldsContainer {
+    grid-column: 1/-1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .educationFirstCol {
+      display: flex;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    .educationDatesBox {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 4rem;
+
+      .dateFormsWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .dateForm {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}

@@ -21,8 +21,14 @@
   .identifierUserName {
     text-transform: capitalize;
 
+
+
     &:hover {
       text-decoration: underline;
+    }
+
+    &.deletedLink:hover {
+      text-decoration: none;
     }
   }
 }

@@ -2,6 +2,7 @@ import {
   useComments,
   useScrollOnNotifyAtCommentReply,
 } from "../../../../hooks";
+import { destructureCommentRepliesProps } from "../../../../lib/destructurers";
 
 import { Comment, RepliesThread } from "./";
 
@@ -47,11 +48,7 @@ function CommentListItem({
           data={{
             postId,
             postAuthorId,
-            parentId: comment._id,
-            authorId: comment.author._id,
-            authorName: comment.author.userName,
-            replies: comment.replies,
-            repliesAmount: comment.repliesAmount,
+            ...destructureCommentRepliesProps(comment),
           }}
           handlers={{
             handleShowReplies,

@@ -1,0 +1,12 @@
+@use "../../../styles/helpers/abstract/functions" as *;
+
+.dateField {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: weight("mediumWeight");
+    font-size: size("smallSize");
+    text-transform: capitalize;
+  }
+}

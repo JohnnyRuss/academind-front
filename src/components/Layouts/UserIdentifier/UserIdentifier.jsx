@@ -32,8 +32,10 @@ function UserIdentifier({
         <div className={styles.identifierInlineContainer}>
           <div className={styles.userAndTags}>
             <Link
-              to={`/profile/${userId}/posts`}
-              className={styles.identifierUserName}
+              to={userId !== "DELETED_LINK" ? `/profile/${userId}/posts` : ""}
+              className={`${styles.identifierUserName} ${
+                userId === "DELETED_LINK" ? styles.deletedLink : ""
+              }`}
               data-identifier-username
             >
               {userName}

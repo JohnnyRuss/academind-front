@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 
-import { Select } from "../../../Layouts";
-import styles from "../styles/detailed.module.scss";
+import { Select } from "../";
+import styles from "./dateForm.module.scss";
 
 const months = [
   "January",

@@ -14,6 +14,15 @@ import styles from "./components/styles/sideBar.module.scss";
 import Conversation from "./components/Conversation";
 import { Error } from "../Layouts";
 
+export function checkDeletedUser(conversation, activeUserId) {
+  return (
+    conversation.deletedUsers &&
+    conversation.deletedUsers.some(
+      (u) => u.isDeleted && u.cachedUserId !== activeUserId
+    )
+  );
+}
+
 function SideBar() {
   const { id } = useParams();
 
@@ -48,14 +57,23 @@ function SideBar() {
             .map((conversation) => (
               <Conversation
                 key={conversation._id}
-                author={conversation.users.find(
-                  (user) => user._id !== activeUserId
-                )}
+                author={
+                  checkDeletedUser(conversation, activeUserId)
+                    ? conversation.deletedUsers.find(
+                        (u) => u.isDeleted && u.cachedUserId !== activeUserId
+                      )
+                    : conversation.users.find(
+                        (user) => user._id !== activeUserId
+                      )
+                }
                 conversationId={conversation._id}
                 lastMessage={conversation.lastMessage}
                 adressatId={
-                  conversation.users?.find((user) => user._id !== activeUserId)
-                    ._id
+                  checkDeletedUser(conversation, activeUserId)
+                    ? conversation.deletedUsers.find(
+                        (u) => u.isDeleted && u.cachedUserId !== activeUserId
+                      ).cachedUserId
+                    : conversation.users.find((u) => u._id !== activeUserId)._id
                 }
               />
             ))}

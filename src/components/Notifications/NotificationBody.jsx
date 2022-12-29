@@ -6,7 +6,7 @@ import {
   DeleteIcon,
   ReadIcon,
 } from "../Layouts/Icons/icons";
-import { TimeAgo, Image } from "../Layouts";
+import { TimeAgo, Image, Avatar } from "../Layouts";
 
 function NotificationBody({
   notify,
@@ -29,7 +29,7 @@ function NotificationBody({
       const message = notify.message.split(`${"PostAuthorPlaceholder"}`);
       return (
         <>
-          <strong className={styles.userName}>{notify.from.userName}</strong>{" "}
+          <strong className={styles.userName}>{notify.from?.userName}</strong>{" "}
           <span>{message[0]}</span>{" "}
           <strong>{notify.target.options.postAuthorUserName}</strong>
           <span>{message[1]}</span>
@@ -38,7 +38,11 @@ function NotificationBody({
     } else
       return (
         <>
-          <strong className={styles.userName}>{notify.from.userName}</strong>{" "}
+          <strong className={styles.userName}>
+            {notify.isDeletedSender
+              ? notify.isDeletedSender.cachedUserName
+              : notify.from.userName}
+          </strong>{" "}
           <span>{notify.message}</span>
         </>
       );
@@ -49,7 +53,8 @@ function NotificationBody({
       className={`${styles.notifyBody} ${notify.read ? "" : styles.unRead}`}
       onClick={() => handleNavigate(notify)}
     >
-      <Image src={notify.from.profileImg} className={styles.notifyFig} />
+      {/* <Image src={notify.from?.profileImg} className={styles.notifyFig} /> */}
+      <Avatar src={notify.from?.profileImg} className={styles.notifyFig} />
       <p>
         {showNotificationMessage(notify)}
         <TimeAgo date={notify.createdAt} className={styles.notifyTime} />

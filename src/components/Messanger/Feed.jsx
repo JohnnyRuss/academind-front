@@ -17,6 +17,8 @@ import FeedHeader from "./components/FeedHeader";
 import FeedMessagesList from "./components/FeedMessagesList";
 import { TextArea, Spinner, Error } from "../Layouts";
 
+import { checkDeletedUser } from "./SideBar";
+
 function Feed() {
   const { pathname } = useLocation();
   const { id } = useParams();
@@ -39,9 +41,15 @@ function Feed() {
   );
 
   const adressat = useMemo(() => {
-    return conversation
-      ? conversation.users?.find((user) => user._id !== activeUserId)
-      : null;
+    if (!conversation) return;
+
+    const isDeletedUser = checkDeletedUser(conversation, activeUserId);
+
+    return isDeletedUser
+      ? conversation.deletedUsers.find(
+          (u) => u.isDeleted && u.cachedUserId !== activeUserId
+        )
+      : conversation.users?.find((user) => user._id !== activeUserId);
   }, [conversation?.users, activeUserId]);
 
   const { sendMessageQuery } = useConversationQuery();
@@ -80,12 +88,14 @@ function Feed() {
       )}
       {error && <Error msg={message} />}
       {chatError && chatTask === "send" && <Error msg={chatErrorMessage} />}
-      <TextArea
-        withBtn={false}
-        placeholder="Aa"
-        handler={handleMessage}
-        onFocus={onFocusHandler}
-      />
+      {!adressat?.isDeleted && (
+        <TextArea
+          withBtn={false}
+          placeholder="Aa"
+          handler={handleMessage}
+          onFocus={onFocusHandler}
+        />
+      )}
     </div>
   );
 }

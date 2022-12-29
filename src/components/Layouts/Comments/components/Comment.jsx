@@ -56,8 +56,16 @@ function Comment({ type, data, handlers, className }) {
       <div className={`${styles.comment} ${className || ""}`} id={comment._id}>
         <div className={styles.commentHeader}>
           <UserIdentifier
-            userId={comment.author?._id}
-            userName={comment.author?.userName}
+            userId={
+              comment.cachedUser && comment.cachedUser.isDeleted
+                ? "DELETED_LINK"
+                : comment.author?._id
+            }
+            userName={
+              comment.cachedUser && comment.cachedUser.isDeleted
+                ? comment.cachedUser.userName
+                : comment.author?.userName
+            }
             img={comment.author?.profileImg}
             withTime={false}
             className={styles.commentUserIdentifier}
@@ -70,7 +78,11 @@ function Comment({ type, data, handlers, className }) {
           text={comment.text}
           likesCount={comment.likesAmount}
           postAuthorId={postAuthorId}
-          commentAuthorId={comment.author._id}
+          commentAuthorId={
+            comment.cachedUser && comment.cachedUser.isDeleted
+              ? comment.cachedUser.cachedUserId
+              : comment.author._id
+          }
           handlePinComment={() =>
             pinCommentQuery({ type, postId, commentId, replyId })
           }
@@ -79,14 +91,16 @@ function Comment({ type, data, handlers, className }) {
             deleteCommentQuery({ type, postId, commentId, replyId })
           }
         />
-        <CommentActions
-          reactions={comment.reactions}
-          createdAt={comment.createdAt}
-          handleReaction={() =>
-            reactOnCommentQuery({ type, postId, commentId, replyId })
-          }
-          handleReply={handleReplyCredentials}
-        />
+        {!comment.cachedUser?.isDeleted && (
+          <CommentActions
+            reactions={comment.reactions}
+            createdAt={comment.createdAt}
+            handleReaction={() =>
+              reactOnCommentQuery({ type, postId, commentId, replyId })
+            }
+            handleReply={handleReplyCredentials}
+          />
+        )}
       </div>
       {error &&
         (task === "deletion" || task === "pin") &&

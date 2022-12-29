@@ -6,7 +6,7 @@ import { selectBirthDate } from "../../../../store/selectors/settingsSelector";
 import { useSettings } from "../../../../hooks";
 
 import UpdateButtons from "./UpdateButtons";
-import DateForm from "./DateForm";
+import {DateForm} from "../../../Layouts"
 import styles from "../styles/detailed.module.scss";
 
 function ChangeBirthDateForm() {

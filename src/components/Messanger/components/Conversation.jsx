@@ -38,7 +38,7 @@ function Conversation({ conversationId, adressatId, author, lastMessage }) {
     >
       <Avatar img={author.profileImg} />
       <ConversationInfoBox
-        userName={author.userName}
+        userName={author.userName || author.cachedUserName}
         lastMessage={lastMessage}
         lastMessagePrefix={lastMessage?.author === activeUserId}
       />

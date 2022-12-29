@@ -7,7 +7,7 @@ import { useSettings } from "../../../../hooks";
 
 import { Input, TextField } from "../../../Layouts";
 import UpdateButtons from "./UpdateButtons";
-import DateForm from "./DateForm";
+import DateForm from "../../../Layouts/DateSelect/DateForm";
 import styles from "../styles/detailed.module.scss";
 
 function ChangeWorkplaceForm() {
@@ -70,12 +70,14 @@ function ChangeWorkplaceForm() {
           onChange={(e) => setPosition(e.target.value)}
           className={styles.inpField}
         />
+        <span>Date From</span>
         <div className={styles.dateFrom}>
           <DateForm
             handler={handleDateFrom}
             date={userWorkplace.workingYears?.from}
           />
         </div>
+        <span>Date To</span>
         <div className={styles.dateTo}>
           <DateForm
             handler={handleDateTo}

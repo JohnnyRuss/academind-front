@@ -48,13 +48,14 @@ function Select({
   }
 
   return (
-    <div className={`${styles.selection} ${active ? styles.active : ""}`}>
+    <div className={`${styles.selection} ${active ? styles.active : ""}`} data-select-box>
       <button
         className={styles.selectDefault}
         onClick={(e) => {
           e.preventDefault();
           setActive((prevState) => !prevState);
         }}
+        data-select-triger-btn
       >
         <span className={defaultValue ? styles.default : ""}>
           {fieldValue || defaultValue}

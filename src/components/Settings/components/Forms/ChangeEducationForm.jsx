@@ -7,7 +7,7 @@ import { useSettings } from "../../../../hooks";
 
 import { Input, TextField } from "../../../Layouts";
 import UpdateButtons from "./UpdateButtons";
-import DateForm from "./DateForm";
+import {DateForm} from "../../../Layouts"
 import styles from "../styles/detailed.module.scss";
 
 function ChangeEducationForm() {

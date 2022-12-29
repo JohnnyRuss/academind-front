@@ -13,7 +13,9 @@ function FeedHeader({ adressat }) {
         handler={() => navigate("/messanger")}
         className={styles.conversationGoBackBtn}
       />
-      <p className={styles.feedAuthor}>{adressat?.userName}</p>
+      <p className={styles.feedAuthor}>
+        {adressat?.userName || adressat?.cachedUserName}
+      </p>
     </div>
   );
 }

@@ -50,6 +50,7 @@ export { default as GenderFragment } from "./AboutUser/GenderFragment";
 
 export { default as Error } from "./Error/Error";
 
+export { default as DateForm } from "./DateSelect/DateForm";
 export { default as Modal } from "./Modal/Modal";
 
 export { default as DeletionPopUp } from "./DeletionPopUp/DeletionPopUp";
