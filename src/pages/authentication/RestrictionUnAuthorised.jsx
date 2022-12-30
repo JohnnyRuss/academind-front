@@ -10,6 +10,7 @@ import {
   selectIsActiveNotifications,
 } from "../../store/selectors/activeUserSelectors";
 import { selectAllModalActiveStatus } from "../../store/selectors/portalSelectors";
+import { selectCreatePostModalStatuses } from "../../store/selectors/createPostSelectors";
 import { useAuthValidation } from "../../hooks";
 
 import { StandSpinner } from "../../components/Layouts";
@@ -31,12 +32,14 @@ function RestrictionUnAuthorised() {
 
   const { connection } = useContext(IoContext);
 
-  const {
-    mediaModalIsOpen,
-    updatePostModalIsOpen,
-    sharePostModalIsOpen,
-    updateBlogPostModalIsOpen,
-  } = useSelector(selectAllModalActiveStatus);
+  const { mediaModalIsOpen, sharePostModalIsOpen } = useSelector(
+    selectAllModalActiveStatus
+  );
+
+  const { updateBlogPostModalIsOpen, updatePostModalIsOpen } = useSelector(
+    selectCreatePostModalStatuses
+  );
+
   const activeUser = useSelector(selectActiveUserShortInfo);
   const activeNotifications = useSelector(selectIsActiveNotifications);
 

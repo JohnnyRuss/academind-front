@@ -33,6 +33,7 @@ function CreatePostModal({
   loading,
   error,
   message,
+  validationError,
 }) {
   const { userName, image, _id } = useSelector(selectActiveUserShortInfo);
 
@@ -73,7 +74,12 @@ function CreatePostModal({
           </div>
         </UserIdentifier>
 
-        {error && <Error msg={message} className={styles.creationError} />}
+        {(error || validationError.error) && (
+          <Error
+            msg={message || validationError.message}
+            className={styles.creationError}
+          />
+        )}
 
         <div className={styles.content}>
           <TextAreaWithTag
@@ -86,12 +92,14 @@ function CreatePostModal({
             removeTag={handleRemoveTag}
             maxRows={8}
           />
+
           {!shared && (
             <CreatePostMedia
               files={files}
               handleDiscardMedia={handleDiscardMedia}
             />
           )}
+
           {shared && (
             <PostAuthentic
               shared={shared}

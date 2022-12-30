@@ -43,10 +43,7 @@ function CreateBlogPostMedia({
         multiple
         onChange={handleMediaFiles}
       />
-      <MultiCarousel
-        responsiveness={responsive}
-        arrows={true}
-      >
+      <MultiCarousel responsiveness={responsive} arrows={true}>
         {files.map((media, i) => (
           <figure
             className={styles.blogPostFigure}

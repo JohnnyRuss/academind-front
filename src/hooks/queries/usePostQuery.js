@@ -3,14 +3,12 @@ import { useDispatch } from "react-redux";
 
 import {
   createPost,
-  setCreateBlogPostError,
+  updatePost,
+  setCreateBlogPostValidationError,
+  setCreatePostValidationError,
 } from "../../store/reducers/createPostReducer";
 
-import {
-  updatePost,
-  sharePost,
-  setUpdateBlogPostError,
-} from "../../store/reducers/portalReducer";
+import { sharePost } from "../../store/reducers/portalReducer";
 
 import {
   deletePost,
@@ -36,17 +34,6 @@ function usePostQuery() {
   const publishPostQuery = ({ params, credentials }) => {
     credentials.type = params.type;
 
-    // const type = params.type;
-    // const isMediaAndTags =
-    //   JSON.parse(credentials.tags)[0] && credentials.media[0];
-
-    // if (
-    //   (type === "post" && !isMediaAndTags && !credentials.description) ||
-    //   (type === "blogPost" && !isMediaAndTags && !credentials.article)
-    // ) {
-    //   return;
-    // }
-
     configureMediasFiles({ credentials });
 
     function publisher() {
@@ -64,20 +51,22 @@ function usePostQuery() {
     if (params.type === "post") {
       const error = validateCreatePost(credentials);
       const { error: isError } = error;
-      // console.log(credentials);
-      if (isError) return;
-
+      console.log(error);
+      if (isError)
+        return dispatch(
+          setCreatePostValidationError({
+            error: error.error,
+            message: error.message,
+          })
+        );
       // publisher();
     } else if (params.type === "blogPost") {
       const error = validateCreateBlogPost(credentials);
       const { error: isError } = error;
-      // console.log(credentials);
-      if (isError && params.operationType === "publish")
-        return dispatch(setCreateBlogPostError(error));
-      if (isError && params.operationType === "update")
-        return dispatch(setUpdateBlogPostError(error));
 
-      publisher();
+      if (isError) return dispatch(setCreateBlogPostValidationError(error));
+
+      // publisher();
     }
   };
 

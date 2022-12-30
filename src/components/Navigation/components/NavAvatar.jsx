@@ -45,7 +45,7 @@ function NavAvatar() {
             </Link>
           </li>
           <li>
-            <Link to={`/settings`} onClick={() => setOpenAvatar(false)}>
+            <Link to={`/settings/${_id}`} onClick={() => setOpenAvatar(false)}>
               Settings
             </Link>
           </li>

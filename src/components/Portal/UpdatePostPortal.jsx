@@ -1,44 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import {
-  resetUpdateState,
-  addUpdateTag,
-  removeUpdateTag,
-  removeUpdateFiles,
-  setUpdateAudience,
-} from "../../store/reducers/portalReducer";
-import { usePostQuery, useRestrictBodyOverflow } from "../../hooks";
-import { selectUpdatePostPortal } from "../../store/selectors/portalSelectors";
-
+  usePostQuery,
+  useRestrictBodyOverflow,
+  useCreatePost,
+} from "../../hooks";
+import { selectCreatePost } from "../../store/selectors/createPostSelectors";
 import { fixLineBreaks } from "../../lib";
 
 import { CreatePostModal } from "../Layouts";
 
 function UpdatePostPortal() {
-  const dispatch = useDispatch();
-
   const {
     updatePostModalIsOpen,
-    updatePostData,
-    updatePostMediaFiles,
-    updatePostLoadingState: { loading, error, message },
-  } = useSelector(selectUpdatePostPortal);
+    postData,
+    createPostError,
+    loadingState: { loading, error, message },
+  } = useSelector(selectCreatePost);
 
-  const { description, tags, audience } = updatePostData;
-
-  const [text, setText] = useState(description);
-
-  const handleTag = (tag) => dispatch(addUpdateTag(tag));
-
-  const handleRemoveTag = (id) => dispatch(removeUpdateTag(id));
-
-  const handleDiscardMedia = (url) => dispatch(removeUpdateFiles(url));
-
-  const deactivateHandler = () => dispatch(resetUpdateState());
-
-  const handleAudience = (audience) => dispatch(setUpdateAudience(audience));
+  const {
+    handleCloseUpdatePostModal,
+    handleDescription,
+    addTagHandler,
+    removeTagHandler,
+    discardMediaHandler,
+    audienceHandler,
+  } = useCreatePost({ key: "post", error: createPostError });
 
   const { publishPostQuery } = usePostQuery();
 
@@ -46,13 +35,14 @@ function UpdatePostPortal() {
     publishPostQuery({
       params: {
         operationType: "update",
+        type: "post",
       },
       credentials: {
-        audience,
-        description: fixLineBreaks(text),
-        media: updatePostMediaFiles,
-        tags: JSON.stringify(tags.map((tag) => tag._id)),
-        postId: updatePostData._id,
+        audience: postData.audience,
+        description: fixLineBreaks(postData.description),
+        media: [...postData.media, ...postData.files],
+        tags: JSON.stringify(postData.tags.map((tag) => tag._id)),
+        postId: postData._id,
       },
     });
   }
@@ -72,18 +62,19 @@ function UpdatePostPortal() {
         loading={loading}
         error={error}
         message={message}
+        validationError={createPostError}
         isOpen={updatePostModalIsOpen}
-        setIsOpen={deactivateHandler}
-        text={text}
-        setText={setText}
-        handleAudience={handleAudience}
-        audience={audience}
-        tags={tags}
-        handleTag={handleTag}
-        handleRemoveTag={handleRemoveTag}
-        files={updatePostMediaFiles}
-        handleDiscardMedia={handleDiscardMedia}
-        updateCredentials={updatePostData}
+        setIsOpen={handleCloseUpdatePostModal}
+        text={postData.description}
+        setText={handleDescription}
+        handleAudience={audienceHandler}
+        audience={postData.audience}
+        tags={postData.tags}
+        handleTag={addTagHandler}
+        handleRemoveTag={removeTagHandler}
+        files={[...postData.media, ...postData.files]}
+        handleDiscardMedia={discardMediaHandler}
+        updateCredentials={postData}
         handlePost={publishPost}
       />
     )

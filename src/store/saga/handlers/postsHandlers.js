@@ -28,9 +28,7 @@ import {
 } from "../../reducers/createPostReducer";
 
 import {
-  resetUpdateState,
   resetSharePostModal,
-  setUpdatePostError,
   setSharePostError,
 } from "../../reducers/portalReducer";
 
@@ -55,8 +53,6 @@ import {
 
 import { allowNewPostSet, isRoute } from "../../../lib/window-location";
 
-// share,update,topRatedPublishers,topRatedBlogPosts,relatedPosts
-
 export function* createPostHandler({ payload: body }) {
   try {
     const { data } = yield call(queryCreatePost, body);
@@ -74,6 +70,26 @@ export function* createPostHandler({ payload: body }) {
   }
 }
 
+export function* updatePostHandler({ payload: { params, body } }) {
+  try {
+    const { data } = yield call(queryUpdatePost, {
+      postId: params.postId,
+      body,
+    });
+    yield put(setUpdatedPost({ params, data }));
+    yield put(resetCreatePost());
+  } catch (error) {
+    yield showError({
+      error,
+      location: "updatePostHandler",
+      setter: setCreatePostError,
+      setterParams: {
+        message: errorMessages.post.updatePost,
+      },
+    });
+  }
+}
+
 export function* deletePostHandler({ payload: postId }) {
   try {
     yield call(queryDeletePost, postId);
@@ -86,26 +102,6 @@ export function* deletePostHandler({ payload: postId }) {
       setterParams: {
         message: errorMessages.post.deletion,
         task: "deletion",
-      },
-    });
-  }
-}
-
-export function* updatePostHandler({ payload: { params, body } }) {
-  try {
-    const { data } = yield call(queryUpdatePost, {
-      postId: params.postId,
-      body,
-    });
-    yield put(setUpdatedPost({ params, data }));
-    yield put(resetUpdateState());
-  } catch (error) {
-    yield showError({
-      error,
-      location: "updatePostHandler",
-      setter: setUpdatePostError,
-      setterParams: {
-        message: errorMessages.post.updatePost,
       },
     });
   }

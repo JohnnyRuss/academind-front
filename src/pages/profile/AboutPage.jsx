@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import { useAboutUserQuery } from "../../hooks";
 import { selectAboutPageState } from "../../store/selectors/aboutPageSelectors";
 
-import NewVersion from "../../components/AboutPage/NewVersion";
-import NewVersionContainer from "../../components/AboutPage/NewVersionContainer";
+import About from "../../components/AboutPage/About";
+import AboutContainer from "../../components/AboutPage/AboutContainer";
 import { Spinner, Error } from "../../components/Layouts";
 
 function AboutPage() {
@@ -21,11 +21,11 @@ function AboutPage() {
   }, []);
 
   return (
-    <NewVersionContainer>
+    <AboutContainer>
       {loading && <Spinner />}
-      {!loading && !error && <NewVersion />}
+      {!loading && !error && <About />}
       {error && <Error msg={message} />}
-    </NewVersionContainer>
+    </AboutContainer>
   );
 }
 

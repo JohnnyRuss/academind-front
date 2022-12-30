@@ -1,11 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 
-import { useCreateBlogPost } from "../../hooks";
 import { useSelector } from "react-redux";
 
-import { usePostQuery, useRestrictBodyOverflow } from "../../hooks";
-import { selectUpdateBlogPostPortal } from "../../store/selectors/portalSelectors";
+import {
+  usePostQuery,
+  useRestrictBodyOverflow,
+  useCreatePost,
+} from "../../hooks";
+import { selectCreatePost } from "../../store/selectors/createPostSelectors";
 
 import { fixLineBreaks, inverseLineBreaks } from "../../lib";
 
@@ -14,29 +17,29 @@ import { CreateBlogPostModal } from "../Layouts";
 function UpdateBlogPostPortal() {
   const {
     updateBlogPostModalIsOpen,
-    updatePostData,
-    updatePostMediaFiles,
-    updatePostLoadingState: { loading, error, message },
-    updateBlogPostError,
-  } = useSelector(selectUpdateBlogPostPortal);
-
-  const { _id, title, article, labels, tags, category } = updatePostData;
+    postData,
+    createBlogPostError,
+    loadingState: { loading, error, message },
+  } = useSelector(selectCreatePost);
 
   const {
-    activateModal,
-    handleAudience,
+    handleCloseUpdateBlogPost,
+    audienceHandler,
     handleTitle,
-    handleText,
+    handleArticle,
     label,
     setLabel,
     handleAddLabel,
     handleRemoveLabel,
     handleCategory,
-    handleAddTag,
-    handleRemoveTag,
-    handleMediaFiles,
-    handleRemoveMediaFile,
-  } = useCreateBlogPost({ key: "update", error: updateBlogPostError });
+    addTagHandler,
+    removeTagHandler,
+    addMediaHandler,
+    discardMediaHandler,
+  } = useCreatePost({
+    key: "blogPost",
+    error: createBlogPostError,
+  });
 
   const { publishPostQuery } = usePostQuery();
 
@@ -44,16 +47,17 @@ function UpdateBlogPostPortal() {
     publishPostQuery({
       params: {
         operationType: "update",
+        type: "blogPost",
       },
       credentials: {
-        title,
-        article: fixLineBreaks(article),
-        audience: updatePostData.audience,
-        media: updatePostMediaFiles,
-        tags: JSON.stringify(tags.map((tag) => tag._id)),
-        labels: JSON.stringify(labels),
-        category: category,
-        postId: _id,
+        title: postData.title,
+        article: fixLineBreaks(postData.article),
+        audience: postData.audience,
+        media: [...postData.media, ...postData.files],
+        tags: JSON.stringify(postData.tags.map((tag) => tag._id)),
+        labels: JSON.stringify(postData.labels),
+        category: postData.category,
+        postId: postData._id,
       },
     });
   }
@@ -72,36 +76,36 @@ function UpdateBlogPostPortal() {
         error={error}
         message={message}
         // validation
-        validationError={updateBlogPostError}
+        validationError={createBlogPostError}
         // activation
         isOpen={updateBlogPostModalIsOpen}
-        setIsOpen={activateModal}
+        setIsOpen={handleCloseUpdateBlogPost}
         // audience
-        audience={updatePostData.audience}
-        handleAudience={handleAudience}
+        audience={postData.audience}
+        handleAudience={audienceHandler}
         // title
-        title={title}
+        title={postData.title}
         handleTitle={handleTitle}
         // article
-        text={inverseLineBreaks(article)}
-        handleText={handleText}
+        text={inverseLineBreaks(postData.article)}
+        handleText={handleArticle}
         // labels
         label={label}
         setLabel={setLabel}
-        labels={labels}
+        labels={postData.labels}
         handleAddLabel={handleAddLabel}
         handleRemoveLabel={handleRemoveLabel}
         // category
-        category={category}
+        category={postData.category}
         handleCategory={handleCategory}
         // tags
-        tags={tags}
-        handleAddTag={handleAddTag}
-        handleRemoveTag={handleRemoveTag}
+        tags={postData.tags}
+        handleAddTag={addTagHandler}
+        handleRemoveTag={removeTagHandler}
         // media files
-        handleMediaFiles={handleMediaFiles}
-        handleRemoveMediaFile={handleRemoveMediaFile}
-        files={updatePostMediaFiles}
+        handleMediaFiles={(e) => addMediaHandler(e.target.files)}
+        handleRemoveMediaFile={discardMediaHandler}
+        files={[...postData.media, ...postData.files]}
         // publish
         publishPost={publishPost}
       />

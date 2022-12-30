@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 
 import {
   usePostQuery,
-  useCreateBlogPost,
+  useCreatePost,
   useRestrictBodyOverflow,
 } from "../../../hooks";
-import { selectCreateBlogPost } from "../../../store/selectors/createPostSelectors";
+import { selectCreatePost } from "../../../store/selectors/createPostSelectors";
 import { selectActiveUserShortInfo } from "../../../store/selectors/activeUserSelectors";
 
 import { fixLineBreaks } from "../../../lib";
@@ -21,40 +21,29 @@ function CreateBlogPostTouch({ className }) {
 
   const {
     createBlogPostIsOpen,
-    title,
-    text,
-    tags,
-    labels,
-    category,
-    files,
+    postData,
+    createBlogPostError,
     loadingState: { loading, error, message },
-    audience,
-    blogPostError,
-  } = useSelector(selectCreateBlogPost);
+  } = useSelector(selectCreatePost);
 
   const {
-    // activation
-    activateModal,
-    // audience
-    handleAudience,
-    // title
+    activateCreateBlogPost,
+    audienceHandler,
     handleTitle,
-    // article
-    handleText,
-    // labels
+    handleArticle,
     label,
     setLabel,
     handleAddLabel,
     handleRemoveLabel,
-    // category
     handleCategory,
-    //tags
-    handleAddTag,
-    handleRemoveTag,
-    // media files
-    handleMediaFiles,
-    handleRemoveMediaFile,
-  } = useCreateBlogPost({ key: "publish", error: blogPostError });
+    addTagHandler,
+    removeTagHandler,
+    addMediaHandler,
+    discardMediaHandler,
+  } = useCreatePost({
+    key: "blogPost",
+    error: createBlogPostError,
+  });
 
   const { publishPostQuery } = usePostQuery();
 
@@ -65,13 +54,13 @@ function CreateBlogPostTouch({ className }) {
         operationType: "publish",
       },
       credentials: {
-        audience,
-        title,
-        article: fixLineBreaks(text),
-        media: files,
-        tags: JSON.stringify(tags.map((tag) => tag._id)),
-        labels: JSON.stringify(labels),
-        category: category,
+        audience: postData.audience,
+        title: postData.title,
+        article: fixLineBreaks(postData.article),
+        media: postData.files,
+        tags: JSON.stringify(postData.tags.map((tag) => tag._id)),
+        labels: JSON.stringify(postData.labels),
+        category: postData.category,
       },
     });
   }
@@ -85,7 +74,7 @@ function CreateBlogPostTouch({ className }) {
   return (
     <>
       <div
-        onClick={() => activateModal(true)}
+        onClick={() => activateCreateBlogPost(true)}
         className={`${styles.createBlogPostTouch} ${className || ""}`}
       >
         <UserIdentifier userName={userName} img={image} withTime={false} />
@@ -93,7 +82,7 @@ function CreateBlogPostTouch({ className }) {
         <label
           htmlFor="blogPostMedia"
           className={styles.mediaLabel}
-          onClick={() => activateModal(true)}
+          onClick={() => activateCreateBlogPost(true)}
         >
           <MultiMediaIcon />
           Media
@@ -107,36 +96,36 @@ function CreateBlogPostTouch({ className }) {
           error={error}
           message={message}
           // validation
-          validationError={blogPostError}
+          validationError={createBlogPostError}
           // activation
           isOpen={createBlogPostIsOpen}
-          setIsOpen={activateModal}
+          setIsOpen={() => activateCreateBlogPost(false)}
           // audience
-          audience={audience}
-          handleAudience={handleAudience}
+          audience={postData.audience}
+          handleAudience={audienceHandler}
           // title
-          title={title}
+          title={postData.title}
           handleTitle={handleTitle}
           // article
-          text={text}
-          handleText={handleText}
+          text={postData.article}
+          handleText={handleArticle}
           // labels
           label={label}
           setLabel={setLabel}
-          labels={labels}
+          labels={postData.labels}
           handleAddLabel={handleAddLabel}
           handleRemoveLabel={handleRemoveLabel}
           // category
-          category={category}
+          category={postData.category}
           handleCategory={handleCategory}
           // tags
-          tags={tags}
-          handleAddTag={handleAddTag}
-          handleRemoveTag={handleRemoveTag}
+          tags={postData.tags}
+          handleAddTag={addTagHandler}
+          handleRemoveTag={removeTagHandler}
           // media files
-          handleMediaFiles={handleMediaFiles}
-          handleRemoveMediaFile={handleRemoveMediaFile}
-          files={files}
+          handleMediaFiles={(e) => addMediaHandler(e.target.files)}
+          handleRemoveMediaFile={discardMediaHandler}
+          files={postData.files}
           // publish
           publishPost={publishPost}
         />

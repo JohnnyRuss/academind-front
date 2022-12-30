@@ -15,7 +15,7 @@ export default function useValidateCreatePost() {
   }
 
   function validateCreatePost(credentials) {
-    const { createError } = new ValidateCreatePost(credentials);
+    const { createError } = new ValidateCreatePost(credentials).validatePost();
 
     return createError;
   }

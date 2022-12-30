@@ -1,7 +1,7 @@
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest } from "redux-saga/effects";
 
-import { createPost } from '../../reducers/createPostReducer';
-import { updatePost, sharePost } from '../../reducers/portalReducer';
+import { createPost, updatePost } from "../../reducers/createPostReducer";
+import { sharePost } from "../../reducers/portalReducer";
 import {
   // CRUD'S
   deletePost,
@@ -18,7 +18,7 @@ import {
   getTopRatedBlogPosts,
   getTopRatedPublishers,
   getRelatedPosts,
-} from '../../reducers/postsDataReducer';
+} from "../../reducers/postsDataReducer";
 
 import {
   createPostHandler,
@@ -37,7 +37,7 @@ import {
   addPostToProfileHandler,
   hidePostFromProfileHandler,
   removeTagOnPostHandler,
-} from '../handlers/postsHandlers';
+} from "../handlers/postsHandlers";
 
 function* postsSaga() {
   yield takeLatest(createPost, createPostHandler);

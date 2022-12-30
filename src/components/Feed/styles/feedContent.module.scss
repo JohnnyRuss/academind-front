@@ -4,7 +4,7 @@
 .feedContent {
   flex: 1;
   @include flexBox(column);
-  @include flexProperty(flex-start, center);
+  // @include flexProperty(flex-start, center);
   @include feed;
 
   .feedInfiniteScroll {

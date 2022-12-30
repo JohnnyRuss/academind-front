@@ -1,41 +1,67 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-
-import { deActivateTarget, resetData } from "../../store/reducers/aboutReducer";
+import { useSelector } from "react-redux";
 import { selectAboutUserData } from "../../store/selectors/aboutPageSelectors";
-import { useAboutUserQuery } from "../../hooks";
 
-import styles from "./components/about.module.scss";
-import { UserInfo } from "./components/UserInfo";
-import { UpdateForm } from "./components/UpdateForms";
+import styles from "./about.module.scss";
+import {
+  BirthdateFragment,
+  LivingplaceFragment,
+  FromFragment,
+  EducationFragment,
+  WorkplaceFragment,
+  RegisterFragment,
+  EmailFragment,
+  GenderFragment,
+} from "../Layouts";
 
-/**
- * ties together AboutPage left and wright/info and update-form components
- * @param {Object} data object which one contains the user info
- */
-function About() {
-  const dispatch = useDispatch();
-  const { id } = useParams();
-
+function NewVersion() {
   const data = useSelector(selectAboutUserData);
-  const { getAboutUserQuery } = useAboutUserQuery();
-
-  useEffect(() => {
-    getAboutUserQuery(id);
-    return () => {
-      dispatch(deActivateTarget());
-      dispatch(resetData());
-    };
-  }, []);
 
   return (
-    <div className={styles.about}>
-      <UserInfo userInfo={data} />
-      <UpdateForm />
-    </div>
+    data && (
+      <div className={styles.newVersionInlineContainer}>
+        <div className={styles.infoBlock}>
+          <h4 className={styles.infoBlockHeading}>registered</h4>
+          <RegisterFragment data={data.createdAt} />
+        </div>
+        <div className={styles.infoBlock}>
+          <h4 className={styles.infoBlockHeading}>email</h4>
+          <EmailFragment data={data.email} />
+        </div>
+        <div className={styles.infoBlock}>
+          <h4 className={styles.infoBlockHeading}>birthdate</h4>
+          <BirthdateFragment data={data.birthDate} />
+        </div>
+        <div className={styles.infoBlock}>
+          <h4 className={styles.infoBlockHeading}>gender</h4>
+          <GenderFragment data={data.gender} />
+        </div>
+        <div className={styles.infoBlock}>
+          <h4 className={styles.infoBlockHeading}>bithplace</h4>
+          <LivingplaceFragment data={data.currentLivingPlace} />
+        </div>
+        <div className={styles.infoBlock}>
+          <h4 className={styles.infoBlockHeading}>livingplace</h4>
+          <FromFragment data={data.from} />
+        </div>
+        <div className={styles.infoBlock}>
+          <h4 className={styles.infoBlockHeading}>education</h4>
+          <div className={styles.nestedList}>
+            {data.education.map((edu) => (
+              <EducationFragment data={edu} key={edu._id} />
+            ))}
+          </div>
+        </div>
+        <div className={styles.infoBlock}>
+          <h4 className={styles.infoBlockHeading}>workplace</h4>
+          <div className={styles.nestedList}>
+            {data.workplace.map((workplace) => (
+              <WorkplaceFragment data={workplace} key={workplace._id} />
+            ))}
+          </div>
+        </div>
+      </div>
+    )
   );
 }
 
-export default About;
+export default NewVersion;

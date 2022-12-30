@@ -6,7 +6,8 @@ class Validator {
   }
 
   checkArrSize({ data }) {
-    if (Array.isArray(data) && data.length < 1) return { isEmpty: true };
+    if (!data) return { isEmpty: true };
+    else if (Array.isArray(data) && data.length < 1) return { isEmpty: true };
     else return { isEmpty: false };
   }
 
@@ -89,7 +90,7 @@ export class ValidateBlogPostCreate extends Validator {
         message: "title must contains min 3 letters",
       };
 
-    this.createError.error = isEmpty || isLess ? true : false;
+    if (isEmpty || isLess) this.createError.error = true;
 
     return this;
   }
@@ -101,13 +102,13 @@ export class ValidateBlogPostCreate extends Validator {
 
     const { isEmpty } = this.checkArrSize({ data: labels });
 
-    if (isEmpty)
+    if (isEmpty) {
+      this.createError.error = true;
       this.createError.labels = {
         hasError: true,
         message: "please enter at least 1 label",
       };
-
-    this.createError.error = isEmpty ? true : false;
+    }
 
     return this;
   }
@@ -143,7 +144,7 @@ export class ValidateBlogPostCreate extends Validator {
         message: `article must contain min ${this._blogPostMinWordCount} word. Left ${isLeft} word.`,
       };
 
-    this.createError.error = isEmpty || !isValid ? true : false;
+    if (isEmpty || !isValid) this.createError.error = true;
 
     return this;
   }
@@ -152,10 +153,53 @@ export class ValidateBlogPostCreate extends Validator {
 export class ValidateCreatePost extends Validator {
   createError = {
     error: false,
+    message: "",
   };
 
   constructor(credentials) {
     super();
     this.credentials = credentials;
+  }
+
+  validatePost() {
+    const { isEmpty: tagsIsEmpty } = this.validateTags();
+    const { isEmpty: mediaIsEmpty } = this.validateMedia();
+    const { isEmpty: imagesIsEmpty } = this.validateImages();
+    const { isEmpty: descriptionIsEmpty, isLess } = this.validateDescription();
+
+    if (
+      tagsIsEmpty &&
+      mediaIsEmpty &&
+      imagesIsEmpty &&
+      (descriptionIsEmpty || isLess)
+    ) {
+      this.createError.error = true;
+      this.createError.message =
+        "Validation Error. Please provide us some value";
+    }
+
+    return this;
+  }
+
+  validateTags() {
+    const tags = this.credentials.tags ? JSON.parse(this.credentials.tags) : [];
+
+    return this.checkArrSize({ data: tags });
+  }
+
+  validateMedia() {
+    const media = this.credentials.media
+      ? JSON.parse(this.credentials.media)
+      : [];
+
+    return this.checkArrSize({ data: media });
+  }
+
+  validateImages() {
+    return this.checkArrSize({ data: this.credentials.images });
+  }
+
+  validateDescription() {
+    return this.checkStrSize({ value: this.credentials.description, min: 2 });
   }
 }

@@ -1,5 +1,5 @@
 import { useScroll } from "../../hooks";
-import styles from "./newVersionContainer.module.scss";
+import styles from "./aboutContainer.module.scss";
 
 function NewVersionContainer({ children }) {
   useScroll({

@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { useRestrictPrivateRoute, useProfileReviewQuery } from "../../../hooks";
+import { useProfileReviewQuery } from "../../../hooks";
 import { selectPendingPostsLoadingState } from "../../../store/selectors/activeUserSelectors";
 import { selectPosts } from "../../../store/selectors/postSelectors";
 
@@ -14,8 +14,6 @@ import {
 import ProfileReviewHiddenPosts from "../../../components/ProfileReview/ProfileReviewHiddenPosts";
 
 function ReviewHiddenPosts() {
-  useRestrictPrivateRoute();
-
   const { posts } = useSelector(selectPosts);
 
   const { loading, error, message } = useSelector(

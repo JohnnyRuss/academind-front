@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { StandSpinner } from "./components/Layouts";
 import { Navigation } from "./components";
@@ -60,7 +60,6 @@ function App() {
             <Route path="/authentication/register" element={<Register />} />
           </Route>
           <Route element={<RestrictionUnAuthorised />}>
-            {/* <Route path="/" element={<Navigate to="/feed" />} /> */}
             <Route path="/feed" element={<Feed />} />
             <Route path="/profile/:id" element={<UserPage />}>
               <Route path="posts" element={<PostsPage />} />
@@ -82,7 +81,7 @@ function App() {
             <Route path="/messanger" element={<Messanger />}>
               <Route path=":id" element={<MessangerFeed />} />
             </Route>
-            <Route path="/settings" element={<SettingsPage />}>
+            <Route path="/settings/:id" element={<SettingsPage />}>
               <Route index element={<ReadableSettingsContentPage />} />
               <Route path="edit" element={<EditableSettingsContentPage />} />
             </Route>

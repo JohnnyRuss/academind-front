@@ -11,8 +11,8 @@ export { default as useUpdateUserCover } from "./layoutBased/useUpdateUserCover"
 export { default as useScrollOnNotifyAtCommentReply } from "./layoutBased/useScrollOnNotifyAtCommentReply";
 export { default as useScrollOnNotifyAtComment } from "./layoutBased/useScrollOnNotifyAtComment";
 export { default as useSettings } from "./layoutBased/useSettings";
-export { default as useCreateBlogPost } from "./layoutBased/useCreateBlogPost";
 export { default as useValidateCreatePost } from "./layoutBased/useValidateCreatePost";
+export { default as useCreatePost } from "./layoutBased/useCreatePost";
 
 export { default as useCommentsQuery } from "./queries/useCommentsQuery";
 export { default as usePostQuery } from "./queries/usePostQuery";

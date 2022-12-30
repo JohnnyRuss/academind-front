@@ -3,35 +3,18 @@ import { createSelector } from "@reduxjs/toolkit";
 export const selectCreatePostLoadingState = ({ createPost }) =>
   createPost.loadingState;
 
-const selectedCreateBlogPost = ({ createPost }) => ({
-  createBlogPostIsOpen: createPost.createBlogPostIsOpen,
-  title: createPost.title,
-  text: createPost.text,
-  tags: createPost.tags,
-  labels: createPost.labels,
-  category: createPost.category,
-  files: createPost.files,
-  loadingState: createPost.loadingState,
-  audience: createPost.audience,
-  blogPostError: createPost.createBlogPostError,
-});
-
-export const selectCreateBlogPost = createSelector(
-  selectedCreateBlogPost,
-  (memorised) => memorised
-);
-
-export const selectCreateBlogPostError = ({ createPost }) =>
-  createPost.createBlogPostError;
-
 const selectedCreatePost = ({ createPost }) => ({
   createPostIsOpen: createPost.createPostIsOpen,
-  activeSelectedMedia: createPost.activeSelectedMedia,
-  text: createPost.text,
-  tags: createPost.tags,
-  files: createPost.files,
-  audience: createPost.audience,
+  updatePostModalIsOpen: createPost.updatePostModalIsOpen,
+  createBlogPostIsOpen: createPost.createBlogPostIsOpen,
+  updateBlogPostModalIsOpen: createPost.updateBlogPostModalIsOpen,
+  postData: createPost.postData,
+  createPostError: createPost.createPostError,
+  createBlogPostError: createPost.createBlogPostError,
   loadingState: createPost.loadingState,
+  // updatePostMediaFiles: createPost.updatePostMediaFiles,
+  // activeSelectedMedia: createPost.activeSelectedMedia,
+  // updatePostLoadingState: createPost.updatePostLoadingState,
 });
 
 export const selectCreatePost = createSelector(
@@ -41,3 +24,10 @@ export const selectCreatePost = createSelector(
 
 export const selectActiveSelectedMedia = ({ createPost }) =>
   createPost.activeSelectedMedia;
+
+export const selectCreatePostModalStatuses = ({ createPost }) => ({
+  createPostIsOpen: createPost.createPostIsOpen,
+  updatePostModalIsOpen: createPost.updatePostModalIsOpen,
+  createBlogPostIsOpen: createPost.createBlogPostIsOpen,
+  updateBlogPostModalIsOpen: createPost.updateBlogPostModalIsOpen,
+});

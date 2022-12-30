@@ -1,15 +1,14 @@
 import { useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { setFile } from "../../../../store/reducers/createPostReducer";
-import { setUpdateFile } from "../../../../store/reducers/portalReducer";
 import { selectActiveUserShortInfo } from "../../../../store/selectors/activeUserSelectors";
-import { selectActiveSelectedMedia } from "../../../../store/selectors/createPostSelectors";
-import { selectUpdatePostModalIsOpen } from "../../../../store/selectors/portalSelectors";
+// import { selectActiveSelectedMedia } from "../../../../store/selectors/createPostSelectors";
 
 import styles from "./styles/createPostTouch.module.scss";
 import { MultiMediaIcon } from "../../Icons/icons";
 import { UserIdentifier } from "../../";
+
+import { useCreatePost } from "../../../../hooks";
 
 /**
  * is component which one firstly communicates to the user, so the component which is represented before modal open
@@ -17,26 +16,23 @@ import { UserIdentifier } from "../../";
  * @returns
  */
 function CreatePostTouch({ setIsOpen, withTextField = true }) {
-  const dispatch = useDispatch();
-
   const filesRef = useRef();
 
-  const activeSelectedMedia = useSelector(selectActiveSelectedMedia);
+  // const activeSelectedMedia = useSelector(selectActiveSelectedMedia);
   const { userName, image, _id } = useSelector(selectActiveUserShortInfo);
 
-  /*
-  <CreatePostTouch> is attached directly to the <CreatePost> and because of <CreatePost> uses <CreatePostModal> as well as <UpdatePostPortal> we need to prevent incorect or unnecessary data set. So we have the condition which says if there's going updating process then go and set media files for post update state(e.i for <UpdatePostPortal>), otherwise set files for create post state (e.i for <CreatePost>)
-  */
-  const updatePostModalIsOpen = useSelector(selectUpdatePostModalIsOpen);
+  const { addMediaHandler } = useCreatePost({
+    key: "post",
+    error: null,
+  });
 
   const selectFiles = (e) => {
-    if (!updatePostModalIsOpen) dispatch(setFile(e.target.files));
-    if (updatePostModalIsOpen) dispatch(setUpdateFile(e.target.files));
+    addMediaHandler(e.target.files);
   };
 
-  useEffect(() => {
-    if (!activeSelectedMedia) filesRef.current.value = null;
-  }, [activeSelectedMedia]);
+  // useEffect(() => {
+  //   if (!activeSelectedMedia) filesRef.current.value = null;
+  // }, [activeSelectedMedia]);
 
   return (
     <>

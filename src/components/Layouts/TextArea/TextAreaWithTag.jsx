@@ -24,7 +24,6 @@ function TextAreaWithTag({
   className,
   placeholder,
   focus,
-  defaultValue,
   maxRows,
 }) {
   const dispatch = useDispatch();
@@ -36,16 +35,6 @@ function TextAreaWithTag({
       setText("");
     }
   }
-
-  // function submitBtnHandler(e) {
-  //   e.preventDefault();
-  //   submitHandler();
-  //   setText("");
-  // }
-
-  useEffect(() => {
-    setText(defaultValue);
-  }, [defaultValue]);
 
   const [currTag, setCurrTag] = useState(false);
   const result = useSelector(selectUserSearchResult);

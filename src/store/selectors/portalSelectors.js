@@ -11,9 +11,7 @@ export const selectUpdatePostModalIsOpen = ({ portal }) =>
 
 const selectedAllModalActiveStatus = ({ portal }) => ({
   mediaModalIsOpen: portal.mediaModalIsOpen,
-  updatePostModalIsOpen: portal.updatePostModalIsOpen,
   sharePostModalIsOpen: portal.sharePostModalIsOpen,
-  updateBlogPostModalIsOpen: portal.updateBlogPostModalIsOpen,
 });
 
 export const selectAllModalActiveStatus = createSelector(
@@ -51,6 +49,7 @@ const selectedUpdatePostPortal = ({ portal }) => ({
   updatePostData: portal.updatePostData,
   updatePostMediaFiles: portal.updatePostMediaFiles,
   updatePostLoadingState: portal.updatePostLoadingState,
+  updatePostError: portal.updatePostError,
 });
 
 export const selectUpdatePostPortal = createSelector(
