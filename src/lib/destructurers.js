@@ -23,7 +23,8 @@ export function destructurePostAuthenticData(data) {
         comments: data.commentsCount,
         article: data.shared ? data.authentic?.article : data.article,
         title: data.shared ? data.authentic?.title : data.title,
-        categories: data.shared ? data.authentic?.categories : data.categories,
+        category: data.shared ? data.authentic?.category : data.category,
+        labels: data.shared ? data.authentic?.labels : data.labels,
         _id: data.shared ? data.authentic?._id : data._id,
         likesAmount: data.shared
           ? data.authentic?.likesAmount
@@ -52,7 +53,8 @@ export function destructurePostUpdateData(data) {
     createdAt: data.shared ? data.authentic.createdAt : data.createdAt,
     article: data.shared ? data.authentic.article : data.article,
     title: data.shared ? data.authentic.title : data.title,
-    categories: data.shared ? data.authentic.categories : data.categories,
+    labels: data.shared ? data.authentic.labels : data.labels,
+    category: data.shared ? data.authentic.category : data.category,
     tags: data?.tags?.map((tag) => tag.user),
     description: data?.description,
     comments: data.comments,
@@ -80,7 +82,8 @@ export function destructurePostShareData(data) {
     //for blog share
     article: data.shared ? data.authentic?.article : data.article,
     title: data.shared ? data.authentic.title : data.title,
-    categories: data.shared ? data.authentic.categories : data.categories,
+    labels: data.shared ? data.authentic.labels : data.labels,
+    category: data.shared ? data.authentic.category : data.category,
     authenticType: data.shared ? data.authentic?.type : data.type,
   };
 }

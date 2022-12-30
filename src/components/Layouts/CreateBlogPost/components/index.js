@@ -1,3 +1,3 @@
 export { default as TitleField } from './TitleField';
-export { default as Categories } from './Categories';
+export { default as Labels } from './Labels';
 export { default as CreateBlogPostMedia } from './CreateBlogPostMedia';

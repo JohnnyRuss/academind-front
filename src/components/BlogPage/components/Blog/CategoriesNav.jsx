@@ -28,22 +28,16 @@ const responsive = {
 };
 
 const routes = [
-  "fashion",
-  "mode",
-  "streets",
-  "colors",
-  "new",
-  "tendency",
-  "modern",
-  "people",
-  "music",
-  "web",
-  "deb",
-  "digital",
-  "test",
-  "design",
-  "new",
-  "old",
+  "economics",
+  "business",
+  "law",
+  "medicine",
+  "psychology",
+  "philosophy",
+  "politics",
+  "natural sciences",
+  "exact sciences",
+  "other",
 ];
 
 function CategoriesNav() {

@@ -4,12 +4,19 @@ import { useSelector } from "react-redux";
 
 import { useRestrictPrivateRoute, useProfileReviewQuery } from "../../../hooks";
 import { selectPendingPostsLoadingState } from "../../../store/selectors/activeUserSelectors";
+import { selectPosts } from "../../../store/selectors/postSelectors";
 
-import { Spinner, Error } from "../../../components/Layouts";
+import {
+  Spinner,
+  Error,
+  EmptyContentMessage,
+} from "../../../components/Layouts";
 import ProfileReviewTaggedPosts from "../../../components/ProfileReview/ProfileReviewTaggedPosts";
 
 function ReviewTaggedPosts() {
   useRestrictPrivateRoute();
+
+  const { posts } = useSelector(selectPosts);
 
   const { loading, error, message } = useSelector(
     selectPendingPostsLoadingState
@@ -27,6 +34,9 @@ function ReviewTaggedPosts() {
       {loading && <Spinner />}
       {!loading && !error && <ProfileReviewTaggedPosts />}
       {error && <Error msg={message} />}
+      {!loading && !error && !posts[0] && (
+        <EmptyContentMessage message="there are no pending posts" />
+      )}
     </>
   );
 }

@@ -5,6 +5,8 @@
 @use "../../../../../styles/helpers/variables/variables" as *;
 
 .createBlogPostModal {
+  $modal-w: 70vw;
+
   $space-around: 1rem;
   $header-h: 9rem;
   $footer-h: 6.5rem;
@@ -19,7 +21,7 @@
 
   $radius: 0.5rem;
 
-  width: 70vw;
+  width: $modal-w;
   height: 100%;
   max-height: $modal-h;
   background: color("whiteColor");
@@ -104,7 +106,7 @@
   }
 
   [data-blog-post-field] {
-    width: 50%;
+    width: calc($modal-w / 3);
     @include flexBox(column);
     gap: 0.5rem;
     margin: 0 1rem;
@@ -114,9 +116,27 @@
       padding: 0 0.5rem;
     }
 
+    [data-select-box] {
+      height: 4rem;
+      border-radius: 0.3rem;
+      width: min(calc($modal-w / 3), 100%);
+    }
+
+    [data-create-blogpost-error-box] {
+      font-size: size("smallerSize");
+      color: color("redColor");
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
+
     @include media-680 {
       width: calc(100% - 2rem);
       margin: 0 auto;
+
+      [data-select-box] {
+        width: 100%;
+      }
     }
   }
 

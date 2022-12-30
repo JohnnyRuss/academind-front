@@ -8,7 +8,8 @@ function BlogPostIdentifier({
   author,
   postId,
   tags,
-  categories,
+  labels,
+  category,
   audience,
 }) {
   return (
@@ -34,10 +35,14 @@ function BlogPostIdentifier({
         {tags?.[0] && <Tags tags={tags} />}
       </div>
       <TimeAgoAndAudience timeAgo={createdAt} audience={audience} />
-      {categories?.[0] && (
-        <div className={styles.blogPostCategories} data-categories-list>
-          {categories.map((category, i) => (
-            <span key={`${postId}-category-${i}`}>#{category}</span>
+      <p className={styles.categoryBox}>
+        <span>category:</span>
+        <span className={styles.category}>{category}</span>
+      </p>
+      {labels?.[0] && (
+        <div className={styles.blogPostLabels} data-categories-list>
+          {labels.map((label, i) => (
+            <span key={`${postId}-category-${i}`}>#{label}</span>
           ))}
         </div>
       )}

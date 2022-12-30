@@ -14,17 +14,38 @@ const createPostSlice = createSlice({
       error: false,
       message: "",
     },
+    createBlogPostError: {
+      error: false,
+      title: {
+        hasError: false,
+        message: "",
+      },
+      labels: {
+        hasError: false,
+        message: "",
+      },
+      category: {
+        hasError: false,
+        message: "",
+      },
+      article: {
+        hasError: false,
+        message: "",
+      },
+    },
     audience: "public",
     title: "",
     text: "",
     files: [],
-    categories: [],
+    category: "",
+    labels: [],
     tags: [],
     activeSelectedMedia: false,
     createPostIsOpen: false,
     createBlogPostIsOpen: false,
   },
   reducers: {
+    // used for API Error
     setCreatePostError(state, { payload }) {
       console.log(payload);
       updateLoadingState({
@@ -46,8 +67,9 @@ const createPostSlice = createSlice({
         state.text = "";
         state.title = "";
         state.files = [];
-        state.categories = [];
+        state.labels = [];
         state.tags = [];
+        state.category = "";
       }
     },
 
@@ -75,8 +97,8 @@ const createPostSlice = createSlice({
       state.activeSelectedMedia = true;
     },
 
-    removeFiles(state, action) {
-      const url = action.payload;
+    removeFiles(state, { payload }) {
+      const url = payload;
       if (url !== "all")
         state.files = Object.values(state.files).filter(
           (file) => file.name !== url.name
@@ -86,14 +108,16 @@ const createPostSlice = createSlice({
         state.activeSelectedMedia = false;
     },
 
-    addCategory(state, { payload }) {
-      state.categories = [...state.categories, payload];
+    addLabel(state, { payload }) {
+      state.labels = [...state.labels, payload];
     },
 
-    removeCategory(state, { payload }) {
-      state.categories = state.categories.filter(
-        (category) => category !== payload
-      );
+    removeLabel(state, { payload }) {
+      state.labels = state.labels.filter((label) => label !== payload);
+    },
+
+    setCategory(state, { payload }) {
+      state.category = payload;
     },
 
     addTag(state, { payload }) {
@@ -104,16 +128,49 @@ const createPostSlice = createSlice({
       state.tags = state.tags.filter((tag) => tag._id !== payload);
     },
 
+    setCreateBlogPostError(state, { payload }) {
+      state.createBlogPostError = payload;
+    },
+
+    resetCreateBlogPostErrorFragment(state, { payload: { target } }) {
+      state.createBlogPostError[target] = {
+        hasError: false,
+        message: false,
+      };
+    },
+
     createPost(state) {
       updateLoadingState({ state });
     },
 
     resetCreatePost(state) {
       updateLoadingState({ state, loading: false });
+
+      state.createBlogPostError = {
+        error: false,
+        title: {
+          hasError: false,
+          message: "",
+        },
+        labels: {
+          hasError: false,
+          message: "",
+        },
+        category: {
+          hasError: false,
+          message: "",
+        },
+        article: {
+          hasError: false,
+          message: "",
+        },
+      };
+
       state.audience = "friends";
       state.title = "";
       state.text = "";
-      state.categories = [];
+      state.labels = [];
+      state.category = "";
       state.tags = [];
       state.files = [];
       state.createPostIsOpen = false;
@@ -133,10 +190,13 @@ export const {
   setText,
   setFile,
   removeFiles,
-  addCategory,
-  removeCategory,
+  addLabel,
+  removeLabel,
+  setCategory,
   addTag,
   removeTag,
+  setCreateBlogPostError,
+  resetCreateBlogPostErrorFragment,
   createPost,
   resetCreatePost,
 } = createPostSlice.actions;

@@ -1,73 +1,60 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import {
-  setCreateBlogPostIsOpen,
-  setTitle,
-  setText,
-  addCategory,
-  removeCategory,
-  addTag,
-  removeTag,
-  setFile,
-  removeFiles,
-  setAudience,
-} from "../../../store/reducers/createPostReducer";
+  usePostQuery,
+  useCreateBlogPost,
+  useRestrictBodyOverflow,
+} from "../../../hooks";
 import { selectCreateBlogPost } from "../../../store/selectors/createPostSelectors";
 import { selectActiveUserShortInfo } from "../../../store/selectors/activeUserSelectors";
-import { usePostQuery, useRestrictBodyOverflow } from "../../../hooks";
 
 import { fixLineBreaks } from "../../../lib";
 
 import styles from "./components/styles/createBlogPostTouch.module.scss";
+import CreateBlogPostModal from "./CreateBlogPostModal";
 import { MultiMediaIcon } from "../Icons/icons";
 import { UserIdentifier } from "../";
-import CreateBlogPostModal from "./CreateBlogPostModal";
 
 function CreateBlogPostTouch({ className }) {
-  const dispatch = useDispatch();
-
   const { userName, image } = useSelector(selectActiveUserShortInfo);
+
   const {
     createBlogPostIsOpen,
     title,
     text,
     tags,
-    categories,
+    labels,
+    category,
     files,
     loadingState: { loading, error, message },
     audience,
+    blogPostError,
   } = useSelector(selectCreateBlogPost);
 
-  function activateModal(order) {
-    dispatch(setCreateBlogPostIsOpen(order));
-  }
-
-  const handleAudience = (audience) => dispatch(setAudience(audience));
-
-  const handleTitle = (e) => dispatch(setTitle(e.target.value));
-
-  const handleText = (value) => dispatch(setText(value));
-
-  const [category, setCategory] = useState("");
-
-  function handleAddCategory(e) {
-    e.preventDefault();
-    if (category.startsWith("#")) {
-      dispatch(addCategory(category.replace("#", "")));
-      setCategory("");
-    }
-  }
-
-  const handleRemoveCategory = (category) => dispatch(removeCategory(category));
-
-  const handleAddTag = (tag) => dispatch(addTag(tag));
-
-  const handleRemoveTag = (id) => dispatch(removeTag(id));
-
-  const handleMediaFiles = (e) => dispatch(setFile(e.target.files));
-
-  const handleRemoveMediaFile = (media) => dispatch(removeFiles(media));
+  const {
+    // activation
+    activateModal,
+    // audience
+    handleAudience,
+    // title
+    handleTitle,
+    // article
+    handleText,
+    // labels
+    label,
+    setLabel,
+    handleAddLabel,
+    handleRemoveLabel,
+    // category
+    handleCategory,
+    //tags
+    handleAddTag,
+    handleRemoveTag,
+    // media files
+    handleMediaFiles,
+    handleRemoveMediaFile,
+  } = useCreateBlogPost({ key: "publish", error: blogPostError });
 
   const { publishPostQuery } = usePostQuery();
 
@@ -83,7 +70,8 @@ function CreateBlogPostTouch({ className }) {
         article: fixLineBreaks(text),
         media: files,
         tags: JSON.stringify(tags.map((tag) => tag._id)),
-        categories: JSON.stringify(categories),
+        labels: JSON.stringify(labels),
+        category: category,
       },
     });
   }
@@ -111,31 +99,46 @@ function CreateBlogPostTouch({ className }) {
           Media
         </label>
       </div>
+
       {createBlogPostIsOpen && (
         <CreateBlogPostModal
+          // loading state
           loading={loading}
           error={error}
           message={message}
+          // validation
+          validationError={blogPostError}
+          // activation
           isOpen={createBlogPostIsOpen}
           setIsOpen={activateModal}
+          // audience
           audience={audience}
           handleAudience={handleAudience}
+          // title
           title={title}
           handleTitle={handleTitle}
+          // article
           text={text}
           handleText={handleText}
+          // labels
+          label={label}
+          setLabel={setLabel}
+          labels={labels}
+          handleAddLabel={handleAddLabel}
+          handleRemoveLabel={handleRemoveLabel}
+          // category
           category={category}
-          setCategory={setCategory}
-          categories={categories}
-          handleAddCategory={handleAddCategory}
-          handleRemoveCategory={handleRemoveCategory}
+          handleCategory={handleCategory}
+          // tags
           tags={tags}
           handleAddTag={handleAddTag}
           handleRemoveTag={handleRemoveTag}
+          // media files
           handleMediaFiles={handleMediaFiles}
           handleRemoveMediaFile={handleRemoveMediaFile}
-          publishPost={publishPost}
           files={files}
+          // publish
+          publishPost={publishPost}
         />
       )}
     </>

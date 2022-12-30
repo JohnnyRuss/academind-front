@@ -32,7 +32,8 @@ function Article({ post }) {
           author={post.author}
           tags={post.tags}
           audience={post.audience}
-          categories={post.categories}
+          labels={post.labels}
+          category={post.category}
           postId={post._id}
           createdAt={post.createdAt}
         />

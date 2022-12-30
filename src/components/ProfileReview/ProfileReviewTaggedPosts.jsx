@@ -22,9 +22,6 @@ function ProfileReviewTaggedPosts() {
             key={post._id}
           />
         ))}
-      {!posts[0] && (
-        <p className={styles.message}>there are no pending posts</p>
-      )}
     </div>
   );
 }

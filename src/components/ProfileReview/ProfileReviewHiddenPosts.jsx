@@ -22,7 +22,6 @@ function ProfileReviewHiddenPosts() {
             key={post._id}
           />
         ))}
-      {!posts[0] && <p className={styles.message}>there are no hidden posts</p>}
     </div>
   );
 }

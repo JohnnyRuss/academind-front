@@ -24,9 +24,14 @@
     }
   }
 
-  .blogPostCategories {
+  .blogPostLabels {
     @include flexBox;
     @include flexProperty(flex-start, center);
     flex-wrap: wrap;
+  }
+
+  .categoryBox {
+    @include flexBox;
+    @include flexProperty(flex-start, center);
   }
 }

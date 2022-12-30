@@ -9,7 +9,7 @@ import { useRestrictPrivateRoute, useBookmarksQuery } from "../../hooks";
 
 import Bookmarks from "../../components/BookmarkPage/Bookmarks";
 import BookmarksContainer from "../../components/BookmarkPage/BookmarksContainer";
-import { Spinner, Error } from "../../components/Layouts";
+import { Spinner, Error, EmptyContentMessage } from "../../components/Layouts";
 
 function BookmarksPage() {
   useRestrictPrivateRoute();
@@ -37,6 +37,9 @@ function BookmarksPage() {
         <Bookmarks hasMore={hasMore} handleNext={handleNext} posts={posts} />
       )}
       {error && <Error msg={message} />}
+      {!loading && !posts[0] && !error && (
+        <EmptyContentMessage message="there are no bookmarks yet" />
+      )}
     </BookmarksContainer>
   );
 }

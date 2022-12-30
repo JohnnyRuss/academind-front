@@ -8,16 +8,21 @@ const selectedCreateBlogPost = ({ createPost }) => ({
   title: createPost.title,
   text: createPost.text,
   tags: createPost.tags,
-  categories: createPost.categories,
+  labels: createPost.labels,
+  category: createPost.category,
   files: createPost.files,
   loadingState: createPost.loadingState,
   audience: createPost.audience,
+  blogPostError: createPost.createBlogPostError,
 });
 
 export const selectCreateBlogPost = createSelector(
   selectedCreateBlogPost,
   (memorised) => memorised
 );
+
+export const selectCreateBlogPostError = ({ createPost }) =>
+  createPost.createBlogPostError;
 
 const selectedCreatePost = ({ createPost }) => ({
   createPostIsOpen: createPost.createPostIsOpen,

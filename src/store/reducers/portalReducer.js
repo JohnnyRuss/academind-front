@@ -55,7 +55,8 @@ const portalSlice = createSlice({
       description: "",
       title: "",
       article: "",
-      categories: [],
+      labels: [],
+      category: "",
       tags: [],
     },
 
@@ -83,10 +84,30 @@ const portalSlice = createSlice({
       authenticTags: [],
       article: "",
       title: "",
-      categories: [],
+      labels: [],
+      category: "",
       audience: "",
     },
-    shareAudience: "friends",
+    updateBlogPostError: {
+      error: false,
+      title: {
+        hasError: false,
+        message: "",
+      },
+      labels: {
+        hasError: false,
+        message: "",
+      },
+      category: {
+        hasError: false,
+        message: "",
+      },
+      article: {
+        hasError: false,
+        message: "",
+      },
+    },
+    shareAudience: "public",
   },
   reducers: {
     ////////////////////////////
@@ -108,6 +129,17 @@ const portalSlice = createSlice({
     //////////////////////
     /// Update Portal ///
     ////////////////////
+    setUpdateBlogPostError(state, { payload }) {
+      state.updateBlogPostError = payload;
+    },
+
+    resetUpdateBlogPostErrorFragment(state, { payload: { target } }) {
+      state.updateBlogPostError[target] = {
+        hasError: false,
+        message: false,
+      };
+    },
+
     setUpdatePostError(state, { payload }) {
       updateLoadingState({
         state,
@@ -126,13 +158,17 @@ const portalSlice = createSlice({
     },
 
     setUpdatePostModalOpen(state, { payload }) {
-      updateState(state, "updatePostData", payload);
+      Object.keys(state.updatePostData).forEach(
+        (key) => (state.updatePostData[key] = payload[key])
+      );
       state.updatePostMediaFiles = payload.media;
       state.updatePostModalIsOpen = true;
     },
 
     setUpdateBlogPostModalOpen(state, { payload }) {
-      updateState(state, "updatePostData", payload);
+      Object.keys(state.updatePostData).forEach(
+        (key) => (state.updatePostData[key] = payload[key])
+      );
 
       state.updatePostMediaFiles = payload.media;
       state.updateBlogPostModalIsOpen = true;
@@ -150,17 +186,18 @@ const portalSlice = createSlice({
       if (payload) state.updatePostData.article = payload;
     },
 
-    addCategory(state, { payload }) {
-      state.updatePostData.categories = [
-        ...state.updatePostData.categories,
-        payload,
-      ];
+    addLabel(state, { payload }) {
+      state.updatePostData.labels = [...state.updatePostData.labels, payload];
     },
 
-    removeCategory(state, { payload }) {
-      state.updatePostData.categories = state.updatePostData.categories.filter(
-        (category) => category !== payload
+    removeLabel(state, { payload }) {
+      state.updatePostData.labels = state.updatePostData.labels.filter(
+        (label) => label !== payload
       );
+    },
+
+    addCategory(state, { payload }) {
+      state.updatePostData.category = payload;
     },
 
     addUpdateTag(state, { payload }) {
@@ -226,7 +263,10 @@ const portalSlice = createSlice({
     },
 
     setSharePostModalOpen(state, { payload }) {
-      updateState(state, "sharePostData", payload);
+      Object.keys(state.sharePostData).forEach(
+        (key) => (state.sharePostData[key] = payload[key])
+      );
+
       state.sharePostModalIsOpen = true;
     },
 
@@ -244,10 +284,12 @@ const portalSlice = createSlice({
 
     resetSharePostModal(state) {
       state.sharePostModalIsOpen = false;
+
       Object.keys(state.sharePostData).map(
         (key) => (state.sharePostData[key] = "")
       );
-      state.shareAudience = "friends";
+
+      state.shareAudience = "public";
 
       updateLoadingState({
         state,
@@ -265,6 +307,8 @@ export const {
   setMediaModalOpen,
   deactivateMediaModal,
   // Update Portal
+  setUpdateBlogPostError,
+  resetUpdateBlogPostErrorFragment,
   setUpdatePostError,
   updatePost,
   setUpdatePostModalOpen,
@@ -272,8 +316,9 @@ export const {
   setUpdateAudience,
   setTitle,
   setText,
+  addLabel,
+  removeLabel,
   addCategory,
-  removeCategory,
   addUpdateTag,
   removeUpdateTag,
   setUpdateFile,
@@ -297,12 +342,6 @@ function removeTag(state, key, payload) {
   state[key].tags = state[key].tags.filter((tag) => tag._id !== payload);
 }
 
-function updateState(state, field, payload) {
-  Object.keys(state[field]).forEach(
-    (key) => (state[field][key] = payload[key])
-  );
-}
-
 function resetState(state) {
   if (state.updatePostModalIsOpen) state.updatePostModalIsOpen = false;
   else if (state.updateBlogPostModalIsOpen)
@@ -313,4 +352,24 @@ function resetState(state) {
   Object.keys(state.updatePostData).map(
     (key) => (state.updatePostData[key] = "")
   );
+
+  state.updateBlogPostError = {
+    error: false,
+    title: {
+      hasError: false,
+      message: "",
+    },
+    labels: {
+      hasError: false,
+      message: "",
+    },
+    category: {
+      hasError: false,
+      message: "",
+    },
+    article: {
+      hasError: false,
+      message: "",
+    },
+  };
 }

@@ -1,8 +1,17 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { createPost } from "../../store/reducers/createPostReducer";
-import { updatePost, sharePost } from "../../store/reducers/portalReducer";
+import {
+  createPost,
+  setCreateBlogPostError,
+} from "../../store/reducers/createPostReducer";
+
+import {
+  updatePost,
+  sharePost,
+  setUpdateBlogPostError,
+} from "../../store/reducers/portalReducer";
+
 import {
   deletePost,
   reactOnPost,
@@ -12,47 +21,63 @@ import {
   resetErrorOnPost,
 } from "../../store/reducers/postsDataReducer";
 
+import { useValidateCreatePost } from "../";
+
 function usePostQuery() {
   const dispatch = useDispatch();
 
-  const [startDeletion, setStartDeletion] = useState(false);
-  // includes post publish and update requests
-  // const handlePostPublish = ({ operationType, type, description, media, tags, postId }) => {
-  const publishPostQuery = ({ params, credentials }) => {
-    const type = params.type;
-    const isMediaAndTags =
-      JSON.parse(credentials.tags)[0] && credentials.media[0];
+  const { validateCreateBlogPost, validateCreatePost } =
+    useValidateCreatePost();
 
-    if (
-      (type === "posts" && !isMediaAndTags && !credentials.description) ||
-      (type === "blogPost" && !isMediaAndTags && !credentials.article)
-    ) {
-      return;
+  const [startDeletion, setStartDeletion] = useState(false);
+
+  // includes post publish and update requests
+  // const handlePostPublish = ({ operationType, type, description, media, tags, postId }) => {}
+  const publishPostQuery = ({ params, credentials }) => {
+    credentials.type = params.type;
+
+    // const type = params.type;
+    // const isMediaAndTags =
+    //   JSON.parse(credentials.tags)[0] && credentials.media[0];
+
+    // if (
+    //   (type === "post" && !isMediaAndTags && !credentials.description) ||
+    //   (type === "blogPost" && !isMediaAndTags && !credentials.article)
+    // ) {
+    //   return;
+    // }
+
+    configureMediasFiles({ credentials });
+
+    function publisher() {
+      if (params.operationType === "update")
+        dispatch(
+          updatePost({
+            params: { postId: credentials.postId },
+            body: credentials,
+          })
+        );
+      else if (params.operationType === "publish")
+        dispatch(createPost(credentials));
     }
 
-    /*
-    when user tries to update post which one already has media files, we need to separate old and new media files in different properties. images variable will hold new media files which will be uploaded on db and media property will hold the existng media files, even if user deletes on the post all old media files, we need to send empty array on db and then db will compare each other old and new media properties and files which will not be matched will be deleted from db 
-    */
-    const oldMedia = credentials.media.filter(
-      (media) => typeof media === "string"
-    );
-    const newFiles = credentials.media.filter(
-      (media) => typeof media === "object"
-    );
+    if (params.type === "post") {
+      const error = validateCreatePost(credentials);
+      const { error: isError } = error;
+      // console.log(credentials);
+      if (isError) return;
 
-    credentials.media = JSON.stringify(oldMedia);
-    if (newFiles[0]) credentials.images = newFiles;
+      // publisher();
+    } else if (params.type === "blogPost") {
+      const error = validateCreateBlogPost(credentials);
+      const { error: isError } = error;
+      // console.log(credentials);
+      if (isError && params.operationType === "publish")
+        return dispatch(setCreateBlogPostError(error));
+      if (isError && params.operationType === "update")
+        return dispatch(setUpdateBlogPostError(error));
 
-    if (params.operationType === "publish") {
-      credentials.type = params.type;
-      dispatch(createPost(credentials));
-    } else if (params.operationType === "update") {
-      dispatch(
-        updatePost({
-          params: { postId: credentials.postId },
-          body: credentials,
-        })
-      );
+      publisher();
     }
   };
 
@@ -103,3 +128,19 @@ function usePostQuery() {
 }
 
 export default usePostQuery;
+
+function configureMediasFiles({ credentials }) {
+  /*
+    when user tries to update post which one already has media files, we need to separate old and new media files in different properties. images variable will hold new media files which will be uploaded on db and media property will hold the existng media files, even if user deletes on the post all old media files, we need to send empty array on db and then db will compare each other old and new media properties and files which will not be matched will be deleted from db 
+    */
+  const oldMedia = credentials.media.filter(
+    (media) => typeof media === "string"
+  );
+
+  const newFiles = credentials.media.filter(
+    (media) => typeof media === "object"
+  );
+
+  credentials.media = JSON.stringify(oldMedia);
+  if (newFiles[0]) credentials.images = newFiles;
+}

@@ -76,7 +76,7 @@
     }
   }
 
-  .blogPostCategories {
+  .blogPostLabels {
     gap: 0.5rem;
     font-size: $txt-thumbnail;
 
@@ -84,6 +84,16 @@
       background: color("blueTintColor");
       padding: 0.15rem 1rem;
       border-radius: $rounded-lg;
+    }
+  }
+
+  .categoryBox {
+    text-transform: capitalize;
+    font-size: size("smallSize");
+    gap: 0.3rem;
+
+    .category {
+      font-weight: weight("mediumWeight");
     }
   }
 }

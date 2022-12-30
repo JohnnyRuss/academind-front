@@ -51,13 +51,6 @@
     margin-top: 3rem;
     padding: 0 1rem;
   }
-
-  .message {
-    font-weight: weight("boldWeight");
-    text-transform: capitalize;
-    text-align: center;
-    color: color("darkLightGreyColor");
-  }
 }
 
 @mixin reviewBtnBox {

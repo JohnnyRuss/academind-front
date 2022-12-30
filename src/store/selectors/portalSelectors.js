@@ -38,6 +38,7 @@ const selectedUpdateBlogPostPortal = ({ portal }) => ({
   updatePostData: portal.updatePostData,
   updatePostMediaFiles: portal.updatePostMediaFiles,
   updatePostLoadingState: portal.updatePostLoadingState,
+  updateBlogPostError: portal.updateBlogPostError,
 });
 
 export const selectUpdateBlogPostPortal = createSelector(

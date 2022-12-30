@@ -9,6 +9,10 @@
   align-items: start;
   @include allFriendsPage;
 
+  .emptyFriendsMessage {
+    grid-column: 1/-1;
+  }
+
   @include media-680 {
     grid-template-columns: repeat(2, 1fr);
   }

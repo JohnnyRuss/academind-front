@@ -58,6 +58,7 @@ export { default as DeletionPopUp } from "./DeletionPopUp/DeletionPopUp";
 export { default as CommentsList } from "./Comments/CommentsList";
 
 export { default as ScrollEnd } from "./ScrollEnd/ScrollEnd";
+export { default as EmptyContentMessage } from "./EmptyContentMessage/EmptyContentMessage";
 
 export { default as UserIdentifier } from "./UserIdentifier/UserIdentifier";
 

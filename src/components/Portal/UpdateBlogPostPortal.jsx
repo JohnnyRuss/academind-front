@@ -1,19 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import {
-  resetUpdateState,
-  setTitle,
-  setText,
-  addCategory,
-  removeCategory,
-  addUpdateTag,
-  removeUpdateTag,
-  setUpdateFile,
-  removeUpdateFiles,
-  setUpdateAudience,
-} from "../../store/reducers/portalReducer";
+import { useCreateBlogPost } from "../../hooks";
+import { useSelector } from "react-redux";
+
 import { usePostQuery, useRestrictBodyOverflow } from "../../hooks";
 import { selectUpdateBlogPostPortal } from "../../store/selectors/portalSelectors";
 
@@ -22,46 +12,31 @@ import { fixLineBreaks, inverseLineBreaks } from "../../lib";
 import { CreateBlogPostModal } from "../Layouts";
 
 function UpdateBlogPostPortal() {
-  const dispatch = useDispatch();
-
   const {
     updateBlogPostModalIsOpen,
     updatePostData,
     updatePostMediaFiles,
     updatePostLoadingState: { loading, error, message },
+    updateBlogPostError,
   } = useSelector(selectUpdateBlogPostPortal);
 
-  const { _id, title, article, categories, tags } = updatePostData;
+  const { _id, title, article, labels, tags, category } = updatePostData;
 
-  function activateModal() {
-    dispatch(resetUpdateState());
-  }
-
-  const handleAudience = (audience) => dispatch(setUpdateAudience(audience));
-
-  const handleTitle = (e) => dispatch(setTitle(e.target.value));
-
-  const handleText = (value) => dispatch(setText(value));
-
-  const [category, setCategory] = useState("");
-
-  function handleAddCategory(e) {
-    e.preventDefault();
-    if (category.startsWith("#")) {
-      dispatch(addCategory(category.replace("#", "")));
-      setCategory("");
-    }
-  }
-
-  const handleRemoveCategory = (category) => dispatch(removeCategory(category));
-
-  const handleAddTag = (tag) => dispatch(addUpdateTag(tag));
-
-  const handleRemoveTag = (id) => dispatch(removeUpdateTag(id));
-
-  const handleMediaFiles = (e) => dispatch(setUpdateFile(e.target.files));
-
-  const handleRemoveMediaFile = (media) => dispatch(removeUpdateFiles(media));
+  const {
+    activateModal,
+    handleAudience,
+    handleTitle,
+    handleText,
+    label,
+    setLabel,
+    handleAddLabel,
+    handleRemoveLabel,
+    handleCategory,
+    handleAddTag,
+    handleRemoveTag,
+    handleMediaFiles,
+    handleRemoveMediaFile,
+  } = useCreateBlogPost({ key: "update", error: updateBlogPostError });
 
   const { publishPostQuery } = usePostQuery();
 
@@ -76,7 +51,8 @@ function UpdateBlogPostPortal() {
         audience: updatePostData.audience,
         media: updatePostMediaFiles,
         tags: JSON.stringify(tags.map((tag) => tag._id)),
-        categories: JSON.stringify(categories),
+        labels: JSON.stringify(labels),
+        category: category,
         postId: _id,
       },
     });
@@ -91,29 +67,43 @@ function UpdateBlogPostPortal() {
   return (
     updateBlogPostModalIsOpen && (
       <CreateBlogPostModal
+        // loading state
         loading={loading}
         error={error}
         message={message}
-        audience={updatePostData.audience}
-        handleAudience={handleAudience}
+        // validation
+        validationError={updateBlogPostError}
+        // activation
         isOpen={updateBlogPostModalIsOpen}
         setIsOpen={activateModal}
+        // audience
+        audience={updatePostData.audience}
+        handleAudience={handleAudience}
+        // title
         title={title}
         handleTitle={handleTitle}
+        // article
         text={inverseLineBreaks(article)}
         handleText={handleText}
+        // labels
+        label={label}
+        setLabel={setLabel}
+        labels={labels}
+        handleAddLabel={handleAddLabel}
+        handleRemoveLabel={handleRemoveLabel}
+        // category
         category={category}
-        setCategory={setCategory}
-        categories={categories}
-        handleAddCategory={handleAddCategory}
-        handleRemoveCategory={handleRemoveCategory}
+        handleCategory={handleCategory}
+        // tags
         tags={tags}
         handleAddTag={handleAddTag}
         handleRemoveTag={handleRemoveTag}
+        // media files
         handleMediaFiles={handleMediaFiles}
         handleRemoveMediaFile={handleRemoveMediaFile}
-        publishPost={publishPost}
         files={updatePostMediaFiles}
+        // publish
+        publishPost={publishPost}
       />
     )
   );
