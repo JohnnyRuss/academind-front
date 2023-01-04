@@ -2,6 +2,7 @@
 @use "../../../../styles/helpers/abstract/mixins" as *;
 @use "../../../../styles/helpers/abstract/media" as *;
 @use "../../../../styles/helpers/abstract/functions" as *;
+@use "../../../../styles/helpers/variables/variables" as *;
 
 .settingsHeading {
   @include settingsHeading;
@@ -41,9 +42,43 @@
 
   .form {
     display: flex;
+    min-width: 40rem;
+  }
+
+  [data-user-info-error-box] {
+    font-size: size("smallerSize");
+    color: color("redColor");
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+
+  .selectBox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-weight: weight("mediumWeight");
+      font-size: size("smallSize");
+      text-transform: capitalize;
+      cursor: pointer;
+    }
+
+    [data-select-box] {
+      width: 100%;
+    }
+  }
+
+  .singleBtn {
+    min-width: 40rem;
+    padding: 1rem 0;
   }
 }
 
+.passForm,
+.livingPlaceForm,
 .workplaceForm,
 .educationForm {
   display: flex;
@@ -53,8 +88,21 @@
     width: 100%;
   }
 
-  .dateFrom,
-  .dateTo {
+  .dateBox {
     display: flex;
+    justify-content: space-between;
   }
+}
+
+.addBTN {
+  background: color("blueColor");
+  color: color("whiteColor");
+  width: calc(100% - 2rem);
+  display: block;
+  margin: 0 auto;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  padding: 1.2rem 0;
+  border-radius: $rounded-sm;
+  text-transform: capitalize;
 }

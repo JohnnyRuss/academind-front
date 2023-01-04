@@ -2,26 +2,27 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { selectBirthPlace } from "../../../../store/selectors/settingsSelector";
-import { useSettings } from "../../../../hooks";
+import { selectUpdateableBirthPlace } from "../../../../store/selectors/settingsSelector";
+import { useSettings, useSettingsQuery } from "../../../../hooks";
 
-import { Input } from "../../../Layouts";
+import { Input, Error, BlockSpinner } from "../../../Layouts";
 import UpdateButtons from "./UpdateButtons";
 import styles from "../styles/detailed.module.scss";
 
 function ChangeBirthplaceForm() {
-  const userBirthPlace = useSelector(selectBirthPlace);
+  const {
+    birthPlace,
+    updateState: { loading, error, message },
+  } = useSelector(selectUpdateableBirthPlace);
 
   const { handleResetBirthplace, handleCancel } = useSettings();
+  const { addBirthPlaceQuery, livingPlaceError } = useSettingsQuery();
 
-  const [country, setCountry] = useState(userBirthPlace.country);
-  const [city, setCity] = useState(userBirthPlace.city);
+  const [country, setCountry] = useState(birthPlace.country);
+  const [city, setCity] = useState(birthPlace.city);
 
   function handleUpdate() {
-    console.log({
-      country,
-      city,
-    });
+    addBirthPlaceQuery({ data: { country, city } });
   }
 
   useEffect(() => {
@@ -30,24 +31,35 @@ function ChangeBirthplaceForm() {
 
   return (
     <form className={styles.formsContainer}>
-      <div className={styles.form}>
+      <div className={`${styles.form} ${styles.livingPlaceForm}`}>
         <Input
           type="text"
           name="country"
           label="country"
           placeholder="country"
           value={country}
+          className={styles.inpField}
           onChange={(e) => setCountry(e.target.value)}
+          error={livingPlaceError.country.hasError}
+          message={livingPlaceError.country.message}
         />
+
         <Input
           type="text"
           name="city"
           label="city"
           placeholder="city"
           value={city}
+          className={styles.inpField}
           onChange={(e) => setCity(e.target.value)}
+          error={livingPlaceError.city.hasError}
+          message={livingPlaceError.city.message}
         />
       </div>
+      
+      {loading && <BlockSpinner />}
+      {error && <Error msg={message} />}
+      
       <UpdateButtons
         cancelHandler={() => handleCancel(handleResetBirthplace)}
         updateHandler={handleUpdate}

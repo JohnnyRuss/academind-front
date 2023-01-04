@@ -8,7 +8,6 @@ import { GoBackBTN } from "../../Layouts";
 
 function ContentContainer({ children }) {
   const { target } = useSelector(selectSettingsStatus);
-
   const { handleGoBack } = useSettings();
 
   return (

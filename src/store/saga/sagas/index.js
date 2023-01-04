@@ -5,3 +5,4 @@ export { default as authenticationSaga } from "./authenticationSaga";
 export { default as friendsSaga } from "./friendsSaga";
 export { default as conversationSaga } from "./conversationSaga";
 export { default as badgeSaga } from "./badgeSaga";
+export { default as settingsSaga } from "./settingsSaga";

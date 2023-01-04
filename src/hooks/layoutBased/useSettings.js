@@ -38,9 +38,9 @@ export default function useSettings() {
     navigate("");
   }
 
-  function handleEditingTarget(editableKey) {
+  function handleEditingTarget({ editableKey, pathParams }) {
     dispatch(setIsEditing(editableKey));
-    navigate("edit");
+    navigate("edit", { state: pathParams });
   }
 
   function handleResetEditingTarget() {

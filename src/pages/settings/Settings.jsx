@@ -1,28 +1,45 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
-import { useAboutUserQuery, useRestrictPrivateRoute } from "../../hooks";
+import { selectSettingsStatus } from "../../store/selectors/settingsSelector";
+import { useSettingsQuery, useRestrictPrivateRoute } from "../../hooks";
 
 import { SettingsContainer, SideBar } from "../../components/Settings";
+import { Spinner, Error } from "../../components/Layouts";
 
 function Settings() {
   useRestrictPrivateRoute();
 
+  const {
+    isEditing,
+    editableTarget,
+    loadingState: { loading, error, message },
+  } = useSelector(selectSettingsStatus);
+
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const activeUserId = useSelector(selectActiveUserId);
 
-  const { getAboutUserQuery } = useAboutUserQuery();
+  const { getUserInfoQuery } = useSettingsQuery();
 
   useEffect(() => {
-    getAboutUserQuery(activeUserId);
+    getUserInfoQuery(activeUserId);
   }, []);
+
+  useEffect(() => {
+    if (!isEditing && !editableTarget && pathname.endsWith("edit"))
+      navigate(`/settings/${activeUserId}`, { replace: true });
+  }, [isEditing, editableTarget]);
 
   return (
     <SettingsContainer>
       <SideBar />
-      <Outlet />
+      {loading && <Spinner />}
+      {!loading && !error && <Outlet />}
+      {error && <Error msg={message} />}
     </SettingsContainer>
   );
 }

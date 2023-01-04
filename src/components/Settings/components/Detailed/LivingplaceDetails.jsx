@@ -1,31 +1,52 @@
 import { useSelector } from "react-redux";
 
-import { useSettings } from "../../../../hooks";
+import { useSettings, useSettingsQuery } from "../../../../hooks";
 import { editableKeys } from "../../config";
 
 import { LivingplaceFragment } from "../../../Layouts";
+import AddBTN from "./AddBTN";
 import styles from "../styles/detailed.module.scss";
 
-function LivingplaceDetails({ editable }) {
+function LivingplaceDetails({ editable, withBtn = true }) {
   const currentLivingPlace = useSelector(
-    ({ aboutUser }) => aboutUser.data?.currentLivingPlace
+    ({ settings }) => settings.userInfo.currentLivingPlace
   );
 
   const { handleEditingTarget, handleUpdateLivingplace } = useSettings();
+  const { deleteUserInfoQuery } = useSettingsQuery();
 
   return (
-    currentLivingPlace && (
-      <div className={styles.fragmentsContainer}>
-        <LivingplaceFragment
-          data={currentLivingPlace}
-          editable={editable === false ? false : true}
-          onEdit={() => {
-            handleUpdateLivingplace(currentLivingPlace);
-            handleEditingTarget(editableKeys.changeLivingplace);
+    <>
+      {withBtn && !currentLivingPlace && (
+        <AddBTN
+          label="livingplace"
+          onClick={() => {
+            handleEditingTarget({
+              editableKey: editableKeys.changeLivingplace,
+              pathParams: { operation: "add" },
+            });
           }}
         />
-      </div>
-    )
+      )}
+      {currentLivingPlace && (
+        <div className={styles.fragmentsContainer}>
+          <LivingplaceFragment
+            data={currentLivingPlace}
+            editable={editable === false ? false : true}
+            onEdit={() => {
+              handleUpdateLivingplace(currentLivingPlace);
+              handleEditingTarget({
+                editableKey: editableKeys.changeLivingplace,
+                pathParams: { operation: "update" },
+              });
+            }}
+            onDelete={() =>
+              deleteUserInfoQuery({ field: "currentLivingPlace" })
+            }
+          />
+        </div>
+      )}
+    </>
   );
 }
 

@@ -5,7 +5,8 @@
 
 .sideBarContainer {
   flex: 1;
-  min-width: 30rem;
+  width: 30rem;
+  max-width: 30rem;
   @include flexBox(column);
   gap: 1rem;
   padding: 1rem;

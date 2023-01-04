@@ -25,6 +25,10 @@ export function triggerError() {
 }
 
 export const errorMessages = {
+  settings: {
+    update: "can't update information. please try again later.",
+    load: "Occured error during loading data. Please try again later.",
+  },
   user: {
     load: "Occured error during loading data. Please try again later.",
     operation: "Occured error during operation. Please try again later.",

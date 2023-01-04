@@ -1,29 +1,49 @@
 import { useSelector } from "react-redux";
 
-import { useSettings } from "../../../../hooks";
+import { useSettings, useSettingsQuery } from "../../../../hooks";
 import { editableKeys } from "../../config";
 
 import { BirthdateFragment } from "../../../Layouts";
+import AddBTN from "./AddBTN";
 import styles from "../styles/detailed.module.scss";
 
-function BirthdateDetails({ editable }) {
-  const birthDate = useSelector(({ aboutUser }) => aboutUser.data?.birthDate);
+function BirthdateDetails({ editable, withBtn = true }) {
+  const birthDate = useSelector(({ settings }) => settings.userInfo.birthDate);
 
   const { handleEditingTarget, handleUpdateBirthdate } = useSettings();
+  const { deleteUserInfoQuery } = useSettingsQuery();
 
   return (
-    birthDate && (
-      <div className={styles.fragmentsContainer}>
-        <BirthdateFragment
-          data={birthDate}
-          editable={editable === false ? false : true}
-          onEdit={() => {
-            handleEditingTarget(editableKeys.changeBirthdate);
-            handleUpdateBirthdate(birthDate);
+    <>
+      {withBtn && !birthDate && (
+        <AddBTN
+          label="birthdate"
+          onClick={() => {
+            handleEditingTarget({
+              editableKey: editableKeys.changeBirthdate,
+              pathParams: { operation: "add" },
+            });
           }}
         />
-      </div>
-    )
+      )}
+      {birthDate && (
+        <div className={styles.fragmentsContainer}>
+          <BirthdateFragment
+            data={birthDate}
+            editable={editable === false ? false : true}
+            deleteAble={true}
+            onEdit={() => {
+              handleEditingTarget({
+                editableKey: editableKeys.changeBirthdate,
+                pathParams: { operation: "update" },
+              });
+              handleUpdateBirthdate(birthDate);
+            }}
+            onDelete={() => deleteUserInfoQuery({ field: "birthDate" })}
+          />
+        </div>
+      )}
+    </>
   );
 }
 

@@ -1,11 +1,8 @@
-import {
-  ValidateBlogPostCreate,
-  ValidateCreatePost,
-} from "../../lib/validateCreatePost";
+import { ValidateCreateBlogPost, ValidateCreatePost } from "../../lib";
 
 export default function useValidateCreatePost() {
   function validateCreateBlogPost(credentials) {
-    const { createError } = new ValidateBlogPostCreate(credentials)
+    const { createError } = new ValidateCreateBlogPost(credentials)
       .validateTitle()
       .validateLabels()
       .validateCategory()

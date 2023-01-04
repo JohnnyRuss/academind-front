@@ -32,6 +32,7 @@ export { default as useBookmarksQuery } from "./queries/useBookmarksQuery";
 export { default as useSearchQuery } from "./queries/useSearchQuery";
 export { default as useUserProfileQuery } from "./queries/useUserProfileQuery";
 export { default as useAuthenticationQuery } from "./queries/useAuthenticationQuery";
+export { default as useSettingsQuery } from "./queries/useSettingsQuery";
 
 export { default as useAuthValidation } from "./auth/useAuthValidation";
 export { default as useRestrictAuthenticated } from "./auth/useRestrictAuthenticated";

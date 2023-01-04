@@ -1,23 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
-import { selectWorkplace } from "../../../../store/selectors/settingsSelector";
-import { useSettings } from "../../../../hooks";
+import { selectUpdateableWorkplace } from "../../../../store/selectors/settingsSelector";
+import { useSettings, useSettingsQuery } from "../../../../hooks";
 
-import { Input, TextField } from "../../../Layouts";
+import {
+  Input,
+  TextField,
+  DateForm,
+  Error,
+  BlockSpinner,
+} from "../../../Layouts";
 import UpdateButtons from "./UpdateButtons";
-import DateForm from "../../../Layouts/DateSelect/DateForm";
 import styles from "../styles/detailed.module.scss";
 
 function ChangeWorkplaceForm() {
-  const userWorkplace = useSelector(selectWorkplace);
+  const {
+    state: { operation, docId },
+  } = useLocation();
+
+  const {
+    updateState: { loading, error, message },
+    workplace,
+  } = useSelector(selectUpdateableWorkplace);
 
   const { handleResetWorkplace, handleCancel } = useSettings();
+  const { addWorkplaceQuery, workplaceError } = useSettingsQuery();
 
-  const [company, setCompany] = useState(userWorkplace.company);
-  const [position, setPosition] = useState(userWorkplace.position);
-  const [description, setDescription] = useState(userWorkplace.description);
+  const [company, setCompany] = useState(workplace.company);
+  const [position, setPosition] = useState(workplace.position);
+  const [description, setDescription] = useState(workplace.description);
 
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
@@ -31,18 +45,17 @@ function ChangeWorkplaceForm() {
   }
 
   function handleUpdate() {
-    const dFrom = new Date(
-      `${dateFrom.day}-${dateFrom.month}-${dateFrom.year}`
-    );
-    const dTo = new Date(`${dateTo.day}-${dateTo.month}-${dateTo.year}`);
-
-    console.log({
+    const data = {
       company,
       position,
       description,
-      dFrom,
-      dTo,
-    });
+      workingYears: {
+        from: dateFrom,
+        to: dateTo,
+      },
+    };
+
+    addWorkplaceQuery({ operation, data, docId });
   }
 
   useEffect(() => {
@@ -60,7 +73,10 @@ function ChangeWorkplaceForm() {
           value={company}
           onChange={(e) => setCompany(e.target.value)}
           className={styles.inpField}
+          error={workplaceError.company.hasError}
+          message={workplaceError.company.message}
         />
+
         <Input
           type="text"
           name="position"
@@ -70,20 +86,22 @@ function ChangeWorkplaceForm() {
           onChange={(e) => setPosition(e.target.value)}
           className={styles.inpField}
         />
-        <span>Date From</span>
-        <div className={styles.dateFrom}>
+
+        <div className={styles.dateBox}>
           <DateForm
             handler={handleDateFrom}
-            date={userWorkplace.workingYears?.from}
+            date={workplace.workingYears?.from}
+            label="date from"
+            id="dateFrom"
           />
-        </div>
-        <span>Date To</span>
-        <div className={styles.dateTo}>
           <DateForm
             handler={handleDateTo}
-            date={userWorkplace.workingYears?.to}
+            date={workplace.workingYears?.to}
+            label="date to"
+            id="dateTo"
           />
         </div>
+
         <div className={styles.description}>
           <TextField
             minRows={4}
@@ -95,6 +113,10 @@ function ChangeWorkplaceForm() {
           />
         </div>
       </div>
+      
+      {loading && <BlockSpinner />}
+      {error && <Error msg={message} />}
+      
       <UpdateButtons
         cancelHandler={() => handleCancel(handleResetWorkplace)}
         updateHandler={handleUpdate}

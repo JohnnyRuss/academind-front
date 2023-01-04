@@ -11,23 +11,23 @@ function AllDetails() {
     <div className={styles.allDetailsContainer}>
       <div>
         <h4 className={styles.settingsHeadingSecondary}>birthdate</h4>
-        <BirthdateDetails editable={false} />
+        <BirthdateDetails editable={false} withBtn={false} />
       </div>
       <div>
         <h4 className={styles.settingsHeadingSecondary}>birthplace</h4>
-        <BirthplaceDetails editable={false} />
+        <BirthplaceDetails editable={false} withBtn={false} />
       </div>
       <div>
         <h4 className={styles.settingsHeadingSecondary}>livingplace</h4>
-        <LivingplaceDetails editable={false} />
+        <LivingplaceDetails editable={false} withBtn={false} />
       </div>
       <div>
         <h4 className={styles.settingsHeadingSecondary}>education</h4>
-        <EducationDetails editable={false} />
+        <EducationDetails editable={false} withBtn={false} />
       </div>
       <div>
         <h4 className={styles.settingsHeadingSecondary}>workplace</h4>
-        <WorkplaceDetails editable={false} />
+        <WorkplaceDetails editable={false} withBtn={false} />
       </div>
     </div>
   );

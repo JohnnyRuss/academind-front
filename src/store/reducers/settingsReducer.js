@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+function updateUpdateState({ state, loading = true, error = false, message }) {
+  state.updateState.loading = loading;
+  state.updateState.error = error;
+  state.updateState.message = error ? message : "";
+}
+
 const settingsSlice = createSlice({
   name: "settings",
   initialState: {
@@ -7,6 +13,36 @@ const settingsSlice = createSlice({
     editableTarget: "",
     isEditing: false,
     headingTitle: "",
+
+    loadingState: {
+      loading: false,
+      error: false,
+      message: "",
+    },
+
+    updateState: {
+      loading: false,
+      error: false,
+      message: "",
+    },
+
+    userInfo: {
+      _id: "",
+      email: "",
+      createdAt: "",
+      birthDate: "",
+      gender: "",
+      workplace: [],
+      education: [],
+      from: {
+        country: "",
+        city: "",
+      },
+      currentLivingPlace: {
+        country: "",
+        city: "",
+      },
+    },
 
     // updateables
     updateables: {
@@ -73,8 +109,78 @@ const settingsSlice = createSlice({
       state.headingTitle = existingTitle.replace(/update|add/, () => "");
     },
 
-    // updateables
+    // db
+    setUpdateError(state, { payload }) {
+      updateUpdateState({
+        state,
+        loading: false,
+        error: true,
+        message: payload.message,
+      });
+    },
 
+    // resetUpdateError(state) {
+    //   updateUpdateState({ state, loading: false });
+    // },
+
+    setLoadingError(state, { payload }) {
+      state.loadingState.loading = false;
+      state.loadingState.error = true;
+      state.loadingState.message = payload.message;
+    },
+
+    getUserInfo(state) {
+      state.loadingState.loading = true;
+      state.loadingState.error = false;
+      state.loadingState.message = "";
+    },
+
+    setUserInfo(state, { payload }) {
+      state.userInfo = payload;
+      state.loadingState.loading = false;
+      state.loadingState.error = false;
+      state.loadingState.message = "";
+    },
+
+    addUserInfo(state, { payload }) {
+      updateUpdateState({ state });
+    },
+
+    updateUserNestedInfo(state) {
+      updateUpdateState({ state });
+    },
+
+    setUserInfoFragment(state, { payload }) {
+      const { field, data } = payload;
+      if (
+        [
+          "from",
+          "currentLivingPlace",
+          "birthDate",
+          "education",
+          "workplace",
+        ].includes(field)
+      )
+        state.userInfo[field] = data;
+
+      updateUpdateState({ state, loading: false });
+
+      state.isEditing = false;
+      state.editableTarget = "";
+    },
+
+    deleteUserInfo(state, { payload }) {},
+
+    setDeletedUserInfo(state, { payload }) {
+      const { field } = payload;
+      state.userInfo[field] = "";
+    },
+
+    deleteNestedUserInfo(state, { payload }) {},
+
+    ////////////////////////////
+    // updateables user info //
+    //////////////////////////
     updateBirthdate(state, { payload }) {
       state.updateables.birthDate = payload;
     },
@@ -139,6 +245,42 @@ const settingsSlice = createSlice({
         },
       };
     },
+
+    // user email and password
+
+    updatePassword(state) {
+      updateUpdateState({ state });
+    },
+
+    setUpdatedPassword(state, { payload }) {
+      localStorage.setItem(
+        "academind_passport",
+        JSON.stringify(payload.accessToken)
+      );
+
+      updateUpdateState({ state, loading: false });
+
+      state.isEditing = false;
+      state.editableTarget = "";
+    },
+
+    updateEmail(state) {
+      updateUpdateState({ state });
+    },
+
+    setUpdatedEmail(state, { payload }) {
+      localStorage.setItem(
+        "academind_passport",
+        JSON.stringify(payload.accessToken)
+      );
+
+      state.userInfo.email = payload.email;
+
+      updateUpdateState({ state, loading: false });
+
+      state.isEditing = false;
+      state.editableTarget = "";
+    },
   },
 });
 
@@ -148,6 +290,17 @@ export const {
   setIsEditing,
   resetIsEditing,
   resetTarget,
+  // db
+  setUpdateError,
+  setLoadingError,
+  getUserInfo,
+  setUserInfo,
+  setUserInfoFragment,
+  addUserInfo,
+  updateUserNestedInfo,
+  deleteUserInfo,
+  setDeletedUserInfo,
+  deleteNestedUserInfo,
   // updateablse
   updateBirthdate,
   resetBirthdate,
@@ -159,4 +312,8 @@ export const {
   resetEducation,
   updateWorkplace,
   resetWorkplace,
+  updatePassword,
+  setUpdatedPassword,
+  updateEmail,
+  setUpdatedEmail,
 } = settingsSlice.actions;

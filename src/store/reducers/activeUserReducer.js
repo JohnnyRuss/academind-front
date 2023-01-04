@@ -202,6 +202,10 @@ const activeUserSlice = createSlice({
 
     getActiveUser() {},
 
+    setUserNewEmail(state, { payload }) {
+      state.user.email = payload;
+    },
+
     // ==================================== //
     // ========== Notifications ========== //
     // ================================== //
@@ -328,6 +332,7 @@ export const {
   setActiveUser,
   setUpdatedUserCover,
   getActiveUser,
+  setUserNewEmail,
   // notifications
   setNotificationError,
   resetNotificationError,
