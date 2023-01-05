@@ -9,7 +9,7 @@ function Stand() {
         sliderClass={styles.standCarousel}
       >
         <div className={styles.slide}>
-          <Image src="/img/blog-bg-1.jpg" className={styles.sliderBg} />
+          <Image src="/img/blog-bg-1.webp" className={styles.sliderBg} />
           <div className={styles.firstStand}>
             <p className={styles.firstStandTitle}>
               your chance <br /> to access <br />
@@ -31,7 +31,7 @@ function Stand() {
           </div>
         </div>
         <div className={styles.slide}>
-          <Image src="/img/blog-bg-2.jpg" className={styles.sliderBg} />
+          <Image src="/img/blog-bg-2.webp" className={styles.sliderBg} />
           <p className={styles.secondStand}>
             posts which you will publish as a blog post will be accessable{" "}
             <br /> only on the blog page so they not be shown in your friends
@@ -39,7 +39,7 @@ function Stand() {
           </p>
         </div>
         <div className={styles.slide}>
-          <Image src="/img/blog-bg-3.jpg" className={styles.sliderBg} />
+          <Image src="/img/blog-bg-3.webp" className={styles.sliderBg} />
           <p className={styles.thirdStand}>
             over the <span className={styles.thirdStandNums}>1 000 000</span>{" "}
             blog post on the page

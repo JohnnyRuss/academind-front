@@ -1,25 +1,45 @@
 @use "../../../styles/helpers/abstract/functions" as *;
 @use "../../../styles/helpers/abstract/components" as *;
+@use "../../../styles/helpers/components/layouts/inp" as *;
 
-.textArea {
-  position: relative;
-  resize: none;
-  outline: none;
+.textFieldContainer {
   width: 100%;
-  padding: 0 1rem;
-  // padding-top: 1.2rem;
-  padding-bottom: 0.5rem;
-  margin-top: 0;
-  border-radius: 0.5rem;
-  font-family: inherit;
-  @include scrollBar("&", 0.7rem);
-  background: color("whiteColor");
-  color: color("darkGreyColor");
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-  &::placeholder {
-    padding: 0;
-    padding-top: 0.5rem;
-    text-transform: capitalize;
-    opacity: 0.5;
+  &.error .textArea {
+    border-color: color("redColor");
+  }
+
+  .textArea {
+    position: relative;
+    resize: none;
+    outline: none;
+    width: 100%;
+    padding: 0 1rem;
+    // padding-top: 1.2rem;
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+    border-radius: 0.5rem;
+    font-family: inherit;
+    @include scrollBar("&", 0.7rem);
+    background: color("whiteColor");
+    color: color("darkGreyColor");
+
+    &::placeholder {
+      padding: 0;
+      padding-top: 0.5rem;
+      text-transform: capitalize;
+      opacity: 0.5;
+    }
+  }
+
+  .txtFieldLabel {
+    @include label;
+  }
+
+  .txtFieldError {
+    @include errMsg;
   }
 }

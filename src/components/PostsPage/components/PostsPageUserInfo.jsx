@@ -1,19 +1,26 @@
 // import moment from 'moment';
-import { useSelector } from 'react-redux';
-import { selectUserInfo } from '../../../store/selectors/userSelectors';
+import { useSelector } from "react-redux";
+import { selectUserInfo } from "../../../store/selectors/userSelectors";
+import { formatDate } from "../../../lib";
 
-import styles from './styles/postsPageUserInfo.module.scss';
+import styles from "./styles/postsPageUserInfo.module.scss";
 import {
   CalendarIcon,
   LocationIcon,
   CaseIcon,
   PersonIcon,
   RotateIcon,
-} from '../../Layouts/Icons/icons';
+} from "../../Layouts/Icons/icons";
 
 function PostsPageUserInfo() {
-  const { birthDate, from, currentLivingPlace, workplace, friendsAmount, createdAt } =
-    useSelector(selectUserInfo);
+  const {
+    birthDate,
+    from,
+    currentLivingPlace,
+    workplace,
+    friendsAmount,
+    createdAt,
+  } = useSelector(selectUserInfo);
 
   return (
     <ul className={styles.postsPageUserShortInfoList}>
@@ -22,7 +29,7 @@ function PostsPageUserInfo() {
           <CalendarIcon className={styles.icon} />
           <span>
             <span>Birthdate </span>
-            {/* <strong>{moment(new Date(birthDate)).format('DD-MM-YYYY')}</strong> */}
+            <strong>{formatDate(birthDate, "verbal")}</strong>
           </span>
         </li>
       )}
@@ -68,7 +75,7 @@ function PostsPageUserInfo() {
         <RotateIcon className={`${styles.icon} ${styles.smallIcon}`} />
         <span>
           <span>Joined at </span>
-          {/* <strong>{moment(new Date(createdAt)).format('DD-MM-YYYY')}</strong> */}
+          <strong>{formatDate(createdAt, "verbal")}</strong>
         </span>
       </li>
     </ul>

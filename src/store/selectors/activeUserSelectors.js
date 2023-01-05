@@ -26,6 +26,9 @@ export const selectIsExistingRequestAndSuccessMessage = ({ activeUser }) => ({
   successfullRegistration: activeUser.successfullRegistration,
 });
 
+export const selectSentRegistrationStatus = ({ activeUser }) =>
+  activeUser.registrationSuccessfullySent;
+
 /* ============================================= */
 /* =================== User =================== */
 /* =========================================== */

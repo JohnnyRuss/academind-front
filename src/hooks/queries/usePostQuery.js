@@ -51,7 +51,7 @@ function usePostQuery() {
     if (params.type === "post") {
       const error = validateCreatePost(credentials);
       const { error: isError } = error;
-      console.log(error);
+
       if (isError)
         return dispatch(
           setCreatePostValidationError({
@@ -59,14 +59,15 @@ function usePostQuery() {
             message: error.message,
           })
         );
-      // publisher();
+
+      publisher();
     } else if (params.type === "blogPost") {
       const error = validateCreateBlogPost(credentials);
       const { error: isError } = error;
 
       if (isError) return dispatch(setCreateBlogPostValidationError(error));
 
-      // publisher();
+      publisher();
     }
   };
 

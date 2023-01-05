@@ -11,3 +11,4 @@ export { default as createTextBox } from "./createTextBox";
 export {default as ValidateCreateBlogPost} from "./Validators/validateCreateBlogPost"
 export {default as ValidateCreatePost} from "./Validators/validateCreatePost"
 export {default as ValidateUserInfo} from "./Validators/validateUserInfo"
+export {default as ValidateRegistrationInfo} from "./Validators/validateRegistrationInfo"

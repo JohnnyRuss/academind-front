@@ -42,6 +42,7 @@ function ChangeLivingPlaceForm() {
           className={styles.inpField}
           error={livingPlaceError.country.hasError}
           message={livingPlaceError.country.message}
+          id="country"
         />
 
         <Input
@@ -54,12 +55,13 @@ function ChangeLivingPlaceForm() {
           error={livingPlaceError.city.hasError}
           message={livingPlaceError.city.message}
           className={styles.inpField}
+          id="city"
         />
       </div>
-      
+
       {loading && <BlockSpinner />}
       {error && <Error msg={message} />}
-      
+
       <UpdateButtons
         cancelHandler={() => handleCancel(handleResetLivingplace)}
         updateHandler={handleUpdate}

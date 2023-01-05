@@ -1,5 +1,5 @@
 import { call, put, select } from "redux-saga/effects";
-import { showError, errorMessages, triggerError } from "./errorHandler";
+import { showError, errorMessages } from "./errorHandler";
 
 import {
   setErrorOnPosts,

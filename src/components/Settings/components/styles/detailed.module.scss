@@ -3,6 +3,7 @@
 @use "../../../../styles/helpers/abstract/media" as *;
 @use "../../../../styles/helpers/abstract/functions" as *;
 @use "../../../../styles/helpers/variables/variables" as *;
+@use "../../../../styles/helpers/components/layouts/inp" as *;
 
 .settingsHeading {
   @include settingsHeading;
@@ -43,32 +44,15 @@
   .form {
     display: flex;
     min-width: 40rem;
+    justify-content: center;
   }
 
   [data-user-info-error-box] {
-    font-size: size("smallerSize");
-    color: color("redColor");
-
-    &::first-letter {
-      text-transform: capitalize;
-    }
+    @include errMsg;
   }
 
-  .selectBox {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    label {
-      font-weight: weight("mediumWeight");
-      font-size: size("smallSize");
-      text-transform: capitalize;
-      cursor: pointer;
-    }
-
-    [data-select-box] {
-      width: 100%;
-    }
+  [data-select-box] {
+    width: 100%;
   }
 
   .singleBtn {

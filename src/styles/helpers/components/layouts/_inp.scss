@@ -1,0 +1,18 @@
+@use "../../abstract//functions" as *;
+
+@mixin label {
+  font-weight: weight("mediumWeight");
+  font-size: size("smallSize");
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+@mixin errMsg {
+  color: color("redColor");
+  font-size: size("smallerSize");
+  text-align: center;
+
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}

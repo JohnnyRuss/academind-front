@@ -78,6 +78,7 @@ function ChangeEducationForm() {
           className={styles.inpField}
           error={educationError.collage.hasError}
           message={educationError.collage.message}
+          id="collage"
         />
 
         <Input
@@ -90,22 +91,20 @@ function ChangeEducationForm() {
           className={styles.inpField}
           error={educationError.faculty.hasError}
           message={educationError.faculty.message}
+          id="faculty"
         />
 
-        <div className={styles.selectBox}>
-          <label>degree</label>
-          <Select
-            handler={(v) => setDegree(v)}
-            data={{
-              default: degree || "degree",
-              name: "degree",
-              values: ["bachelor", "master", "doctor"],
-            }}
-          />
-          {educationError.degree.hasError && (
-            <p data-user-info-error-box>{educationError.degree.hasError}</p>
-          )}
-        </div>
+        <Select
+          label="degree"
+          error={educationError.degree.hasError}
+          message={educationError.degree.message}
+          handler={(v) => setDegree(v)}
+          data={{
+            default: degree || "degree",
+            name: "degree",
+            values: ["bachelor", "master", "doctor"],
+          }}
+        />
 
         <div className={styles.dateBox}>
           <DateForm
@@ -130,6 +129,8 @@ function ChangeEducationForm() {
             placeholder="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            label="description"
+            id="description"
           />
         </div>
       </div>

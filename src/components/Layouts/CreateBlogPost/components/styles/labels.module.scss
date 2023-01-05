@@ -2,22 +2,22 @@
 @use "../../../../../styles/helpers/abstract/mixins" as *;
 
 .categoriesBox {
-  .categoriesForm {
-    @include flexBox(column);
-    gap: 0.5rem;
+  .labelField {
+    width: 100%;
   }
 
-  .categoriesList {
+  .labelsList {
     @include flexBox;
     flex-wrap: wrap;
     gap: 1rem;
+    margin-top: 0.5rem;
 
     span {
       @include flexBox;
       @include flexProperty(flex-start, center);
       gap: 0.5rem;
       padding: 0.35rem 1rem;
-      border-radius: 0.3rem;
+      border-radius: 0.5rem;
       background: color("blueColor");
       color: color("whiteColor");
 

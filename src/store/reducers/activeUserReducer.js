@@ -53,6 +53,8 @@ const activeUserSlice = createSlice({
     activeNotifications: false,
     isExistingRegister: false,
     successfullRegistration: false,
+
+    registrationSuccessfullySent: null,
   },
   reducers: {
     resetLoadingState(state, { payload }) {
@@ -90,6 +92,7 @@ const activeUserSlice = createSlice({
       state.registerLoadingState.message = "";
       state.isExistingRegister = false;
       state.successfullRegistration = false;
+      state.registrationSuccessfullySent = null;
     },
 
     resetRegistrationpProccess(state) {
@@ -164,6 +167,20 @@ const activeUserSlice = createSlice({
       };
 
       Object.keys(state.user).map((key) => (state.user[key] = temp[key]));
+    },
+
+    sendRegistrationRequest(state) {
+      state.registerLoadingState.loading = true;
+      state.registerLoadingState.error = false;
+      state.registerLoadingState.message = "";
+    },
+
+    setRegistrationRequestSuccess(state) {
+      state.registrationSuccessfullySent = true;
+
+      state.registerLoadingState.loading = false;
+      state.registerLoadingState.error = false;
+      state.registerLoadingState.message = "";
     },
 
     // =========================== //
@@ -327,6 +344,8 @@ export const {
   setRegisterSuccess,
   login,
   logOut,
+  sendRegistrationRequest,
+  setRegistrationRequestSuccess,
   // user
   resetActiveUser,
   setActiveUser,

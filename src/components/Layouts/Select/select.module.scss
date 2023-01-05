@@ -3,23 +3,31 @@
 @use "../../../styles/helpers/abstract/functions" as *;
 @use "../../../styles/helpers/abstract/animation" as *;
 @use "../../../styles/helpers/abstract/components" as *;
+@use "../../../styles/helpers/components/layouts/inp" as *;
 
-.selection {
-  $border-w: 1px;
-  $border: $border-w solid color("darkGreyColor");
-  $selection-w: 15rem;
+$border-w: 1px;
+$border: $border-w solid color("darkGreyColor");
+$selection-w: 15rem;
 
-  position: relative;
-  display: inline-block;
+.selectContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   width: $selection-w;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  border: $border;
-  background: color("whiteColor");
-  color: color("blackColor");
 
-  &.active {
-    // border-bottom: none;
+  .selection {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: $border;
+    background: color("whiteColor");
+    color: color("blackColor");
+
+    &.error {
+      border-color: color("redColor");
+    }
   }
 
   &.active .selectDefault,
@@ -58,15 +66,16 @@
 
     padding: 0.5rem;
     padding-top: 1rem;
-    
+
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
     border: $border;
+    border-color: inherit;
     border-top: 0;
-    
+
     background: inherit;
     @include animateMoveBottom(0.2s, -2rem);
-    
+
     max-height: 15rem;
     @include scrollBar("&", 0.75rem, 1rem, 1rem, 1rem);
 
@@ -83,5 +92,13 @@
         color: color("blueColor");
       }
     }
+  }
+
+  .selectError {
+    @include errMsg;
+  }
+
+  .selectLabel {
+    @include label;
   }
 }

@@ -75,6 +75,7 @@ function ChangeWorkplaceForm() {
           className={styles.inpField}
           error={workplaceError.company.hasError}
           message={workplaceError.company.message}
+          id="company"
         />
 
         <Input
@@ -85,6 +86,7 @@ function ChangeWorkplaceForm() {
           value={position}
           onChange={(e) => setPosition(e.target.value)}
           className={styles.inpField}
+          id="position"
         />
 
         <div className={styles.dateBox}>
@@ -110,13 +112,15 @@ function ChangeWorkplaceForm() {
             placeholder="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            label="description"
+            id="description"
           />
         </div>
       </div>
-      
+
       {loading && <BlockSpinner />}
       {error && <Error msg={message} />}
-      
+
       <UpdateButtons
         cancelHandler={() => handleCancel(handleResetWorkplace)}
         updateHandler={handleUpdate}

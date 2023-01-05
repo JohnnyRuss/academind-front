@@ -32,6 +32,7 @@ export const errorMessages = {
   user: {
     load: "Occured error during loading data. Please try again later.",
     operation: "Occured error during operation. Please try again later.",
+    sendRegRequest: "Something went wrong. Please try again later.",
   },
   notifications: {
     load: "Occured error during loading data. Please try again later.",

@@ -39,7 +39,11 @@ function FriendShip({ friendShip, profileId, setFriendShip }) {
     }
   }
 
-  const { error, task, message } = useSelector(selectRequestError);
+  const {
+    error,
+    // task,
+    message,
+  } = useSelector(selectRequestError);
 
   return (
     <div className={styles.friendShipBTNBox}>

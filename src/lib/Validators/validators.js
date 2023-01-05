@@ -9,8 +9,7 @@ export class Validator {
   }
 
   checkArrSize({ data }) {
-    if (!data) return { isEmpty: true };
-    else if (Array.isArray(data) && data.length < 1) return { isEmpty: true };
+    if ((Array.isArray(data) && !data[0]) || !data) return { isEmpty: true };
     else return { isEmpty: false };
   }
 
@@ -21,7 +20,7 @@ export class Validator {
   }
 
   checkWordCount({ data, min }) {
-    if (!data && typeof data !== "string")
+    if (typeof data !== "string" || !data.trim())
       return { isEmpty: true, isValid: false, isLeft: NaN };
 
     const fragments = data.trim().split(" ");
@@ -39,5 +38,76 @@ export class Validator {
 
   checkDegree({ data }) {
     return { isValidDegree: true };
+  }
+
+  checkOnlyLatinLetters({ value }) {
+    const reg = /^[A-Za-z\s]*$/;
+    return reg.test(value);
+  }
+
+  checkOnlyLatinLettersAndDash({ value }) {
+    const reg = /^[A-Za-z\s-]*$/;
+    return reg.test(value);
+  }
+
+  checkIsEmail({ value }) {
+    const reg =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    return reg.test(value);
+  }
+
+  checkIsValidGender({ value }) {
+    return this.availableGenders.includes(value);
+  }
+
+  checkIsValidPosition({ value }) {
+    return this.availablePositions.includes(value);
+  }
+
+  checkWhiteSpace({ value }) {
+    const reg = /\s/g;
+    return reg.test(value);
+  }
+
+  // helpers
+  executeStrSizeAndLatinLetters({
+    value,
+    min,
+    location,
+    key,
+    withDash = false,
+  }) {
+    const { isEmpty, isLess } = this.checkStrSize({ value, min });
+
+    const isLatin = withDash
+      ? this.checkOnlyLatinLettersAndDash({ value })
+      : this.checkOnlyLatinLetters({ value });
+    const [step1, step2] = location.split(".");
+
+    let message = {
+      hasError: false,
+      message: "",
+    };
+
+    if (isEmpty)
+      message = {
+        hasError: true,
+        message: `please enter ${key}`,
+      };
+    else if (min && isLess)
+      message = {
+        hasError: true,
+        message: `${key} must contain min ${min} letter`,
+      };
+    else if (!isLatin)
+      message = {
+        hasError: true,
+        message: `${key} must contain only latin letters`,
+      };
+
+    if (step2) this.error[step1][step2] = message;
+    else this.error[step1] = message;
   }
 }

@@ -1,5 +1,6 @@
 @use "../../../styles//helpers/abstract/functions" as *;
 @use "../../../styles//helpers/abstract/mixins" as *;
+@use "../../../styles//helpers/components/layouts/inp" as *;
 
 .inputField {
   @include flexBox(column);
@@ -7,10 +8,7 @@
   width: max-content;
 
   .inpLabel {
-    font-weight: weight("mediumWeight");
-    font-size: size("smallSize");
-    text-transform: capitalize;
-    cursor: pointer;
+    @include label;
   }
 
   .inpBox {
@@ -19,7 +17,6 @@
     border-radius: 0.3rem;
     overflow: hidden;
     background: color("whiteColor");
-    // background: green;
 
     &.error {
       border: 1px solid color("redColor");
@@ -53,12 +50,6 @@
   }
 
   .errorMessage {
-    color: color("redColor");
-    font-size: size("smallSize");
-    text-align: center;
-
-    &::first-letter {
-      text-transform: capitalize;
-    }
+    @include errMsg;
   }
 }

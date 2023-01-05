@@ -6,7 +6,7 @@ import {
   DeleteIcon,
   ReadIcon,
 } from "../Layouts/Icons/icons";
-import { TimeAgo, Image, Avatar } from "../Layouts";
+import { TimeAgo, Avatar } from "../Layouts";
 
 function NotificationBody({
   notify,
@@ -53,7 +53,6 @@ function NotificationBody({
       className={`${styles.notifyBody} ${notify.read ? "" : styles.unRead}`}
       onClick={() => handleNavigate(notify)}
     >
-      {/* <Image src={notify.from?.profileImg} className={styles.notifyFig} /> */}
       <Avatar src={notify.from?.profileImg} className={styles.notifyFig} />
       <p>
         {showNotificationMessage(notify)}

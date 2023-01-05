@@ -7,6 +7,7 @@ import {
   setActiveUser,
   setRegisterSuccess,
   setIsExistingRegister,
+  setRegistrationRequestSuccess,
 } from "../../reducers/activeUserReducer";
 
 import {
@@ -14,6 +15,7 @@ import {
   logOutQuery,
   checkRegistrationExistanceQuery,
   sendRegistrationPasswordConfirmQuery,
+  sendRegistrationRequestQuery,
 } from "../api/authenticationQueries";
 
 export function* loginHandler({ payload }) {
@@ -69,6 +71,20 @@ export function* sendRegistrationPasswordConfirmHandler({
       location: "sendRegistrationPasswordConfirmHandler",
       setter: setRegistrationError,
       setterParams: { message: "" },
+    });
+  }
+}
+
+export function* sendRegistrationRequestHandler({ payload }) {
+  try {
+    yield call(sendRegistrationRequestQuery, payload);
+    yield put(setRegistrationRequestSuccess());
+  } catch (error) {
+    yield showError({
+      error,
+      location: "sendRegistrationRequest",
+      setter: setRegistrationError,
+      setterParams: { message: errorMessages.user.sendRegRequest },
     });
   }
 }

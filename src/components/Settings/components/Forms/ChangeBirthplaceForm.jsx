@@ -42,6 +42,7 @@ function ChangeBirthplaceForm() {
           onChange={(e) => setCountry(e.target.value)}
           error={livingPlaceError.country.hasError}
           message={livingPlaceError.country.message}
+          id="country"
         />
 
         <Input
@@ -54,12 +55,13 @@ function ChangeBirthplaceForm() {
           onChange={(e) => setCity(e.target.value)}
           error={livingPlaceError.city.hasError}
           message={livingPlaceError.city.message}
+          id="city"
         />
       </div>
-      
+
       {loading && <BlockSpinner />}
       {error && <Error msg={message} />}
-      
+
       <UpdateButtons
         cancelHandler={() => handleCancel(handleResetBirthplace)}
         updateHandler={handleUpdate}

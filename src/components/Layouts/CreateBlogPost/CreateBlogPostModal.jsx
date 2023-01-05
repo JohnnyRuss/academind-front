@@ -13,7 +13,8 @@ import {
   Select,
 } from "../";
 import styles from "./components/styles/createBlogPostModal.module.scss";
-import { TitleField, Labels, CreateBlogPostMedia } from "./components";
+import { Labels, CreateBlogPostMedia } from "./components";
+import { Input } from "../../Layouts";
 
 function CreateBlogPost({
   //loading state
@@ -83,10 +84,18 @@ function CreateBlogPost({
         {error && <Error msg={message} />}
 
         <div className={styles.titleAndCategoryBox}>
-          <TitleField
+          <Input
+            label="title"
+            placeholder="title"
             value={title}
-            setTitle={handleTitle}
-            error={validationError.title}
+            onChange={handleTitle}
+            id="title"
+            name="title"
+            error={validationError.title.hasError}
+            message={validationError.title.message}
+            type="text"
+            labelTitle={"is required and must contain min 2 letter"}
+            className={styles.titleField}
           />
 
           <Labels
@@ -98,40 +107,35 @@ function CreateBlogPost({
             error={validationError.labels}
           />
 
-          <div data-blog-post-field>
-            <label htmlFor="blogPostTitle">Category</label>
-            <Select
-              handler={handleCategory}
-              data={{
-                default: category || "category",
-                name: "category",
-                values: [
-                  "economics",
-                  "business",
-                  "law",
-                  "medicine",
-                  "psychology",
-                  "philosophy",
-                  "politics",
-                  "natural sciences",
-                  "exact sciences",
-                  "other",
-                ],
-              }}
-            />
-            {validationError.category.hasError && (
-              <p data-create-blogpost-error-box>
-                {validationError.category.message}
-              </p>
-            )}
-          </div>
+          <Select
+            label="category"
+            error={validationError.category.hasError}
+            message={validationError.category.message}
+            handler={handleCategory}
+            data={{
+              default: category || "category",
+              name: "category",
+              values: [
+                "economics",
+                "business",
+                "law",
+                "medicine",
+                "psychology",
+                "philosophy",
+                "politics",
+                "natural sciences",
+                "exact sciences",
+                "other",
+              ],
+            }}
+          />
         </div>
 
-        <div className={styles.articleField} data-blog-post-field>
-          <div>
+        <div className={styles.articleField}>
+          <div className={styles.articleFieldHead}>
             <label>Article</label>
             {validationError.article.hasError && (
-              <p data-create-blogpost-error-box>
+              <p className={styles.articleError}>
                 {validationError.article.message}
               </p>
             )}

@@ -5,6 +5,7 @@ import {
   logOut,
   checkExistingRegister,
   sendRegisterPasswordConfirm,
+  sendRegistrationRequest,
 } from "../../reducers/activeUserReducer";
 
 import {
@@ -12,9 +13,11 @@ import {
   logOutHandler,
   checkExistingRegisterHandler,
   sendRegistrationPasswordConfirmHandler,
+  sendRegistrationRequestHandler,
 } from "../handlers/authenticationHandlers";
 
 function* authenticationSaga() {
+  yield takeLatest(sendRegistrationRequest, sendRegistrationRequestHandler);
   yield takeLatest(login, loginHandler);
   yield takeLatest(logOut, logOutHandler);
   yield takeLatest(checkExistingRegister, checkExistingRegisterHandler);

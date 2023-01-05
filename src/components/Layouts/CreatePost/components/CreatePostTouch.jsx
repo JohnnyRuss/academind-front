@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useSelector } from "react-redux";
 
 import { selectActiveUserShortInfo } from "../../../../store/selectors/activeUserSelectors";

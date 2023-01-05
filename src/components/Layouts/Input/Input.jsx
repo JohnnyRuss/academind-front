@@ -9,6 +9,7 @@ function Input({
   type = "text",
   id,
   label,
+  labelTitle,
   className,
   name,
   placeholder = "text",
@@ -21,7 +22,7 @@ function Input({
   return (
     <div className={`${styles.inputField} ${className || ""}`}>
       {label && (
-        <label htmlFor={id} className={styles.inpLabel}>
+        <label htmlFor={id} className={styles.inpLabel} title={labelTitle}>
           {label}
         </label>
       )}

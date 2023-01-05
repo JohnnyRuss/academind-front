@@ -37,6 +37,7 @@ function ChangePasswordForm(props) {
           error={false}
           message={""}
           className={styles.inpField}
+          id="password"
         />
 
         <Input
@@ -48,6 +49,7 @@ function ChangePasswordForm(props) {
           error={false}
           message={""}
           className={styles.inpField}
+          id="newPassword"
         />
       </div>
 

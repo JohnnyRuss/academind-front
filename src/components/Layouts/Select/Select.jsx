@@ -9,6 +9,9 @@ import styles from "./select.module.scss";
 
 function Select({
   handler,
+  label,
+  error,
+  message,
   data = {
     default: "",
     name: "",
@@ -48,35 +51,45 @@ function Select({
   }
 
   return (
-    <div className={`${styles.selection} ${active ? styles.active : ""}`} data-select-box>
-      <button
-        className={styles.selectDefault}
-        onClick={(e) => {
-          e.preventDefault();
-          setActive((prevState) => !prevState);
-        }}
-        data-select-triger-btn
+    <div className={styles.selectContainer} data-select-box>
+      {label && <label className={styles.selectLabel}>{label}</label>}
+      <div
+        className={`${styles.selection} ${active ? styles.active : ""} ${
+          error ? styles.error : ""
+        }`}
       >
-        <span className={defaultValue ? styles.default : ""}>
-          {fieldValue || defaultValue}
-        </span>
-        {!active && <ArrowDownRectingle />}
-        {active && <ArrowUpRectingle />}
-      </button>
-      {active && (
-        <ul className={styles.selectionList}>
-          {generateSelectionOptions()?.map((field) => (
-            <li
-              onClick={handleSelection}
-              data-value={field.value}
-              name={field.name}
-              key={uid(6)}
-            >
-              {field.text}
-            </li>
-          ))}
-        </ul>
-      )}
+        <button
+          className={styles.selectDefault}
+          onClick={(e) => {
+            e.preventDefault();
+            setActive((prevState) => !prevState);
+          }}
+          data-select-triger-btn
+        >
+          <span className={defaultValue ? styles.default : ""}>
+            {fieldValue || defaultValue}
+          </span>
+          {!active && <ArrowDownRectingle />}
+          {active && <ArrowUpRectingle />}
+        </button>
+
+        {active && (
+          <ul className={styles.selectionList}>
+            {generateSelectionOptions()?.map((field) => (
+              <li
+                onClick={handleSelection}
+                data-value={field.value}
+                name={field.name}
+                key={uid(6)}
+              >
+                {field.text}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {error && <p className={styles.selectError}>{message}</p>}
     </div>
   );
 }

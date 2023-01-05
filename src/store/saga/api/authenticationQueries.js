@@ -28,3 +28,7 @@ export async function sendRegistrationPasswordConfirmQuery({
     body
   );
 }
+
+export async function sendRegistrationRequestQuery(body) {
+  return await axioss.post("/authentication/register", body);
+}

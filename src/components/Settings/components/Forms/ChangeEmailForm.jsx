@@ -28,7 +28,6 @@ function ChangeEmailForm(props) {
       }}
       className={styles.formsContainer}
     >
-      
       <div className={`${styles.form} ${styles.passForm}`}>
         <Input
           placeholder="email"
@@ -39,6 +38,7 @@ function ChangeEmailForm(props) {
           error={false}
           message={""}
           className={styles.inpField}
+          id="email"
         />
 
         <Input
@@ -50,6 +50,7 @@ function ChangeEmailForm(props) {
           error={false}
           message={""}
           className={styles.inpField}
+          id="password"
         />
 
         <Input
@@ -61,6 +62,7 @@ function ChangeEmailForm(props) {
           error={false}
           message={""}
           className={styles.inpField}
+          id="newEmail"
         />
       </div>
 

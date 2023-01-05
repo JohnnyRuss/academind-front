@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { selectPosts } from "../../store/selectors/postSelectors";
-import { selectUserLoadingState } from "../../store/selectors/userSelectors";
 
 import { useProfilePostsQuery } from "../../hooks";
 
@@ -13,11 +12,9 @@ import {
   PostsPageSideBar,
   PostsPageContent,
 } from "../../components/PostsPage";
-import { StandSpinner } from "../../components/Layouts";
 
 function PostPage() {
   const { posts, hasMore } = useSelector(selectPosts);
-  // const { loading } = useSelector(selectUserLoadingState);
 
   const { getProfilePostsQuery, resetState } = useProfilePostsQuery();
 
@@ -34,8 +31,6 @@ function PostPage() {
 
     return () => resetState();
   }, [id]);
-
-  // if (loading) return <StandSpinner />;
 
   return (
     <PostsPageContainer>
