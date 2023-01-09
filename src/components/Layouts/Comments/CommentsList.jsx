@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -14,7 +14,7 @@ import {
 } from "../../../store/selectors/commentsSelector";
 
 import styles from "./components/styles/commentsList.module.scss";
-import { TextAreaWithTag, BlockSpinner, Error } from "../";
+import { TextAreaWithTag, BlockSpinner, Error, EmptyContentMessage } from "../";
 import { CommentListItem } from "./components";
 
 function CommentsList({ postId, postAuthorId, notifyOnComment }) {
@@ -27,24 +27,21 @@ function CommentsList({ postId, postAuthorId, notifyOnComment }) {
   // Sorts comments data by "Pin" property
   const comments = useCommentPin(data || []);
 
-  const [text, setText] = useState("");
-
   const {
     state,
     resetCommentCredentials,
     setTag,
     removeTag,
+    setCommentText,
     setUpdateComment: setUpdateParentComment,
   } = useComments();
 
-  function reseter() {
-    setText("");
-    resetCommentCredentials();
-  }
+  // resets all comment data during update
+  const reseter = () => resetCommentCredentials();
 
   const { getPostCommentsQuery, submitCommentQuery } = useCommentsQuery(
     "MAIN_THREAD",
-    { postId, commentId: state.commentId, text, tags: state.tags },
+    { postId, commentId: state.commentId, text: state.text, tags: state.tags },
     { updateParent: state.updateParent, resetHandler: reseter }
   );
 
@@ -70,17 +67,17 @@ function CommentsList({ postId, postAuthorId, notifyOnComment }) {
           />
         ))}
       {!loading && !error && !comments[0] && (
-        <p className={styles.commentsMessage}>there are no comments yet</p>
+        <EmptyContentMessage message="there are no comments yet" />
       )}
       {error && target === "global" && task === "get" && (
         <Error msg={message} />
       )}
-      {error && target === "parent" && (task === "add" || task === "update") && (
-        <Error msg={message} />
-      )}
+      {error &&
+        target === "parent" &&
+        (task === "add" || task === "update") && <Error msg={message} />}
       <TextAreaWithTag
-        text={text}
-        setText={setText}
+        text={state.text}
+        setText={setCommentText}
         tags={state.tags}
         setTag={setTag}
         removeTag={removeTag}

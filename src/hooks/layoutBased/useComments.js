@@ -1,12 +1,12 @@
-import { useReducer } from 'react';
+import { useReducer } from "react";
 
 function useComments() {
   const [state, dispatch] = useReducer(threadReducer, {
     parentAuthor: {},
     tags: [],
-    commentId: '',
-    replyId: '',
-    text: '',
+    commentId: "",
+    replyId: "",
+    text: "",
     updateParent: false,
     updateReply: false,
     activeReply: false,
@@ -15,34 +15,43 @@ function useComments() {
 
   const setTag = ({ _id, userName }) =>
     dispatch({
-      type: 'SET_TAG',
+      type: "SET_TAG",
       payload: { _id, userName },
     });
 
-  const removeTag = (adressatId) => dispatch({ type: 'REMOVE_TAG', payload: { _id: adressatId } });
+  const removeTag = (adressatId) =>
+    dispatch({ type: "REMOVE_TAG", payload: { _id: adressatId } });
 
   const setCommentReply = ({ commentId, tag }) =>
     dispatch({
-      type: 'SET_COMMENT_REPLY',
+      type: "SET_COMMENT_REPLY",
       payload: { commentId, tag },
     });
 
   const setUpdateComment = ({ commentId, replyId, text, tags, type }) =>
     dispatch({
-      type: 'SET_UPDATE_COMMENT',
+      type: "SET_UPDATE_COMMENT",
       payload: { commentId, replyId, text, tags, type: type },
     });
 
-  const resetCommentCredentials = () => dispatch({ type: 'RESET_COMMENT_CREDENTIALS' });
+  const resetCommentCredentials = () =>
+    dispatch({ type: "RESET_COMMENT_CREDENTIALS" });
 
   function handleShowReplies(parentAuthor) {
-    if (state.activeReply) dispatch({ type: 'RESET_COMMENT_REPLY' });
+    if (state.activeReply) dispatch({ type: "RESET_COMMENT_REPLY" });
     else if (state.updateReply) {
-      dispatch({ type: 'RESET_UPDATE_COMMENT' });
-      state.showReplies && dispatch({ type: 'SET_SHOW_REPLIES', payload: { open: false } });
+      dispatch({ type: "RESET_UPDATE_COMMENT" });
+      state.showReplies &&
+        dispatch({ type: "SET_SHOW_REPLIES", payload: { open: false } });
     } else
-      dispatch({ type: 'SET_SHOW_REPLIES', payload: { open: !state.showReplies, parentAuthor } });
+      dispatch({
+        type: "SET_SHOW_REPLIES",
+        payload: { open: !state.showReplies, parentAuthor },
+      });
   }
+
+  const setCommentText = (txt) =>
+    dispatch({ type: "SET_COMMENT_TEXT", payload: txt });
 
   return {
     state,
@@ -52,6 +61,7 @@ function useComments() {
     resetCommentCredentials,
     handleShowReplies,
     setTag,
+    setCommentText,
   };
 }
 
@@ -68,14 +78,19 @@ function threadReducer(state, { type, payload }) {
   }
 
   switch (type) {
-    case 'SET_SHOW_REPLIES':
+    case "SET_COMMENT_TEXT":
+      return {
+        ...state,
+        text: payload,
+      };
+    case "SET_SHOW_REPLIES":
       return {
         ...state,
         showReplies: payload.open,
         parentAuthor: payload.open ? payload.parentAuthor : {},
       };
 
-    case 'SET_TAG': {
+    case "SET_TAG": {
       const draft = fillUpTags(payload);
       return {
         ...state,
@@ -83,7 +98,7 @@ function threadReducer(state, { type, payload }) {
       };
     }
 
-    case 'REMOVE_TAG':
+    case "REMOVE_TAG":
       const allAdressat = state.tags.filter((tag) => tag._id !== payload?._id);
       return {
         ...state,
@@ -91,7 +106,7 @@ function threadReducer(state, { type, payload }) {
         tags: [...allAdressat],
       };
 
-    case 'SET_COMMENT_REPLY': {
+    case "SET_COMMENT_REPLY": {
       const draft = payload.tag ? fillUpTags(payload.tag) : [];
       return {
         ...state,
@@ -102,16 +117,16 @@ function threadReducer(state, { type, payload }) {
       };
     }
 
-    case 'RESET_COMMENT_REPLY':
+    case "RESET_COMMENT_REPLY":
       return {
         ...state,
         tags: [],
-        commentId: '',
+        commentId: "",
         activeReply: false,
         showReplies: false,
       };
 
-    case 'SET_UPDATE_COMMENT':
+    case "SET_UPDATE_COMMENT":
       return {
         ...state,
         activeReply: false,
@@ -120,27 +135,29 @@ function threadReducer(state, { type, payload }) {
         replyId: payload.replyId,
         text: payload.text,
         [payload.type]: true,
-        [payload.type === 'updateParent' ? 'updateReply' : 'updateParent']: false,
+        [payload.type === "updateParent"
+          ? "updateReply"
+          : "updateParent"]: false,
       };
 
-    case 'RESET_UPDATE_COMMENT':
+    case "RESET_UPDATE_COMMENT":
       return {
         ...state,
-        commentId: '',
-        replyId: '',
-        text: '',
+        commentId: "",
+        replyId: "",
+        text: "",
         updateParent: false,
         updateReply: false,
         tags: [],
       };
 
-    case 'RESET_COMMENT_CREDENTIALS':
+    case "RESET_COMMENT_CREDENTIALS":
       return {
         ...state,
-        replyId: '',
+        replyId: "",
         tags: [],
-        commentId: '',
-        text: '',
+        commentId: "",
+        text: "",
         updateParent: false,
         updateReply: false,
         activeReply: false,

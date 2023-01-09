@@ -10,6 +10,7 @@ import { Comment, ShowRepliesBTN } from ".";
 
 function RepliesThread({ state, data, handlers }) {
   const {
+    setCommentText,
     handleShowReplies,
     setCommentReply,
     setTag,
@@ -35,14 +36,10 @@ function RepliesThread({ state, data, handlers }) {
     tags,
     text: updateText,
     parentAuthor,
+    text,
   } = state;
 
-  const [text, setText] = useState("");
-
-  function reseter() {
-    setText("");
-    resetCommentCredentials();
-  }
+  const reseter = () => resetCommentCredentials();
 
   const { submitCommentQuery } = useCommentsQuery(
     "REPLIES_THREAD",
@@ -92,7 +89,7 @@ function RepliesThread({ state, data, handlers }) {
             (task === "add" || task === "update") && <Error msg={message} />}
           <TextAreaWithTag
             text={text}
-            setText={setText}
+            setText={setCommentText}
             tags={tags}
             setTag={setTag}
             removeTag={(adressatId) => removeTag(adressatId)}

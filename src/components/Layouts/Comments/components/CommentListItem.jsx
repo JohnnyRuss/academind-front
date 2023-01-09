@@ -21,6 +21,7 @@ function CommentListItem({
 }) {
   const {
     state,
+    setCommentText,
     setTag,
     removeTag,
     setCommentReply,
@@ -51,6 +52,7 @@ function CommentListItem({
             ...destructureCommentRepliesProps(comment),
           }}
           handlers={{
+            setCommentText,
             handleShowReplies,
             setTag,
             removeTag,
