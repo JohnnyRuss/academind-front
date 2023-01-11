@@ -55,6 +55,7 @@ function CreatePostModal({
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       className={styles.createPostModal}
+      modalClassName={styles.modalMain}
     >
       <div className={styles.createPostModalContentBox}>
         {loading && <InlineStandSpinner />}

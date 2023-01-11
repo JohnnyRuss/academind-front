@@ -7,7 +7,7 @@ import {
   destructureSharedPostHeaderData,
 } from "../../../lib/destructurers";
 import { usePostQuery, useProfileReviewQuery } from "../../../hooks";
-import { selectPostsLoadingState } from "../../../store/selectors/postSelectors";
+import { selectOperationalPostsLoadingState } from "../../../store/selectors/postSelectors";
 
 import {
   PostActions,
@@ -35,13 +35,13 @@ function Post({
     notifyOnComment ? true : false
   );
 
-  const { deletePostQuery, startDeletion, handleResetPostError } =
+  const { deletePostQuery, startDeletion, handleResetPostOperationalError } =
     usePostQuery();
 
   const { hideFromProfileQuery, removeTagQuery } = useProfileReviewQuery();
 
   const { loading, error, task, message } = useSelector(
-    selectPostsLoadingState
+    selectOperationalPostsLoadingState
   );
 
   return (
@@ -82,7 +82,11 @@ function Post({
         )}
       </article>
       {error && task !== "get" && (
-        <Error asModal={true} msg={message} onClose={handleResetPostError} />
+        <Error
+          asModal={true}
+          msg={message}
+          onClose={handleResetPostOperationalError}
+        />
       )}
     </>
   );

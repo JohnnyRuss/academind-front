@@ -187,7 +187,7 @@ const conversationSlice = createSlice({
   },
 });
 
-export const conversationReducer = conversationSlice.reducer;
+export default conversationSlice.reducer;
 export const {
   setConversationError,
   resetConversationChatError,

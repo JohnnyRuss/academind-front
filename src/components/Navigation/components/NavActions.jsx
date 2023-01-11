@@ -1,15 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import {
-  selectActiveUserId,
-  selectIsActiveNotifications,
-} from "../../../store/selectors/activeUserSelectors";
+import { selectActiveUserId } from "../../../store/selectors/activeUserSelectors";
 import { selectAllBadgeCount } from "../../../store/selectors/badgeSelectors";
-import { setActiveNotifications } from "../../../store/reducers/activeUserReducer";
-import { useBlurOnBody, useBadgeQuery } from "../../../hooks";
+
+import { useBlurOnBody, useBadgeQuery, useNotifications } from "../../../hooks";
 
 import styles from "./styles/navActions.module.scss";
 import { NavAvatar, NavSearchBar } from "./";
@@ -21,23 +18,11 @@ import {
 } from "../../Layouts/Icons/icons";
 
 function NavActions({ activateNav }) {
-  const dispatch = useDispatch();
-
-  const activeNotifications = useSelector(selectIsActiveNotifications);
   const activeUserId = useSelector(selectActiveUserId);
   const { requestCount, messageCount, notificationCount } =
     useSelector(selectAllBadgeCount);
 
-  const activateNotifications = () =>
-    dispatch(setActiveNotifications(!activeNotifications));
-
-  const deactivateNotifications = () => dispatch(setActiveNotifications(false));
-
-  const { onFocus } = useBlurOnBody(
-    activateNotifications,
-    deactivateNotifications,
-    ["notification--modal", "notification--nav__btn"]
-  );
+  const { activateNotifications, deactivateNotifications } = useNotifications();
 
   const {
     getUnseenRequestCountQuery,
@@ -50,6 +35,12 @@ function NavActions({ activateNav }) {
     getUnseenConversationsCountQuery(activeUserId);
     getNotificationCountQuery(activeUserId);
   }, []);
+
+  const { onFocus } = useBlurOnBody(
+    activateNotifications,
+    deactivateNotifications,
+    ["notification--modal", "notification--nav__btn"]
+  );
 
   return (
     <div className={styles.mainNavActions}>

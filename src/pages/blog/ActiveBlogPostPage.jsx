@@ -21,7 +21,7 @@ function ActiveBlogPostPage() {
     getRelatedPostsQuery,
     getPostQuery,
     handleResetPosts,
-    handleResetPostError,
+    handleResetPostLoadingError,
   } = useBlogQuery();
 
   useEffect(() => {
@@ -38,8 +38,12 @@ function ActiveBlogPostPage() {
     <>
       {loading && <StandSpinner />}
       {!loading && (!error || (error && task !== "get")) && <ActiveBlogPost />}
-      {error && task === "get" && (
-        <Error asModal={true} msg={message} onClose={handleResetPostError} />
+      {error && (
+        <Error
+          asModal={true}
+          msg={message}
+          onClose={handleResetPostLoadingError}
+        />
       )}
     </>
   );

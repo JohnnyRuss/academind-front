@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useWindowDimention } from '../../../hooks';
+import { useEffect, useState } from "react";
+import { useWindowDimention } from "../../../hooks";
 
-import styles from './components/styles/postAuthentic.module.scss';
-import { PostDescription, PostMedia } from './components';
-import { UserIdentifier, BlogPost, Tags, DeletedPost } from '..';
+import styles from "./components/styles/postAuthentic.module.scss";
+import { PostDescription, PostMedia } from "./components";
+import { UserIdentifier, BlogPost, Tags, DeletedPost } from "..";
 
 /**
  * @Intro this element has three division, all of them are described below but in general and common to all, this element has one root element and shows user avatar, post description and post media files if post is shared or not. But if post is shared root element will get different className("shareAuthentic") and sets elements in different order. If this root element has not this className, elements row will be rendered in standard order. After All this element checks post type "post"||"blogPost" and shows up appropriate element Post||BlogPost. Both of the information, TYPE and SHARED, must be passed as a prop in all the cases.
@@ -33,6 +33,7 @@ function PostAuthentic({
 
   const [limit, setLimit] = useState(550);
   const { width } = useWindowDimention();
+
   useEffect(() => {
     if (width <= 480) setLimit(250);
     else if (width <= 680) setLimit(300);
@@ -41,25 +42,34 @@ function PostAuthentic({
   }, [width]);
 
   return (
-    <div className={shared ? styles.shareAuthentic : styles.postBody} data-post-authentic>
+    <div
+      className={shared ? styles.shareAuthentic : styles.postBody}
+      data-post-authentic
+    >
       {data.deleted || data.authentic?.restricted ? (
         <DeletedPost />
-      ) : type === 'post' && authenticType !== 'blogPost' ? (
+      ) : type === "post" && authenticType !== "blogPost" ? (
         <>
           <UserIdentifier
-            userId={data?.author._id}
+            userId={data?.author._id || "DELETED_LINK"}
             userName={data.author.userName}
             img={data.author.profileImg}
             timeAgo={data.createdAt}
             audience={shared ? data.authenticAudience : data.audience}
-            className={styles.postAuthenticIdentifier}>
+            className={styles.postAuthenticIdentifier}
+          >
             {tgs?.[0] && <Tags tags={tgs} />}
           </UserIdentifier>
-          <PostDescription description={data.description} className={styles.description} />
+          <PostDescription
+            description={data.description}
+            className={styles.description}
+          />
           {data.media && (
             <PostMedia
               activateMedia={
-                !proccessShare || !proccessUpdate ? activatePostMediaHandler : () => {}
+                !proccessShare || !proccessUpdate
+                  ? activatePostMediaHandler
+                  : () => {}
               }
               media={data.media}
               className={styles.media}
@@ -69,7 +79,13 @@ function PostAuthentic({
       ) : (
         <BlogPost
           post={
-            shared ? { ...data, tags: data.authenticTags, audience: data.authenticAudience } : data
+            shared
+              ? {
+                  ...data,
+                  tags: data.authenticTags,
+                  audience: data.authenticAudience,
+                }
+              : data
           }
           limitation={limit}
           options={false}

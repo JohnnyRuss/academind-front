@@ -36,6 +36,25 @@ export default function useSettingsQuery() {
     },
   });
 
+  const [currentWorkPlaceError, setCurrentWorkPlaceError] = useState({
+    error: false,
+
+    institution: {
+      hasError: false,
+      message: "",
+    },
+
+    position: {
+      hasError: false,
+      message: "",
+    },
+
+    description: {
+      hasError: false,
+      message: "",
+    },
+  });
+
   const [workplaceError, setWorkplaceError] = useState({
     error: false,
     company: {
@@ -149,6 +168,20 @@ export default function useSettingsQuery() {
       updateNestedUserInfoQuery({ field: "workplace", data, docId });
   }
 
+  function updateCurrentWorkplaceQuery({ data }) {
+    const { currentWorkPlaceError: currWorkplaceError } = new ValidateUserInfo(
+      data
+    ).validateCurrentWorkplace();
+
+    if (currWorkplaceError.error)
+      return setCurrentWorkPlaceError(currWorkplaceError);
+
+    addUserInfoQuery({
+      field: "currentWorkplace",
+      data,
+    });
+  }
+
   // Password And Email
 
   function updatePasswordQuery({ currPassword, newPassword }) {
@@ -188,10 +221,12 @@ export default function useSettingsQuery() {
     addWorkplaceQuery,
     updatePasswordQuery,
     updateEmailQuery,
+    updateCurrentWorkplaceQuery,
     //// errors ////
     workplaceError,
     birthDateError,
     educationError,
     livingPlaceError,
+    currentWorkPlaceError,
   };
 }

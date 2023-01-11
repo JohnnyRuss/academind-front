@@ -5,6 +5,7 @@
 .postsPageSideBar {
   position: sticky;
   flex: 2;
+  max-width: 38rem;
   align-self: flex-start;
   @include flexBox(column);
   @include postsPageSideBar;

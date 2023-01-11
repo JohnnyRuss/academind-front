@@ -3,8 +3,10 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { useProfileReviewQuery } from "../../../hooks";
-import { selectPendingPostsLoadingState } from "../../../store/selectors/activeUserSelectors";
-import { selectPosts } from "../../../store/selectors/postSelectors";
+import {
+  selectPosts,
+  selectPostsLoadingState,
+} from "../../../store/selectors/postSelectors";
 
 import {
   Spinner,
@@ -16,9 +18,7 @@ import ProfileReviewHiddenPosts from "../../../components/ProfileReview/ProfileR
 function ReviewHiddenPosts() {
   const { posts } = useSelector(selectPosts);
 
-  const { loading, error, message } = useSelector(
-    selectPendingPostsLoadingState
-  );
+  const { loading, error, message } = useSelector(selectPostsLoadingState);
 
   const { getHiddenPostsQuery, resetState } = useProfileReviewQuery();
 

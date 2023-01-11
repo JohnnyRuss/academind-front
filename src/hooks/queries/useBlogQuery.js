@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import {
   getBlogPosts,
-  startLoading,
   getTopRatedPublishers,
   getTopRatedBlogPosts,
   getPost,
   getRelatedPosts,
   // NaN API Handlers
   resetPosts,
-  resetErrorOnPost,
+  resetErrorOnPostOperation,
+  resetErrorOnLoadingState,
 } from "../../store/reducers/postsDataReducer";
 import {
   BLOG_POSTS_TOP_RATED_PUBLISHERS_COUNT,
@@ -25,8 +25,6 @@ export default function useBlogQuery() {
     hasMore,
     pathState,
   }) {
-    if (manualLoading) dispatch(startLoading());
-
     const query = controllQuery(pathState);
     dispatch(
       getBlogPosts({ page, limit: BLOG_POSTS_COUNT_PER_REQ, hasMore, query })
@@ -51,8 +49,12 @@ export default function useBlogQuery() {
     dispatch(resetPosts());
   }
 
-  function handleResetPostError() {
-    dispatch(resetErrorOnPost());
+  function handleResetPostOperationalError() {
+    dispatch(resetErrorOnPostOperation());
+  }
+
+  function handleResetPostLoadingError() {
+    dispatch(resetErrorOnLoadingState());
   }
 
   return {
@@ -62,7 +64,8 @@ export default function useBlogQuery() {
     getPostQuery,
     // NaN API Handlers
     handleResetPosts,
-    handleResetPostError,
+    handleResetPostOperationalError,
+    handleResetPostLoadingError,
   };
 }
 

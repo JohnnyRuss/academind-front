@@ -6,3 +6,5 @@ export { default as friendsSaga } from "./friendsSaga";
 export { default as conversationSaga } from "./conversationSaga";
 export { default as badgeSaga } from "./badgeSaga";
 export { default as settingsSaga } from "./settingsSaga";
+export { default as aboutSaga } from "./aboutSaga";
+export { default as notificationsSaga } from "./notificationsSaga";

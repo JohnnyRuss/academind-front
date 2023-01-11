@@ -2,17 +2,18 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { activeUserReducer } from "./activeUserReducer";
-import { userReducer } from "./userReducer";
-import { postsDataReducer } from "./postsDataReducer";
-import { commentsDataReducer } from "./commentsDataReducer";
-import { aboutReducer } from "./aboutReducer";
-import { createPostReducer } from "./createPostReducer";
-import { portalReducer } from "./portalReducer";
-import { friendsReducer } from "./friendsReducer";
-import { conversationReducer } from "./conversationReducer";
-import { badgeReducer } from "./badgeReducer";
-import { settingsReducer } from "./settingsReducer";
+import activeUserReducer from "./activeUserReducer";
+import userReducer from "./userReducer";
+import postsDataReducer from "./postsDataReducer";
+import commentsDataReducer from "./commentsDataReducer";
+import aboutReducer from "./aboutReducer";
+import createPostReducer from "./createPostReducer";
+import portalReducer from "./portalReducer";
+import friendsReducer from "./friendsReducer";
+import conversationReducer from "./conversationReducer";
+import badgeReducer from "./badgeReducer";
+import settingsReducer from "./settingsReducer";
+import notificationReducer from "./notificationReducer";
 
 const persistedActvieUserConfig = {
   key: "ActiveUser",
@@ -38,4 +39,5 @@ export const rootReducer = combineReducers({
   conversation: conversationReducer,
   badges: badgeReducer,
   settings: settingsReducer,
+  notifications: notificationReducer,
 });

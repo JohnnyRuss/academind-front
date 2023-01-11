@@ -74,6 +74,7 @@ function Comment({ type, data, handlers, className }) {
           </UserIdentifier>
           {comment.pin && <PinIcon className={styles.pinIcon} />}
         </div>
+        
         <CommentContent
           text={comment.text}
           likesCount={comment.likesAmount}
@@ -91,6 +92,7 @@ function Comment({ type, data, handlers, className }) {
             deleteCommentQuery({ type, postId, commentId, replyId })
           }
         />
+
         {!comment.cachedUser?.isDeleted && (
           <CommentActions
             reactions={comment.reactions}

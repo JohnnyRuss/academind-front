@@ -23,7 +23,7 @@ function Post() {
   const { posts } = useSelector(selectPosts);
   const { loading, error, message } = useSelector(selectPostsLoadingState);
 
-  const { getPostQuery, resetState, handleResetPostError } =
+  const { getPostQuery, resetState, handleResetPostLoadingError } =
     useRedirectedPostQuery();
 
   useEffect(() => {
@@ -41,7 +41,11 @@ function Post() {
         />
       )}
       {error && (
-        <Error asModal={true} msg={message} onClose={handleResetPostError} />
+        <Error
+          asModal={true}
+          msg={message}
+          onClose={handleResetPostLoadingError}
+        />
       )}
     </div>
   );

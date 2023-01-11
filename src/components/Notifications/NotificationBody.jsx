@@ -53,7 +53,7 @@ function NotificationBody({
       className={`${styles.notifyBody} ${notify.read ? "" : styles.unRead}`}
       onClick={() => handleNavigate(notify)}
     >
-      <Avatar src={notify.from?.profileImg} className={styles.notifyFig} />
+      <Avatar img={notify.from.profileImg} className={styles.notifyFig} />
       <p>
         {showNotificationMessage(notify)}
         <TimeAgo date={notify.createdAt} className={styles.notifyTime} />

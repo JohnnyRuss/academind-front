@@ -19,10 +19,17 @@ function WorkplaceFragment({
         onDelete={onDelete}
       >
         <p>
-          Worked in <strong>{data.company}</strong> as{" "}
-          <strong>{data.position}</strong> from{" "}
-          <strong>{formatDate(data.workingYears?.from, "verbal")}</strong> to{" "}
-          <strong>{formatDate(data.workingYears?.to, "verbal")}</strong>
+          Worked in <strong>{data.institution}</strong> as{" "}
+          <strong>{data.position}</strong>
+          {data.workingYears && (
+            <>
+              <span> from </span>
+              <strong>
+                {formatDate(data.workingYears?.from, "verbal")}
+              </strong>{" "}
+              to <strong>{formatDate(data.workingYears?.to, "verbal")}</strong>
+            </>
+          )}
         </p>
         <p>{data.description}</p>
       </FragmentWrapper>

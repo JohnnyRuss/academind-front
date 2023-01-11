@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest } from "redux-saga/effects";
 
 import {
   sendFriendRequest,
@@ -9,7 +9,7 @@ import {
   getAllFriends,
   getPendingRequests,
   getSentRequests,
-} from '../../reducers/friendsReducer';
+} from "../../reducers/friendsReducer";
 
 import {
   sendRequestHandler,
@@ -20,9 +20,9 @@ import {
   getAllFriendsHandler,
   getPendingRequestsHandler,
   getSentRequestsHandler,
-} from '../handlers/friendsHandlers';
+} from "../handlers/friendsHandlers";
 
-function* friendsSaga() {
+export default function* friendsSaga() {
   yield takeLatest(sendFriendRequest, sendRequestHandler);
   yield takeLatest(cancelFriendRequest, cancelRequestHandler);
   yield takeLatest(deleteFriendRequest, deleteRequestHandler);
@@ -32,5 +32,3 @@ function* friendsSaga() {
   yield takeLatest(getPendingRequests, getPendingRequestsHandler);
   yield takeLatest(getSentRequests, getSentRequestsHandler);
 }
-
-export default friendsSaga;

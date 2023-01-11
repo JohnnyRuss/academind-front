@@ -7,7 +7,7 @@ import {
   deleteNotification,
   deleteAllNotification,
   getNotifications,
-} from "../../store/reducers/activeUserReducer";
+} from "../../store/reducers/notificationReducer";
 
 function useNotificationQuery() {
   const dispatch = useDispatch();

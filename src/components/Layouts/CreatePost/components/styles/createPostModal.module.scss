@@ -3,6 +3,11 @@
 @use "../../../../../styles/helpers/abstract/mixins" as *;
 @use "../../../../../styles/helpers/variables/variables" as *;
 
+.modalMain {
+  border-radius: 1.2rem;
+  overflow: hidden;
+}
+
 .createPostModal {
   $space-around: 1rem;
   $header-h: 7rem;
@@ -10,8 +15,6 @@
   $max-modal-h: 40vw;
   $max-modal-h-md: 50vw;
   $max-modal-h-tablet: calc(100vh - $nav-height);
-
-  overflow: hidden;
 
   [data-modal-close-btn] svg {
     fill: color("darkGreyColor");
@@ -26,9 +29,9 @@
     width: 42vw;
     max-height: $max-modal-h;
     padding: $space-around;
+    padding-top: $header-h;
+    padding-bottom: $footer-h;
     background: color("whiteColor");
-    border-radius: 1rem;
-    overflow: hidden;
 
     @include media-1280 {
       width: 52vw;
@@ -51,8 +54,6 @@
     left: 0;
     right: 0;
     width: 100%;
-    background: color("whiteColor");
-    border-radius: $rounded-sm;
   }
 
   .createPostHeader {
@@ -92,8 +93,6 @@
   .content {
     max-height: calc($max-modal-h - $header-h - $footer-h - $space-around);
     overflow: auto;
-    margin-top: $header-h;
-    margin-bottom: $footer-h;
 
     &::-webkit-scrollbar {
       display: none;

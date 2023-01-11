@@ -31,4 +31,9 @@ export const selectUpdateableWorkplace = ({ settings }) => ({
   updateState: settings.updateState,
 });
 
+export const selectUpdateableCurrentWorkplace = ({ settings }) => ({
+  currentWorkplace: settings.updateables.currentWorkplace,
+  updateState: settings.updateState,
+});
+
 export const selectUpdateableStatus = ({ settings }) => settings.updateState;

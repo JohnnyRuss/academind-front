@@ -4,7 +4,7 @@
 
 .tagsWindow {
   position: absolute;
-  z-index: 1;
+  z-index: 999 !important;
   bottom: 85%;
   width: 20rem;
   height: auto;

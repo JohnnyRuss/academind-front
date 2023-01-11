@@ -96,7 +96,7 @@ const badgeSlice = createSlice({
   },
 });
 
-export const badgeReducer = badgeSlice.reducer;
+export default badgeSlice.reducer;
 export const {
   getUnseenRequestsCount,
   setUnseenRequestsCount,

@@ -16,6 +16,9 @@ const ChangeBirthDateForm = lazy(() =>
 const ChangeLivingPlaceForm = lazy(() =>
   import("./components/Forms/ChangeLivingPlaceForm")
 );
+const ChangeCurrentWorkplaceForm = lazy(() =>
+  import("./components/Forms/ChangeCurrentWorkplaceForm")
+);
 const ChangeWorkplaceForm = lazy(() =>
   import("./components/Forms/ChangeWorkplaceForm")
 );
@@ -33,6 +36,9 @@ const BirthdateDetails = lazy(() =>
 const LivingplaceDetails = lazy(() =>
   import("./components/Detailed/LivingplaceDetails")
 );
+const CurrentWorkplaceDetails = lazy(() =>
+  import("./components/Detailed/CurrentWorkplaceDetails")
+);
 const WorkplaceDetails = lazy(() =>
   import("./components/Detailed/WorkplaceDetails")
 );
@@ -47,6 +53,7 @@ export const toRender = {
     changeEducation: <ChangeEducationForm />,
     changeBirthdate: <ChangeBirthDateForm />,
     changeLivingplace: <ChangeLivingPlaceForm />,
+    changeCurrentWorkplace: <ChangeCurrentWorkplaceForm />,
     changeWorkplace: <ChangeWorkplaceForm />,
     changeBirthplace: <ChangeBirthplaceForm />,
   },
@@ -57,6 +64,7 @@ export const toRender = {
     showLivingplace: <LivingplaceDetails />,
     showWorkplace: <WorkplaceDetails />,
     showBirthplace: <BirthplaceDetails />,
+    showCurrentWorkplace: <CurrentWorkplaceDetails />,
   },
 };
 
@@ -100,8 +108,13 @@ export const detailedKeys = [
     id: nanoid(),
   },
   {
+    key: "showCurrentWorkplace",
+    label: "current workplace",
+    id: nanoid(),
+  },
+  {
     key: "showWorkplace",
-    label: "workplace",
+    label: "workplaces",
     id: nanoid(),
   },
 ];
@@ -114,4 +127,8 @@ export const editableKeys = {
   changeLivingplace: { key: "changeLivingplace", label: "livingplace" },
   changeWorkplace: { key: "changeWorkplace", label: "workplace" },
   changeBirthplace: { key: "changeBirthplace", label: "birthplace" },
+  changeCurrentWorkplace: {
+    key: "changeCurrentWorkplace",
+    label: "current workplace",
+  },
 };

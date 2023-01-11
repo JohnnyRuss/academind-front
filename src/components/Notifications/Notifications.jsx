@@ -1,33 +1,38 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
-  selectActiveUserId,
   selectNotifications,
   selectNotificationsLoadingState,
-} from "../../store/selectors/activeUserSelectors";
+} from "../../store/selectors/notificationSelectors";
+import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 import { selectNotificationCount } from "../../store/selectors/badgeSelectors";
-import { setActiveNotifications } from "../../store/reducers/activeUserReducer";
-import { useNotificationQuery, useBadgeQuery } from "../../hooks";
+
+import {
+  useNotificationQuery,
+  useBadgeQuery,
+  useNotifications,
+} from "../../hooks";
 
 import styles from "./styles/notifications.module.scss";
 import NotificationBody from "./NotificationBody";
 import { BlockSpinner, Error } from "../Layouts";
 
 function Notifications() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const activeUserId = useSelector(selectActiveUserId);
   const notifications = useSelector(selectNotifications);
+  const unseenNotificationCount = useSelector(selectNotificationCount);
   const { loading, error, message, task } = useSelector(
     selectNotificationsLoadingState
   );
-  const unseenNotificationCount = useSelector(selectNotificationCount);
 
   const [activeNotification, setActiveNotification] = useState("");
+
+  const { resetUnseenNotificationsCountQuery } = useBadgeQuery();
 
   const {
     handleResetNotificationError,
@@ -38,7 +43,7 @@ function Notifications() {
     markNotificationAsReadQuery,
   } = useNotificationQuery();
 
-  const { resetUnseenNotificationsCountQuery } = useBadgeQuery();
+  const { deactivateNotifications } = useNotifications();
 
   function handleNavigate(notify) {
     if (notify.target.targetType === "blogPost")
@@ -63,7 +68,7 @@ function Notifications() {
     )
       navigate(`/profile/${notify.location}/posts`);
 
-    dispatch(setActiveNotifications(false));
+    deactivateNotifications();
 
     if (!notify.read) markNotificationAsReadQuery(notify._id);
   }
@@ -97,7 +102,9 @@ function Notifications() {
             clear all notifications
           </button>
         </div>
+
         {loading && <BlockSpinner />}
+
         {!loading &&
           (!error || (error && task !== "get")) &&
           notifications[0] &&
@@ -112,11 +119,13 @@ function Notifications() {
               handleDeleteNotify={handleDeleteNotify}
             />
           ))}
+
         {!loading && !error && !notifications[0] && (
           <p className={styles.message}>there are no notifications</p>
         )}
         {error && task === "get" && <Error msg={message} />}
       </div>
+
       {error && task !== "get" && (
         <Error
           asModal={true}

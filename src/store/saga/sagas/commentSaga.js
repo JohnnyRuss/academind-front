@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest } from "redux-saga/effects";
 
 import {
   addComment,
@@ -12,7 +12,7 @@ import {
   reactOnCommentReply,
   pinCommentReply,
   getPostComments,
-} from '../../reducers/commentsDataReducer';
+} from "../../reducers/commentsDataReducer";
 
 import {
   getPostsCommentsHandler,
@@ -26,9 +26,9 @@ import {
   reactOnCommentReplyHandler,
   pinCommentHandler,
   pinCommentReplyHandler,
-} from '../handlers/commentsHandlers';
+} from "../handlers/commentsHandlers";
 
-function* postsSaga() {
+export default function* commentsSaga() {
   yield takeLatest(getPostComments, getPostsCommentsHandler);
   yield takeLatest(addComment, addCommentHandler);
   yield takeLatest(addCommentReply, addCommentReplyHandler);
@@ -41,5 +41,3 @@ function* postsSaga() {
   yield takeLatest(pinComment, pinCommentHandler);
   yield takeLatest(pinCommentReply, pinCommentReplyHandler);
 }
-
-export default postsSaga;

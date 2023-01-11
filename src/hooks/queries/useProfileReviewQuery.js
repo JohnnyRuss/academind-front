@@ -5,11 +5,10 @@ import {
   addToProfile,
   hideFromProfile,
   resetPosts,
-} from "../../store/reducers/postsDataReducer";
-import {
   getHiddenPosts,
   getPendingPosts,
-} from "../../store/reducers/activeUserReducer";
+} from "../../store/reducers/postsDataReducer";
+
 import { resetComments } from "../../store/reducers/commentsDataReducer";
 
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";

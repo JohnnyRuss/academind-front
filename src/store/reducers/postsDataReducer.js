@@ -1,29 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-function updateLoadingState({
-  state,
-  key,
-  loading = true,
-  error = false,
-  message,
-  task,
-  hasTask = true,
-}) {
-  state[key].loading = loading;
-  state[key].error = error ? true : false;
-  state[key].message = error ? message : "";
-  if (hasTask) state[key].task = error ? task : "";
-}
-
 const postsDataSlice = createSlice({
   name: "PostsData",
   initialState: {
-    loadingState: {
+    operationalLoadingState: {
       loading: false,
       error: false,
       message: "",
       task: "", // "get" | "deletion" | "audience" | "save" | "showOnProfile" | "addToProfile" | "hide" | "removeTag" |
     },
+    loadingState: { loading: false, error: false, message: "" },
     publishersLoadingState: { loading: false, error: false, message: "" },
     topRatedPostsLoadingState: { loading: false, error: false, message: "" },
     relatedPostsLoadingState: { loading: false, error: false, message: "" },
@@ -34,18 +20,45 @@ const postsDataSlice = createSlice({
     results: "",
   },
   reducers: {
-    // ============================================ //
-    // ======= Error Setters And Reseters ======== //
-    // ========================================== //
+    // SECTION: ======= Error Setters And Reseters ======== //
 
-    setErrorOnPosts(state, { payload }) {
+    setErrorOnPostOperation(state, { payload }) {
+      updateOperationalLoadingState({
+        state,
+        loading: false,
+        error: true,
+        message: payload.message,
+        task: payload.task,
+      });
+    },
+
+    resetErrorOnPostOperation(state) {
+      updateOperationalLoadingState({
+        state,
+        loading: false,
+        error: false,
+        message: "",
+        task: "",
+      });
+    },
+
+    setErrorOnLoadingState(state, { payload }) {
       updateLoadingState({
         state,
         key: "loadingState",
         loading: false,
         error: true,
         message: payload.message,
-        task: payload.task,
+      });
+    },
+
+    resetErrorOnLoadingState(state, { payload }) {
+      updateLoadingState({
+        state,
+        key: "loadingState",
+        loading: false,
+        error: false,
+        message: "",
       });
     },
 
@@ -56,7 +69,6 @@ const postsDataSlice = createSlice({
         loading: false,
         error: true,
         message: payload.message,
-        hasTask: false,
       });
     },
 
@@ -67,7 +79,6 @@ const postsDataSlice = createSlice({
         loading: false,
         error: true,
         message: payload.message,
-        hasTask: false,
       });
     },
 
@@ -78,16 +89,6 @@ const postsDataSlice = createSlice({
         loading: false,
         error: true,
         message: payload.message,
-        hasTask: false,
-      });
-    },
-
-    resetErrorOnPost(state) {
-      updateLoadingState({
-        state,
-        key: "loadingState",
-        hasTask: true,
-        loading: false,
       });
     },
 
@@ -99,17 +100,7 @@ const postsDataSlice = createSlice({
       state.results = "";
     },
 
-    // ================================ //
-    // ======= Manual Trigger ======== //
-    // ===============================//
-
-    startLoading(state) {
-      updateLoadingState({ state, key: "loadingState" });
-    },
-
-    // ============================================ //
-    // ======= Global Setters And Getters ======== //
-    // ===========================================//
+    // SECTION: ======= Global Setters And Getters ======== //
 
     getPost(state) {
       updateLoadingState({ state, key: "loadingState" });
@@ -136,14 +127,6 @@ const postsDataSlice = createSlice({
     setSinglePost(state, { payload }) {
       state.posts = [payload];
       updateLoadingState({ state, key: "loadingState", loading: false });
-    },
-
-    // --> trigger is called in portal reducer
-    setUpdatedPost(state, { payload }) {
-      const { params, data } = payload;
-
-      const i = state.posts.findIndex((post) => post._id === params.postId);
-      state.posts[i] = { ...state.posts[i], ...data };
     },
 
     //trigger is called in comments reducer
@@ -175,9 +158,7 @@ const postsDataSlice = createSlice({
       });
     },
 
-    // ============================= //
-    // ======= Post CRUD'S ======== //
-    // =========================== //
+    // SECTION: ======= Post CRUD'S ======== //
 
     changePostAudience() {},
 
@@ -189,7 +170,7 @@ const postsDataSlice = createSlice({
     },
 
     deletePost(state) {
-      updateLoadingState({ state, key: "loadingState" });
+      updateOperationalLoadingState({ state });
       state.results = state.results - 1;
     },
 
@@ -198,7 +179,15 @@ const postsDataSlice = createSlice({
 
       if (state.results) state.results = state.results -= 1;
 
-      updateLoadingState({ state, key: "loadingState", loading: false });
+      updateOperationalLoadingState({ state, loading: false });
+    },
+
+    // --> trigger is called in portal reducer
+    setUpdatedPost(state, { payload }) {
+      const { params, data } = payload;
+
+      const i = state.posts.findIndex((post) => post._id === params.postId);
+      state.posts[i] = { ...state.posts[i], ...data };
     },
 
     reactOnPost() {},
@@ -210,9 +199,23 @@ const postsDataSlice = createSlice({
       Object.keys(data).map((key) => (post[key] = data[key]));
     },
 
-    // =========================== //
-    // ======= Bookmarks ======== //
-    // ========================= //
+    // SECTION: ======= User Related ======== //
+
+    getFeedPosts(state, { payload }) {
+      if (payload.hasMore === false)
+        updateLoadingState({ state, key: "loadingState" });
+    },
+
+    getProfilePosts(state, { payload }) {
+      if (payload.hasMore === false)
+        updateLoadingState({ state, key: "loadingState" });
+    },
+
+    // SECTION: ======= Bookmarks ======== //
+    getBookmarks(state, { payload }) {
+      if (payload.hasMore === false)
+        updateLoadingState({ state, key: "loadingState" });
+    },
 
     savePost() {},
 
@@ -234,11 +237,18 @@ const postsDataSlice = createSlice({
       ];
 
       if (results) state.results = results;
+
+      updateLoadingState({ state, key: "loadingState", loading: false });
     },
 
-    // ================================ //
-    // ======= Profile-Review ======== //
-    // ============================== //
+    // SECTION: ======= Profile-Review ======== //
+    getPendingPosts(state) {
+      updateLoadingState({ state, key: "loadingState" });
+    },
+
+    getHiddenPosts(state) {
+      updateLoadingState({ state, key: "loadingState" });
+    },
 
     // --> used in profileReview on Tagged Posts
     showOnProfile() {},
@@ -272,45 +282,38 @@ const postsDataSlice = createSlice({
       }
     },
 
-    // =========================== //
-    // ======= BlogPosts ======== //
-    // ========================= //
+    // SECTION: ======= BlogPosts ======== //
 
-    getBlogPosts() {},
+    getBlogPosts(state, { payload }) {
+      if (payload.hasMore === false)
+        updateLoadingState({ state, key: "loadingState" });
+    },
 
     getTopRatedPublishers(state) {
-      updateLoadingState({
-        state,
-        key: "publishersLoadingState",
-        hasTask: false,
-      });
+      updateLoadingState({ state, key: "publishersLoadingState" });
     },
 
     setTopRatedPublishers(state, { payload }) {
       state.topRatedPublishers = payload;
+
       updateLoadingState({
         state,
         key: "publishersLoadingState",
         loading: false,
-        hasTask: false,
       });
     },
 
     getTopRatedBlogPosts(state) {
-      updateLoadingState({
-        state,
-        key: "topRatedPostsLoadingState",
-        hasTask: false,
-      });
+      updateLoadingState({ state, key: "topRatedPostsLoadingState" });
     },
 
     setTopRatedBlogPosts(state, { payload }) {
       state.topRatedBlogPosts = payload;
+
       updateLoadingState({
         state,
         key: "topRatedPostsLoadingState",
         loading: false,
-        hasTask: false,
       });
     },
 
@@ -318,55 +321,59 @@ const postsDataSlice = createSlice({
       updateLoadingState({
         state,
         key: "relatedPostsLoadingState",
-        hasTask: false,
       });
     },
 
     setRelatedPosts(state, { payload }) {
       state.relatedPosts = payload;
+
       updateLoadingState({
         state,
         key: "relatedPostsLoadingState",
         loading: false,
-        hasTask: false,
       });
     },
   },
 });
 
-export const postsDataReducer = postsDataSlice.reducer;
+export default postsDataSlice.reducer;
 export const {
-  setErrorOnPosts,
-  resetErrorOnPost,
-  setErrorOnTopRatedBlogPosts,
+  // SECTION-RELATED: ======= Error Setters And Reseters ======== //
+  setErrorOnPostOperation,
+  resetErrorOnPostOperation,
+  setErrorOnLoadingState,
+  resetErrorOnLoadingState,
   setErrorOnTopRatedPublishers,
+  setErrorOnTopRatedBlogPosts,
   setErrorOnRelatedBlogPosts,
-  startLoading,
+  resetPosts,
+  // SECTION-RELATED: ======= Global Setters And Getters ======== //
+  getPost,
   setPosts,
-  setBookmarkedPosts,
   setNewPost,
+  setSinglePost,
+  encreasePostCommentCount,
+  decreasePostCommentCount,
   setActiveUserUpdatedCover,
+  // SECTION-RELATED: ======= Post CRUD'S ======== //
+  changePostAudience,
+  setUpdatedPostAudience,
   deletePost,
   setDeletedPost,
   setUpdatedPost,
-  changePostAudience,
-  setUpdatedPostAudience,
   reactOnPost,
   setPostReaction,
-  encreasePostCommentCount,
-  decreasePostCommentCount,
+  // SECTION-RELATED: ======= User Related ======== //
+  getProfilePosts,
+  getFeedPosts,
+  // SECTION-RELATED: ======= Bookmarks ======== //
   savePost,
   removeBookmark,
-  resetPosts,
-  getBlogPosts,
-  getTopRatedBlogPosts,
-  setTopRatedBlogPosts,
-  getTopRatedPublishers,
-  setTopRatedPublishers,
-  getRelatedPosts,
-  setRelatedPosts,
-  getPost,
-  setSinglePost,
+  setBookmarkedPosts,
+  // SECTION-RELATED: ======= Profile-Review ======== //
+  getPendingPosts,
+  getHiddenPosts,
+  getBookmarks,
   showOnProfile,
   addToProfile,
   setShowOnProfile,
@@ -374,4 +381,37 @@ export const {
   setHiddenPost,
   removeTag,
   setRemovedTag,
+  // SECTION-RELATED: ======= BlogPosts ======== //
+  getBlogPosts,
+  getTopRatedPublishers,
+  setTopRatedPublishers,
+  getTopRatedBlogPosts,
+  setTopRatedBlogPosts,
+  getRelatedPosts,
+  setRelatedPosts,
 } = postsDataSlice.actions;
+
+function updateOperationalLoadingState({
+  state,
+  loading = true,
+  error = false,
+  message,
+  task,
+}) {
+  state.operationalLoadingState.loading = loading;
+  state.operationalLoadingState.error = error ? true : false;
+  state.operationalLoadingState.message = error ? message : "";
+  state.operationalLoadingState.task = error ? task : "";
+}
+
+function updateLoadingState({
+  state,
+  key,
+  loading = true,
+  error = false,
+  message = "",
+}) {
+  state[key].loading = loading;
+  state[key].error = error ? true : false;
+  state[key].message = error ? message : "";
+}

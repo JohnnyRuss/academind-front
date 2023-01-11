@@ -137,7 +137,7 @@ const friendsSlice = createSlice({
   },
 });
 
-export const friendsReducer = friendsSlice.reducer;
+export default friendsSlice.reducer;
 export const {
   setRequestError,
   resetRequestError,

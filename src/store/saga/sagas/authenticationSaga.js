@@ -16,7 +16,7 @@ import {
   sendRegistrationRequestHandler,
 } from "../handlers/authenticationHandlers";
 
-function* authenticationSaga() {
+export default function* authenticationSaga() {
   yield takeLatest(sendRegistrationRequest, sendRegistrationRequestHandler);
   yield takeLatest(login, loginHandler);
   yield takeLatest(logOut, logOutHandler);
@@ -26,5 +26,3 @@ function* authenticationSaga() {
     sendRegistrationPasswordConfirmHandler
   );
 }
-
-export default authenticationSaga;

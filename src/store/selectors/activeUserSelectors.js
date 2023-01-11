@@ -10,12 +10,6 @@ export const selectActiveUserLoadingState = ({ activeUser }) =>
 export const selectActiveUserRegistrationLoadingState = ({ activeUser }) =>
   activeUser.registerLoadingState;
 
-export const selectPendingPostsLoadingState = ({ activeUser }) =>
-  activeUser.pendingPostsLoadingState;
-
-export const selectNotificationsLoadingState = ({ activeUser }) =>
-  activeUser.notificationLoadingState;
-
 /* ============================================= */
 /* ============== Authentication ============== */
 /* =========================================== */
@@ -48,17 +42,3 @@ export const selectActiveUserShortInfo = ({ activeUser }) => ({
   image: activeUser.user.profileImg,
   _id: activeUser.user._id,
 });
-
-/* ============================================= */
-/* ============== Notifications =============== */
-/* =========================================== */
-
-const selectedNotifications = ({ activeUser }) => activeUser.notifications;
-
-export const selectNotifications = createSelector(
-  selectedNotifications,
-  (memorised) => memorised
-);
-
-export const selectIsActiveNotifications = ({ activeUser }) =>
-  activeUser.activeNotifications;

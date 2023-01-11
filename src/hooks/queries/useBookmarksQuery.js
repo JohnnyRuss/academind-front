@@ -4,10 +4,9 @@ import { BOOKMARKS_POSTS_COUNT_PER_REQ } from "../../lib/config";
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 
 import {
+  resetPosts,
   getBookmarks,
-  startNestedLoading,
-} from "../../store/reducers/userReducer";
-import { resetPosts } from "../../store/reducers/postsDataReducer";
+} from "../../store/reducers/postsDataReducer";
 import { resetComments } from "../../store/reducers/commentsDataReducer";
 
 export default function useBookmarksQuery() {
@@ -15,12 +14,7 @@ export default function useBookmarksQuery() {
 
   const activeUserId = useSelector(selectActiveUserId);
 
-  function getBookmarksQuery({
-    page = 1,
-    hasMore = false,
-    manualLoading = false,
-  }) {
-    if (manualLoading) dispatch(startNestedLoading());
+  function getBookmarksQuery({ page = 1, hasMore = false }) {
     dispatch(
       getBookmarks({
         limit: BOOKMARKS_POSTS_COUNT_PER_REQ,

@@ -128,7 +128,7 @@ const portalSlice = createSlice({
   },
 });
 
-export const portalReducer = portalSlice.reducer;
+export default portalSlice.reducer;
 
 export const {
   // Aactive Media Files

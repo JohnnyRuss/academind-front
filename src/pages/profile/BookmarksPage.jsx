@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { selectPosts } from "../../store/selectors/postSelectors";
-import { selectUserNestedLoadingState } from "../../store/selectors/userSelectors";
+import {
+  selectPosts,
+  selectPostsLoadingState,
+} from "../../store/selectors/postSelectors";
 
 import { useRestrictPrivateRoute, useBookmarksQuery } from "../../hooks";
 
@@ -16,7 +18,7 @@ function BookmarksPage() {
 
   const { posts, hasMore } = useSelector(selectPosts);
 
-  const { loading, error, message } = useSelector(selectUserNestedLoadingState);
+  const { loading, error, message } = useSelector(selectPostsLoadingState);
   const { getBookmarksQuery, resetState } = useBookmarksQuery();
 
   const [page, setPage] = useState(1);
@@ -26,7 +28,7 @@ function BookmarksPage() {
   }
 
   useEffect(() => {
-    getBookmarksQuery({ manualLoading: true });
+    getBookmarksQuery({});
     return () => resetState();
   }, []);
 

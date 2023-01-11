@@ -53,18 +53,6 @@ export default class ValidateRegistrationInfo extends Validator {
     },
   };
 
-  availableGenders = ["male", "female"];
-
-  availablePositions = [
-    "professor",
-    "associate professor",
-    "assistant professor",
-    "researcher",
-    "administrative personnel",
-    "phd student",
-    "post-doc-fellow",
-  ];
-
   constructor(credentials) {
     super();
     this.credentials = credentials;
@@ -215,7 +203,7 @@ export default class ValidateRegistrationInfo extends Validator {
   }
 
   validatePosition() {
-    const isValidPoition = this.checkIsValidPosition({
+    const isValidPoition = this.checkIsValidWokplacePosition({
       value: this.credentials.registrationBio.position,
     });
 

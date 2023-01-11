@@ -6,6 +6,8 @@ $heading-space-bottom: 3rem;
 $heading-v-pad: 1.75rem;
 $base-space-between: 2rem;
 
+$forms-inner-container-w: 40rem;
+
 @mixin settingsHeading {
   padding: 3rem $heading-v-pad;
   margin-bottom: $heading-space-bottom;
@@ -46,9 +48,11 @@ $base-space-between: 2rem;
 
 @mixin formsContainer {
   gap: $base-space-between; // space between form and update btns
+  padding: 0 1rem;
 
   .form {
     gap: $base-space-between; // space between form fields
+    min-width: $forms-inner-container-w;
   }
 
   .dateFrom,
@@ -67,11 +71,15 @@ $base-space-between: 2rem;
       text-transform: capitalize;
     }
   }
+
+  .singleBtn {
+    min-width: 40rem;
+    padding: 1rem 0;
+  }
 }
 
 @mixin updateBtnBox {
-  display: flex;
-  justify-content: flex-end;
+  width: $forms-inner-container-w;
   gap: $base-space-between;
 
   .cancelBtn,

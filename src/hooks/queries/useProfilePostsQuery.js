@@ -2,8 +2,10 @@ import { useDispatch } from "react-redux";
 
 import { PROFILE_POSTS_COUNT_PER_REQ } from "../../lib/config";
 
-import { getProfilePosts } from "../../store/reducers/userReducer";
-import { resetPosts } from "../../store/reducers/postsDataReducer";
+import {
+  getProfilePosts,
+  resetPosts,
+} from "../../store/reducers/postsDataReducer";
 import { resetComments } from "../../store/reducers/commentsDataReducer";
 
 export default function useProfilePostsQuery() {

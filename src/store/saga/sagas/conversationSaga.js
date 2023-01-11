@@ -20,7 +20,7 @@ import {
   markAsReadHandler,
 } from "../handlers/conversationHandlers";
 
-function* converastionSaga() {
+export default function* converastionSaga() {
   yield takeLatest(getAllConversations, getAllConversationsHandler);
   yield takeLatest(getLastConversation, getLastConversationHandler);
   yield takeLatest(getConversation, getConversationHandler);
@@ -29,5 +29,3 @@ function* converastionSaga() {
   yield takeEvery(sendMessage, sendMessageHandler);
   yield takeLatest(markAsRead, markAsReadHandler);
 }
-
-export default converastionSaga;

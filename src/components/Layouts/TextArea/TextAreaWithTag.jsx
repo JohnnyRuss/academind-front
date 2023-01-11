@@ -79,7 +79,7 @@ function TextAreaWithTag({
       )}
       <div className={styles.fields}>
         <TextareaAutosize
-          id="test"
+          id="text-area-with-tag"
           minRows={1}
           maxRows={maxRows || 5}
           placeholder={placeholder}

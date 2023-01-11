@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useParams } from "react-router-dom";
 
@@ -12,18 +12,21 @@ import { Error, StandSpinner } from "../../components/Layouts";
 function UserPage() {
   const { id: profileId } = useParams();
 
+  const [isMounting, setIsMounting] = useState(true);
+
   const { loading, error, message } = useSelector(selectUserLoadingState);
 
   const { getUserProfileQuery, handleResetError } = useUserProfileQuery();
 
   useEffect(() => {
     getUserProfileQuery(profileId);
+    setIsMounting(false);
   }, [profileId]);
 
   return (
     <>
       {loading && <StandSpinner />}
-      {!loading && !error && (
+      {!isMounting && !loading && !error && (
         <>
           <UserCover />
           <Outlet />

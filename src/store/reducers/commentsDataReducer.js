@@ -226,7 +226,7 @@ const commentsDataSlice = createSlice({
   },
 });
 
-export const commentsDataReducer = commentsDataSlice.reducer;
+export default commentsDataSlice.reducer;
 export const {
   setCommentsError,
   getPostComments,

@@ -18,6 +18,8 @@ import {
   resetEducation,
   updateWorkplace,
   resetWorkplace,
+  updateCurrentWorkplace,
+  resetCurrentWorkplace,
 } from "../../store/reducers/settingsReducer";
 
 export default function useSettings() {
@@ -85,6 +87,14 @@ export default function useSettings() {
     dispatch(resetEducation());
   }
 
+  function handleUpdateCurrentWorkplace(data) {
+    dispatch(updateCurrentWorkplace(data));
+  }
+
+  function handleResetCurrentWorkplace(data) {
+    dispatch(resetCurrentWorkplace(data));
+  }
+
   function handleUpdateWorkplace(data) {
     dispatch(updateWorkplace(data));
   }
@@ -115,6 +125,8 @@ export default function useSettings() {
     handleResetLivingplace,
     handleUpdateEducation,
     handleResetEducation,
+    handleUpdateCurrentWorkplace,
+    handleResetCurrentWorkplace,
     handleUpdateWorkplace,
     handleResetWorkplace,
     handleCancel,

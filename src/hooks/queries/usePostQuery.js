@@ -16,7 +16,7 @@ import {
   savePost,
   changePostAudience,
   // NaN API Tasks
-  resetErrorOnPost,
+  resetErrorOnPostOperation,
 } from "../../store/reducers/postsDataReducer";
 
 import { useValidateCreatePost } from "../";
@@ -100,8 +100,8 @@ function usePostQuery() {
   }
 
   // NaN API Tasks
-  function handleResetPostError() {
-    dispatch(resetErrorOnPost());
+  function handleResetPostOperationalError() {
+    dispatch(resetErrorOnPostOperation());
   }
 
   return {
@@ -113,7 +113,7 @@ function usePostQuery() {
     changePostAudienceQuery,
     startDeletion,
     // NaN API Tasks
-    handleResetPostError,
+    handleResetPostOperationalError,
   };
 }
 

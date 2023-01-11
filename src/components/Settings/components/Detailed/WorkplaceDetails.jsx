@@ -26,6 +26,7 @@ function WorkplaceDetails({ editable, withBtn = true }) {
           }}
         />
       )}
+
       {workplaces && (
         <div className={`${styles.listedContent} ${styles.fragmentsContainer}`}>
           {workplaces.map((workplace) => (

@@ -57,8 +57,8 @@ function PostsPageUserInfo() {
         <li>
           <CaseIcon className={styles.icon} />
           <span>
-            <span>Current workplace </span>
-            <strong>{workplace.company} </strong>
+            <span>Currently works at </span>
+            <strong>{workplace.institution} </strong>
             <span>as </span>
             <strong>{workplace.position}</strong>
           </span>

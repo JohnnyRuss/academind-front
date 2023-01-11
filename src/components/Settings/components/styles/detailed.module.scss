@@ -31,6 +31,8 @@
 }
 
 .updateBtnBox {
+  display: flex;
+  justify-content: flex-end;
   @include updateBtnBox;
 }
 
@@ -38,12 +40,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 1rem;
   @include formsContainer;
 
   .form {
     display: flex;
-    min-width: 40rem;
     justify-content: center;
   }
 
@@ -53,11 +53,6 @@
 
   [data-select-box] {
     width: 100%;
-  }
-
-  .singleBtn {
-    min-width: 40rem;
-    padding: 1rem 0;
   }
 }
 

@@ -25,7 +25,7 @@ function BlogPage() {
     getBlogPostsQuery,
     getTopRatedPublishersAndPostsQuery,
     handleResetPosts,
-    handleResetPostError,
+    handleResetPostLoadingError,
   } = useBlogQuery();
 
   const [page, setPage] = useState(1);
@@ -43,7 +43,6 @@ function BlogPage() {
     getBlogPostsQuery({
       hasMore: false,
       pathState: state,
-      manualLoading: true,
     });
 
     getTopRatedPublishersAndPostsQuery();
@@ -69,8 +68,12 @@ function BlogPage() {
       {!loading && (!error || (error && task !== "get")) && (
         <Blog posts={posts} hasMore={hasMore} handleNext={handleNext} />
       )}
-      {error && task === "get" && (
-        <Error asModal={true} msg={message} onClose={handleResetPostError} />
+      {error && (
+        <Error
+          asModal={true}
+          msg={message}
+          onClose={handleResetPostLoadingError}
+        />
       )}
     </>
   );

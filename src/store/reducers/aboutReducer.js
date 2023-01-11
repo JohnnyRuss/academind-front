@@ -40,6 +40,6 @@ const aboutSlice = createSlice({
   },
 });
 
-export const aboutReducer = aboutSlice.reducer;
+export default aboutSlice.reducer;
 export const { getUserAboutData, setUserAboutData, resetData, setAboutError } =
   aboutSlice.actions;

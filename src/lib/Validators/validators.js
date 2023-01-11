@@ -1,6 +1,23 @@
 import validator from "validator";
+import {
+  VALID_BLOG_POST_CATEGORIES,
+  USER_GENDER,
+  USER_WORKPLACE_POSITIONS,
+} from "../config";
 
 export class Validator {
+  _blogPostTitleMinLetterCount = 3;
+
+  _blogPostMinWordCount = 3;
+
+  _avalableBlogPostCategories = VALID_BLOG_POST_CATEGORIES;
+
+  availableGenders = USER_GENDER;
+
+  availablePositions = USER_WORKPLACE_POSITIONS;
+
+  //////////////////////////////////////////////
+
   checkStrSize({ value, min }) {
     if (!value.trim()) return { isLess: false, isEmpty: true };
     else if (min && value.trim().length < min)
@@ -13,7 +30,7 @@ export class Validator {
     else return { isEmpty: false };
   }
 
-  checkValidCategory(category) {
+  checkValidBlogPostCategory(category) {
     if (!this._avalableBlogPostCategories.some((cat) => cat === category))
       return { isValid: false };
     else return { isValid: true };
@@ -62,7 +79,7 @@ export class Validator {
     return this.availableGenders.includes(value);
   }
 
-  checkIsValidPosition({ value }) {
+  checkIsValidWokplacePosition({ value }) {
     return this.availablePositions.includes(value);
   }
 
@@ -84,6 +101,7 @@ export class Validator {
     const isLatin = withDash
       ? this.checkOnlyLatinLettersAndDash({ value })
       : this.checkOnlyLatinLetters({ value });
+
     const [step1, step2] = location.split(".");
 
     let message = {

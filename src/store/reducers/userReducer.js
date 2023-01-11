@@ -15,14 +15,7 @@ function updateLoadingState({
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    // For Top Level like Feed And Profile
     loadingState: {
-      loading: false,
-      error: false,
-      message: "",
-    },
-    // For nested routes like profile/bookmark or profile/about
-    nestedLoadingState: {
       loading: false,
       error: false,
       message: "",
@@ -37,20 +30,7 @@ const userSlice = createSlice({
   },
 
   reducers: {
-    // ====================================== //
-    // ========== Manual Triggers ========== //
-    // ==================================== //
-    // manual triggers are used because getBookmarks,getFeedPosts and etc. are trigered in this reducer but are seted in to the postsDataReducer. so in the case to controll loadingState we are useing manual trigers.
-
-    // used by: getFeedPostsQuery;
-    startLoading(state) {
-      updateLoadingState({ state, key: "loadingState" });
-    },
-
-    resetLoadingState(state) {
-      updateLoadingState({ state, key: "loadingState", loading: false });
-    },
-
+    // SECTION: ======= Error Setters And Reseters ======== //
     setUserError(state, { payload }) {
       updateLoadingState({
         state,
@@ -69,36 +49,6 @@ const userSlice = createSlice({
       });
     },
 
-    // used by: getBookmarksQuery;
-    startNestedLoading(state) {
-      updateLoadingState({ state, key: "nestedLoadingState" });
-    },
-
-    resetNestedLoadingState(state) {
-      updateLoadingState({ state, key: "nestedLoadingState", loading: false });
-    },
-
-    setUserNestedError(state, { payload }) {
-      updateLoadingState({
-        state,
-        key: "nestedLoadingState",
-        loading: false,
-        error: true,
-        message: payload.message,
-      });
-    },
-
-    resetUserNestedError(state) {
-      updateLoadingState({
-        state,
-        key: "nestedLoadingState",
-        loading: false,
-      });
-    },
-
-    // ================================ //
-    // ========== Searching ========== //
-    // ============================== //
     setSearchError(state, { payload }) {
       updateLoadingState({
         state,
@@ -118,6 +68,8 @@ const userSlice = createSlice({
       });
     },
 
+    // SECTION: ======= Searching ======== //
+
     searchUser(state) {
       updateLoadingState({ state, key: "searchLoadingState" });
     },
@@ -132,9 +84,7 @@ const userSlice = createSlice({
       updateLoadingState({ state, key: "searchLoadingState" });
     },
 
-    // ============================== //
-    // ========== Profile ========== //
-    // ============================ //
+    // SECTION: ======= User Related ======== //
 
     getUserProfile(state) {
       updateLoadingState({ state, key: "loadingState" });
@@ -143,17 +93,9 @@ const userSlice = createSlice({
     setUserProfile(state, { payload }) {
       state.user = {};
       Object.keys(payload).map((key) => (state.user[key] = payload[key]));
+
+      updateLoadingState({ state, key: "loadingState", loading: false });
     },
-
-    // ========================================= //
-    // ========== User Related Posts ========== //
-    // ======================================= //
-
-    getProfilePosts() {},
-
-    getFeedPosts() {},
-
-    getBookmarks() {},
 
     setNewFriend(state, { payload }) {
       state.user.friends.unshift(payload);
@@ -162,25 +104,19 @@ const userSlice = createSlice({
   },
 });
 
-export const userReducer = userSlice.reducer;
+export default userSlice.reducer;
 export const {
-  startLoading,
-  resetLoadingState,
+  // SECTION-RELATED: ======= Error Setters And Reseters ======== //
   setUserError,
   resetUserError,
-  startNestedLoading,
-  resetNestedLoadingState,
-  setUserNestedError,
-  resetUserNestedError,
   setSearchError,
   resetSearchError,
+  // SECTION-RELATED: ======= Searching ======== //
   searchUser,
   setSearchResult,
   resetSearchResult,
+  // SECTION-RELATED: ======= User Related ======== //
   getUserProfile,
   setUserProfile,
   setNewFriend,
-  getProfilePosts,
-  getFeedPosts,
-  getBookmarks,
 } = userSlice.actions;

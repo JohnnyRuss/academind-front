@@ -1,12 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { useAuthenticationQuery } from "../../hooks";
 import {
   selectActiveUserRegistrationLoadingState,
   selectSentRegistrationStatus,
 } from "../../store/selectors/activeUserSelectors";
+import { useAuthenticationQuery } from "../../hooks";
+import { USER_WORKPLACE_POSITIONS, USER_GENDER } from "../../lib/config";
 
 import styles from "./reg.module.scss";
 import { Input, TextField, Select, BTN, Error, StandSpinner } from "../Layouts";
@@ -87,7 +89,6 @@ function Register() {
 
   useEffect(() => {
     return () => resetRegistrationErrorHandler();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -153,7 +154,7 @@ function Register() {
           message={regError.gender.message}
           data={{
             default: "gender",
-            values: ["male", "female"],
+            values: USER_GENDER,
             name: "gender",
           }}
         />
@@ -252,15 +253,7 @@ function Register() {
             data={{
               default: "position",
               name: "position",
-              values: [
-                "professor",
-                "associate professor",
-                "assistant professor",
-                "researcher",
-                "administrative personnel",
-                "phd student",
-                "post-doc-fellow",
-              ],
+              values: USER_WORKPLACE_POSITIONS,
             }}
           />
 

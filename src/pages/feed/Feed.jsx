@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { selectPosts } from "../../store/selectors/postSelectors";
-import { selectUserLoadingState } from "../../store/selectors/userSelectors";
+import {
+  selectPosts,
+  selectPostsLoadingState,
+} from "../../store/selectors/postSelectors";
 import { useFeedQuery } from "../../hooks";
 
 import {
@@ -15,7 +17,7 @@ import {
 import { StandSpinner, Error } from "../../components/Layouts";
 
 function Feed() {
-  const { loading, error, message } = useSelector(selectUserLoadingState);
+  const { loading, error, message } = useSelector(selectPostsLoadingState);
   const { posts, hasMore } = useSelector(selectPosts);
   const { getFeedPostsQuery, resetState, handleResetFeedError } =
     useFeedQuery();
@@ -27,7 +29,7 @@ function Feed() {
   }
 
   useEffect(() => {
-    getFeedPostsQuery({ manualLoading: true });
+    getFeedPostsQuery({});
 
     return () => resetState();
   }, []);

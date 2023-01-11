@@ -24,7 +24,7 @@ export function* getUnseenRequestCountHandler({ payload: userId }) {
     const { data } = yield call(getUnseenRequestsCountQuery, userId);
     yield put(setUnseenRequestsCount(data));
   } catch (error) {
-    showError({ error, location: "getUnseenRequestCountHandler" });
+    yield showError({ error, location: "getUnseenRequestCountHandler" });
   }
 }
 
@@ -33,7 +33,7 @@ export function* markRequestsAsSeenHandler({ payload: userId }) {
     yield call(markRequestsAsSeenQuery, userId);
     yield put(setResetedRequestsCount());
   } catch (error) {
-    showError({ error, location: "markRequestsAsSeenHandler" });
+    yield showError({ error, location: "markRequestsAsSeenHandler" });
   }
 }
 
@@ -42,7 +42,7 @@ export function* getUnseenConversationsCountHandler({ payload: userId }) {
     const { data } = yield call(getUnseenConversationsCountQuery, userId);
     yield put(setUnseenConversationsCount(data));
   } catch (error) {
-    showError({ error, location: "getUnseenConversationsCountHandler" });
+    yield showError({ error, location: "getUnseenConversationsCountHandler" });
   }
 }
 

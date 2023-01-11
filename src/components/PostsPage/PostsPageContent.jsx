@@ -1,11 +1,13 @@
-import { CreatePost } from '../Layouts';
-import PostsPagePostsList from './components/PostsPagePostsList';
+import { CreatePost } from "../Layouts";
+import PostsPagePostsList from "./components/PostsPagePostsList";
 
 function PostsPageContent({ posts, infinite }) {
   return (
-    <PostsPagePostsList data={posts} infinite={infinite}>
-      <CreatePost />
-    </PostsPagePostsList>
+    <>
+      <PostsPagePostsList data={posts} infinite={infinite}>
+        <CreatePost />
+      </PostsPagePostsList>
+    </>
   );
 }
 

@@ -13,6 +13,7 @@ export { default as useScrollOnNotifyAtComment } from "./layoutBased/useScrollOn
 export { default as useSettings } from "./layoutBased/useSettings";
 export { default as useValidateCreatePost } from "./layoutBased/useValidateCreatePost";
 export { default as useCreatePost } from "./layoutBased/useCreatePost";
+export { default as useNotifications } from "./layoutBased/useNotifications";
 
 export { default as useCommentsQuery } from "./queries/useCommentsQuery";
 export { default as usePostQuery } from "./queries/usePostQuery";

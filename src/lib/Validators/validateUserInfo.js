@@ -49,6 +49,25 @@ export default class ValidateUserInfo extends Validator {
     },
   };
 
+  currentWorkPlaceError = {
+    error: false,
+
+    institution: {
+      hasError: false,
+      message: "",
+    },
+
+    position: {
+      hasError: false,
+      message: "",
+    },
+
+    description: {
+      hasError: false,
+      message: "",
+    },
+  };
+
   constructor(credentials) {
     super();
     this.credentials = credentials;
@@ -160,6 +179,53 @@ export default class ValidateUserInfo extends Validator {
       };
 
     if (emptyCompany || emptyPosition) this.workPlaceError.error = true;
+
+    return this;
+  }
+
+  validateCurrentWorkplace() {
+    const { isEmpty: emptyInstitution } = this.checkStrSize({
+      value: this.credentials.institution,
+    });
+
+    const isValidPoition = this.checkIsValidWokplacePosition({
+      value: this.credentials.position,
+    });
+
+    const {
+      isEmpty: isEmptyDescription,
+      isValid: isValidDescription,
+      isLeft,
+    } = this.checkWordCount({
+      data: this.credentials.description,
+      min: 10,
+    });
+
+    if (emptyInstitution)
+      this.currentWorkPlaceError.institution = {
+        hasError: true,
+        message: "please enter the company name",
+      };
+
+    if (!isValidPoition)
+      this.currentWorkPlaceError.position = {
+        hasError: true,
+        message: "please select position",
+      };
+
+    if (isEmptyDescription || !isValidDescription)
+      this.currentWorkPlaceError.description = {
+        hasError: true,
+        message: `please enter information about yourself. At least 10 word. Left ${isLeft}`,
+      };
+
+    if (
+      emptyInstitution ||
+      !isValidPoition ||
+      isEmptyDescription ||
+      !isValidDescription
+    )
+      this.currentWorkPlaceError.error = true;
 
     return this;
   }

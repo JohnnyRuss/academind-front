@@ -8,9 +8,9 @@ function Error({ msg, asModal = false, onClose = () => {}, className }) {
   const { restrictScroll } = useRestrictBodyOverflow();
 
   useEffect(() => {
-    restrictScroll(true);
+    restrictScroll(asModal);
     return () => restrictScroll(false);
-  }, [restrictScroll]);
+  }, [restrictScroll, asModal]);
 
   return (
     <div

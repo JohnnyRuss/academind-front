@@ -5,10 +5,8 @@ import { useSelector } from "react-redux";
 
 import { IoContext } from "../../store/Io";
 
-import {
-  selectActiveUserShortInfo,
-  selectIsActiveNotifications,
-} from "../../store/selectors/activeUserSelectors";
+import { selectActiveUserShortInfo } from "../../store/selectors/activeUserSelectors";
+import { selectIsActiveNotifications } from "../../store/selectors/notificationSelectors";
 import { selectAllModalActiveStatus } from "../../store/selectors/portalSelectors";
 import { selectCreatePostModalStatuses } from "../../store/selectors/createPostSelectors";
 import { useAuthValidation } from "../../hooks";

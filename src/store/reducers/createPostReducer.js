@@ -112,6 +112,12 @@ const createPostSlice = createSlice({
     },
 
     resetCreatePost(state) {
+      if (state.createPostIsOpen) state.createPostIsOpen = false;
+      else if (state.createBlogPostIsOpen) state.createBlogPostIsOpen = false;
+      else if (state.updatePostModalIsOpen) state.updatePostModalIsOpen = false;
+      else if (state.updateBlogPostModalIsOpen)
+        state.updateBlogPostModalIsOpen = false;
+
       state.postData = reset().postData;
       state.loadingState = reset().loadingState;
     },
@@ -243,7 +249,7 @@ const createPostSlice = createSlice({
   },
 });
 
-export const createPostReducer = createPostSlice.reducer;
+export default createPostSlice.reducer;
 export const {
   ///////////////////////
   /// Error Handling ///

@@ -20,8 +20,12 @@ export function* showError({ error, location, setter, setterParams }) {
   });
 }
 
-export function triggerError() {
-  throw new Error("manually trigered error");
+export function* triggerError(loadMs = 0) {
+  yield new Promise((_, reject) => {
+    setTimeout(() => {
+      reject(new Error("triggered new error"));
+    }, loadMs);
+  });
 }
 
 export const errorMessages = {

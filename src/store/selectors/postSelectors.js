@@ -4,6 +4,9 @@ import { createSelector } from "@reduxjs/toolkit";
 /* ============== Loading States ============== */
 /* =========================================== */
 
+export const selectOperationalPostsLoadingState = ({ postsData }) =>
+  postsData.operationalLoadingState;
+
 export const selectPostsLoadingState = ({ postsData }) =>
   postsData.loadingState;
 

@@ -6,82 +6,95 @@ function updateUpdateState({ state, loading = true, error = false, message }) {
   state.updateState.message = error ? message : "";
 }
 
-const settingsSlice = createSlice({
-  name: "settings",
-  initialState: {
-    target: "",
-    editableTarget: "",
-    isEditing: false,
-    headingTitle: "",
+const initialState = {
+  target: "",
+  editableTarget: "",
+  isEditing: false,
+  headingTitle: "",
 
-    loadingState: {
-      loading: false,
-      error: false,
-      message: "",
+  loadingState: {
+    loading: false,
+    error: false,
+    message: "",
+  },
+
+  updateState: {
+    loading: false,
+    error: false,
+    message: "",
+  },
+
+  userInfo: {
+    _id: "",
+    email: "",
+    createdAt: "",
+    birthDate: "",
+    gender: "",
+    workplace: [],
+    education: [],
+    from: {
+      country: "",
+      city: "",
     },
-
-    updateState: {
-      loading: false,
-      error: false,
-      message: "",
+    currentLivingPlace: {
+      country: "",
+      city: "",
     },
-
-    userInfo: {
-      _id: "",
-      email: "",
-      createdAt: "",
-      birthDate: "",
-      gender: "",
-      workplace: [],
-      education: [],
-      from: {
-        country: "",
-        city: "",
-      },
-      currentLivingPlace: {
-        country: "",
-        city: "",
-      },
-    },
-
-    // updateables
-    updateables: {
-      birthDate: {
-        birthDate: "",
-      },
-
-      birthPlace: {
-        country: "",
-        city: "",
-      },
-
-      livingPlace: {
-        country: "",
-        city: "",
-      },
-
-      education: {
-        collage: "",
-        faculty: "",
-        degree: "",
-        description: "",
-        years: {
-          from: "",
-          to: "",
-        },
-      },
-
-      workplace: {
-        company: "",
-        position: "",
-        description: "",
-        workingYears: {
-          from: "",
-          to: "",
-        },
-      },
+    currentWorkplace: {
+      institution: "",
+      position: "",
+      description: "",
     },
   },
+
+  // updateables
+  updateables: {
+    birthDate: {
+      birthDate: "",
+    },
+
+    birthPlace: {
+      country: "",
+      city: "",
+    },
+
+    livingPlace: {
+      country: "",
+      city: "",
+    },
+
+    education: {
+      collage: "",
+      faculty: "",
+      degree: "",
+      description: "",
+      years: {
+        from: "",
+        to: "",
+      },
+    },
+
+    workplace: {
+      company: "",
+      position: "",
+      description: "",
+      workingYears: {
+        from: "",
+        to: "",
+      },
+    },
+
+    currentWorkplace: {
+      institution: "",
+      position: "",
+      description: "",
+    },
+  },
+};
+
+const settingsSlice = createSlice({
+  name: "settings",
+  initialState,
   reducers: {
     setTarget(state, { payload }) {
       state.target = payload.key;
@@ -159,6 +172,7 @@ const settingsSlice = createSlice({
           "birthDate",
           "education",
           "workplace",
+          "currentWorkplace",
         ].includes(field)
       )
         state.userInfo[field] = data;
@@ -186,9 +200,7 @@ const settingsSlice = createSlice({
     },
 
     resetBirthdate(state) {
-      state.updateables.birthDate = {
-        birthDate: "",
-      };
+      state.updateables.birthDate = initialState.userInfo.birthDate;
     },
 
     updateBirthplace(state, { payload }) {
@@ -196,10 +208,7 @@ const settingsSlice = createSlice({
     },
 
     resetBirthplace(state) {
-      state.updateables.birthPlace = {
-        country: "",
-        city: "",
-      };
+      state.updateables.birthPlace = initialState.userInfo.from;
     },
 
     updateLivingPlace(state, { payload }) {
@@ -207,10 +216,7 @@ const settingsSlice = createSlice({
     },
 
     resetLivingPlace(state) {
-      state.updateables.livingPlace = {
-        country: "",
-        city: "",
-      };
+      state.updateables.livingPlace = initialState.userInfo.currentLivingPlace;
     },
 
     updateEducation(state, { payload }) {
@@ -218,16 +224,7 @@ const settingsSlice = createSlice({
     },
 
     resetEducation(state) {
-      state.updateables.education = {
-        collage: "",
-        faculty: "",
-        degree: "",
-        description: "",
-        years: {
-          from: "",
-          to: "",
-        },
-      };
+      state.updateables.education = initialState.userInfo.education;
     },
 
     updateWorkplace(state, { payload }) {
@@ -235,19 +232,19 @@ const settingsSlice = createSlice({
     },
 
     resetWorkplace(state) {
-      state.updateables.workplace = {
-        company: "",
-        position: "",
-        description: "",
-        workingYears: {
-          from: "",
-          to: "",
-        },
-      };
+      state.updateables.workplace = initialState.userInfo.workplace;
     },
 
-    // user email and password
+    updateCurrentWorkplace(state, { payload }) {
+      state.updateables.currentWorkplace = payload;
+    },
 
+    resetCurrentWorkplace(state) {
+      state.updateables.currentWorkplace =
+        initialState.userInfo.currentWorkplace;
+    },
+
+    ////////// user email and password
     updatePassword(state) {
       updateUpdateState({ state });
     },
@@ -284,7 +281,7 @@ const settingsSlice = createSlice({
   },
 });
 
-export const settingsReducer = settingsSlice.reducer;
+export default settingsSlice.reducer;
 export const {
   setTarget,
   setIsEditing,
@@ -312,6 +309,8 @@ export const {
   resetEducation,
   updateWorkplace,
   resetWorkplace,
+  updateCurrentWorkplace,
+  resetCurrentWorkplace,
   updatePassword,
   setUpdatedPassword,
   updateEmail,

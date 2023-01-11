@@ -15,7 +15,7 @@ import {
 
 function NewVersion() {
   const data = useSelector(selectAboutUserData);
-
+  console.log(data);
   return (
     data && (
       <div className={styles.newVersionInlineContainer}>
@@ -52,7 +52,13 @@ function NewVersion() {
           </div>
         </div>
         <div className={styles.infoBlock}>
-          <h4 className={styles.infoBlockHeading}>workplace</h4>
+          <h4 className={styles.infoBlockHeading}>current workplace</h4>
+          <div className={styles.nestedList}>
+            <WorkplaceFragment data={data.currentWorkplace} />
+          </div>
+        </div>
+        <div className={styles.infoBlock}>
+          <h4 className={styles.infoBlockHeading}>workplaces</h4>
           <div className={styles.nestedList}>
             {data.workplace.map((workplace) => (
               <WorkplaceFragment data={workplace} key={workplace._id} />

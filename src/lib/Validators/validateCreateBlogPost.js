@@ -1,22 +1,6 @@
 import { Validator } from "./validators";
 
 export default class ValidateBlogPostCreate extends Validator {
-  _blogPostTitleMinLetterCount = 3;
-  _blogPostMinWordCount = 300;
-
-  _avalableBlogPostCategories = [
-    "economics",
-    "business",
-    "law",
-    "medicine",
-    "psychology",
-    "philosophy",
-    "politics",
-    "natural sciences",
-    "exact sciences",
-    "other",
-  ];
-
   createError = {
     error: false,
     title: {
@@ -83,7 +67,7 @@ export default class ValidateBlogPostCreate extends Validator {
   }
 
   validateCategory() {
-    const { isValid } = this.checkValidCategory(this.credentials.category);
+    const { isValid } = this.checkValidBlogPostCategory(this.credentials.category);
 
     if (!isValid) {
       this.createError.error = true;
