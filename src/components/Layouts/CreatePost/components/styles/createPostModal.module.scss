@@ -10,7 +10,7 @@
 
 .createPostModal {
   $space-around: 1rem;
-  $header-h: 7rem;
+  $header-h: 8rem;
   $footer-h: 11rem;
   $max-modal-h: 40vw;
   $max-modal-h-md: 50vw;
@@ -58,11 +58,11 @@
 
   .createPostHeader {
     @extend %wrapper;
+    z-index: 99;
     top: 0;
     height: $header-h;
-    align-items: flex-start;
-    z-index: 99;
     padding: $space-around;
+    align-items: flex-start;
   }
 
   .createPostFooterBox {
@@ -86,7 +86,7 @@
 
   .createPostAudience {
     position: absolute;
-    left: 5.5rem;
+    left: 6rem;
     top: 3.2rem;
   }
 

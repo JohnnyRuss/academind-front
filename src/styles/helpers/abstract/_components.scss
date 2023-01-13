@@ -13,17 +13,16 @@
   }
 
   #{$element}::-webkit-scrollbar-thumb {
-    background: color(blackColor);
+    background: color("blackColor");
     border-radius: $radius;
   }
 
   #{$element}::-webkit-scrollbar-thumb:hover {
-    background: color(darkGreyColor);
-    cursor: grab !important;
+    background: color("darkGreyColor");
   }
 
   #{$element}::-webkit-scrollbar-track {
-    background: color(whiteShadeColor);
+    background: color("whiteShadeColor");
     border-radius: $radius;
     margin-block-start: $blockStart;
     margin-block-end: $blockEnd;

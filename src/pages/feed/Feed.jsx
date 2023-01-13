@@ -19,7 +19,8 @@ import { StandSpinner, Error } from "../../components/Layouts";
 function Feed() {
   const { loading, error, message } = useSelector(selectPostsLoadingState);
   const { posts, hasMore } = useSelector(selectPosts);
-  const { getFeedPostsQuery, resetState, handleResetFeedError } =
+
+  const { getFeedPostsQuery, resetState, handleResetPostsLoadingError } =
     useFeedQuery();
 
   const [page, setPage] = useState(1);
@@ -37,6 +38,7 @@ function Feed() {
   return (
     <FeedContainer>
       {loading && <StandSpinner />}
+
       {!loading && !error && (
         <>
           <FeedSideBarLeft />
@@ -48,8 +50,13 @@ function Feed() {
           <FeedSideBarRight />
         </>
       )}
+
       {error && (
-        <Error asModal={true} msg={message} onClose={handleResetFeedError} />
+        <Error
+          asModal={true}
+          msg={message}
+          onClose={handleResetPostsLoadingError}
+        />
       )}
     </FeedContainer>
   );

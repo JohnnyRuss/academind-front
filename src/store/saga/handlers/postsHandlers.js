@@ -437,6 +437,7 @@ export function* reactOnPostHandler({ payload: { postId, body } }) {
 }
 
 // SECTION-SUB-RELATED: ======= 7.0) Global Setters And Getters ======== //
+
 export function* getPostHandler({ payload: postId }) {
   try {
     const { data } = yield call(queryGetPost, postId);

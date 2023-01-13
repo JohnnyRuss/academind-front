@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { FEED_POSTS_COUNT_PER_REQ } from "../../lib/config";
-import { resetUserError } from "../../store/reducers/userReducer";
 import {
   resetPosts,
   getFeedPosts,
+  resetErrorOnLoadingState,
 } from "../../store/reducers/postsDataReducer";
+import { FEED_POSTS_COUNT_PER_REQ } from "../../lib/config";
 import { resetComments } from "../../store/reducers/commentsDataReducer";
 import { selectActiveUserId } from "../../store/selectors/activeUserSelectors";
 
@@ -29,9 +29,13 @@ export default function useFeedQuery() {
     dispatch(resetComments());
   }
 
-  function handleResetFeedError() {
-    dispatch(resetUserError());
+  function handleResetPostsLoadingError() {
+    dispatch(resetErrorOnLoadingState());
   }
 
-  return { getFeedPostsQuery, resetState, handleResetFeedError };
+  return {
+    getFeedPostsQuery,
+    resetState,
+    handleResetPostsLoadingError,
+  };
 }

@@ -113,8 +113,10 @@ function CreateBlogPost({
             message={validationError.category.message}
             handler={handleCategory}
             data={{
-              default: category || "category",
-              name: "category",
+              default: {
+                label: category || "category",
+                value: category || "category",
+              },
               values: [
                 "economics",
                 "business",
@@ -140,6 +142,7 @@ function CreateBlogPost({
               </p>
             )}
           </div>
+          
           <TextAreaWithTag
             submitHandler={publishPost}
             text={text}

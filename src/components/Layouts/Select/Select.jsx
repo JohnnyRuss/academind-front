@@ -1,10 +1,6 @@
 import { useState } from "react";
-import { uid } from "uid";
+import SelectEl from "react-select";
 
-import {
-  ArrowDownRectingle,
-  ArrowUpRectingle,
-} from "../../Layouts/Icons/icons";
 import styles from "./select.module.scss";
 
 function Select({
@@ -13,81 +9,53 @@ function Select({
   error,
   message,
   data = {
-    default: "",
-    name: "",
+    default: { label: "", value: "" },
     values: [],
   },
 }) {
-  const [active, setActive] = useState(false);
   const [defaultValue, setDefaultValue] = useState(data.default);
-  const [fieldValue, setfieldValue] = useState("");
+  const [fieldValue, setFieldValue] = useState("");
 
   function generateSelectionOptions() {
-    const { name, values } = data;
+    const { values } = data;
 
     const temp = [];
 
     values?.forEach((val) =>
       temp.push({
-        name,
         value: val,
-        text: val[0].toUpperCase().concat(val.slice(1, val.length)),
+        label: val[0].toUpperCase().concat(val.slice(1, val.length)),
       })
     );
 
     return temp;
   }
 
-  function handleSelection(e) {
-    // const key = e.target.name;
-    const value = e.target.dataset.value;
+  function handleSelection({ value, label }) {
+    if (value) setDefaultValue(null);
 
-    if (defaultValue) setDefaultValue(null);
-
-    setActive(false);
-    setfieldValue(value);
-
+    setFieldValue({ label, value });
     handler(value);
   }
 
   return (
     <div className={styles.selectContainer} data-select-box>
       {label && <label className={styles.selectLabel}>{label}</label>}
-      <div
-        className={`${styles.selection} ${active ? styles.active : ""} ${
-          error ? styles.error : ""
-        }`}
-      >
-        <button
-          className={styles.selectDefault}
-          onClick={(e) => {
-            e.preventDefault();
-            setActive((prevState) => !prevState);
-          }}
-          data-select-triger-btn
-        >
-          <span className={defaultValue ? styles.default : ""}>
-            {fieldValue || defaultValue}
-          </span>
-          {!active && <ArrowDownRectingle />}
-          {active && <ArrowUpRectingle />}
-        </button>
 
-        {active && (
-          <ul className={styles.selectionList}>
-            {generateSelectionOptions()?.map((field) => (
-              <li
-                onClick={handleSelection}
-                data-value={field.value}
-                name={field.name}
-                key={uid(6)}
-              >
-                {field.text}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <SelectEl
+        value={fieldValue || defaultValue}
+        onChange={handleSelection}
+        options={generateSelectionOptions()}
+        classNames={{
+          container: () => styles.selContainer,
+          control: () => styles.selControl,
+          indicatorsContainer: () => styles.indicatorContainer,
+          indicatorSeparator: () => styles.selSeparator,
+          menu: () => styles.optionsContainer,
+          menuList: () => styles.optionMenu,
+          option: () => styles.selOption,
+        }}
+      />
 
       {error && <p className={styles.selectError}>{message}</p>}
     </div>

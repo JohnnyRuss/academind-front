@@ -6,9 +6,9 @@
   position: relative;
   text-transform: capitalize;
   font-size: size("smallSize");
-  border-radius: 0.5rem;
   overflow: hidden;
-  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  background: color("whiteColor");
 
   .selectAudienceMainBtn {
     @include flexBox;
@@ -16,7 +16,7 @@
     gap: 0.25rem;
     border: 1px solid color(darkGreyColor);
     width: 12rem;
-    padding: inherit;
+    padding: 0.5rem;
     border-radius: inherit;
   }
 
@@ -39,14 +39,14 @@
     @include flexBox(column);
     @include flexProperty(center, flex-start);
     gap: 0.25rem;
-    background: color("whiteColor");
-    padding: inherit;
     padding-top: 0;
-    border: 1px solid color("darkGreyColor");
-    border-top: none;
+    margin-top: -0.2rem;
     border-radius: inherit;
     border-top-left-radius: 0rem;
     border-top-right-radius: 0rem;
+    border: 1px solid color("darkGreyColor");
+    border-top: none;
+    background: color("whiteColor");
     @include animateMoveBottom(0.2s);
 
     & button {
@@ -54,6 +54,7 @@
       @include flexProperty(flex-start, center);
       gap: 0.25rem;
       width: 100%;
+      padding: 0 0.5rem;
     }
   }
 }

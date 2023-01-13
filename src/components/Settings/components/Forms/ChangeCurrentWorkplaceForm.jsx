@@ -11,6 +11,7 @@ import {
   TextField,
   BlockSpinner,
   Error,
+  Sel,
 } from "../../../Layouts";
 import UpdateButtons from "./UpdateButtons";
 import styles from "../styles/detailed.module.scss";
@@ -62,8 +63,10 @@ function ChangeCurrentWorkplaceForm() {
           message={currentWorkPlaceError.position.message}
           handler={(val) => setPosition(val)}
           data={{
-            default: currentWorkplace.position || "position",
-            name: "position",
+            default: {
+              label: currentWorkplace.position || "position",
+              value: currentWorkplace.position || "position",
+            },
             values: USER_WORKPLACE_POSITIONS,
           }}
         />

@@ -18,8 +18,9 @@
 
   button {
     border-radius: 0.5rem;
-    background: royalblue;
-    color: white;
+    background: color("blueColor");
+    color: color("whiteColor");
+    text-transform: capitalize;
     padding: 1.5rem 2rem;
   }
 }

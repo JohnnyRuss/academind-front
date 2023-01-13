@@ -100,7 +100,7 @@ function ChangeEducationForm() {
           message={educationError.degree.message}
           handler={(v) => setDegree(v)}
           data={{
-            default: degree || "degree",
+            default: { label: degree || "degree", value: degree || "degree" },
             name: "degree",
             values: ["bachelor", "master", "doctor"],
           }}

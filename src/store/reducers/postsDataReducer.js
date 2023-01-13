@@ -108,7 +108,8 @@ const postsDataSlice = createSlice({
 
     setPosts(state, { payload }) {
       const { data, results } = payload;
-      if (results) {
+      
+      if (typeof results === "number" && results >= 0) {
         state.results = results;
         state.posts = [...data];
       } else if (!results) {
@@ -212,6 +213,7 @@ const postsDataSlice = createSlice({
     },
 
     // SECTION: ======= Bookmarks ======== //
+
     getBookmarks(state, { payload }) {
       if (payload.hasMore === false)
         updateLoadingState({ state, key: "loadingState" });
@@ -242,6 +244,7 @@ const postsDataSlice = createSlice({
     },
 
     // SECTION: ======= Profile-Review ======== //
+
     getPendingPosts(state) {
       updateLoadingState({ state, key: "loadingState" });
     },
