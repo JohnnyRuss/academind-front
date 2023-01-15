@@ -1,5 +1,153 @@
 @use "../../styles/helpers/variables/variables" as *;
+@use "../../styles/helpers/abstract/mixins" as *;
+@use "../../styles/helpers/abstract/functions" as *;
+
+$nav-from-right: 18rem;
+$nav-w: 22rem;
+$gap-between-nav: 10rem;
 
 .wellComeContainer {
   margin-top: $nav-height;
+  background: color("blueColor");
+  color: color("whiteColor");
+
+  .wellComeNav {
+    position: fixed;
+    top: calc((100vh - $nav-height) / 2);
+    transform: translateY(-50%);
+    right: $nav-from-right;
+    @include flexBox(column);
+    @include flexProperty(flex-start, center);
+    gap: $gap-between-nav;
+    padding: 1rem;
+    border-radius: 2rem;
+    width: $nav-w;
+    border: 1px solid color("whiteColor");
+
+    a {
+      position: relative;
+      display: inline-block;
+      text-transform: capitalize;
+    }
+
+    a:not(:last-child):after {
+      content: "";
+      position: absolute;
+      z-index: 9;
+      top: 100%;
+      right: 50%;
+      width: 2px;
+      transform: translateX(50%);
+      height: calc($gap-between-nav - 2px);
+      background: color("whiteColor");
+    }
+  }
+
+  .wellComeSection {
+    height: calc(100vh - $nav-height);
+    overflow: hidden;
+
+    .sectionWrapper {
+      height: 100%;
+      width: calc(100% - $nav-w - $nav-from-right * 2);
+      padding: 5rem 8rem;
+    }
+  }
+
+  .introSection {
+    .introHeading {
+      font-size: size("headingSize");
+      text-transform: capitalize;
+    }
+
+    .introFig {
+      position: relative;
+      width: 80%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-left: 5rem;
+
+      .regBtn {
+        position: absolute;
+        left: 50%;
+        transform: translateX(100%);
+        top: 22%;
+        background: color("orangeColor");
+        // padding: 1rem 2rem;
+        width: 30rem;
+        height: 9rem;
+        font-size: 3.2rem;
+        border-radius: 0.5rem;
+        text-transform: capitalize;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+      }
+    }
+  }
+
+  .aboutWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+
+    .aboutText {
+      align-self: center;
+      margin-top: 5rem;
+      text-align: center;
+      max-width: 60rem;
+      font-size: 1.8rem;
+      letter-spacing: 1.5px;
+      line-height: 1.7;
+    }
+
+    .aboutHeading {
+      font-size: size("headingSize");
+      text-transform: capitalize;
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .figsBox {
+      display: flex;
+      gap: 5rem;
+
+      figure {
+        width: 30rem;
+        width: 30rem;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          object-position: center;
+        }
+      }
+    }
+
+    .categoriesBox {
+      background: color("whiteColor");
+      color: color("darkGreyColor");
+      // display: grid;
+      // grid-template-columns: repeat(auto-fit, mixmax(10rem, 1fr));
+      padding: 1rem;
+      border-radius: 1rem;
+
+      span {
+        text-transform: capitalize;
+        display: inline-block;
+      }
+    }
+
+    .figBoxItem {
+      width: 30rem;
+    }
+  }
 }

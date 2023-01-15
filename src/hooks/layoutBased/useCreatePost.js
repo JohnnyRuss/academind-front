@@ -86,7 +86,8 @@ export default function useCreatePost({ key, error }) {
 
   function addMediaHandler(files) {
     dispatch(setFile(files));
-    if (key === "post" && error.error)
+
+    if (key === "post" && error?.error)
       dispatch(resetCreatePostValidationError());
   }
 

@@ -18,7 +18,7 @@ import SideBar from "../../components/Messanger/SideBar";
 import Feed from "../../components/Messanger/Feed";
 
 function Messanger() {
-  const { socket } = useContext(IoContext);
+  const { socket, socket_name_placeholders } = useContext(IoContext);
 
   const activeUserId = useSelector(selectActiveUserId);
 
@@ -95,11 +95,11 @@ function Messanger() {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("receive_new_message", (data) => {
+    socket.on(socket_name_placeholders.receiveNewMessage, (data) => {
       handleSetNewMessage(data);
     });
 
-    socket.on("receive_message_isRead", (data) => {
+    socket.on(socket_name_placeholders.messageIsRead, (data) => {
       handleMarkAsRead(data);
     });
   }, [socket]);

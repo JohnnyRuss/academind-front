@@ -1,7 +1,7 @@
 import styles from './avatar.module.scss';
 import { Image } from '../../Layouts';
 
-function Avatar({ img = '/img/avatar.png', onClick = () => {} }) {
+function Avatar({ img = '/img/profile-default.webp', onClick = () => {} }) {
   return (
     <Image
       src={img}

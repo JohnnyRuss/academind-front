@@ -3,7 +3,7 @@ import { useSavePostQuery } from "../../../../hooks";
 import styles from "./styles/blogPostOptionsBody.module.scss";
 import { Spinner } from "../../../Layouts";
 import {
-  ErrorIcon,
+  // ErrorIcon,
   BookmarkOutlineIcon,
   BookmarkFillIcon,
 } from "../../../Layouts/Icons/icons";
@@ -21,10 +21,10 @@ function BlogPostOptionsBody({ postId }) {
             {!optionsRules?.isBookmarked && <BookmarkOutlineIcon />}
             <span>save</span>
           </button>
-          <button data-modal-sm-btn>
+          {/* <button data-modal-sm-btn>
             <ErrorIcon />
             report
-          </button>
+          </button> */}
         </>
       )}
     </div>

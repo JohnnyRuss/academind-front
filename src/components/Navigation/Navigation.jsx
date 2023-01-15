@@ -14,7 +14,7 @@ import { NavActions, NavList } from "./components";
 function Navigation() {
   const { pathname } = useLocation();
 
-  const { socket } = useContext(IoContext);
+  const { socket, socket_name_placeholders } = useContext(IoContext);
 
   const { isAuthenticated } = useSelector(selectActiveUser);
 
@@ -27,16 +27,16 @@ function Navigation() {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("receive_new_friend_request", (data) => {
+    socket.on(socket_name_placeholders.receiveNewFriendRequest, (data) => {
       encreaseUnseenRequestsCountHandler(data);
     });
 
-    socket.on("receive_new_notification", (data) => {
+    socket.on(socket_name_placeholders.receiveNewNotification, (data) => {
       encreaseUnseenNotificationsCountHandler(data);
     });
 
     if (!pathname.startsWith("/messanger")) {
-      socket.on("receive_new_message", (data) => {
+      socket.on(socket_name_placeholders.receiveNewMessage, (data) => {
         encreaseUnseenConversationsCountHandler(data);
       });
     }

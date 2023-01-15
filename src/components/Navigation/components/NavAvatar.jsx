@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
+import { IoContext } from "../../../store/Io";
 
 import { selectActiveUserShortInfo } from "../../../store/selectors/activeUserSelectors";
 import { logOut } from "../../../store/reducers/activeUserReducer";
@@ -9,6 +11,8 @@ import { useBlurOnBody } from "../../../hooks";
 import styles from "./styles/navAvatar.module.scss";
 
 function NavAvatar() {
+  const { socket, socket_name_placeholders } = useContext(IoContext);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,7 +21,8 @@ function NavAvatar() {
 
   function handleLogOut() {
     dispatch(logOut());
-    navigate("/authentication/login");
+    navigate("/");
+    socket.emit(socket_name_placeholders.userDisconnection);
   }
 
   const onBlurHandler = () => setOpenAvatar(false);

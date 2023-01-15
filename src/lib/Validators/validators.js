@@ -19,7 +19,7 @@ export class Validator {
   //////////////////////////////////////////////
 
   checkStrSize({ value, min }) {
-    if (!value.trim()) return { isLess: false, isEmpty: true };
+    if (!value?.trim()) return { isLess: false, isEmpty: true };
     else if (min && value.trim().length < min)
       return { isLess: true, isEmpty: false };
     else return { isLess: false, isEmpty: false };

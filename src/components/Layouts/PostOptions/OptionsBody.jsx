@@ -80,10 +80,10 @@ function OptionsBody({
                 <span>hide from profile</span>
               </button>
             )}
-          <button className={styles.postOptBtn} data-modal-sm-btn>
+          {/* <button className={styles.postOptBtn} data-modal-sm-btn>
             <ErrorIcon />
             <span>report</span>
-          </button>
+          </button> */}
         </>
       )}
     </div>
